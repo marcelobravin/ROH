@@ -12,9 +12,11 @@
 	</head>
 <body>
 
-	<a href="list.php">list</a>
-	<br>
 	<a href="app/Controller/LogoutController.php">Logout</a>
+	<br>
+	<a href="list.php">Administrar usuários</a>
+	<br>
+	<a href="novo.php">Administrar Metas</a>
 
 </body>
 </html>

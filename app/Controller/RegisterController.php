@@ -23,6 +23,10 @@ if (is_numeric($id) && $id > 0) {
 	// if ( contem("Duplicate entry 'login' for key 'login'", $id) ) {
 	if ( contem("Duplicate entry", $id) ) {
 		echo "Login já existe!";
+	} else {
+		echo('<pre>');
+		print_r($id);
+		echo('</pre>');
 	}
 }
 

@@ -18,6 +18,15 @@
 				})
 			})
 		</script>
+		<style>
+			tr:nth-child(even) { background-color: #ddd }
+			td:nth-child(1) { text-align: right; padding-right: 5px }
+
+			table {
+				border: 1px outset silver;
+				margin-top: 10px;
+			}
+		</style>
 	</head>
 <body>
 	<a href="app/Controller/LogoutController.php">Logout</a>
@@ -78,6 +87,5 @@
 		<?php endforeach ?>
 
 	</table>
-
 </body>
 </html>

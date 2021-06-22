@@ -2,7 +2,6 @@
 include '../../config.php';
 
 require '../../model/database.class.php';
-require '../../model/security.class.php';
 
 $db = new Database();
 
@@ -10,29 +9,21 @@ $db = new Database();
 $condicoes = array(
 	'id' => $_POST['id']
 );
-$userRegistered = $db->selecionar('usuarios', $condicoes);
-$userRegistered = $userRegistered[0];
-
-$sec = new Security();
-if ($_POST['senha'] != $userRegistered['senha'])
-	$_POST['senha'] = $sec->criptografar($_POST['senha']);
+// $userRegistered = $db->selecionar('usuarios', $condicoes, '', '*');
+// $userRegistered = $userRegistered[0];
 
 
 $campos = array(
-	'login' => $_POST['login'],
-	'senha' => $_POST['senha']
+	'login' => $_POST['login']
+	// 'senha' => $_POST['senha']
 );
-
 $rowCount = $db->atualizar('usuarios', $campos, ['id' => $_POST['id']]);
-
-
-
-
-
 
 
 if (is_numeric($rowCount) && $rowCount > 0) {
 	$_SESSION['mensagem'] = "Atualizado o registro número:". $_POST['id'];
+
+	$db->registrarLog('U', 'usuarios', $_POST['id']);
 	header('Location: ../../list.php');
 	exit;
 } else {
@@ -40,6 +31,8 @@ if (is_numeric($rowCount) && $rowCount > 0) {
 	# tentou atualizar o login para um repetido
 	if ( contem("Duplicate entry 'login' for key 'login'", $_POST['id']) ) {
 		echo "Login já existe!";
+	} else {
+		echo "Nenhuma alteração realizada!";
 	}
 }
 

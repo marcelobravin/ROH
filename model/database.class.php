@@ -14,6 +14,18 @@ class Database extends Connection {
 		);
 	}
 
+	function registrarLog ($acao, $tabela, $objetoId) {
+
+		$values = array(
+			'usuarioId'	=> $_SESSION['user']['id'],
+			'acao'		=> $acao,
+			'tabela'	=> $tabela,
+			'objetoId'	=> $objetoId
+			// 'ip'		=> $x
+		);
+		$this->inserir('_log_operacoes', $values, false);
+	}
+
 	/**
 	 * Executa statement via PDO
 	 * @package	grimoire/bibliotecas/persistencia.php
@@ -40,16 +52,17 @@ class Database extends Connection {
 			$statement->execute($valores);
 
 			switch ( $processo ) {
-				case 'I': $retorno = parent::getConnection()->lastInsertId(); # INSERT
+				case 'I': $retorno = parent::getConnection()->lastInsertId(); #- INSERT
 					break;
-				case 'S': $retorno = $statement->fetchAll(PDO::FETCH_ASSOC); # - SELECT
+				case 'S': $retorno = $statement->fetchAll(PDO::FETCH_ASSOC); #-- SELECT
 					break;
-				default : $retorno = $statement->rowCount(); # ----------------- UPDATE/DELETE
+				default : $retorno = $statement->rowCount(); #------------------ UPDATE/DELETE
 			}
 
 			if ( !$transacao ) {
 				$statement->closeCursor();
 				$statement = null;
+				# fechar conexao
 			}
 
 			return $retorno;

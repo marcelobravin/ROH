@@ -41,7 +41,6 @@
 				}
 			}
 
-
 			// The password is at least 8 characters long
 			function has8Chars (str) {
 				var patt = /^.{8,}$/;
@@ -65,16 +64,18 @@
 			// The password has at least one special character ([^A-Za-z0-9]).
 			function hasSymbol (str) {
 				var patt = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/;
-				// var patt = /^(?=.[^a-zA-Z0-9])(?!.*\s)$/;
 				return patt.test(str);
 			}
 
 			function validatePasswordStrenght (str) {
-				if ( has8Chars(str)) { $("#tamanho").addClass("validado")    } else { $("#tamanho").removeClass("validado")    }
-				if ( hasUpper(str) ) { $("#maiusculas").addClass("validado") } else { $("#maiusculas").removeClass("validado") }
-				if ( hasLower(str) ) { $("#minusculas").addClass("validado") } else { $("#minusculas").removeClass("validado") }
-				if ( hasNumber(str)) { $("#numeros").addClass("validado")    } else { $("#numeros").removeClass("validado")    }
-				if ( hasSymbol(str)) { $("#simbolos").addClass("validado")   } else { $("#simbolos").removeClass("validado")   }
+				let sn = 0;
+				if ( has8Chars(str)) { sn++; $("#tamanho").addClass("validado")    ;} else { $("#tamanho").removeClass("validado")    }
+				if ( hasUpper(str) ) { sn++; $("#maiusculas").addClass("validado") ;} else { $("#maiusculas").removeClass("validado") }
+				if ( hasLower(str) ) { sn++; $("#minusculas").addClass("validado") ;} else { $("#minusculas").removeClass("validado") }
+				if ( hasNumber(str)) { sn++; $("#numeros").addClass("validado")    ;} else { $("#numeros").removeClass("validado")    }
+				if ( hasSymbol(str)) { sn++; $("#simbolos").addClass("validado")   ;} else { $("#simbolos").removeClass("validado")   }
+
+				$("#password-strength-meter").attr('data-value', sn);
 			}
 
 			$(document).ready(function(){
@@ -93,9 +94,37 @@
 				})
 			});
 
+
+
 		</script>
 		<style>
-			.validado { color: green}
+			li { list-style-type: none }
+			li:before { content: '✗ '; color: red}
+
+			.validado { color: green }
+			.validado:before { content: '✓ '; color: green}
+
+			#medidorForcaSenha {
+				background-color: silver;
+				border: 1px solid silver;
+				border-radius: 6px;
+			}
+
+			#password-strength-meter { height: 18px; transition: 1s; text-indent: 10px}
+			[data-value="0"] { width:  10%; background: silver; }
+			[data-value="1"] { width:  25%; background: red; }
+			[data-value="2"] { width:  50%; background: yellow; }
+			[data-value="3"] { width:  75%; background: orange; }
+			[data-value="4"] { width: 100%; background: lime; }
+			[data-value="5"] { width: 100%; background: cyan; }
+
+			.texto-medidor { display: none }
+
+			[data-value="1"] > span._1 { display: inline }
+			[data-value="2"] > span._2 { display: inline }
+			[data-value="3"] > span._3 { display: inline }
+			[data-value="4"] > span._4 { display: inline }
+			[data-value="5"] > span._5 { display: inline }
 		</style>
 	</head>
 <body>
@@ -107,7 +136,7 @@
 			<label>
 				Nova Senha
 				<br>
-				<input type="password" name="senha1" id="senha1" value="" />
+				<input type="password" name="senha1" id="senha1" value="" autocomplete="current-password" />
 			</label>
 			<img src="public/img/eye-view.png" alt="" id="reveal">
 		</p>
@@ -120,10 +149,14 @@
 			</label>
 		</p>
 
-
 		<input type="submit" value="Redefinir Senha" disabled />
 	</form>
 
+<?php
+	echo('<pre>');
+	print_r();
+	echo('</pre>');
+ ?>
 
 	<p>A nova senha deve conter:</p>
 
@@ -134,6 +167,16 @@
 		<li id="numeros">Números</li>
 		<li id="simbolos">Caracteres especiais</li>
 	</ul>
+
+	<div id="medidorForcaSenha">
+		<div data-value="0" id="password-strength-meter">
+			<span class="texto-medidor _1">Muito fraca</span>
+			<span class="texto-medidor _2">Fraca</span>
+			<span class="texto-medidor _3">Médio</span>
+			<span class="texto-medidor _4">Forte</span>
+			<span class="texto-medidor _5">Muito forte</span>
+		</div>
+	</div>
 
 </body>
 </html>

@@ -1,10 +1,6 @@
 <?php
 class Security {
 
-	// function verifyHashedPassword($senha, $hash) {
-		// return password_verify($senha, $hash);
-	// }
-
 	// 50 milliseconds
 	function verifyHashCost($timeTargetInMiliseconds=0.05) {
 
