@@ -39,32 +39,36 @@
 			<th>Opções</th>
 		</tr>
 
-		<?php foreach ($users as $user) : ?>
+		<?php foreach ($users as $u) : ?>
 			<tr>
-				<td><?php echo $user['id'] ?></td>
-				<td><?php echo $user['login'] ?></td>
+				<td><?php echo $u['id'] ?></td>
+				<td><?php echo $u['login'] ?></td>
 				<td>
-					<button <?php if ($user['id'] == $_SESSION['user']['id']) { echo 'disabled'; } ?>>
-						<?php if ($user['id'] == $_SESSION['user']['id']) : ?>
-							<a href="#">Excluir</a>
+					<button <?php if ($u['id'] == $_SESSION['user']['id']) { echo 'disabled'; } ?>>
+						<?php if ($u['id'] == $_SESSION['user']['id']) : ?>
+							<span>Excluir</span>
 						<?php else: ?>
-							<a href="app/Controller/DeleteController.php?id=<?php echo $user['id'] ?>" class="excluir">Excluir</a>
+							<a href="app/Controller/DeleteController.php?id=<?php echo $u['id'] ?>" class="excluir">Excluir</a>
 						<?php endif ?>
 					</button>
 					<button>
-						<a href="user-form.php?id=<?php echo $user['id'] ?>">Editar</a>
+						<a href="user-form.php?id=<?php echo $u['id'] ?>">Editar</a>
 					</button>
-					<button>
-						<a href="app/Controller/DeactivateController.php?id=<?php echo $user['id'] ?>" class="desativar">Desativar</a>
-					</button>
+
+					<?php if ( $u['ativo'] ): ?>
+						<button>
+							<a href="app/Controller/DeactivateController.php?id=<?php echo $u['id'] ?>&ativo=0" class="desativar">Desativar</a>
+						</button>
+						<?php else: ?>
+						<button>
+							<a href="app/Controller/DeactivateController.php?id=<?php echo $u['id'] ?>&ativo=1" class="desativar">Ativar</a>
+						</button>
+					<?php endif ?>
 				</td>
 			</tr>
 		<?php endforeach ?>
 
 	</table>
-
-
-
 
 </body>
 </html>

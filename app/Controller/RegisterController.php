@@ -14,14 +14,14 @@ $values = array(
 $id = $db->inserir('usuarios', $values);
 
 
-
 if (is_numeric($id) && $id > 0) {
 	$_SESSION['mensagem'] = "Inserido registro número:". $id;
 	header('Location: ../../list.php');
 	exit;
 } else {
 
-	if ( contem("Duplicate entry 'login' for key 'login'", $id) ) {
+	// if ( contem("Duplicate entry 'login' for key 'login'", $id) ) {
+	if ( contem("Duplicate entry", $id) ) {
 		echo "Login já existe!";
 	}
 }
@@ -40,7 +40,7 @@ function contem($agulha, $palheiro) {
 	if ( strpos($palheiro, $agulha) !== false )
 		return true;
 
-		return false;
+	return false;
 }
 
 ?>

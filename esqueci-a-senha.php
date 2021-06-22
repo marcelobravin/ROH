@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<!-- Dá pra descartar esse arquivo e usar o user-form -->
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
-		<title>Login - Relatório Ocupação Hospitalar</title>
+		<title>Reset de Senha - Relatório Ocupação Hospitalar</title>
 		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
 		<link rel="stylesheet" type="text/css" href="">
 		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
@@ -14,11 +13,7 @@
 			})
 
 			function check() {
-				if (
-					$("#login").val() == ''
-					||
-					$("#senha").val() == ''
-				) {
+				if ( $("#login").val() == '' ) {
 					$(":submit").attr("disabled", "disabled")
 				} else {
 					$(":submit").removeAttr("disabled")
@@ -28,11 +23,10 @@
 	</head>
 <body>
 
-	<form action="app/Controller/RegisterController.php" method="post">
-		<h1>Register</h1>
-		<input type="text" name="login" id="login" value="usuario@email.com" />
-		<input type="text" name="senha" id="senha" value="senha123" />
-		<input type="submit" value="Cadastrar" disabled />
+	<form action="app/Controller/PasswordResetController.php" method="post">
+		<h1>Esqueci a senha</h1>
+		<input type="text" name="email" id="email" value="usuario@email.com" />
+		<input type="submit" value="Enviar email" disabled />
 	</form>
 
 </body>

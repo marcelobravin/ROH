@@ -3,14 +3,14 @@
 
 	require ROOT.'/model/database.class.php';
 
-	$db = new Database();
-
-	$condicoes = array(
-		'id' => $_GET['id']
-	);
-	$user = $db->selecionar('usuarios', $condicoes);
-	$user = $user[0];
-
+	if ( isset($_GET['id']) ) {
+		$db = new Database();
+		$condicoes = array(
+			'id' => $_GET['id']
+		);
+		$user = $db->selecionar('usuarios', $condicoes);
+		$user = $user[0];
+	}
 ?><!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -41,19 +41,25 @@
 <body>
 
 	<form action="app/Controller/UpdateController.php" method="post">
+
 		<?php if ( empty($_GET) ): ?>
 			<h1>Cadastrar</h1>
 		<?php else: ?>
 			<h1>Atualizar</h1>
+			<input type="hidden" name="id" id="id" value="<?php echo $user['id'] ?>" readonly />
 		<?php endif ?>
-		<input type="text" name="id"	id="id"		value="<?php echo $user['id'] ?>" />
-		<input type="text" name="login" id="login"	value="<?php echo $user['login'] ?>" />
+
+		<input type="text" name="login" id="login" value="<?php echo $user['login'] ?>" />
 
 		<?php if ( empty($_GET) ): ?>
-			<input type="text" name="senha" id="senha"	value="<?php echo $user['senha'] ?>" />
+			<input type="text" name="senha" id="senha" value="<?php echo $user['senha'] ?>" />
 		<?php endif ?>
 
-		<a href="app/Controller/ConfirmationController.php?id=<?php echo $_GET['id'] ?>">Reenviar confirmação de email</a>
+		<?php if ( $user['email_confirmado'] ): ?>
+			Email confirmado!
+		<?php else: ?>
+			<a href="app/Controller/ConfirmationController.php?id=<?php echo $_GET['id'] ?>">Reenviar confirmação de email</a>
+		<?php endif ?>
 
 		<input type="submit" value="Atualizar" disabled />
 	</form>

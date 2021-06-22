@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('america/sao_paulo');
 
-define('ROOT', '/opt/lampp/htdocs/novo-projeto/'); ///////////////////////////// em ambiente de desenvolvimento
+define('ROOT', '/opt/lampp/htdocs/ROH/'); ///////////////////////////// em ambiente de desenvolvimento
 session_start();
 
 
@@ -67,12 +67,6 @@ function enviarEmail ($to, $subject="Assunto", $message="Conteúdo do email", $f
 	if ( mail($to, $subject, $body, $header) ) {
 		return true;
 	} else {
-
-
-		echo('<pre>');
-		print_r(array($to, $subject, $body, $header));
-		echo('</pre>');
-
 
 		return error_get_last();
 	}
