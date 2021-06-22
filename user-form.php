@@ -42,12 +42,17 @@
 
 	<form action="app/Controller/UpdateController.php" method="post">
 
+		<h1><?php echo empty($_GET) ? 'Cadastrar' : 'Atualizar' ?></h1>
+
 		<?php if ( empty($_GET) ): ?>
-			<h1>Cadastrar</h1>
-		<?php else: ?>
-			<h1>Atualizar</h1>
 			<input type="hidden" name="id" id="id" value="<?php echo $user['id'] ?>" readonly />
 		<?php endif ?>
+
+
+
+
+
+
 
 		<input type="text" name="login" id="login" value="<?php echo $user['login'] ?>" />
 
