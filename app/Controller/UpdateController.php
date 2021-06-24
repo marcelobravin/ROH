@@ -9,8 +9,6 @@ $db = new Database();
 $condicoes = array(
 	'id' => $_POST['id']
 );
-// $userRegistered = $db->selecionar('usuarios', $condicoes, '', '*');
-// $userRegistered = $userRegistered[0];
 
 
 $campos = array(

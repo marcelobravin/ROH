@@ -47,10 +47,7 @@
 			// }
 
 
-
-
 			$("input").change(function(){
-				// _isDirty = true;
 				$(":submit").removeAttr("disabled")
 			});
 

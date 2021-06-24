@@ -16,10 +16,22 @@ lista de usuários não permite excluir o próprio usuário logado
 	adicionar ao desativar
 credenciais de DB em arquivo .env
 bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
+log operações
 
 
 # TODO
 criar ponto de exportação de BD
-modelar hospitais
 não mudar email de usuário na tela de atualizar senha
-log operações
+informar alterações não salvas em formulários ao recarregar ou fechar
+sincronização de dados
+tempo de sessão
+token de sessão
+paginação ns listas
+OK - envio de email
+salvar em pdf
+exclusão if not cascade
+
+modulo categoria
+módulo elementos
+modulo metas
+front

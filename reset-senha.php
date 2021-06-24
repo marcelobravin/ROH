@@ -93,10 +93,8 @@
 					}
 				})
 			});
-
-
-
 		</script>
+
 		<style>
 			li { list-style-type: none }
 			li:before { content: '✗ '; color: red}
@@ -152,29 +150,25 @@
 		<input type="submit" value="Redefinir Senha" disabled />
 	</form>
 
-<?php
-	echo('<pre>');
-	print_r();
-	echo('</pre>');
- ?>
+	<div>
+		<p>A nova senha deve conter:</p>
 
-	<p>A nova senha deve conter:</p>
+		<ul>
+			<li id="tamanho">Mínimo de 8 caracteres</li>
+			<li id="maiusculas">Letras maiúsculas</li>
+			<li id="minusculas">Letras minúsculas</li>
+			<li id="numeros">Números</li>
+			<li id="simbolos">Caracteres especiais</li>
+		</ul>
 
-	<ul>
-		<li id="tamanho">Mínimo de 8 caracteres</li>
-		<li id="maiusculas">Letras maiúsculas</li>
-		<li id="minusculas">Letras minúsculas</li>
-		<li id="numeros">Números</li>
-		<li id="simbolos">Caracteres especiais</li>
-	</ul>
-
-	<div id="medidorForcaSenha">
-		<div data-value="0" id="password-strength-meter">
-			<span class="texto-medidor _1">Muito fraca</span>
-			<span class="texto-medidor _2">Fraca</span>
-			<span class="texto-medidor _3">Médio</span>
-			<span class="texto-medidor _4">Forte</span>
-			<span class="texto-medidor _5">Muito forte</span>
+		<div id="medidorForcaSenha">
+			<div data-value="0" id="password-strength-meter">
+				<span class="texto-medidor _1">Muito fraca</span>
+				<span class="texto-medidor _2">Fraca</span>
+				<span class="texto-medidor _3">Médio</span>
+				<span class="texto-medidor _4">Forte</span>
+				<span class="texto-medidor _5">Muito forte</span>
+			</div>
 		</div>
 	</div>
 
