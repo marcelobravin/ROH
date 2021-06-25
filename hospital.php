@@ -42,57 +42,6 @@
 
 
 
-
-
-
-
-<?php
-
-# colocar em controller/exportControl.php
-require ROOT.'/model/database.class.php';
-
-$db  = new Database();
-
-$condicoes = array(
-	'login' => 'usuario@email.com'//$_POST['login']
-);
-$users = $db->selecionar('usuarios', $condicoes);
-
-/*
-echo('<pre>');
-print_r($users);
-echo('</pre>');
- */
-
-$x = $db->mapeamentoRelacional('db_NOVO');
-
-
-if ( $x )
-	echo "Exportação de BD realizada com sucesso!";
-else {
-	echo "Erro ao exportar BD";
-}
-
-
-
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php exit ?>
-
-
 	<button>
 		<a href="register.html">
 			Adicionar Novo Usuário

@@ -1,7 +1,6 @@
 <?php
 define('PRODUCAO'		, false);
 define('PROJECT_FOLDER'	, 'ROH');
-date_default_timezone_set('america/sao_paulo');
 
 
 if ( PRODUCAO ) {
@@ -18,8 +17,12 @@ define('WEB_SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
 define('ROOT'           , WEB_SERVER_ROOT .'/'. PROJECT_FOLDER .'/' );
 
 
+
 $env = parse_ini_file(ROOT ."/.env"); #----------------------------------------- credenciais de DB
+
+date_default_timezone_set('america/sao_paulo');
 session_start();
+
 
 
 

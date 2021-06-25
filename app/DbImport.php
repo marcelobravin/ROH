@@ -5,15 +5,14 @@ include '../config.php';
 require ROOT.'/model/database.class.php';
 
 
-$env = parse_ini_file(ROOT.".env");
-
 
 # se for diferente dá problema no banco
-define( "DBNAME"    , $env['DBNAME'] ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
+define( "DBNAME"	, $env['DBNAME'] ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
 define( "DB_CHARSET", "utf8" ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
 define( "DB_COLLATE", "utf8_general_ci" ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
 # pegar dinamicamente
-define( "DIRETORIO", "/opt/lampp/htdocs/ROH/_arquivos_auto_gerados" ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
+#define( "DIRETORIO", "/opt/lampp/htdocs/ROH/_arquivos_auto_gerados" ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
+define( "DIRETORIO", ROOT. "/_arquivos_auto_gerados" ); // Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
 
 
 
@@ -36,11 +35,11 @@ else {
  * @since 05-07-2015
  * @version 24-06-2021
  *
- * @uses    persistencia.php->criarBanco()
- * @uses    persistencia.php->gerarTabelas()
- * @uses    persistencia.php->popularTabelas()
- * @uses    persistencia.php->gerarHtaccess()
- * @uses    acesso.php->redirecionar()
+ * @uses	persistencia.php->criarBanco()
+ * @uses	persistencia.php->gerarTabelas()
+ * @uses	persistencia.php->popularTabelas()
+ * @uses	persistencia.php->gerarHtaccess()
+ * @uses	acesso.php->redirecionar()
  *
  * @todo
  * colocar parametro $producao que trunca tabelas e realiza inserts básicos
@@ -68,43 +67,41 @@ function inicializarSistema() {
  *
  * @param   string
  *
- * @uses    configuracoes.php->DBNAME
- * @uses    configuracoes.php->DB_CHARSET
- * @uses    configuracoes.php->DB_COLLATE
- * @uses    persistencia.php->conectar
+ * @uses	configuracoes.php->DBNAME
+ * @uses	configuracoes.php->DB_CHARSET
+ * @uses	configuracoes.php->DB_COLLATE
+ * @uses	persistencia.php->conectar
  * @example
-    criarBanco();
+	criarBanco();
  */
 function criarBanco() {
 	// $db = new Database();
 	// $conn = $db->executarStmt($sql, array(), 'S'); # SSSSSSSSSSSSSSSSSSSSSSSSSSS
 
-
 	$env = parse_ini_file(ROOT.".env");
 
 	$host = $env['HOST'];
-    $db = $env['DBNAME'];
-    $user = $env['USER'];
-    $root_password = $env['PASSWORD'];
+	$db = $env['DBNAME'];
+	$user = $env['USER'];
+	$root_password = $env['PASSWORD'];
 
-    // $user = 'newuser';
-    // $pass = 'newpass';
+	// $user = 'newuser';
+	// $pass = 'newpass';
 	$sql = 'CREATE DATABASE '. DBNAME .' DEFAULT CHARACTER SET '. DB_CHARSET .' COLLATE '. DB_COLLATE .';';
 
 	try {
 		$dbh = new PDO("mysql:host=$host", $user, $root_password);
 
-        $dbh->exec($sql)
-        or die(print_r($dbh->errorInfo(), true));
+		$dbh->exec($sql)
+		or die(print_r($dbh->errorInfo(), true));
 		// $dbh->exec("CREATE DATABASE `$db`;
 		// 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$pass';
 		// 	GRANT ALL ON `$db`.* TO '$user'@'localhost';
 		// 	FLUSH PRIVILEGES;")
 		// or die(print_r($dbh->errorInfo(), true));
-    }
-    catch (PDOException $e) {
-        die("DB ERROR: " . $e->getMessage());
-    }
+	} catch (PDOException $e) {
+		die("DB ERROR: " . $e->getMessage());
+	}
 
 	// executar($sql);
 
@@ -117,9 +114,9 @@ function criarBanco() {
  * @since 05-07-2015
  * @version 25-06-2021
  *
- * @uses    GRIMOIRE."modelos/"
+ * @uses	GRIMOIRE."modelos/"
  * @example
-    gerarTabelas();
+	gerarTabelas();
  */
 function gerarTabelas($diretorio) {
 	$modelos = glob($diretorio);
@@ -135,8 +132,8 @@ function gerarTabelas($diretorio) {
  * @since 05-07-2015
  * @version 24-06-2021
  *
- * @uses    GRIMOIRE."modelos/"
- * @uses    persistencia.php->executar()
+ * @uses	GRIMOIRE."modelos/"
+ * @uses	persistencia.php->executar()
  */
 //popularTabelas();
 function popularTabelas($diretorio) {
@@ -175,7 +172,7 @@ function popularTabelas($diretorio) {
  * @param   bool/null/string
  * @param   bool
  *
- * @uses    $_SERVER
+ * @uses	$_SERVER
  */
 function redirecionar($destino=false, $descartarParametros=false) {
 
@@ -210,7 +207,7 @@ function redirecionar($destino=false, $descartarParametros=false) {
  *
  * @param   string
  * @return  string
- * @todo    limparNomePagina
+ * @todo	limparNomePagina
  */
 function limparNomeArquivo($arquivo, $separador="/") {
 	$arquivo = explode($separador, $arquivo);
@@ -230,30 +227,30 @@ function limparNomeArquivo($arquivo, $separador="/") {
  * @return  string
  *
  * @example
-    $campos[] = array('nome'=> 'nome', 'tipo' => 'varchar(50)');
-    $campos[] = array('nome'=> 'idade', 'tipo' => 'int(3)', 'nulo' => true);
-    $campos[] = array('nome'=> 'dataNascimento', 'tipo' => 'date', 'nulo' => true);
-    $campos[] = array('nome'=> 'cpf', 'tipo' => 'int(9)');
-    $campos[] = array('nome'=> 'dataCadastro', 'tipo' => 'datetime');
-    $campos[] = array('nome'=> 'sexo', 'tipo' => 'boolean');
-    $sql = montarCriacao("usuarios", $campos);
-    exibir ($sql);
+	$campos[] = array('nome'=> 'nome', 'tipo' => 'varchar(50)');
+	$campos[] = array('nome'=> 'idade', 'tipo' => 'int(3)', 'nulo' => true);
+	$campos[] = array('nome'=> 'dataNascimento', 'tipo' => 'date', 'nulo' => true);
+	$campos[] = array('nome'=> 'cpf', 'tipo' => 'int(9)');
+	$campos[] = array('nome'=> 'dataCadastro', 'tipo' => 'datetime');
+	$campos[] = array('nome'=> 'sexo', 'tipo' => 'boolean');
+	$sql = montarCriacao("usuarios", $campos);
+	exibir ($sql);
 
-    //usuarioId | acao | objetoTipo | objetoId | data/hora
-    $campos[] = array('nome'=> 'usuarioId', 'tipo' => 'int(11)');
-    $campos[] = array('nome'=> 'acao', 'tipo' => 'char');
-    $campos[] = array('nome'=> 'tabela', 'tipo' => 'varchar(50)');
-    $campos[] = array('nome'=> 'objetoId', 'tipo' => 'int(11)');
-    $campos[] = array('nome'=> 'datahora', 'tipo' => 'datetime');
-    $sql = montarCriacao("log", $campos);
-    exibir($sql);
+	//usuarioId | acao | objetoTipo | objetoId | data/hora
+	$campos[] = array('nome'=> 'usuarioId', 'tipo' => 'int(11)');
+	$campos[] = array('nome'=> 'acao', 'tipo' => 'char');
+	$campos[] = array('nome'=> 'tabela', 'tipo' => 'varchar(50)');
+	$campos[] = array('nome'=> 'objetoId', 'tipo' => 'int(11)');
+	$campos[] = array('nome'=> 'datahora', 'tipo' => 'datetime');
+	$sql = montarCriacao("log", $campos);
+	exibir($sql);
  * @todo
-    corrigir nome dos indices conforme padrão mysql
+	corrigir nome dos indices conforme padrão mysql
  */
 function montarCriacao($tabela, $atributos, $drop=false) {
 	$tamanho   = sizeof($atributos);
-	$identacao = "    ";
-	$sql       = "";
+	$identacao = "	";
+	$sql	   = "";
 	if ($drop == true) {
 	  $sql .= "DROP TABLE IF EXISTS $tabela;\n";
 	}

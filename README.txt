@@ -22,37 +22,38 @@ lista de usuários não permite excluir o próprio usuário logado
 credenciais de DB em arquivo .env
 bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
 log operações
+ponto de exportação/importação de BD
 
 
 # TODO
-criar ponto de exportação de BD
 não mudar email de usuário na tela de atualizar senha
 informar alterações não salvas em formulários ao recarregar ou fechar
 sincronização de dados
 tempo de sessão
 token de sessão
 Tempo expiração de token
-paginação ns listas
+paginação nas listas
 OK - envio de email
 salvar em pdf
 exclusão if not cascade
-
-modulo categoria
-módulo elementos
-modulo metas
-front
-
-
-
+criar
+	modulo categoria
+	módulo elementos
+	modulo metas
+	front
 Módulo hospital, categoria, elemento
 Módulo de associação: escolhe hospital depois escolhe elementos a vincular, define metas
 Módulo preencher: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
 Excluir usuário se e-mail não foi validado
-
-exportar bd e enviar projeto pro lucas
-	corrigir: config, DbImport
-	reset de senha
-
-reset de senha
-	sem senha mímina
+corrigir reset de senha
+	sem senha mínima
 	corrigir regxep símbolos
+		match(/[!@#$%&*-_]/)
+criar função colocar em produção
+apaga diretorios de saída
+trunca banco
+faz inserts básicos
+apaga DbExport
+[var get debug] || .env debug
+	problema em produção
+acessar lista de logs
