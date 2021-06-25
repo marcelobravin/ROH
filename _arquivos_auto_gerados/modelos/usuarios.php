@@ -2,7 +2,7 @@
 			/**
 			 * usuarios
 			 * @package grimoire/modelos
-			 * @version 25-06-2021 10:51:23
+			 * @version 25-06-2021 14:33:45
 			 */
 
 			$tabela = limparNomeArquivo(__FILE__);
@@ -39,7 +39,7 @@
 					"Type"    => "tinyint(1)",
 					"Null"    => "NO",
 					"Key"     => "",
-					"Default" => "0",
+					"Default" => "",
 					"Extra"   => ""
 				);
 			
@@ -57,7 +57,7 @@
 					"Type"    => "tinyint(1)",
 					"Null"    => "NO",
 					"Key"     => "",
-					"Default" => "0",
+					"Default" => "",
 					"Extra"   => ""
 				);
 			
