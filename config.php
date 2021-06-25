@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 
 date_default_timezone_set('america/sao_paulo');
 
+#parametrizar, pegar dinamicamente
 define('ROOT', '/opt/lampp/htdocs/ROH/'); ///////////////////////////// em ambiente de desenvolvimento
 session_start();
 

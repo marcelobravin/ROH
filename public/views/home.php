@@ -17,6 +17,8 @@
 	<a href="list.php">Administrar usuários</a>
 	<br>
 	<a href="novo.php">Administrar Metas</a>
+	<br>
+	<a href="hospital.php">Administrar Hospitais</a>
 
 </body>
 </html>

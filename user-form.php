@@ -19,7 +19,6 @@
 			$user = $user[0];
 		}
 	}
-
 ?><!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -30,23 +29,23 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 		<!-- <script src='js/lib/jquery-3.3.1.js?j=$r'></script> -->
 		<script>
-			// $(document).on( "change, keyup, mousemove", "input", function(){
-			// 	check()
-			// })
+			$(document).on( "change, keyup, mousemove", "input", function(){
+				check()
+			})
 
-			// function check() {
-			// 	if (
-			// 		$("#login").val() == ''
-			// 		||
-			// 		$("#senha").val() == ''
-			// 	) {
-			// 		$(":submit").attr("disabled", "disabled")
-			// 	} else {
-			// 		$(":submit").removeAttr("disabled")
-			// 	}
-			// }
+			function check() {
+				if (
+					$("#login").val() == ''
+					||
+					$("#senha").val() == ''
+				) {
+					$(":submit").attr("disabled", "disabled")
+				} else {
+					$(":submit").removeAttr("disabled")
+				}
+			}
 
-
+/*
 			$("input").change(function(){
 				$(":submit").removeAttr("disabled")
 			});
@@ -57,6 +56,7 @@
 				(e || window.event).returnValue = confirmationMessage; //Gecko + IE
 				return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
 			});
+*/
 		</script>
 	</head>
 <body>

@@ -26,8 +26,13 @@ abstract class Connection {
 			$this->password,
 			$this->options
 		);
-		$this->connection->setAttribute(PDO::ATTR_ERRMODE		, PDO::ERRMODE_EXCEPTION);
+		if ( getenv('PRODUCAO') )
+			$this->connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
+		else
+			$this->connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
 		$this->connection->setAttribute(PDO::ATTR_ORACLE_NULLS	, PDO::NULL_EMPTY_STRING);
+		$this->connection->exec("SET CHARACTER SET utf8"); //  return all sql requests as UTF-8
+
 		return $this->connection;
 	}
 

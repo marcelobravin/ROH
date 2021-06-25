@@ -1,6 +1,11 @@
 # ROH
 Relatório de Ocupação Hospitalar
 
+# Migração
+http://localhost/DIRETORIO/ROH/app/DbExport.php
+http://localhost/DIRETORIO/ROH/app/DbImport.php
+
+
 # Features
 senha criptografada
 atualizar cadastro de usuário no painel de administração não atualiza senha
@@ -26,6 +31,7 @@ informar alterações não salvas em formulários ao recarregar ou fechar
 sincronização de dados
 tempo de sessão
 token de sessão
+Tempo expiração de token
 paginação ns listas
 OK - envio de email
 salvar em pdf
@@ -35,3 +41,18 @@ modulo categoria
 módulo elementos
 modulo metas
 front
+
+
+
+Módulo hospital, categoria, elemento
+Módulo de associação: escolhe hospital depois escolhe elementos a vincular, define metas
+Módulo preencher: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
+Excluir usuário se e-mail não foi validado
+
+exportar bd e enviar projeto pro lucas
+	corrigir: config, DbImport
+	reset de senha
+
+reset de senha
+	sem senha mímina
+	corrigir regxep símbolos
