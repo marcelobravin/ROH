@@ -159,6 +159,9 @@ class Database extends Connection {
 	 */
 	function mapeamentoRelacional ($dbname) {
 
+		if ( empty($dbname) )
+			throw new Exception('DbName vazio.');
+
 		$sql = "SHOW FULL TABLES FROM ". $dbname;
 		$tabs = $this->executarStmt($sql, array(), 'S');
 

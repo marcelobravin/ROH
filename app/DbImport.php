@@ -95,13 +95,12 @@ function criarBanco() {
 		$dbh = new PDO("mysql:host=$host", $user, $root_password);
 
         $dbh->exec($sql)
+        or die(print_r($dbh->errorInfo(), true));
 		// $dbh->exec("CREATE DATABASE `$db`;
 		// 	CREATE USER '$user'@'localhost' IDENTIFIED BY '$pass';
 		// 	GRANT ALL ON `$db`.* TO '$user'@'localhost';
 		// 	FLUSH PRIVILEGES;")
 		// or die(print_r($dbh->errorInfo(), true));
-        or die(print_r($dbh->errorInfo(), true));
-
     }
     catch (PDOException $e) {
         die("DB ERROR: " . $e->getMessage());

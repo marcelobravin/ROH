@@ -6,8 +6,13 @@ require ROOT.'/model/database.class.php';
 
 $db = new Database();
 
-if ( $db->mapeamentoRelacional( getenv('DBNAME') ) )
+
+// echo getenv('DBNAME');
+// echo('<pre>');
+// print_r($env);
+// echo('</pre>');
+
+if ( $db->mapeamentoRelacional( $env['DBNAME'] ) )
 	echo "Exportação de BD realizada com sucesso!";
-else {
+else
 	echo "Erro ao exportar BD";
-}

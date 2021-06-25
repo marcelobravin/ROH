@@ -1,13 +1,28 @@
 <?php
-ini_set('display_errors'		, 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+define('PRODUCAO'		, false);
+define('PROJECT_FOLDER'	, 'ROH');
 date_default_timezone_set('america/sao_paulo');
 
-#parametrizar, pegar dinamicamente
-define('ROOT', '/opt/lampp/htdocs/ROH/'); ///////////////////////////// em ambiente de desenvolvimento
+
+if ( PRODUCAO ) {
+	ini_set('display_errors'		, 0);
+	ini_set('display_startup_errors', 0);
+} else {
+	ini_set('display_errors'		, 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+}
+
+
+define('WEB_SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
+define('ROOT'           , WEB_SERVER_ROOT .'/'. PROJECT_FOLDER .'/' );
+
+
+$env = parse_ini_file(ROOT ."/.env"); #----------------------------------------- credenciais de DB
 session_start();
+
+
+
 
 
 
@@ -138,3 +153,25 @@ function gerarMailBody($conteudo, $titulo="No Subject") {
 		<body>'. $conteudo .'</body>
 		</html>';
 }
+
+// function backtrace() {
+
+// 	$callers = debug_backtrace();
+// 	$arrBacktrace = array();
+// 	$callersNum = count($callers);
+
+// 	echo('<pre>');
+// 	print_r($callers);
+// 	echo('</pre>');
+
+// 	for ($i = 1; $i < $callersNum; $i++) {
+// 		$arrBacktrace[] = sprintf('%s::%s(%d)', $callers[$i]['class'], $callers[$i]['function'], $callers[$i]['line']);
+// 	}
+
+// 	return implode('->', $arrBacktrace);
+// }
+
+// function lancarExcecao( $mssg ) {
+// 	backtrace();
+// 	throw new Exception($mssg);
+// }
