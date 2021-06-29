@@ -43,12 +43,16 @@ class Database extends Connection {
 			$statement = parent::getConnection()->prepare($sql);
 			$interrogacoes = substr_count($sql, '?');
 
-			$valores = array_values($valores);
+			if ( is_array($valores) ) {
+				$valores = array_values($valores);
 
-			for ($i=0; $i<$interrogacoes; $i++) {
-				$statement->bindParam($i+1, $valores[$i]); // dá pra colocar verificação por tipo e tamanho // https://www.php.net/manual/pt_BR/pdo.constants.php
+				for ($i=0; $i<$interrogacoes; $i++) {
+					$statement->bindParam($i+1, $valores[$i]); // dá pra colocar verificação por tipo e tamanho // https://www.php.net/manual/pt_BR/pdo.constants.php
+				}
+				$statement->execute($valores);
+			} else {
+				$statement->execute();
 			}
-			$statement->execute($valores);
 
 			switch ( $processo ) {
 				case 'I': $retorno = parent::getConnection()->lastInsertId(); #- INSERT

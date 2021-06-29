@@ -226,3 +226,261 @@ function ordenarPor($chave_ordenacao="data") {
 		return "{$_SERVER['PHP_SELF']}?{$parametros}"; // Se tiver critérios de busca
 	}
 }
+
+
+
+function paginationCore ($tabela, $numeroRegistrosPorPagina=5, $linksPaginasExibir=3)
+{
+	$db = new Database();
+
+	$where = defineCriteriosBusca();
+
+	// $list = $db->selecionar($tabela, array(), '', 'count(*)');
+	$list = $db->selecionar($tabela, $where, '', 'count(*)');
+
+	// echo $numeroRegistros = count($list);
+	$numeroRegistros = $list[0]['count(*)'];
+	$linksPaginacao = paginar($numeroRegistros, $numeroRegistrosPorPagina, $linksPaginasExibir);
+
+	$limites = definirLimites($numeroRegistrosPorPagina);
+
+	$limite = " LIMIT {$limites['inicio']}, {$numeroRegistrosPorPagina}";
+
+	$orderBy = defineOrdemPaginacao();
+	// $list = $db->selecionar($tabela, array(), $orderBy.$limite);
+	$list = $db->selecionar($tabela, $where, $orderBy.$limite);
+
+	return [
+		'registros'			=> $numeroRegistros,
+		'registrosPorPag'	=> $numeroRegistrosPorPagina,
+		'paginaAtual'		=> definirPaginaAtual(),
+		'totalPaginas'		=> ceil($numeroRegistros / $numeroRegistrosPorPagina),
+		'limites'			=> $limites,
+		'links'				=> $linksPaginacao,
+		'listaPaginada'		=> $list
+	];
+}
+
+function paginacaoHeader ($n)
+{
+	echo '<p class="contadorRegistros">';
+	echo $n;
+
+	if ( $n > 1 )
+		echo " resultados encontrados";
+	else
+		echo " resultado encontrado";
+	echo'</p>';
+}
+
+
+function selecaoResultadosPorPagina ($registroInicial, $registroFinal=999)
+{ ?>
+		<p class="contadorRegistros">
+			<form style="text-align: right">
+				<select name="exibir" id="exibir">
+					<option <?php echo selecionado("exibir", 10) ?> value="10">10 resultados por página</option>
+					<option <?php echo selecionado("exibir", 25) ?> value="25">25 resultados por página</option>
+					<option <?php echo selecionado("exibir", 50) ?> value="50">50 resultados por página</option>
+					<option <?php echo selecionado("exibir", 100) ?> value="100">100 resultados por página</option>
+					<option <?php echo selecionado("exibir", 500) ?> value="500">500 resultados por página</option>
+				</select>
+				<input type="submit" class="btn btn-success" value="Exibir" title="Filtrar Treinandos"/>
+				<p>
+					Exibindo de <?php echo $registroInicial ?>
+					a <?php echo $registroFinal ?>
+				</p>
+			</form>
+		</p>
+	<?php
+}
+
+# não usada
+function paginacaoConfig ()
+{
+	$numeroRegistros = count($matriz); # IMPORTANTE: vetor deve ser chamado $matriz
+	$paginas = 5; # Número máximo de links de páginação a exibir á esquerda e direita da página atual
+
+	# Define quantos registros serão exibidos por página
+	if (isset($_GET['exibir']) && $_GET['exibir'] > 0) {
+		$numeroRegistrosPorPagina = $_GET['exibir']; # Parâmetro configurável [antes do include nessa página]
+	} else {
+		$numeroRegistrosPorPagina = 25;
+	}
+
+	$vetorPaginas = paginar($numeroRegistros, $numeroRegistrosPorPagina, $paginas);// Monta links
+	$fronteiras = definirLimites($numeroRegistrosPorPagina); // Define fronteiras de registros a exibir
+
+	# contadores
+	$i = 0;
+	$ultimoExibido = 0;
+}
+
+# Define quantos registros serão exibidos por página
+function definirExibicao ()
+{
+	if ( isset($_GET['exibir']) && $_GET['exibir'] > 0 )
+		return $_GET['exibir'];
+
+	return 25;
+}
+
+
+/* 31-07-2015 16:43 */
+/* Retorna atributo html se indice GET existir e for igual ao valor */
+/* <option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option> */
+function selecionado($indice, $valor, $atributo='selected') {
+	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor )
+	return $atributo.'="'. $atributo .'"';
+}
+
+
+function criarLinkOrdenacao ($atributo, $nomeCampo)
+{ ?>
+	<a class="ordenacao" href="<?php echo ordenarPor($atributo) ?>" title="Clique aqui para ordenar os registros dessa tabela por <?php echo $nomeCampo ?>">
+		<?php echo ucwords($nomeCampo) ?>
+		<?php echo ordenado($atributo) ?>
+	</a>
+<?php
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+Define ordenação
+montar ordenacao e filtros
+*/
+function defineOrdemPaginacao ($ordenacaoDefault='titulo')
+{
+	if ( !isset($_GET['chave_ordenacao']) || $_GET['chave_ordenacao']==$ordenacaoDefault ) {
+		$_GET['chave_ordenacao'] = "{$ordenacaoDefault}";
+		$ordenacao = "UPPER({$ordenacaoDefault})";
+	} else {
+		// switch ( $_GET['chave_ordenacao'] ) { # ordenação alternativa
+			// default:
+				$ordenacao = $_GET['chave_ordenacao'];
+			// break;
+		// }
+	}
+
+	if ( isset($_GET['ordem']) && $_GET['ordem']=="desc" )
+		$ordenacao .= " DESC";
+
+	return "ORDER BY {$ordenacao}";
+}
+
+
+/*
+├─────────────────────────────────────────────────────────────────────────────── assets (9)
+| Define critérios de busca
+└───────────────────────────────────────────────────────────────────────────────
+*/
+function defineCriteriosBusca ()
+{
+	$criterios_busca = array();
+	if ( isset($_GET['nome']) )
+		$criterios_busca[] = "c.nome LIKE '{$_GET['nome']}%'";
+
+	if ( isset($_GET['ativado']) && $_GET['ativado']!="" )
+		$criterios_busca[] = "ativo = '{$_GET['ativado']}'";
+		// $criterios_busca[] = "c.ativado = '{$_GET['ativado']}'";
+
+	if ( empty($criterios_busca) )
+		return '';
+
+	return implode(" AND ", $criterios_busca);
+}
+
+/**
+ * @since 28/06/2021 09:50:48
+ * @todo
+ * criar relacionamento com tabela usuario, parametrizavel
+ * parametrizar drop table if exists
+ * adicionar comentarios nas colunos
+ * @example
+	echo criacaoTemplateTabela("hospital");
+	echo "<pre>". criacaoTemplateTabela("hospital");
+	*/
+function criacaoTemplateTabela ($nomeTabela="nova_tabela")
+{
+	$sql = "
+		SET SQL_MODE = \"NO_AUTO_VALUE_ON_ZERO\";
+		START TRANSACTION;
+		SET time_zone = \"+00:00\";
+
+		DROP TABLE IF EXISTS `{$nomeTabela}`;
+		CREATE TABLE `{$nomeTabela}` (
+			`id`				int(11)			NOT NULL,
+
+			`titulo`			char(255)		NOT NULL,
+			`ativo`				tinyint(1)		NOT NULL,
+
+			`criado_em`			timestamp		NOT NULL	DEFAULT current_timestamp(),
+			`atualizado_em`		timestamp 		NULL		DEFAULT NULL	ON UPDATE current_timestamp(),
+			`excluido_em`		timestamp		NULL		DEFAULT NULL,
+
+			`criado_por`		int(11)			NOT NULL,
+			`atualizado_por`	int(11)			NULL		DEFAULT NULL,
+			`excluido_por`		int(11)			NULL		DEFAULT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+		-- Índices para tabela `{$nomeTabela}`
+		ALTER TABLE `{$nomeTabela}`
+		ADD PRIMARY KEY (`id`),
+		ADD KEY `id` (`id`);
+
+		-- AUTO_INCREMENT de tabela `{$nomeTabela}`
+		ALTER TABLE `{$nomeTabela}`
+		MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+		COMMIT;
+	";
+	return $sql;
+}
+
+/**
+ * Realiza multiplas inserções
+ * Gera dummy data
+ * @since 28/06/2021 11:52:15
+ * @todo
+ * 		inserir matriz
+ * @example
+	popularTabela('hospital', 3);
+*/
+function popularTabela($tabela, $insercoes=3)
+{
+	$objeto = [
+		'titulo'		=> 'São Luiz Gonzaga'
+		, 'ativo'		=> '1'
+		, 'criado_por'	=> '1'
+	];
+
+	$db = new Database();
+
+	for ($i=0; $i<$insercoes; $i++) {
+		$id = $db->inserir($tabela, $objeto);
+	}
+}

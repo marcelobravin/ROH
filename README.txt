@@ -26,6 +26,7 @@ ponto de exportação/importação de BD
 
 
 # TODO
+php 8
 não mudar email de usuário na tela de atualizar senha
 informar alterações não salvas em formulários ao recarregar ou fechar
 sincronização de dados
