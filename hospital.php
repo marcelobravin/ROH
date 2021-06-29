@@ -130,36 +130,68 @@ function paginationCore ($tabela, $numeroRegistrosPorPagina=5, $linksPaginasExib
 	];
 }
 
-
-function plural ($n)
+function paginacaoHeader ($n)
 {
+	echo'<p class="contadorRegistros">';
+	echo $n;
+
 	if ( $n > 1 )
-		return 's';
-
-	return '';
+		echo " resultados encontrados";
+	else
+		echo " resultado encontrado";
+	echo'</p>';
 }
 
-function paginacaoHeader ()
+
+/* 31-07-2015 16:43 */
+/* Retorna atributo html se indice GET existir e for igual ao valor */
+/* <option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option> */
+function selecionado($indice, $valor, $atributo='selected') {
+	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor )
+	  return $atributo.'="'. $atributo .'"';
+  }
+
+
+function resultadosPorPagina ()
 {
-	$plural = plural( count($matriz) );
-	echo'<p class=\"contadorRegistros\">';
-
-	echo count($matriz) "resultado"<?php echo count($matriz)>1 ?"s":""?> encontrado<?php echo count($matriz)>1 ?"s":""
-</p>
-
+	//if ( count($matriz) > 0 ): ?>
+		<p class="contadorRegistros">
+			<form style="text-align: right">
+				<select name="exibir" id="exibir">
+					<option <?php echo selecionado("exibir", 25) ?> value="25">25 resultados por página</option>
+					<option <?php echo selecionado("exibir", 50) ?> value="50">50 resultados por página</option>
+					<option <?php echo selecionado("exibir", 100) ?> value="100">100 resultados por página</option>
+					<option <?php echo selecionado("exibir", 500) ?> value="500">500 resultados por página</option>
+				</select>
+				<input type="submit" class="btn btn-success" value="Exibir" title="Filtrar Treinandos"/>
+				<p>
+					Exibindo de <?php echo $fronteiras['inicio']+1 ?>
+					a <?php echo $ultimoExibido ?>
+				</p>
+			</form>
+		</p>
+	<?php //endif;
 }
 
+function paginacaoConfig ()
+{
+	$numeroRegistros = count($matriz); # IMPORTANTE: vetor deve ser chamado $matriz
+	$paginas = 5; # Número máximo de links de páginação a exibir á esquerda e direita da página atual
 
+	# Define quantos registros serão exibidos por página
+	if (isset($_GET['exibir']) && $_GET['exibir'] > 0) {
+		$numeroRegistrosPorPagina = $_GET['exibir']; # Parâmetro configurável [antes do include nessa página]
+	} else {
+		$numeroRegistrosPorPagina = 25;
+	}
 
-// echo('<pre>');
-// print_r($p['paginacao']);
-// print_r($p['limites']);
-// echo('</pre>');
+	$vetorPaginas = paginar($numeroRegistros, $numeroRegistrosPorPagina, $paginas);// Monta links
+	$fronteiras = definirLimites($numeroRegistrosPorPagina); // Define fronteiras de registros a exibir
 
-
-
-
-
+	# contadores
+	$i = 0;
+	$ultimoExibido = 0;
+}
 
 
 	// echo "<pre>". criacaoTemplateTabela("hospital");
@@ -172,9 +204,14 @@ function paginacaoHeader ()
 		<meta charset="UTF-8">
 		<title>Login - Relatório Ocupação Hospitalar</title>
 		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
-		<link rel="stylesheet" href="public/styles/list.css">
+
+		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
+		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+		<link rel="stylesheet" type="text/css" href="public/css/topo.css">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-		<!-- <script src='js/lib/jquery-3.3.1.js?j=$r'></script> -->
+
 		<script>
 			$(document).ready(function(){
 				$(".excluir").click(function(){
@@ -184,6 +221,9 @@ function paginacaoHeader ()
 		</script>
 	</head>
 <body>
+
+<div class="container-tabelas">
+
 	<a href="app/Controller/LogoutController.php">Logout</a>
 
 	<div>
@@ -197,6 +237,9 @@ function paginacaoHeader ()
 		</a>
 	</button>
 
+	<?php paginacaoHeader ($paginacao['registros']) ?>
+
+	<?php resultadosPorPagina() ?>
 
 	<table>
 		<tr>
@@ -205,7 +248,6 @@ function paginacaoHeader ()
 			<th>Opções</th>
 		</tr>
 
-		<?php #foreach ($list as $obj) : ?>
 		<?php foreach ($paginacao['listaPaginada'] as $obj) : ?>
 
 			<tr>
@@ -236,5 +278,7 @@ function paginacaoHeader ()
 	<div>
 		<?php echo implode(' ', $paginacao['links']) ?>
 	</div>
+
+						</div>
 </body>
 </html>

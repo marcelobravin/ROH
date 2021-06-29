@@ -1,0 +1,46 @@
+/* #00dfc0 */
+/* #4974a5 */
+/* #385a64 */
+
+header{
+    background: #385a64;
+    width: 100%;
+    display: flex;
+}
+.container-menu{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+header .container-menu h1{
+    color: #00dfc0;
+    font-size: 25px;
+}
+.container-menu a, .container-menu h1{
+    display: flex;
+    align-items: center;
+    color: #fff;
+    height: 100%;
+}
+.container-menu ul{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.container-menu a i{
+    font-size: 25px;
+}
+.container-menu ul li{
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    height: 100%;
+    transition: .3s;
+}
+.container-menu ul li:hover{
+    background: #00dfc0;
+    transition: .6s;
+    transform: scale(1.1);
+}

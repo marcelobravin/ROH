@@ -1,0 +1,82 @@
+/* #00dfc0 */
+/* #4974a5 */
+/* #385a64 */
+
+body{
+
+}
+.container-login{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.container-login img{
+    width: 40%;
+}
+.container-login form{
+    color: #fff;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 450px;
+    height: 450px;
+    background-color: #00dfc0;
+    box-shadow: 1px 1px 15px #00dfc0;
+    border-radius: 15px;
+    padding: 10px 50px;
+    box-sizing: border-box;
+}
+.container-login form .inputs{
+    display: flex;
+    flex-flow: column-reverse;
+    width: 100%;
+}
+.container-login form .botao{
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-login form .inputs input:not([type="submit"]){
+    color: #fff;
+    height: 25px;
+    border: none;
+    border-bottom: 2px solid #4974a5;
+    padding: 3px;
+    background: transparent;
+    text-align: center;
+}
+.container-login form .inputs input[type="submit"]{
+    color: #fff;
+    background: #4974a5;
+    text-transform: uppercase;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 1px 1px 15px #4974a5;
+    border: none;
+    cursor: pointer;
+    transition: 1s;
+}
+.container-login form .inputs input[type="submit"]:hover{
+    transition: 1s;
+    transform: translateY(-5px);
+}
+.container-login form .inputs label{
+    transform: translateY(25px);
+    margin-left: 5px;
+    width: 16%;
+    z-index: 1;
+    transition: 1s;
+}
+.container-login form input:focus + label{
+    color: #4974a5;
+    font-weight: bold;
+    transform: translateY(10px);
+    transition: 1s;
+}
+.container-login form a{
+    color: #4974a5;
+}
