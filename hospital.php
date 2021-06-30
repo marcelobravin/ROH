@@ -2,8 +2,25 @@
 	include 'config.php';
 
 	require 'model/database.class.php'; // para teste
-	require 'app/Controller/paginacao.php';
 
+	require 'app/lib/paginacao.php';
+	require 'app/lib/formularios.php';
+	require 'app/lib/snippets.php';
+	require 'app/lib/html.php';
+	require 'app/lib/vetores.php';
+
+	$db = new Database();
+
+	gerarFormulario('hospital');
+	// gerarFormulario('usuarios');
+
+
+	// $x = $db->descreverTabela('hospital');
+	// echo('<pre>');
+	// print_r($x);
+	// echo('</pre>');
+
+	exit;
 	// $db  = new Database();
 
 	$resultadosPorPagina = definirExibicao();

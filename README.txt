@@ -5,6 +5,8 @@ Relatório de Ocupação Hospitalar
 http://localhost/DIRETORIO/ROH/app/DbExport.php
 http://localhost/DIRETORIO/ROH/app/DbImport.php
 
+$db->begintransaction
+$rollback
 
 # Features
 senha criptografada
@@ -58,3 +60,11 @@ apaga DbExport
 [var get debug] || .env debug
 	problema em produção
 acessar lista de logs
+
+
+colocar return false
+	$indice = existeIndice($campo['Field'], $conversoes);
+		if ( $indice != -1 ) {
+
+
+exportar daods de formularios

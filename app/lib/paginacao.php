@@ -325,16 +325,6 @@ function definirExibicao ()
 	return 25;
 }
 
-
-/* 31-07-2015 16:43 */
-/* Retorna atributo html se indice GET existir e for igual ao valor */
-/* <option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option> */
-function selecionado($indice, $valor, $atributo='selected') {
-	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor )
-	return $atributo.'="'. $atributo .'"';
-}
-
-
 function criarLinkOrdenacao ($atributo, $nomeCampo)
 { ?>
 	<a class="ordenacao" href="<?php echo ordenarPor($atributo) ?>" title="Clique aqui para ordenar os registros dessa tabela por <?php echo $nomeCampo ?>">

@@ -31,33 +31,33 @@ session_start();
 
 
 # Funções universais ===========================================================
-/**
- * Remove um índice da sessão e retorna o conteúdo
- * @package	grimoire/bibliotecas/vetores.php
- * @since	05-07-2015
- * @version	15-06-2021
- *
- * @param	string
- * @return	string
- */
-function esvaziarMensagem($indice="mensagem") {
-/*
-	if(session_id() == '') { // For versions of PHP prior to PHP 5.4.0:
-		// session isn't started
-	}
-*/
-	if (session_status() === PHP_SESSION_NONE) {
-		session_start();
-	}
+// /**
+//  * Remove um índice da sessão e retorna o conteúdo
+//  * @package	grimoire/bibliotecas/vetores.php
+//  * @since	05-07-2015
+//  * @version	15-06-2021
+//  *
+//  * @param	string
+//  * @return	string
+//  */
+// function esvaziarMensagem($indice="mensagem") {
+// /*
+// 	if(session_id() == '') { // For versions of PHP prior to PHP 5.4.0:
+// 		// session isn't started
+// 	}
+// */
+// 	if (session_status() === PHP_SESSION_NONE) {
+// 		session_start();
+// 	}
 
-	$retorno = "";
-	if (isset($_SESSION[$indice])) {
-		$retorno = $_SESSION[$indice];
-		unset($_SESSION[$indice]);
-	}
+// 	$retorno = "";
+// 	if (isset($_SESSION[$indice])) {
+// 		$retorno = $_SESSION[$indice];
+// 		unset($_SESSION[$indice]);
+// 	}
 
-	return $retorno;
-}
+// 	return $retorno;
+// }
 
 /**
  * Retorna o navegador do usuário
