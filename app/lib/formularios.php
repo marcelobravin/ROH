@@ -63,21 +63,20 @@ function exibirTemplate ($campos, $labels, $esconder=array(), $registro=null)
  */
 function montarTemplate ($campos, $labels, $esconder=array(), $registro=null)
 {
-	$x = '';
+	$x = array();
 	foreach ($campos as $indice => $c) {
 		if ( !in_array($indice, $esconder) ) { # remover campo em vez de esconder
-			$x .= '<div>';
-	 		$x .= $labels[$indice];
-	 		$x .= '<div>';
-			$x .= $campos[$indice];
-			$x .= '</div>';
-			$x .= '</div>';
+			$x[] = '<div>';
+	 		$x[] = '	'. $labels[$indice];
+			$x[] = '	'. $campos[$indice];
+			$x[] = '</div>';
 		} else {
-			$x .= $campos[$indice];
+			$x[] = $campos[$indice];
 		}
 	}
 
-	return $x;
+	// return $x;
+	return implode("\r\n", $x);
 }
 
 /**
@@ -85,11 +84,11 @@ function montarTemplate ($campos, $labels, $esconder=array(), $registro=null)
  * @package grimoire/bibliotecas/formularios.php
  * @version 05-07-2015
  *
- * @param	array - descrição
- * @param	array - um registro do BD
- * @param	array - array de campos a serem sobrescritos
- * @param	array - conversões a serem realizadas
- * @param	array - classes a serem adicionadas aos inputs conforme padrões de valor (dinheiro, data, email, telefone, etc)
+ * @param	array descrição
+ * @param	array um registro do BD
+ * @param	array array de campos a serem sobrescritos
+ * @param	array conversões a serem realizadas
+ * @param	array classes a serem adicionadas aos inputs conforme padrões de valor (dinheiro, data, email, telefone, etc)
  * @return	string
  *
  * @uses	formularios.php->transformarEmInputs()
@@ -129,26 +128,44 @@ function gerarCampos ($descricao, $registro=null, $sobreEscreverCampos=array(), 
  * @uses	formularios.php->gerarLabels()
  * @uses	sql.php->selecao()
  * @todo
-		pegar a descrição do diretorio modulos
+		$sobreescreverLabels = array('titulo'=> 'Título');
+		$sobreEscreverCampos = array();
+		$remover = array();
+		$esconder = array();
+		$conversoes = array();
+		$descricaoLabels = array('titulo'=> 'Título');
+		$padroes = array();
+
+		$form = gerarFormulario('hospital',
+			$sobreescreverLabels,
+			$sobreEscreverCampos,
+			$remover,
+			$esconder,
+			$conversoes,
+			$descricaoLabels,
+			$padroes
+		);
+		echo('<pre>');
+		print_r($form);
+		echo('</pre>');
  *
  */
 function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
 {
-	$remover[] = 'status'; # Remove campo status nesse projeto
+	// $remover[] = 'status'; # Remove campo status nesse projeto
 	$db = new Database();
 
 	# Gera campos
 	$registro = null;
 	if ( isset($_GET['codigo']) ) {
-		$esconder[] = 'id';
+		$esconder[] = 'id'; # tansforma em hidden
 
 		$registro = $db->selecionar($MODULO, array('id'=> $_GET['codigo']) );
 
 		if ( count($registro) > 0 )
 			$registro = $registro[0];
 		else
-			throw new Exception("Id inválido", );
-			$registro = null;
+			throw new Exception("Código inválido", 1);
 	}
 
 	$descricao = $db->descreverTabela($MODULO);
@@ -164,8 +181,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 
 	// exibirTemplate($campos, $labels, $esconder, $registro);
-	echo $x = montarTemplate($campos, $labels, $esconder, $registro);
-	// echo $x;
+	return montarTemplate($campos, $labels, $esconder, $registro);
 }
 
 /**
@@ -184,27 +200,28 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels=array())
 {
 	$labels = array();
+	$atributos = array();
 
 	foreach ($descricao as $vetor => $array) {
-		$atributos = array("control-label"); /* ESPECIFICO DESSE PROJETO */
-		$rotulo = $array['Field'];	// Usa nome do campo como label
+		#$atributos = array("control-label"); /* ESPECIFICO DESSE PROJETO */
+		// $atributos = array("control-label"); /* ESPECIFICO DESSE PROJETO */
+		$rotulo = $array['Field']; # Usa nome do campo como label
 
-		// Sobreescreve labels
+		# Sobreescreve labels
 		foreach ($sobreEscreverLabels as $key => $value) {
 			if ($key == $rotulo) {
 				$rotulo = $sobreEscreverLabels[$key];
-				unset($sobreEscreverLabels[$key]); // remove da lista de sobrescrição
+				unset($sobreEscreverLabels[$key]); # remove da lista de sobrescrição
 			}
 		}
 
-		// Adiciona descrição das labels
+		# Adiciona descrição das labels
 		if ( existeIndice($array['Field'], $descricaoLabels) != -1 ) {
 			$atributos['title'] = $descricaoLabels[$array['Field']];
 			unset($descricaoLabels[$array['Field']]); // remove da lista de sobrescrição
 		}
 
-
-		// Cria as labels
+		# Cria as labels
 		$labels[$array['Field']] = label($rotulo, $array['Field'], $atributos);
 	}
 
@@ -274,8 +291,8 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 			// PRIMARY KEY
 			if ($campo['Key'] == "PRI")
 				$tipo = "hidden";
-			// Se campo for chave estrangeira
 
+			// Se campo for chave estrangeira
 			if (terminaCom($campo['Field'], "Id"))
 				$tipo = "foreignKey";
 		}

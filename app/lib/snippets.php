@@ -452,10 +452,12 @@ function label($texto, $campo=null, $atributos=array(), $obrigatorio=false) {
   } else {
     $atributos = gerarAtributos($atributos);
     $marcador  = "";
-    if ($obrigatorio) {
+    if ($obrigatorio)
       $marcador .= " *";
-    }
-    $label = "<label for='$campo' $atributos>$texto". $marcador ."</label>";
+
+	  #$label = "<label for='$campo' $atributos>$texto". $marcador ."</label>";
+       $label = '<label for="'.$campo.'" '.$atributos.'>'.$texto.''. $marcador .'</label>';
+
     return $label;
   }
 }
@@ -887,4 +889,3 @@ function title($titulo) {
 function ul($atributos=array()) {
   return gerarBloco("ul", $atributos);
 }
-

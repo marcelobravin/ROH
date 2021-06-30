@@ -172,7 +172,6 @@ class Database extends Connection {
 		foreach ($tabs as $key => $value) {
 			$d = $this->descreverTabela($value['Tables_in_'. $dbname]);
 			$this->gerarModelo($value['Tables_in_'. $dbname], $d);
-
 			$this->gerarInserts($value['Tables_in_'. $dbname]);
 		}
 		return true;
@@ -216,12 +215,12 @@ class Database extends Connection {
 		foreach ($descricao as $key => $value) {
 			$campos .= '
 				$campos['. $key .'] = array(
-					"Field"   => "'. $value['Field'] .'",
-					"Type"    => "'. $value['Type'] .'",
-					"Null"    => "'. $value['Null'] .'",
-					"Key"     => "'. $value['Key'] .'",
-					"Default" => "'. $value['Default'] .'",
-					"Extra"   => "'. $value['Extra'] .'"
+					"Field"		=> "'. $value['Field'] .'",
+					"Type"		=> "'. $value['Type'] .'",
+					"Null"		=> "'. $value['Null'] .'",
+					"Key"		=> "'. $value['Key'] .'",
+					"Default"	=> "'. $value['Default'] .'",
+					"Extra"		=> "'. $value['Extra'] .'"
 				);
 			';
 		}
@@ -239,7 +238,7 @@ class Database extends Connection {
 			executar($sql);
 		';
 
-		$this->escrever($diretorioDestino."/{$nome}.php", $conteudo, true);
+		escrever($diretorioDestino."/{$nome}.php", $conteudo, true);
 	}
 
 	/**
@@ -266,32 +265,6 @@ class Database extends Connection {
 		}
 
 		$this->escrever( $diretorioDestino. "/{$tabela}.sql", $inserts, true);
-	}
-
-	/**
-	 * Escreve o conteúdo em um arquivo
-	 *
-	 * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
-	 *
-	 * @package grimoire/bibliotecas/arquivos.php
-	 * @since 05-07-2015
-	 * @version 24-06-2021
-	 *
-	 * @param   string
-	 * @param   string
-	 * @param   bool    Conservar conteúdo, append
-	 * @return  bool
-	 *
-	 * @example
-		echo escrever("arquivo.txt", "pan");
-	*/
-	function escrever($arquivo, $conteudo, $sobreescrever=false) {
-
-		if ( !$sobreescrever ) {
-			if ( file_exists($arquivo) )
-				$conteudo = file_get_contents($arquivo) . $conteudo;
-		}
-		file_put_contents($arquivo, $conteudo);
 	}
 
 	/**

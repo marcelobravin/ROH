@@ -59,6 +59,34 @@ session_start();
 // 	return $retorno;
 // }
 
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+ *
+ * @package grimoire/bibliotecas/arquivos.php
+ * @since 05-07-2015
+ * @version 24-06-2021
+ *
+ * @param   string
+ * @param   string
+ * @param   bool    Conservar conteúdo, append
+ * @return  bool
+ *
+ * @example
+	echo escrever("arquivo.txt", "pan");
+*/
+function escrever($arquivo, $conteudo, $sobreescrever=false) {
+
+	if ( !$sobreescrever ) {
+		if ( file_exists($arquivo) )
+			$conteudo = file_get_contents($arquivo) . $conteudo;
+	}
+	file_put_contents($arquivo, $conteudo);
+}
+
+
 /**
  * Retorna o navegador do usuário
  * @package grimoire/bibliotecas/email.php
