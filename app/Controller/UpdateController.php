@@ -22,7 +22,7 @@ if (is_numeric($rowCount) && $rowCount > 0) {
 	$_SESSION['mensagem'] = "Atualizado o registro número:". $_POST['id'];
 
 	$db->registrarLog('U', 'usuarios', $_POST['id']);
-	header('Location: ../../list.php');
+	header('Location: ../../lista.php?modulo=usuario');
 	exit;
 } else {
 
@@ -50,5 +50,5 @@ function contem($agulha, $palheiro) {
 ?>
 
 <p>
-	<a href="../../list.php">voltar</a>
+	<a href="../../lista.php?modulo=usuario">voltar</a>
 </p>

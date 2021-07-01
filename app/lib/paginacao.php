@@ -227,14 +227,13 @@ function ordenarPor($chave_ordenacao="data") {
 	}
 }
 
-
-
-function paginationCore ($tabela, $numeroRegistrosPorPagina=5, $linksPaginasExibir=3)
+function paginationCore ($tabela, $linksPaginasExibir=3)
 {
 	$db = new Database();
 
-	$where = defineCriteriosBusca();
+	$numeroRegistrosPorPagina = definirExibicao();
 
+	$where = defineCriteriosBusca();
 	// $list = $db->selecionar($tabela, array(), '', 'count(*)');
 	$list = $db->selecionar($tabela, $where, '', 'count(*)');
 
@@ -247,7 +246,6 @@ function paginationCore ($tabela, $numeroRegistrosPorPagina=5, $linksPaginasExib
 	$limite = " LIMIT {$limites['inicio']}, {$numeroRegistrosPorPagina}";
 
 	$orderBy = defineOrdemPaginacao();
-	// $list = $db->selecionar($tabela, array(), $orderBy.$limite);
 	$list = $db->selecionar($tabela, $where, $orderBy.$limite);
 
 	return [
@@ -273,11 +271,21 @@ function paginacaoHeader ($n)
 	echo'</p>';
 }
 
-
-function selecaoResultadosPorPagina ($registroInicial, $registroFinal=999)
-{ ?>
+function selecaoResultadosPorPagina ($vetorPaginacao)
+{
+	$ultimoRegistroExibido = $vetorPaginacao['limites']['inicio'] + count($vetorPaginacao['listaPaginada']);
+	?>
 		<p class="contadorRegistros">
-			<form style="text-align: right">
+			<form style="text-align: right" method="get">
+
+				<?php
+					foreach ($_GET as $key => $value) {
+						$key = htmlspecialchars($key);
+						$value = htmlspecialchars($value);
+						echo "<input type='hidden' name='{$key}' value='{$value}' />";
+					}
+				?>
+
 				<select name="exibir" id="exibir">
 					<option <?php echo selecionado("exibir", 10) ?> value="10">10 resultados por página</option>
 					<option <?php echo selecionado("exibir", 25) ?> value="25">25 resultados por página</option>
@@ -287,8 +295,8 @@ function selecaoResultadosPorPagina ($registroInicial, $registroFinal=999)
 				</select>
 				<input type="submit" class="btn btn-success" value="Exibir" title="Filtrar Treinandos"/>
 				<p>
-					Exibindo de <?php echo $registroInicial ?>
-					a <?php echo $registroFinal ?>
+					Exibindo de <?php echo $vetorPaginacao['limites']['inicio']+1 ?>
+					a <?php echo $ultimoRegistroExibido ?>
 				</p>
 			</form>
 		</p>
@@ -334,48 +342,18 @@ function criarLinkOrdenacao ($atributo, $nomeCampo)
 <?php
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 Define ordenação
-montar ordenacao e filtros
 */
-function defineOrdemPaginacao ($ordenacaoDefault='titulo')
+function defineOrdemPaginacao ($ordenacaoDefault='id')
 {
-	if ( !isset($_GET['chave_ordenacao']) || $_GET['chave_ordenacao']==$ordenacaoDefault ) {
-		$_GET['chave_ordenacao'] = "{$ordenacaoDefault}";
-		$ordenacao = "UPPER({$ordenacaoDefault})";
-	} else {
-		// switch ( $_GET['chave_ordenacao'] ) { # ordenação alternativa
-			// default:
-				$ordenacao = $_GET['chave_ordenacao'];
-			// break;
-		// }
-	}
+	if ( isset($_GET['chave_ordenacao']) )
+		$ordenacao = $_GET['chave_ordenacao'];
+	else
+		$ordenacao = $ordenacaoDefault;
+		// $_GET['chave_ordenacao'] = $ordenacaoDefault;
+		// $ordenacao = "UPPER({$ordenacaoDefault})";
+
 
 	if ( isset($_GET['ordem']) && $_GET['ordem']=="desc" )
 		$ordenacao .= " DESC";

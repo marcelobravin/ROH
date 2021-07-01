@@ -158,7 +158,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 	# Gera campos
 	$registro = null;
 	if ( isset($_GET['codigo']) ) {
-		$esconder[] = 'id'; # tansforma em hidden
+		$esconder[] = 'id'; # transforma em hidden
 
 		$registro = $db->selecionar($MODULO, array('id'=> $_GET['codigo']) );
 
@@ -230,9 +230,7 @@ function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels
 
 /**
  * Transforma uma descrição de tabela em inputs
- * @package grimoire/bibliotecas/formularios.php
- * @version 05-07-2015
- *
+ * @package grimoire/bibliotecas/formularios.phpgerarCampos
  * @param	string
  * @return	bool
  *

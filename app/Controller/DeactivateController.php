@@ -15,9 +15,9 @@ if ( $rowCount == 1 ) {
 	} else {
 		$_SESSION['mensagem'] = "Usuário {$_GET['id']} desativado com sucesso!";
 	}
-	header('Location: ../../list.php');
+	header('Location: ../../lista.php?modulo=usuario');
 	exit;
 } else {
 	echo "Erro ao desativar o usuário: ". $_GET['id'];
-	echo '<p><a href="../../list.php">Voltar</a></p>';
+	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 }

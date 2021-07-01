@@ -2,6 +2,8 @@
 	include 'config.php';
 
 	include ROOT.'app/Controller/ListController.php';
+	require 'app/lib/vetores.php';
+
 ?><!DOCTYPE html>
 <html lang="pt-br">
 	<head>

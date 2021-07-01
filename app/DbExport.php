@@ -1,6 +1,8 @@
 <?php
 include '../config.php';
 
+# http://localhost/ROH/app/DbExport.php
+
 # remover antes de colocar em produção !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 require ROOT.'/model/database.class.php';
 

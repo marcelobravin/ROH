@@ -36,4 +36,4 @@ if ( empty($user) ) {
 
 }
 
-echo '<p><a href="../../list.php">Voltar</a></p>';
+echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';

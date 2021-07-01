@@ -16,7 +16,7 @@ $id = $db->inserir('usuarios', $values);
 
 if (is_numeric($id) && $id > 0) {
 	$_SESSION['mensagem'] = "Inserido registro número:". $id;
-	header('Location: ../../list.php');
+	header('Location: ../../lista.php?modulo=usuario');
 	exit;
 } else {
 
@@ -50,5 +50,5 @@ function contem($agulha, $palheiro) {
 ?>
 
 <p>
-	<a href="../../list.php">voltar</a>
+	<a href="../../lista.php?modulo=usuario">voltar</a>
 </p>

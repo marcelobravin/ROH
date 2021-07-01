@@ -59,7 +59,7 @@ if ( empty($user) ) {
 
 
 
-echo '<p><a href="../../list.php">Voltar</a></p>';
+echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 
@@ -77,11 +77,11 @@ $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senh
 $enviarEmail = enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "Automatico");
 if ( $enviarEmail == 1 ) {
 	$_SESSION['mensagem'] = "Email enviado para o usuário {$_GET['id']} com sucesso!";
-	header('Location: '. ROOT .'list.php');
+	header('Location: '. ROOT .'lista.php?modulo=usuario');
 	exit;
 } else {
 	echo "Erro ao enviar email para o usuário: ". $user['login'];
-	echo '<p><a href="../../list.php">Voltar</a></p>';
+	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 	/* em ambiente de teste exibir conteúdo do email */
