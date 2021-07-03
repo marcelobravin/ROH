@@ -2,11 +2,10 @@
 Relatório de Ocupação Hospitalar
 
 # Migração
-http://localhost/DIRETORIO/ROH/app/DbExport.php
-http://localhost/DIRETORIO/ROH/app/DbImport.php
+Ponto de exportação de BD - http://localhost/roh/app/DbExport.php
+Ponto de importação de BD - http://localhost/roh/app/DbImport.php
+Ponto de geração de formularios - http://localhost/roh/app/FormGenerate.php
 
-$db->begintransaction
-$rollback
 
 # Features
 senha criptografada
@@ -24,47 +23,32 @@ lista de usuários não permite excluir o próprio usuário logado
 credenciais de DB em arquivo .env
 bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
 log operações
-ponto de exportação/importação de BD
+paginação nas listas
+
 
 
 # TODO
-php 8
+Módulo de definição de metas (associação): escolhe hospital depois escolhe elementos a vincular, define metas
+Módulo preencher metas: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
+validar email na tela de esqueci a senha
+bloquear usuarios não logados
 não mudar email de usuário na tela de atualizar senha
 informar alterações não salvas em formulários ao recarregar ou fechar
-sincronização de dados
+sincronização de dados offline
 tempo de sessão
 token de sessão
 Tempo expiração de token
-paginação nas listas
 OK - envio de email
 salvar em pdf
 exclusão if not cascade
-criar
-	modulo categoria
-	módulo elementos
-	modulo metas
-	front
-Módulo hospital, categoria, elemento
-Módulo de associação: escolhe hospital depois escolhe elementos a vincular, define metas
-Módulo preencher: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
+tempo de hash no caso de usuario incorreto
+
+Módulo categoria, elemento
 Excluir usuário se e-mail não foi validado
-corrigir reset de senha
-	sem senha mínima
+
+reset de senha
+	sem senha mímina
 	corrigir regxep símbolos
-		match(/[!@#$%&*-_]/)
-criar função colocar em produção
-apaga diretorios de saída
-trunca banco
-faz inserts básicos
-apaga DbExport
-[var get debug] || .env debug
-	problema em produção
-acessar lista de logs
 
-
-colocar return false
-	$indice = existeIndice($campo['Field'], $conversoes);
-		if ( $indice != -1 ) {
-
-
-exportar daods de formularios
+testar envio de email
+registrar exclusão lógica

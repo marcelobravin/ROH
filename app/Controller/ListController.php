@@ -1,9 +1,9 @@
 <?php
-require ROOT.'/model/database.class.php';
+require ROOT.'/app/model/database.class.php';
 
 $db  = new Database();
 
 $condicoes = array(
 	// 'login' => $_POST['login']
 );
-$users = $db->selecionar('usuarios', $condicoes);
+$users = $db->selecionar('usuario', $condicoes);

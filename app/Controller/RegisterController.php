@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 
-require '../../model/database.class.php';
+require '../../app/model/database.class.php';
 require '../../model/security.class.php';
 
 $sec	= new Security();
@@ -11,7 +11,7 @@ $values = array(
 	'login' => $_POST['login'],
 	'senha' => $sec->criptografar($_POST['senha'])
 );
-$id = $db->inserir('usuarios', $values);
+$id = $db->inserir('usuario', $values);
 
 
 if (is_numeric($id) && $id > 0) {

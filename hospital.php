@@ -1,7 +1,7 @@
 <?php
 	include 'config.php';
 
-	require 'model/database.class.php'; // para teste
+	require 'app/model/database.class.php'; // para teste
 
 	require 'app/lib/paginacao.php';
 	require 'app/lib/html.php';

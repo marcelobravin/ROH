@@ -1,14 +1,14 @@
 <?php
 include '../../config.php';
 
-require '../../model/database.class.php';
+require '../../app/model/database.class.php';
 
 $db = new Database();
 
 $condicoes = array(
 	'login' => $_POST['login']
 );
-$user = $db->selecionar('usuarios', $condicoes);
+$user = $db->selecionar('usuario', $condicoes);
 
 
 if ( empty($user) ) {
@@ -80,7 +80,8 @@ echo date('h:i:s') . "\n"; // de volta!
 	gravarLog(1, "U", "produto", 15);
 	registrarOperacao("15", "C/R/U/D", "produto", "29");
  */
-function registrarAcesso($usuarioId, $ip, $browser, $sucesso=true) {
+function registrarAcesso ($usuarioId, $ip, $browser, $sucesso=true)
+{
 	$browser = json_encode($browser);
 	return "INSERT INTO _log_acesso (usuarioId, sucesso, ip, navegador)
 		VALUES ($usuarioId, $sucesso, '$ip', '$browser')
@@ -102,7 +103,8 @@ function registrarAcesso($usuarioId, $ip, $browser, $sucesso=true) {
 	gravarLog(1, "U", "produto", 15);
 	registrarOperacao("15", "C/R/U/D", "produto", "29");
  */
-function registrarOperacao ($acao, $tabela, $recursoId) {
+function registrarOperacao ($acao, $tabela, $recursoId)
+{
 
 	$sql = "CREATE TABLE IF NOT EXISTS _log_operacoes (
 		id			INT(11)		PRIMARY KEY AUTO_INCREMENT,
@@ -130,7 +132,8 @@ function registrarOperacao ($acao, $tabela, $recursoId) {
  *
  * @uses	$_SERVER
  */
-function identificarIP () {
+function identificarIP ()
+{
 	if ( isset($_SERVER['HTTP_CLIENT_IP']) )			return $_SERVER['HTTP_CLIENT_IP'];
 	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	return $_SERVER['HTTP_CF_CONNECTING_IP']; # when behind cloudflare
 	else if( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )	return $_SERVER['HTTP_X_FORWARDED_FOR'];
@@ -148,7 +151,8 @@ function identificarIP () {
  *
  * @uses	$_SESSION
  */
-function verificarTempoAtividadeSessao () {
+function verificarTempoAtividadeSessao ()
+{
 	// Registra atividade da sessão
 	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) { // last request was more than 30 minutes ago
 		session_unset(); // unset $_SESSION variable for the run-time
@@ -165,7 +169,8 @@ function verificarTempoAtividadeSessao () {
 	}
 }
 
-function getBrowser () {
+function getBrowser ()
+{
 	$u_agent	= $_SERVER['HTTP_USER_AGENT'];
 	$bname		= 'Unknown';
 	$platform	= 'Unknown';
@@ -234,7 +239,8 @@ function getBrowser () {
 	);
 }
 
-function bloquearForcaBruta ($id, $db) {
+function bloquearForcaBruta ($id, $db)
+{
 
 	$newTime = strtotime('-15 minutes');
 	$dt = date('Y-m-d H:i:s', $newTime);

@@ -11,12 +11,12 @@ abstract class Connection {
 	protected $connection = null; // ------------------------------------------- private fica melhor?
 
 	public function __construct() {
-		$env = parse_ini_file(ROOT.".env");
+		// $env = parse_ini_file(ROOT.".env");
 
-		$this->user		= $env["USER"];
-		$this->password	= $env["PASSWORD"];
-		$this->host		= $env["HOST"];
-		$this->database	= $env["DBNAME"];
+		$this->user		= USER;
+		$this->password	= PASSWORD;
+		$this->host		= HOST;
+		$this->database	= DBNAME;
 	}
 
 	private function connect(){
@@ -30,6 +30,7 @@ abstract class Connection {
 			$this->connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
 		else
 			$this->connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
+
 		$this->connection->setAttribute(PDO::ATTR_ORACLE_NULLS	, PDO::NULL_EMPTY_STRING);
 		$this->connection->exec("SET CHARACTER SET utf8"); //  return all sql requests as UTF-8
 

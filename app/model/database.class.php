@@ -1,11 +1,14 @@
 <?php
-require_once ROOT.'model/connection.class.php';
-require_once ROOT.'model/queryBuilder.class.php';
-// require '../../config.php';
+require_once ROOT.'app/model/connection.class.php';
+require_once ROOT.'app/model/queryBuilder.class.php';
+
+// require_once '../model/connection.class.php';
+// require_once '../model/queryBuilder.class.php';
 
 class Database extends Connection {
 
-	public function __construct () {
+	public function __construct ()
+	{
 		parent::__construct(
 			getenv('HOST'),
 			getenv('DBNAME'),
@@ -14,7 +17,8 @@ class Database extends Connection {
 		);
 	}
 
-	function registrarLog ($acao, $tabela, $objetoId) {
+	function registrarLog ($acao, $tabela, $objetoId)
+	{
 
 		$values = array(
 			'usuarioId'	=> $_SESSION['user']['id'],
@@ -37,8 +41,8 @@ class Database extends Connection {
 	 *
 	 * @uses	persistencia.php->conPdo()
 	*/
-	function executarStmt ($sql, $valores, $processo="U/D", $transacao=false) {
-
+	function executarStmt ($sql, $valores, $processo="U/D", $transacao=false)
+	{
 		try {
 			$statement = parent::getConnection()->prepare($sql);
 			$interrogacoes = substr_count($sql, '?');
@@ -49,7 +53,7 @@ class Database extends Connection {
 				for ($i=0; $i<$interrogacoes; $i++) {
 					$statement->bindParam($i+1, $valores[$i]); // dá pra colocar verificação por tipo e tamanho // https://www.php.net/manual/pt_BR/pdo.constants.php
 				}
-				$statement->execute($valores);
+				$x = $statement->execute($valores);
 			} else {
 				$statement->execute();
 			}
@@ -83,7 +87,8 @@ class Database extends Connection {
 	);
 	echo "Inserido registro número:". inserir('usuarios', $values);
 	//*/
-	function inserir ($tabela, $campos) {
+	function inserir ($tabela, $campos)
+	{
 		$qb = new QueryBuilder();
 
 		try {
@@ -104,7 +109,8 @@ class Database extends Connection {
 	$user = selecionar('usuarios', $condicoes);
 	p($user);
 	//*/
-	function selecionar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*") {
+	function selecionar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
+	{
 		$qb = new QueryBuilder();
 		$stmt = $qb->selecaoStmt($tabela, $condicoes, $diretrizes, $colunas);
 		return $this->executarStmt($stmt, $condicoes, 'S');
@@ -122,7 +128,8 @@ class Database extends Connection {
 	);
 	echo "Registros alterados: ". atualizar('usuarios', $campos, $condicoes);
 	//*/
-	function atualizar ($tabela, $campos, $condicoes) {
+	function atualizar ($tabela, $campos, $condicoes)
+	{
 		$qb = new QueryBuilder();
 		$stmt = $qb->atualizacaoStmt($tabela, $campos, $condicoes);
 
@@ -141,7 +148,8 @@ class Database extends Connection {
 	);
 	echo "Registros excluídos: ". excluir('usuarios', $condicoes);
 	//*/
-	function excluir ($tabela, $condicoes) {
+	function excluir ($tabela, $condicoes)
+	{
 		$qb = new QueryBuilder();
 		$stmt = $qb->exclusaoStmt($tabela, $condicoes);
 		return $this->executarStmt($stmt, $condicoes);
@@ -161,8 +169,8 @@ class Database extends Connection {
 	 * @todo    retornar confirmação de arquivos criados
 	 * @todo    opcao para definir se e quais inserts serão gerados
 	 */
-	function mapeamentoRelacional ($dbname) {
-
+	function mapeamentoRelacional ($dbname, $diretorio)
+	{
 		if ( empty($dbname) )
 			throw new Exception('DbName vazio.');
 
@@ -171,8 +179,8 @@ class Database extends Connection {
 
 		foreach ($tabs as $key => $value) {
 			$d = $this->descreverTabela($value['Tables_in_'. $dbname]);
-			$this->gerarModelo($value['Tables_in_'. $dbname], $d);
-			$this->gerarInserts($value['Tables_in_'. $dbname]);
+			$this->gerarModelo($value['Tables_in_'. $dbname], $d, $diretorio);
+			$this->gerarInserts($value['Tables_in_'. $dbname], $diretorio);
 		}
 		return true;
 	}
@@ -188,8 +196,8 @@ class Database extends Connection {
 	 * @example
 		$descricao = descreverTabela("tabela");
 	*/
-	function descreverTabela($tabela, $banco=null) {
-
+	function descreverTabela($tabela, $banco=null)
+	{
 		if ( is_null($banco) ) {
 			$sql = "SHOW COLUMNS FROM $tabela";
 			} else {
@@ -210,7 +218,8 @@ class Database extends Connection {
 	 * @uses    tempo.php->agora()
 	 * @uses    arquivos.php->escrever()
 	 */
-	function gerarModelo($nome, $descricao, $diretorioDestino='/opt/lampp/htdocs/ROH/_arquivos_auto_gerados/modelos') {
+	function gerarModelo($nome, $descricao, $diretorioDestino='/opt/lampp/htdocs/roh/_arquivos_auto_gerados/modelos')
+	{
 		$campos = '';
 		foreach ($descricao as $key => $value) {
 			$campos .= '
@@ -253,7 +262,8 @@ class Database extends Connection {
 	 * @uses    sql.php->insercao()
 	 * @uses    GRIMOIRE."modelos/registros/"
 	 */
-	function gerarInserts($tabela, $diretorioDestino='/opt/lampp/htdocs/ROH/_arquivos_auto_gerados/modelos') {
+	function gerarInserts($tabela, $diretorioDestino='/opt/lampp/htdocs/roh/_arquivos_auto_gerados/modelos')
+	{
 		// $sql = $this->selecionar($tabela);
 		$registros = $this->selecionar($tabela);
 		$inserts = "";
@@ -264,7 +274,7 @@ class Database extends Connection {
 			$inserts .= ";\n";
 		}
 
-		$this->escrever( $diretorioDestino. "/{$tabela}.sql", $inserts, true);
+		escrever( $diretorioDestino. "/{$tabela}.sql", $inserts, true);
 	}
 
 	/**
@@ -280,27 +290,28 @@ class Database extends Connection {
 	 * @example
 		//echo $sql = montarInsercao("usuarios", array("nome"=>"jose"));
 	*/
-	function insercao($tabela, $campos) {
-		$sql       = "";
-		$valores   = array();
-		$atributos = array();
+	function insercao($tabela, $campos)
+	{
+		$sql = "";
+		$valores	= array();
+		$atributos	= array();
 
 		if (is_array($campos)) {
 			foreach ($campos as $indice => $valor) {
 				$valor = str_replace("'", "&apos;", $valor);
 				if (is_array($valor)) {
-					$temp  = insercao($valor, $indice, $tabela);
+					$temp = insercao($valor, $indice, $tabela);
 					$sql[] = $temp[0];
 				} else if (!is_numeric($indice)) {
 					$atributos[] = "`$indice`";
-					$valores[]   = "'$valor'";
+					$valores[] = "'$valor'";
 				}
 			}
 		}
 
-		$atributos = implode(", ", $atributos);
-		$valores   = implode(", ", $valores);
-		$sql     = "INSERT INTO `$tabela` ($atributos) VALUES ($valores)";
+		$atributos	= implode(", ", $atributos);
+		$valores	= implode(", ", $valores);
+		$sql = "INSERT INTO `$tabela` ($atributos) VALUES ($valores)";
 
 		return $sql;
 	}

@@ -1,13 +1,13 @@
 <?php
 include '../../config.php';
 
-require '../../model/database.class.php';
+require '../../app/model/database.class.php';
 
 $db = new Database();
 $campos = array(
 	'ativo' => $_GET['ativo']
 );
-$rowCount = $db->atualizar('usuarios', $campos, ['id' => $_GET['id']]);
+$rowCount = $db->atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 if ( $rowCount == 1 ) {
 	if ( $_GET['ativo'] ) {

@@ -18,7 +18,7 @@
 		echo a("link", null);
 		echo a("link");
  */
-function a($conteudo="", $href="#", $atributos=array())
+function a ($conteudo="", $href="#", $atributos=array())
 {
 	if (is_null($href)) $href = "javascript:void(0)";
 	$atributos = gerarAtributos($atributos);
@@ -41,7 +41,7 @@ function a($conteudo="", $href="#", $atributos=array())
  * @uses	html.php->gerarBloco()
  * @example
  */
-function body($atributos=array())
+function body ($atributos=array())
 {
 	return gerarBloco("body", $atributos);
 }
@@ -54,7 +54,7 @@ function body($atributos=array())
  * @param	string
  * @return	void
  */
-function br()
+function br ()
 {
 	echo "<br>";
 }
@@ -71,7 +71,7 @@ function br()
  * @example
 		echo checkbox("termos", "1", true);
  */
-function checkbox($nome, $valor="", $selecionado=false, $atributos=array())
+function checkbox ($nome, $valor="", $selecionado=false, $atributos=array())
 {
 	return box("checkbox", $nome, $valor, $selecionado, $atributos);
 }
@@ -89,7 +89,7 @@ function checkbox($nome, $valor="", $selecionado=false, $atributos=array())
 		$lista = dl("menu");
 		exibir($lista);
  */
-function dl2($atributos=array())
+function dl2 ($atributos=array())
 {
 	return gerarBloco("dl", $atributos);
 }
@@ -107,7 +107,7 @@ function dl2($atributos=array())
 		$lista = dt("menu");
 		exibir($lista);
  */
-function dt($atributos=array())
+function dt ($atributos=array())
 {
 	return gerarBloco("dt", $atributos);
 }
@@ -125,7 +125,7 @@ function dt($atributos=array())
 		$lista = dd("menu");
 		exibir($lista);
  */
-function dd($atributos=array())
+function dd ($atributos=array())
 {
 	return gerarBloco("dt", $atributos);
 }
@@ -143,7 +143,7 @@ function dd($atributos=array())
 		exibir(div("active"));
 		exibir(div(array("border", "width"=>"200")));
  */
-function div($atributos=array())
+function div ($atributos=array())
 {
 	return gerarBloco("div", $atributos);
 }
@@ -156,7 +156,7 @@ function div($atributos=array())
  * @param	string
  * @return	string
  */
-function embed($url="http://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
+function embed ($url="http://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
 {
 	return "<embed src='{$url}' pluginspage='http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='100%' height='100%'></embed>";
 }
@@ -172,7 +172,7 @@ function embed($url="http://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
  * @example
 		echo favicon();
  */
-function favicon($icone="favicon.ico")
+function favicon ($icone="favicon.ico")
 {
 	return "<link rel='icon' type='image/x-icon' href='$icone' />";
 }
@@ -191,7 +191,7 @@ function favicon($icone="favicon.ico")
 		$field = criarField("Campos", "classe");
 		echo $field[0] . $field[1];
  */
-function fieldset($legenda="", $atributos=array())
+function fieldset ($legenda="", $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	$fields		= array();
@@ -213,7 +213,7 @@ function fieldset($legenda="", $atributos=array())
 		echo file2("foro", null, "image/*", true);
  * @internal Cannot redeclare file
  */
-function file2($nome, $atributos=array(), $formato="*", $multiplo=false)
+function file2 ($nome, $atributos=array(), $formato="*", $multiplo=false)
 {
 	$atributos = gerarAtributos($atributos);
 
@@ -237,7 +237,7 @@ function file2($nome, $atributos=array(), $formato="*", $multiplo=false)
  * @example
 		exibir(form("#", null, true));
  */
-function form($acao="", $metodo="", $enctype=false, $atributos=array())
+function form ($acao="", $metodo="", $enctype=false, $atributos=array())
 {
 	if (!is_array($atributos)) {
 			$aux = $atributos;
@@ -266,7 +266,7 @@ function form($acao="", $metodo="", $enctype=false, $atributos=array())
  * @example
 		echo h("Welcome", 6, "ala");
  */
-function h($conteudo="", $numero=1, $atributos=array())
+function h ($conteudo="", $numero=1, $atributos=array())
 {
 	$numero = limitarNumero($numero, 1, 6);
 	return gerarElemento("h{$numero}", $conteudo, $atributos);
@@ -283,7 +283,7 @@ function h($conteudo="", $numero=1, $atributos=array())
  * @example
 		echo h1("Welcome", "classe");
  */
-function h1($titulo="", $atributos=array())
+function h1 ($titulo="", $atributos=array())
 {
 	return h($titulo, 1, $atributos);
 }
@@ -299,7 +299,7 @@ function h1($titulo="", $atributos=array())
  * @example
 		echo h2("Welcome", "classe");
  */
-function h2($titulo="", $atributos=array())
+function h2 ($titulo="", $atributos=array())
 {
 	return h($titulo, 2, $atributos);
 }
@@ -315,7 +315,7 @@ function h2($titulo="", $atributos=array())
  * @example
 		echo h3("Welcome", "classe");
  */
-function h3($titulo="", $atributos=array())
+function h3 ($titulo="", $atributos=array())
 {
 	return h($titulo, 3, $atributos);
 }
@@ -331,7 +331,7 @@ function h3($titulo="", $atributos=array())
  * @example
 		echo h4("Welcome", "classe");
  */
-function h4($titulo="", $atributos=array())
+function h4 ($titulo="", $atributos=array())
 {
 	return h($titulo, 4, $atributos);
 }
@@ -347,7 +347,7 @@ function h4($titulo="", $atributos=array())
  * @example
 		echo h5("Welcome", "classe");
  */
-function h5($titulo="", $atributos=array())
+function h5 ($titulo="", $atributos=array())
 {
 	return h($titulo, 5, $atributos);
 }
@@ -363,7 +363,7 @@ function h5($titulo="", $atributos=array())
  * @example
 		echo h6("Welcome", "classe");
  */
-function h6($titulo="", $atributos=array())
+function h6 ($titulo="", $atributos=array())
 {
 	return h($titulo, 6, $atributos);
 }
@@ -379,7 +379,7 @@ function h6($titulo="", $atributos=array())
  * @uses	html.php->gerarBloco()
  * @example
  */
-function head($atributos=array())
+function head ($atributos=array())
 {
 	return gerarBloco("head", $atributos);
 }
@@ -396,7 +396,7 @@ function head($atributos=array())
  * @example
 		echo hidden("codigo", "1047");
  */
-function hidden($nome, $valor="", $atributos=array())
+function hidden ($nome, $valor="", $atributos=array())
 {
 	return gerarInput("hidden", $nome, $valor, $atributos);
 }
@@ -413,7 +413,7 @@ function hidden($nome, $valor="", $atributos=array())
  * @example
 		exibir(html());
  */
-function html($atributos=array())
+function html ($atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	$input[0] = "<!DOCTYPE html>\n";
@@ -433,7 +433,7 @@ function html($atributos=array())
  * @uses	html.php->gerarAtributos()
  * @example
  */
-function iframe($iframe="http://hastaluego1.tempsite.ws/luego_labs/ace-of-space/WebPlayer/WebPlayer.html", $atributos="")
+function iframe ($iframe="http://hastaluego1.tempsite.ws/luego_labs/ace-of-space/WebPlayer/WebPlayer.html", $atributos="")
 {
 	$atributos = gerarAtributos($atributos);
 	return "<iframe src='$iframe' $atributos></iframe>";
@@ -453,7 +453,7 @@ function iframe($iframe="http://hastaluego1.tempsite.ws/luego_labs/ace-of-space/
  * @example
 		echo img("a.jpg", array("classe", "title"=>"titulo", "alt"=>"conteudo alternativo"), false);
  */
-function img($arquivo, $atributos=array(), $proteger=true)
+function img ($arquivo, $atributos=array(), $proteger=true)
 {
 	return exibirImagem($arquivo, $atributos, "img", $proteger);
 }
@@ -471,7 +471,7 @@ function img($arquivo, $atributos=array(), $proteger=true)
 		echo label("endereço", null, true);
 		exibir(label());
  */
-function label($texto, $campo=null, $atributos=array(), $obrigatorio=false)
+function label ($texto, $campo=null, $atributos=array(), $obrigatorio=false)
 {
 	if (is_null($campo)) {
 		return gerarBloco("label", $atributos);
@@ -481,8 +481,7 @@ function label($texto, $campo=null, $atributos=array(), $obrigatorio=false)
 		if ($obrigatorio)
 			$marcador .= " *";
 
-		#$label = "<label for='$campo' $atributos>$texto". $marcador ."</label>";
-			 $label = '<label for="'.$campo.'" '.$atributos.'>'.$texto.''. $marcador .'</label>';
+		$label = '<label for="'.$campo.'"'.$atributos.'>'.$texto.''. $marcador .'</label>';
 
 		return $label;
 	}
@@ -501,7 +500,7 @@ function label($texto, $campo=null, $atributos=array(), $obrigatorio=false)
 		$item = li("classe");
 		exibir($item);
  */
-function li($atributos=array())
+function li ($atributos=array())
 {
 	return gerarBloco("li", $atributos);
 }
@@ -519,7 +518,7 @@ function li($atributos=array())
  * @example
 		echo link2("css.css");
  */
-function link2($arquivo="css.css", $midia="all")
+function link2 ($arquivo="css.css", $midia="all")
 {
 	return "<link href='$arquivo' rel='stylesheet' type='text/css' media='$midia' />";
 }
@@ -536,7 +535,7 @@ function link2($arquivo="css.css", $midia="all")
  * @example
 		echo meta("Content-type", "text/html; charset=utf-8");
  */
-function meta($tipo, $valor)
+function meta ($tipo, $valor)
 {
 	return "<meta http-equiv='$tipo' content='$valor' />";
 }
@@ -554,7 +553,7 @@ function meta($tipo, $valor)
 		$lista = ol("menu");
 		exibir($lista);
  */
-function ol($atributos=array())
+function ol ($atributos=array())
 {
 	return gerarBloco("ol", $atributos);
 }
@@ -571,7 +570,7 @@ function ol($atributos=array())
  * @example
 		echo option(1, "SP", true);
  */
-function option($valor="", $indice="", $selecionado=false, $atributos=array())
+function option ($valor="", $indice="", $selecionado=false, $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	if ($selecionado) {
@@ -592,7 +591,7 @@ function option($valor="", $indice="", $selecionado=false, $atributos=array())
  * @uses	html.php->gerarAtributos()
  * @example
  */
-function optiongroup($label="", $atributos=array())
+function optiongroup ($label="", $atributos=array())
 {
 	$optionGroup = array();
 	$atributos = gerarAtributos($atributos);
@@ -612,7 +611,7 @@ function optiongroup($label="", $atributos=array())
  * @example
 		echo p("Meu paragrafo");
  */
-function p($conteudo, $atributos=array())
+function p ($conteudo, $atributos=array())
 {
 	return gerarElemento("p", $conteudo, $atributos);
 }
@@ -629,7 +628,7 @@ function p($conteudo, $atributos=array())
  * @example
 		echo password("nome", "Décio Pinto", array("-data" => "1"));
  */
-function password($nome, $valor="", $atributos=array())
+function password ($nome, $valor="", $atributos=array())
 {
 	return gerarInput("password", $nome, $valor, $atributos);
 }
@@ -645,7 +644,7 @@ function password($nome, $valor="", $atributos=array())
  * @uses	html.php->gerarBloco()
  * @example
  */
-function pre($atributos=array())
+function pre ($atributos=array())
 {
 	return gerarBloco("pre", $atributos);
 }
@@ -662,7 +661,7 @@ function pre($atributos=array())
  * @example
 		echo radio("termos", "1", true);
  */
-function radio($nome, $valor="", $selecionado=false, $atributos=array())
+function radio ($nome, $valor="", $selecionado=false, $atributos=array())
 {
 	return box("radio", $nome, $valor, $selecionado, $atributos);
 }
@@ -680,7 +679,7 @@ function radio($nome, $valor="", $selecionado=false, $atributos=array())
 		echo reset2();
  * @internal Cannot redeclare reset
  */
-function reset2($valor="Limpar", $nome="reset", $atributos=array())
+function reset2 ($valor="Limpar", $nome="reset", $atributos=array())
 {
 	return gerarInput("reset", $nome, $valor, $atributos);
 }
@@ -697,7 +696,7 @@ function reset2($valor="Limpar", $nome="reset", $atributos=array())
  * @example
 		exibir(select("estado", "classe"));
  */
-function select($nome, $atributos=array(), $multiplo=false)
+function select ($nome, $atributos=array(), $multiplo=false)
 {
 	$input		 = array();
 	$atributos = gerarAtributos($atributos);
@@ -723,7 +722,7 @@ function select($nome, $atributos=array(), $multiplo=false)
  * @uses	html.php->gerarAtributos()
  * @example
  */
-function skype($conteudo="", $href="#", $atributos=array())
+function skype ($conteudo="", $href="#", $atributos=array())
 {
 	return "
 		<a href='callto://+***********'>Link will initiate Skype to call my number!</a>
@@ -743,7 +742,7 @@ function skype($conteudo="", $href="#", $atributos=array())
  * @example
 		echo span("Meu span");
  */
-function span($conteudo, $atributos=array())
+function span ($conteudo, $atributos=array())
 {
 	return gerarElemento("span", $conteudo, $atributos);
 }
@@ -760,7 +759,7 @@ function span($conteudo, $atributos=array())
  * @example
 		echo submit("Enviar");
  */
-function submit($valor="Enviar", $nome="submit", $atributos=array())
+function submit ($valor="Enviar", $nome="submit", $atributos=array())
 {
 	return gerarInput("submit", $nome, $valor, $atributos);
 }
@@ -777,7 +776,7 @@ function submit($valor="Enviar", $nome="submit", $atributos=array())
  * @example
 		exibir(table("class", "titulo", "descricao"));
  */
-function table($atributos=array(), $titulo="", $descricao="")
+function table ($atributos=array(), $titulo="", $descricao="")
 {
 	$atributos = gerarAtributos($atributos);
 	$tabela = array();
@@ -809,7 +808,7 @@ function table($atributos=array(), $titulo="", $descricao="")
 		$matriz[] = array("zé2", "zemane@ze.com", "carpidor");
 		echo tbody($matriz);
  */
-function tbody($matriz=array(array()), $atributos=array())
+function tbody ($matriz=array(array()), $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 
@@ -850,7 +849,7 @@ function tbody($matriz=array(array()), $atributos=array())
  * @example
 		echo text("nome", "Jacinto Carvalho", array("maxlength" => "10", "clientePreferencial"));
  */
-function text($nome, $valor="", $atributos=array())
+function text ($nome, $valor="", $atributos=array())
 {
 	return gerarInput("text", $nome, $valor, $atributos);
 }
@@ -869,7 +868,7 @@ function text($nome, $valor="", $atributos=array())
  * @example
 		echo textarea("nome", "conteudo", array("obrigatorio", "width"=> "200px"));
  */
-function textarea($nome="", $conteudo="", $atributos=array())
+function textarea  ($nome="", $conteudo="", $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	return "<textarea name='$nome' id='$nome' $atributos />$conteudo</textarea>";
@@ -888,7 +887,7 @@ function textarea($nome="", $conteudo="", $atributos=array())
  * @example
 		echo thead(array("a", "b", "c"), "classe");
  */
-function thead($headers=array(), $atributos=array())
+function thead ($headers=array(), $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	$tabela = "";
@@ -915,7 +914,7 @@ function thead($headers=array(), $atributos=array())
  * @example
 		echo title("Meu Site");
  */
-function title($titulo)
+function title ($titulo)
 {
 	return gerarElemento("title", $titulo);
 }
@@ -933,7 +932,7 @@ function title($titulo)
 		$lista = ul("menu");
 		exibir($lista);
  */
-function ul($atributos=array())
+function ul ($atributos=array())
 {
 	return gerarBloco("ul", $atributos);
 }

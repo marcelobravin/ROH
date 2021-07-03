@@ -1,27 +1,39 @@
-$(document).on( "change, keyup, mousemove", "input", function(){
-    check()
-})
-
-function check() {
-    if (
-        $("#login").val() == ''
-        ||
-        $("#senha").val() == ''
-    ) {
-        $(":submit").attr("disabled", "disabled")
-    } else {
-        $(":submit").removeAttr("disabled")
-    }
-}
+// Efeito mostrar botão de enviar
 
 $(document).ready(function(){
-    $("#reveal").click(function(){
-        if ( $(this).attr("src") == "public/img/eye-view.png") {
-            $(this).attr("src", "public/img/eye-hide.png")
-            $("#senha").attr("type", "text")
-        } else {
-            $(this).attr("src", "public/img/eye-view.png")
-            $("#senha").attr("type", "password")
-        }
-    })
+    if($("#login").val() != "" && $("#senha").val() != ""){
+        $(":submit").removeAttr("disabled");
+        $(":submit").css("opacity", "1");
+    }
+    else{
+        $(":submit").attr("disabled", "disabled");
+        $(":submit").css("opacity", "0");
+    }
+})
+
+$("input").on("input", function(){
+    if ($("#login").val() != "" && $("#senha").val() != "") {
+        $(":submit").removeAttr("disabled");
+        $(":submit").css("opacity", "1");
+    } else {
+        $(":submit").attr("disabled", "disabled");
+        $(":submit").css("opacity", "0");
+    }
+})
+
+// Efeito botão revelar senha
+
+$("label + i").on("click", function(){
+    $(this).toggleClass("fa-eye-slash");
+    $("#senha").attr("type") == "password"
+		? $("#senha").attr("type", "text")
+		: $("#senha").attr("type", "password");
+})
+
+// Efeito Parallax
+
+$(window).mousemove(function(event){
+    let posicaoX = event.pageX * 0.005;
+    let posicaoY = event.pageY * 0.005;
+    $("body").css({"background-position-x": posicaoX, "background-position-y": posicaoY});
 })

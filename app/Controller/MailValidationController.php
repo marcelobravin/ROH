@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 
-require ROOT.'model/database.class.php';
+require ROOT.'app/model/database.class.php';
 
 
 if ( !isset($_GET['id']) ) {
@@ -15,7 +15,7 @@ $condicoes = array(
 	'id'	=> $_GET['id'],
 	'token'	=> $_GET['token']
 );
-$user = $db->selecionar('usuarios', $condicoes);
+$user = $db->selecionar('usuario', $condicoes);
 
 if ( empty($user) ) {
 	echo "Token inválido!";
@@ -26,7 +26,7 @@ if ( empty($user) ) {
 		'email_confirmado'	=> true,
 		'token'				=> ''
 	);
-	$rowCount = $db->atualizar('usuarios', $campos, ['id' => $_GET['id']]);
+	$rowCount = $db->atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 	if ( $rowCount == 0 ) {
 		echo "Erro ao validar email!";

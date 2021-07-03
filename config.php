@@ -1,6 +1,6 @@
 <?php
+define('PROJECT_FOLDER'	, 'PROJETOS/roh/');
 define('PRODUCAO'		, false);
-define('PROJECT_FOLDER'	, 'ROH');
 
 
 if ( PRODUCAO ) {
@@ -14,11 +14,22 @@ if ( PRODUCAO ) {
 
 
 define('WEB_SERVER_ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('ROOT'           , WEB_SERVER_ROOT .'/'. PROJECT_FOLDER .'/' );
+// define('ROOT'           , WEB_SERVER_ROOT .'/'. PROJECT_FOLDER .'/' ); # linux
+// define('ROOT'           , $_SERVER['SERVER_NAME'] .'/'. PROJECT_FOLDER); # windows
+define('ROOT'           , 'C:\\xampp\\htdocs\\'. PROJECT_FOLDER); # windows
 
 
 
-$env = parse_ini_file(ROOT ."/.env"); #----------------------------------------- credenciais de DB
+$env = parse_ini_file(".env"); #----------------------------------------- credenciais de DB
+define( "DBNAME"	, $env['DBNAME'] );
+define( "HOST"		, $env['HOST'] );
+define( "USER"		, $env['USER'] );
+define( "PASSWORD"	, $env['PASSWORD'] );
+
+
+define( "DB_CHARSET", "utf8" );
+define( "DB_COLLATE", "utf8_general_ci" );
+
 
 date_default_timezone_set('america/sao_paulo');
 session_start();

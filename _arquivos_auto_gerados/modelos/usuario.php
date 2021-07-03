@@ -1,6 +1,6 @@
 <?php
 			/**
-			 * hospital
+			 * usuario
 			 * @package grimoire/modelos
 			 * @version 03-07-2021 01:53:55
 			 */
@@ -17,8 +17,8 @@
 				);
 			
 				$campos[1] = array(
-					"Field"		=> "titulo",
-					"Type"		=> "char(255)",
+					"Field"		=> "login",
+					"Type"		=> "char(60)",
 					"Null"		=> "NO",
 					"Key"		=> "",
 					"Default"	=> "",
@@ -26,6 +26,33 @@
 				);
 			
 				$campos[2] = array(
+					"Field"		=> "senha",
+					"Type"		=> "char(60)",
+					"Null"		=> "NO",
+					"Key"		=> "",
+					"Default"	=> "",
+					"Extra"		=> ""
+				);
+			
+				$campos[3] = array(
+					"Field"		=> "email_confirmado",
+					"Type"		=> "tinyint(1)",
+					"Null"		=> "NO",
+					"Key"		=> "",
+					"Default"	=> "",
+					"Extra"		=> ""
+				);
+			
+				$campos[4] = array(
+					"Field"		=> "token",
+					"Type"		=> "varchar(255)",
+					"Null"		=> "YES",
+					"Key"		=> "",
+					"Default"	=> "",
+					"Extra"		=> ""
+				);
+			
+				$campos[5] = array(
 					"Field"		=> "ativo",
 					"Type"		=> "tinyint(1)",
 					"Null"		=> "NO",
@@ -34,7 +61,16 @@
 					"Extra"		=> ""
 				);
 			
-				$campos[3] = array(
+				$campos[6] = array(
+					"Field"		=> "reset",
+					"Type"		=> "varchar(50)",
+					"Null"		=> "YES",
+					"Key"		=> "",
+					"Default"	=> "",
+					"Extra"		=> ""
+				);
+			
+				$campos[7] = array(
 					"Field"		=> "criado_em",
 					"Type"		=> "timestamp",
 					"Null"		=> "NO",
@@ -43,7 +79,7 @@
 					"Extra"		=> ""
 				);
 			
-				$campos[4] = array(
+				$campos[8] = array(
 					"Field"		=> "atualizado_em",
 					"Type"		=> "timestamp",
 					"Null"		=> "YES",
@@ -52,7 +88,7 @@
 					"Extra"		=> "on update current_timestamp()"
 				);
 			
-				$campos[5] = array(
+				$campos[9] = array(
 					"Field"		=> "excluido_em",
 					"Type"		=> "timestamp",
 					"Null"		=> "YES",
@@ -61,7 +97,7 @@
 					"Extra"		=> ""
 				);
 			
-				$campos[6] = array(
+				$campos[10] = array(
 					"Field"		=> "criado_por",
 					"Type"		=> "int(11)",
 					"Null"		=> "NO",
@@ -70,7 +106,7 @@
 					"Extra"		=> ""
 				);
 			
-				$campos[7] = array(
+				$campos[11] = array(
 					"Field"		=> "atualizado_por",
 					"Type"		=> "int(11)",
 					"Null"		=> "YES",
@@ -79,7 +115,7 @@
 					"Extra"		=> ""
 				);
 			
-				$campos[8] = array(
+				$campos[12] = array(
 					"Field"		=> "excluido_por",
 					"Type"		=> "int(11)",
 					"Null"		=> "YES",

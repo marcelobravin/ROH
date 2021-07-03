@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 
-require ROOT.'model/database.class.php';
+require ROOT.'app/model/database.class.php';
 
 
 
@@ -23,7 +23,7 @@ $db = new Database();
 $condicoes = array(
 	'login' => $_POST['email']
 );
-$user = $db->selecionar('usuarios', $condicoes);
+$user = $db->selecionar('usuario', $condicoes);
 
 
 
@@ -45,7 +45,7 @@ if ( empty($user) ) {
 	$campos = array(
 		'reset'	=> $token
 	);
-	$rowCount = $db->atualizar('usuarios', $campos, ['id' => $user['id']]);
+	$rowCount = $db->atualizar('usuario', $campos, ['id' => $user['id']]);
 
 	if ( $rowCount == 0 ) {
 		echo "Erro ao validar email!";
@@ -66,7 +66,7 @@ echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 $assunto = "Redefinição de senha";
-$servidor = "http://localhost/ROH/";
+$servidor = "http://localhost/roh/";
 $endereco = "reset-senha.php?email=". $user['login'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senha</a>';
 

@@ -1,11 +1,11 @@
 <?php
 include '../../config.php';
 
-require '../../model/database.class.php';
+require '../../app/model/database.class.php';
 
 $db = new Database();
 
-$exclusao = $db->excluir('usuarios', ['id'=>$_GET['id']] );
+$exclusao = $db->excluir('usuario', ['id'=>$_GET['id']] );
 
 if ( $exclusao == 1 ) {
 	$_SESSION['mensagem'] = "Usuário {$_GET['id']} excluído com sucesso!";

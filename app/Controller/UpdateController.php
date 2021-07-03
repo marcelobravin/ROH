@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 
-require '../../model/database.class.php';
+require '../../app/model/database.class.php';
 
 $db = new Database();
 
@@ -15,13 +15,13 @@ $campos = array(
 	'login' => $_POST['login']
 	// 'senha' => $_POST['senha']
 );
-$rowCount = $db->atualizar('usuarios', $campos, ['id' => $_POST['id']]);
+$rowCount = $db->atualizar('usuario', $campos, ['id' => $_POST['id']]);
 
 
 if (is_numeric($rowCount) && $rowCount > 0) {
 	$_SESSION['mensagem'] = "Atualizado o registro número:". $_POST['id'];
 
-	$db->registrarLog('U', 'usuarios', $_POST['id']);
+	$db->registrarLog('U', 'usuario', $_POST['id']);
 	header('Location: ../../lista.php?modulo=usuario');
 	exit;
 } else {

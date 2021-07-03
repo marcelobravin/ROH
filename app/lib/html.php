@@ -12,7 +12,7 @@
  * @param	string
  * @return	string
  */
-function breadcrumb($paginas, $separador=" > ")
+function breadcrumb ($paginas, $separador=" > ")
 {
 	if (isset($paginas) && is_array($paginas)) {
 		$links = gerarBreadCrumb($paginas);
@@ -28,7 +28,7 @@ function breadcrumb($paginas, $separador=" > ")
  * @param	array
  * @return	array
  */
-function gerarBreadCrumb($paginas)
+function gerarBreadCrumb ($paginas)
 {
 	$total = count($paginas) -1;
 	foreach ($paginas as $key => $v) {
@@ -55,14 +55,14 @@ function gerarBreadCrumb($paginas)
  *
  * @uses	html.php->gerarAtributos()
  */
-function box($tipo="checkbox", $nome="", $valor="", $selecionado=false, $atributos=array())
+function box ($tipo="checkbox", $nome="", $valor="", $selecionado=false, $atributos=array())
 {
 	$atributos	= gerarAtributos($atributos);
-	$selecionado ? $selecionado = 'checked="checked"' : $selecionado = "";
+	$selecionado ? $selecionado = ' checked="checked"' : $selecionado = "";
 
 	$inputs = "<label>";
 	#$inputs .= "<input type='$tipo' name='$nome' id='$nome' value='$valor' $atributos $selecionado />";
-	$inputs .= '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
+	$inputs .= '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'" '.$atributos.''.$selecionado.' />';
 	is_numeric($valor)	? $inputs .= ucfirst($nome) : $inputs .= ucfirst($valor);
 	$inputs .= "</label>";
 	return $inputs;
@@ -78,7 +78,7 @@ function box($tipo="checkbox", $nome="", $valor="", $selecionado=false, $atribut
  *
  * @uses		html.php->gerarAtributos()
  */
-function checked($parametro, $alvo)
+function checked ($parametro, $alvo)
 {
 	return marcado($parametro, $alvo, true);
 }
@@ -95,7 +95,7 @@ function checked($parametro, $alvo)
  * @example
 		echo criarLista(array("a", "b", "c"), false);
  */
-function criarLista($itens=array(), $ordenada=false, $atributos=array())
+function criarLista ($itens=array(), $ordenada=false, $atributos=array())
 {
 	$atributo = gerarAtributos($atributos);
 	$lista		= concatenar($itens, "<li>", "</li>");
@@ -114,7 +114,7 @@ function criarLista($itens=array(), $ordenada=false, $atributos=array())
 	echo gerarCss();
 	echo "</head><body>Olá Mundo!";
  */
-function gerarCss()
+function gerarCss ()
 {
 	return '<link rel="stylesheet" href="css.php" type="text/css" />';
 }
@@ -132,12 +132,12 @@ function gerarCss()
 	echo gerarAtributos(array("width" => "300px")); // só atributo
 	echo gerarAtributos(array(1, "b"=>"BB")); // classe e atributo
  */
-function gerarAtributos($atributos=array())
+function gerarAtributos ($atributos=array())
 {
-	if (empty($atributos))
+	if ( empty($atributos) )
 		return "";
 
-	if (!is_array($atributos))
+	if ( !is_array($atributos) )
 		return 'class="'.$atributos.'"';
 
 	$array = array();
@@ -163,7 +163,7 @@ function gerarAtributos($atributos=array())
  * @uses		html.php->gerarAtributos()
  * @example
  */
-function gerarBloco($elemento, $atributos=array())
+function gerarBloco ($elemento, $atributos=array())
 {
 	$atributo = gerarAtributos($atributos);
 	$input[] = "<$elemento $atributo>";
@@ -186,7 +186,7 @@ function gerarBloco($elemento, $atributos=array())
  * @example
 		echo gerarElemento("a", "ola!", array("href"=>"#", "disabled"=>"disabled"));
  */
-function gerarElemento($elemento, $conteudo="", $atributos=array())
+function gerarElemento ($elemento, $conteudo="", $atributos=array())
 {
 	if (empty($conteudo)) return gerarBloco($elemento, $atributos);
 	$atributo = gerarAtributos($atributos);
@@ -205,10 +205,10 @@ function gerarElemento($elemento, $conteudo="", $atributos=array())
  * @uses		html.php->gerarAtributos()
  * @example
  */
-function gerarInput($tipo="text", $nome="", $valor="", $atributos=array())
+function gerarInput ($tipo="text", $nome="", $valor="", $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
-	return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'" '.$atributos.' />';
+	return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'"'.$atributos.' />';
 }
 
 /**
@@ -226,7 +226,7 @@ function gerarInput($tipo="text", $nome="", $valor="", $atributos=array())
 		$listaFolhas = incluirCss(array("style.css", "css.css"));
 		echo $listaFolhas[0] . $listaFolhas[1];
  */
-function incluirCss($arquivo=array(), $midia="all")
+function incluirCss ($arquivo=array(), $midia="all")
 {
 	$links = array();
 
@@ -253,7 +253,7 @@ function incluirCss($arquivo=array(), $midia="all")
  *
  * @return	array
  */
-function incluirFavicons()
+function incluirFavicons ()
 {
 	$favicon	 = array();
 	//<link href="../favicon.ico" rel="shortcut icon">
@@ -283,7 +283,7 @@ function incluirFavicons()
 	$listaScripts = incluirJs(array("js.js", "jQuery.js")); // Gera multiplos itens
 	exibir($listaScripts);
  */
-function incluirJs($arquivo=array())
+function incluirJs ($arquivo=array())
 {
 	$script = array();
 	if (is_array($arquivo)) {
@@ -312,7 +312,7 @@ function incluirJs($arquivo=array())
  * @example
 		exibir(gerarMetas("Página2"));
  */
-function gerarMetas($titulo="Página")
+function gerarMetas ($titulo="Página")
 {
 	$metas	= array();
 	$metas[] = '<meta http-equiv="Content-type" content="text/html; charset="'. CARACTERES .'" />';
@@ -363,7 +363,7 @@ function gerarMetas($titulo="Página")
 	//gerarPagina2($metas, array("!!!"), $folhaEstilo, $scriptsJs, $favicon); // Gera página com metas
 	gerarPagina2(null, array("!!!"), $folhaEstilo, $scriptsJs); // Gera página com metas
  */
-function gerarPagina($conteudoHead=array(), $conteudoBody=array(), $folhaEstilo=array(), $scriptsJs=array(), $favicon=array())
+function gerarPagina ($conteudoHead=array(), $conteudoBody=array(), $folhaEstilo=array(), $scriptsJs=array(), $favicon=array())
 {
 	// Se tiver scripts
 	if (!empty($scriptsJs)) {
@@ -406,7 +406,7 @@ function gerarPagina($conteudoHead=array(), $conteudoBody=array(), $folhaEstilo=
 	echo gerarSelect("Estado", array(1=>"SP", 2=>"RJ", 3=>"RR"), 2, "aha");
 	echo gerarSelect("Estado", array("SP", "RJ", "RR"), 2, "aha");
  */
-function gerarSelect($nome, $valores=array(), $valorSelecionado=null, $atributos=array())
+function gerarSelect ($nome, $valores=array(), $valorSelecionado=null, $atributos=array())
 {
 	$select = select($nome, $atributos);
 	$input	= $select[0];
@@ -428,7 +428,7 @@ function gerarSelect($nome, $valores=array(), $valorSelecionado=null, $atributos
 	echo gerarOptions(array("SP", "RJ", "MT"), 2);
 	echo gerarOptions(array(1=>"SP", 3=>"RJ", 2=>"MT"), 2);
  */
-function gerarOptions($valores=array(), $indiceSelecionado=null, $atributos=array())
+function gerarOptions ($valores=array(), $indiceSelecionado=null, $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	$options = "";
@@ -456,7 +456,7 @@ function gerarOptions($valores=array(), $indiceSelecionado=null, $atributos=arra
 	$campos = gerarRadio("sexo", array("Masc"=>"M", "Fem"=>"F"), "M");
 	echo implode("<br>", $campos);
  */
-function gerarRadio($nome, $valores=array(), $valorSelecionado=-1, $atributos=array())
+function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=array())
 {
 	$inputs = array();
 	$atributos = gerarAtributos($atributos);
@@ -495,7 +495,7 @@ function gerarRadio($nome, $valores=array(), $valorSelecionado=-1, $atributos=ar
 	exibir( gerarCheckbox("termos", array("Esporte", "Cinema", "Teatro"), array(2, 0)));
 	exibir(gerarCheckbox("termos", array("Esporte", "Cinema", "Teatro"), 1));
  */
-function gerarCheckbox($nome, $valores=array(), $valoresSelecionados=array(), $atributos=array())
+function gerarCheckbox ($nome, $valores=array(), $valoresSelecionados=array(), $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	if (is_array($valores)) {
@@ -535,7 +535,7 @@ function gerarCheckbox($nome, $valores=array(), $valoresSelecionados=array(), $a
  * @uses	html.php->gerarAtributos()
  * @example
  */
-function marcado($parametro, $alvo, $check=true)
+function marcado ($parametro, $alvo, $check=true)
 {
 	if ($parametro == $alvo)
 		if ($check)
@@ -561,7 +561,7 @@ function marcado($parametro, $alvo, $check=true)
 	echo montarTabela($headers, $matriz, "", "Funcionarios");
 	echo montarTabela($headers, $matriz, "", "Funcionarios", "Detalhes sobre os funcionários");
  */
-function montarTabela($headers=array(), $matriz=array(array()), $atributos=array(), $titulo="", $descricao="")
+function montarTabela ($headers=array(), $matriz=array(array()), $atributos=array(), $titulo="", $descricao="")
 {
 	$atributos = gerarAtributos($atributos);
 	// colspan && rowspan??
@@ -620,7 +620,7 @@ function montarTabela($headers=array(), $matriz=array(array()), $atributos=array
  * @param	string
  * @return	string
  */
-function refresh($url="", $tempo="0")
+function refresh ($url="", $tempo="0")
 {
 	if ( empty($url) )
 		return "<meta http-equiv='refresh' content='$tempo'>";
@@ -639,7 +639,7 @@ function refresh($url="", $tempo="0")
  * @param	 boolean se função deve montar o value também
  * @return	string
  */
-function selected($parametro, $alvo, $montarValue=true)
+function selected ($parametro, $alvo, $montarValue=true)
 {
 
 	$resposta = "";
@@ -654,7 +654,7 @@ function selected($parametro, $alvo, $montarValue=true)
 /* 31-07-2015 16:43 */
 /* Retorna atributo html se indice GET existir e for igual ao valor */
 /* <option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option> */
-function selecionado($indice, $valor, $atributo='selected')
+function selecionado ($indice, $valor, $atributo='selected')
 {
 	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor )
 		return $atributo.'="'. $atributo .'"';
@@ -663,7 +663,7 @@ function selecionado($indice, $valor, $atributo='selected')
 /* 04/08/2016 11:27:05 */
 /* Retorna atributo html se ambos valores existirem e forem iguais */
 /* <option value="Ativas" <?php echo selecionado2("status", "Ativas") ?>>Ativas</option> */
-function selecionado2($valor1, $valor2, $atributo='selected')
+function selecionado2 ($valor1, $valor2, $atributo='selected')
 {
 	if ( isset($valor1) && isset($valor2) && $valor1==$valor2 )
 		return $atributo.'="'. $atributo .'"';

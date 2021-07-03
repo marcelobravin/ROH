@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 
-require ROOT.'model/database.class.php';
+require ROOT.'app/model/database.class.php';
 
 
 if ( !isset($_GET['id']) ) {
@@ -13,14 +13,14 @@ $db = new Database();
 $condicoes = array(
 	'id' => $_GET['id']
 );
-$user = $db->selecionar('usuarios', $condicoes);
+$user = $db->selecionar('usuario', $condicoes);
 $user = $user[0];
 
 
 $token = uniqid();
 
 $assunto = "Confirmação de email";
-$servidor = "http://localhost/ROH/";
+$servidor = "http://localhost/roh/";
 $endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
 
@@ -32,7 +32,7 @@ $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu em
 $campos = array(
 	'token' => $token
 );
-$rowCount = $db->atualizar('usuarios', $campos, ['id' => $_GET['id']]);
+$rowCount = $db->atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 
 

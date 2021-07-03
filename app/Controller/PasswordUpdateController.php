@@ -1,7 +1,7 @@
 <?php
 include '../../config.php';
 
-require '../../model/database.class.php';
+require '../../app/model/database.class.php';
 require '../../model/security.class.php';
 
 $db = new Database();
@@ -11,7 +11,13 @@ $campos = array(
 	'senha' => $sec->criptografar($_POST['senha1']),
 	'reset' => ''
 );
-$rowCount = $db->atualizar('usuarios', $campos, ['login' => $_POST['email']]);
+
+$condicoes = array(
+	'login' => $_POST['email'],
+	'reset' => $_POST['token']
+);
+
+$rowCount = $db->atualizar('usuario', $campos, $condicoes);
 
 if ( $rowCount == 1 ) {
 	echo "Senha atualizada com sucesso!";

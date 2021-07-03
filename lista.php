@@ -1,7 +1,7 @@
 <?php
 	include 'config.php';
 
-	require 'model/database.class.php'; // para teste
+	require 'app/model/database.class.php';
 
 	require 'app/lib/paginacao.php';
 	require 'app/lib/html.php';
@@ -9,7 +9,6 @@
 
 	if ( isset($_GET['modulo']) )
 		define('MODULO', $_GET['modulo']);
-
 
 	$paginacao = paginationCore(MODULO, 3);
 ?><!DOCTYPE html>
@@ -19,12 +18,12 @@
 		<title>Login - Relatório Ocupação Hospitalar</title>
 		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
 
-		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
 		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
+		<link rel="stylesheet" type="text/css" href="public/css/usuarios.css">
 		<link rel="stylesheet" type="text/css" href="public/css/topo.css">
-		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 
 		<script>
 			$(document).ready(function(){
@@ -43,22 +42,23 @@
 		</style>
 	</head>
 <body>
-
+	<?php require_once 'public/views/header.php' ?>
 	<div class="container-tabelas">
-
-		<a href="app/Controller/LogoutController.php">Logout</a>
-
 		<div>
 			<?php echo esvaziarMensagem() ?>
 		</div>
 
+		<div class="container-usuario">
+			<button>
+				<a href="register.php?modulo=<?php echo MODULO ?>">
+					+ <?php echo MODULO ?>
+				</a>
+			</button>
+		</div>
 
-		<button>
-			<a href="register.html">
-			<a href="register-<?php echo MODULO ?>.php">
-				Adicionar Novo <?php echo MODULO ?>
-			</a>
-		</button>
+		<div>
+			<?php echo esvaziarMensagem() ?>
+		</div>
 
 		<?php paginacaoHeader( $paginacao['registros'] ) ?>
 
@@ -71,5 +71,6 @@
 		</div>
 
 	</div>
+	<script type="text/javascript" src="public/scripts/usuarios.js"></script>
 </body>
 </html>

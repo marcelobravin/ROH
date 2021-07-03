@@ -1,7 +1,7 @@
 <?php
 	include 'config.php';
 
-	require ROOT.'/model/database.class.php';
+	require ROOT.'/app/model/database.class.php';
 
 	$user['id']					= '';
 	$user['login']				= '';
@@ -13,7 +13,7 @@
 		$condicoes = array(
 			'id' => $_GET['id']
 		);
-		$user = $db->selecionar('usuarios', $condicoes);
+		$user = $db->selecionar('usuario', $condicoes);
 
 		if ( sizeof($user) > 0 ) {
 			$user = $user[0];
@@ -23,7 +23,7 @@
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
-		<title>Login - Relatório Ocupação Hospitalar</title>
+		<title>Login - Relatório Ocupação </title>
 		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
 		<link rel="stylesheet" type="text/css" href="">
 		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>

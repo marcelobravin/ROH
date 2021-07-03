@@ -1,6 +1,9 @@
 <?php
 	include 'config.php';
 
+	if ( !isset($_SESSION['user']) )
+		redirecionar('index.php');
+
 	include ROOT.'app/Controller/ListController.php';
 	require 'app/lib/vetores.php';
 

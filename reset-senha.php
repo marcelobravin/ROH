@@ -27,19 +27,19 @@
 				}
 			}
 
-			function validateEmail(email) {
-				var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-				return re.test(email);
-			}
+			// function validateEmail(email) {
+			// 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			// 	return re.test(email);
+			// }
 
-			function CheckPassword(inputtxt) {
-				var decimal = /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
-				if( decimal.test(inputtxt) ) {
-					return true;
-				} else {
-					return false;
-				}
-			}
+			// function CheckPassword(inputtxt) {
+			// 	var decimal = /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+			// 	if( decimal.test(inputtxt) ) {
+			// 		return true;
+			// 	} else {
+			// 		return false;
+			// 	}
+			// }
 
 			// The password is at least 8 characters long
 			function has8Chars (str) {
@@ -63,7 +63,7 @@
 			}
 			// The password has at least one special character ([^A-Za-z0-9]).
 			function hasSymbol (str) {
-				var patt = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/;
+				var patt = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/; /* ------------ VERIFICAR */
 				return patt.test(str);
 			}
 
@@ -128,8 +128,10 @@
 <body>
 
 	<form action="app/Controller/PasswordUpdateController.php" method="post">
-		<input type="hidden" name="email" id="email" value="<?php echo $_GET['email'] ?>" />
 		<h1>Esqueci a senha</h1>
+		<input type="hidden" name="email" id="email" value="<?php echo $_GET['email'] ?>" />
+		<input type="hidden" name="token" id="token" value="<?php echo $_GET['token'] ?>" />
+
 		<p>
 			<label>
 				Nova Senha
