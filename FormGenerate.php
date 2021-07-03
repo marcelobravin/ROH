@@ -10,6 +10,7 @@
 	require 'app/lib/snippets.php';
 	require 'app/lib/html.php';
 	require 'app/lib/vetores.php';
+	#───────────────────────────────────────────────────────────────────────────
 
 	# ========================================================================== hospital
 	// gerarFormulario('usuarios');

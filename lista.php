@@ -1,11 +1,12 @@
 <?php
-	include 'config.php';
+	include 'app/Grimoire/core_inc.php';
+
 
 	require 'app/model/database.class.php';
 
-	require 'app/lib/paginacao.php';
-	require 'app/lib/html.php';
-	require 'app/lib/vetores.php';
+	// require 'app/lib/paginacao.php';
+	// require 'app/lib/html.php';
+	// require 'app/lib/vetores.php';
 
 	if ( isset($_GET['modulo']) )
 		define('MODULO', $_GET['modulo']);

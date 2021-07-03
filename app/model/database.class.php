@@ -10,10 +10,10 @@ class Database extends Connection {
 	public function __construct ()
 	{
 		parent::__construct(
-			getenv('HOST'),
-			getenv('DBNAME'),
-			getenv('USER'),
-			getenv('PASSWORD')
+			HOST,
+			DBNAME,
+			USER,
+			PASSWORD
 		);
 	}
 

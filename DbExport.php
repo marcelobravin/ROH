@@ -1,5 +1,6 @@
 <?php
-include 'config.php';
+// include 'config.php';
+include 'app/Grimoire/core_inc.php';
 
 # http://localhost/roh/app/DbExport.php
 
