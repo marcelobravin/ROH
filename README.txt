@@ -1,6 +1,13 @@
 # ROH
 Relatório de Ocupação Hospitalar
 
+
+Prioridades
+formularios de cadastro e atualização
+definição de metas
+	preenchimento mes a mes
+	consulta meses anteriores
+
 # Migração
 Ponto de exportação de BD - http://localhost/roh/app/DbExport.php
 Ponto de importação de BD - http://localhost/roh/app/DbImport.php
@@ -24,6 +31,7 @@ credenciais de DB em arquivo .env
 bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
 log operações
 paginação nas listas
+bloquear usuarios não logados
 
 
 
@@ -31,7 +39,6 @@ paginação nas listas
 Módulo de definição de metas (associação): escolhe hospital depois escolhe elementos a vincular, define metas
 Módulo preencher metas: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
 validar email na tela de esqueci a senha
-bloquear usuarios não logados
 não mudar email de usuário na tela de atualizar senha
 informar alterações não salvas em formulários ao recarregar ou fechar
 sincronização de dados offline

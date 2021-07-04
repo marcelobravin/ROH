@@ -37,4 +37,5 @@
 	.obrigatorio:before {
 		content: '*';
 	}
+	a[href='#'] { color:red }
 </style>

@@ -37,6 +37,8 @@
 				height: 20px !important;
 			}
 			.centralizar { text-align: center }
+			a[href='#'] { color:red }
+
 		</style>
 	</head>
 <body>

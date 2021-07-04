@@ -4,7 +4,10 @@
 		<ul>
 			<a href="lista.php?modulo=usuario"><li>Usuário</li></a>
 			<a href="lista.php?modulo=hospital"><li>Hospitais</li></a>
+			<a href="#"><li>Categorias</li></a>
 			<a href="metas.php"><li>Metas</li></a>
+			<a href="#"><li>Preencher</li></a>
+			<a href="#"><li>Relatório</li></a>
 		</ul>
 		<a href="app/Controller/LogoutController.php"><i class="fas fa-power-off"></i></a>
 	</nav>
