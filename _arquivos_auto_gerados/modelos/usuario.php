@@ -2,7 +2,7 @@
 			/**
 			 * usuario
 			 * @package grimoire/modelos
-			 * @version 03-07-2021 21:21:14
+			 * @version 04-07-2021 19:57:34
 			 */
 
 			$tabela = limparNomeArquivo(__FILE__);
@@ -81,7 +81,7 @@
 			
 				$campos[8] = array(
 					"Field"		=> "atualizado_em",
-					"Type"		=> "timestamp",
+					"Type"		=> "datetime",
 					"Null"		=> "YES",
 					"Key"		=> "",
 					"Default"	=> "",
@@ -90,7 +90,7 @@
 			
 				$campos[9] = array(
 					"Field"		=> "excluido_em",
-					"Type"		=> "timestamp",
+					"Type"		=> "datetime",
 					"Null"		=> "YES",
 					"Key"		=> "",
 					"Default"	=> "",

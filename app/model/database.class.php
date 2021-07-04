@@ -19,7 +19,6 @@ class Database extends Connection {
 
 	function registrarLog ($acao, $tabela, $objetoId)
 	{
-
 		$values = array(
 			'usuarioId'	=> $_SESSION['user']['id'],
 			'acao'		=> $acao,
@@ -315,5 +314,4 @@ class Database extends Connection {
 
 		return $sql;
 	}
-
 }

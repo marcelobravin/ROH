@@ -2,7 +2,7 @@
 			/**
 			 * _log_acesso
 			 * @package grimoire/modelos
-			 * @version 03-07-2021 21:21:14
+			 * @version 04-07-2021 19:57:34
 			 */
 
 			$tabela = limparNomeArquivo(__FILE__);
@@ -30,7 +30,7 @@
 					"Type"		=> "tinyint(1)",
 					"Null"		=> "NO",
 					"Key"		=> "",
-					"Default"	=> "0",
+					"Default"	=> "",
 					"Extra"		=> ""
 				);
 			
@@ -58,7 +58,7 @@
 					"Null"		=> "NO",
 					"Key"		=> "",
 					"Default"	=> "current_timestamp()",
-					"Extra"		=> ""
+					"Extra"		=> "on update current_timestamp()"
 				);
 			
 			$sql = montarCriacao($tabela, $campos);

@@ -1,7 +1,7 @@
-<meta charset="UTF-8">
+<meta charset="<?php echo CARACTERES ?>">
 <title>
 	<?php echo $PAGINA['titulo'] ?>
-	<?php echo !empty($PAGINA['titulo']) && !empty($PAGINA['titulo']) ? $PAGINA['separador-titulo'] : "" ?>
+	<?php echo !empty($PAGINA['titulo']) && !empty($PAGINA['titulo']) ? $PAGINA['separador'] : "" ?>
 	<?php echo $PAGINA['subtitulo'] ?>
 </title>
 <meta name="description" content="<?php echo DESCRICAO_SITE ?>">
@@ -15,11 +15,11 @@
 <?php endif ?>
 
 <meta name="author" content="Marcelo de Souza Bravin">
-<link rel="author" href="https://plus.google.com/[your personal g+ profile here]">
-<link rel="publisher" href="https://plus.google.com/[your business g+ profile here]">
+<!-- <link rel="author" href="https://plus.google.com/[your personal g+ profile here]"> -->
+<!-- <link rel="publisher" href="https://plus.google.com/[your business g+ profile here]"> -->
 
 <meta name="copyright" content="&copy; 2016 Mark Corp.">
-<meta name="date" content="2016-08-31T09:49:37+00:00">
+<meta name="date" content="2021-07-03T09:49:37+00:00">
 <meta name="generator" content="VSC">
 <meta name="expires" content="never">
 <meta name="language" content="portuguese">

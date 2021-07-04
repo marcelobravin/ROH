@@ -1,8 +1,6 @@
 <?php
 abstract class Connection {
 
-	private static $instance;
-
 	protected $user;
 	protected $password;
 	protected $host;

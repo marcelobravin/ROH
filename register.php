@@ -1,14 +1,14 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
-	require 'app/model/database.class.php'; // para teste
+	// require 'app/model/database.class.php'; // para teste
 
 
 	if ( isset($_GET['modulo']) )
 		define('MODULO', $_GET['modulo']);
 
 
-	$paginacao = paginationCore(MODULO, 3);
+	// $paginacao = paginationCore(MODULO, 3);
 ?><!DOCTYPE html>
 <html lang="pt-br">
 	<head>
@@ -29,8 +29,15 @@
 
 		<a href="app/Controller/LogoutController.php">Logout</a>
 
-		<form action="<?php echo MODULO ?>" method="post">
+		<p>
+			<a href="formGenerate.php">Gerar formulário conforme definição do BD</a>
+		</p>
+
+
+		<form action="app/Controller/RegisterController.php?modulo=<?php echo MODULO ?>" method="post">
 			<?php require '_arquivos_auto_gerados/views/'.MODULO.'.html' ?>
+
+			<input type="submit" value="CADASTRAR" />
 		</form>
 
 	</div>

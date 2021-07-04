@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?php echo IDIOMA ?>">
 	<head>
 		<?php include "public/views/frames/metas.php" ?>
 	</head>

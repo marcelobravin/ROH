@@ -2,7 +2,7 @@
 			/**
 			 * hospital
 			 * @package grimoire/modelos
-			 * @version 03-07-2021 21:21:14
+			 * @version 04-07-2021 19:57:34
 			 */
 
 			$tabela = limparNomeArquivo(__FILE__);
@@ -45,16 +45,16 @@
 			
 				$campos[4] = array(
 					"Field"		=> "atualizado_em",
-					"Type"		=> "timestamp",
+					"Type"		=> "datetime",
 					"Null"		=> "YES",
 					"Key"		=> "",
 					"Default"	=> "",
-					"Extra"		=> "on update current_timestamp()"
+					"Extra"		=> ""
 				);
 			
 				$campos[5] = array(
 					"Field"		=> "excluido_em",
-					"Type"		=> "timestamp",
+					"Type"		=> "datetime",
 					"Null"		=> "YES",
 					"Key"		=> "",
 					"Default"	=> "",

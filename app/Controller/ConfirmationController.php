@@ -21,7 +21,8 @@ $token = uniqid();
 
 $assunto = "Confirmação de email";
 // $servidor = "http://localhost/roh/";
-$servidor = "http://localhost/PROJETOS/roh/";
+$servidor = "http://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
+// $servidor = "http://localhost/PROJETOS/roh/";
 $endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
 

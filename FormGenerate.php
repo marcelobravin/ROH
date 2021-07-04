@@ -1,22 +1,31 @@
 <?php
-	include 'config.php';
+	#include 'config.php';
+	include 'app/Grimoire/core_inc.php';
+
 
 	# http://localhost/roh/app/FormGenerate.php
 
 	require 'app/model/database.class.php'; // para teste
 
-	require 'app/lib/paginacao.php';
-	require 'app/lib/formularios.php';
-	require 'app/lib/snippets.php';
-	require 'app/lib/html.php';
-	require 'app/lib/vetores.php';
+	// require 'app/lib/paginacao.php';
+	// require 'app/lib/formularios.php';
+	// require 'app/lib/snippets.php';
+	// require 'app/lib/html.php';
+	// require 'app/lib/vetores.php';
 	#───────────────────────────────────────────────────────────────────────────
 
 	# ========================================================================== hospital
 	// gerarFormulario('usuarios');
 	$sobreescreverLabels = array('titulo'=> 'Título');
 	$sobreEscreverCampos = array();
-	$remover = array();
+	$remover = array(
+		'criado_em',
+		'atualizado_em',
+		'excluido_em',
+		'criado_por',
+		'atualizado_por',
+		'excluido_por'
+	);
 	$esconder = array();
 	$conversoes = array();
 	$descricaoLabels = array('titulo'=> 'Descrição do Título');
@@ -36,7 +45,8 @@
 	print_r($form);
 	echo('</pre>');
 
-	$diretorioDestino='/opt/lampp/htdocs/roh/_arquivos_auto_gerados/views/';
+	#$diretorioDestino='/opt/lampp/htdocs/roh/_arquivos_auto_gerados/views/';
+	$diretorioDestino = ROOT.'_arquivos_auto_gerados/views/';
 	escrever($diretorioDestino.'hospital.html', $form, true);
 	# ========================================================================== hospital
 
@@ -46,7 +56,7 @@
 	// gerarFormulario('usuarios');
 	$sobreescreverLabels = array();
 	$sobreEscreverCampos = array();
-	$remover = array();
+	// $remover = array();
 	$esconder = array();
 	$conversoes = array();
 	$descricaoLabels = array();
@@ -66,6 +76,8 @@
 	print_r($form);
 	echo('</pre>');
 
-	$diretorioDestino='/opt/lampp/htdocs/roh/_arquivos_auto_gerados/views/';
+	// $diretorioDestino='/opt/lampp/htdocs/roh/_arquivos_auto_gerados/views/';
+	// $diretorioDestino = ROOT.'_arquivos_auto_gerados/views/';
+
 	escrever($diretorioDestino.'usuario.html', $form, true);
 	# ========================================================================== hospital
