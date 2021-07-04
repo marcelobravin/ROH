@@ -1,5 +1,6 @@
 <?php
-// include '../../config.php';
+// include '../../app/Grimoire/core_inc.php';
+
 include '../../app/Grimoire/core_inc.php';
 
 
@@ -14,7 +15,10 @@ $user = $db->selecionar('usuario', $condicoes);
 
 
 if ( empty($user) ) {
+	password_verify('senha', 'senhaStub'); #operacao custosa para não sinalizar retorno muito rápido
 	echo '<p>Dados incorretos.</p>';
+	# TODO bloquearIp(identificarIP());
+
 } else {
 	$user = $user[0];
 	$ip = identificarIP();

@@ -1,5 +1,5 @@
 <?php
-include '../../config.php';
+include '../../app/Grimoire/core_inc.php';
 
 require ROOT.'app/model/database.class.php';
 
@@ -20,7 +20,8 @@ $user = $user[0];
 $token = uniqid();
 
 $assunto = "Confirmação de email";
-$servidor = "http://localhost/roh/";
+// $servidor = "http://localhost/roh/";
+$servidor = "http://localhost/PROJETOS/roh/";
 $endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
 
@@ -42,13 +43,13 @@ if ( $enviarEmail == 1 ) {
 	header('Location: '. ROOT .'lista.php?modulo=usuario');
 	exit;
 } else {
-	/* em ambiente de teste exibir conteúdo do email */
-
-
-
-
-
-
 	echo "Erro ao enviar email para o usuário: ". $_GET['id'];
 	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
+
+	if ( !PRODUCAO ) { /* em ambiente de teste exibir conteúdo do email */
+		echo "<hr>";
+		echo $assunto;
+		echo "<br>";
+		echo $body;
+	}
 }

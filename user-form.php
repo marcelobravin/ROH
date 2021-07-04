@@ -1,5 +1,5 @@
 <?php
-	include 'config.php';
+	include 'app/Grimoire/core_inc.php';
 
 	require ROOT.'/app/model/database.class.php';
 
@@ -44,19 +44,6 @@
 					$(":submit").removeAttr("disabled")
 				}
 			}
-
-/*
-			$("input").change(function(){
-				$(":submit").removeAttr("disabled")
-			});
-
-			window.addEventListener("beforeunload", function (e) {
-				var confirmationMessage = 'If you leave before saving, your changes will be lost.';
-
-				(e || window.event).returnValue = confirmationMessage; //Gecko + IE
-				return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-			});
-*/
 		</script>
 	</head>
 <body>
@@ -69,8 +56,8 @@
 			<input type="hidden" name="id" id="id" value="<?php echo $user['id'] ?>" readonly />
 		<?php endif ?>
 
-			<label>
-				Login
+		<label>
+			Login
 			<br>
 			<input type="text" name="login" id="login" value="<?php echo $user['login'] ?>" />
 		</label>

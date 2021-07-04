@@ -1,5 +1,6 @@
 <?php
-include '../../config.php';
+include '../../app/Grimoire/core_inc.php';
+
 
 require ROOT.'app/model/database.class.php';
 

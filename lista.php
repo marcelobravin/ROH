@@ -4,12 +4,9 @@
 
 	require 'app/model/database.class.php';
 
-	// require 'app/lib/paginacao.php';
-	// require 'app/lib/html.php';
-	// require 'app/lib/vetores.php';
-
 	if ( isset($_GET['modulo']) )
 		define('MODULO', $_GET['modulo']);
+	else die('Modulo não selecionado');
 
 	$paginacao = paginationCore(MODULO, 3);
 ?><!DOCTYPE html>
@@ -43,7 +40,7 @@
 		</style>
 	</head>
 <body>
-	<?php require_once 'public/views/header.php' ?>
+	<?php require_once 'public/views/frames/header.php' ?>
 	<div class="container-tabelas">
 		<div>
 			<?php echo esvaziarMensagem() ?>
@@ -75,3 +72,5 @@
 	<script type="text/javascript" src="public/scripts/usuarios.js"></script>
 </body>
 </html>
+
+<?php require("app\Grimoire\processosFinais.php"); ?>

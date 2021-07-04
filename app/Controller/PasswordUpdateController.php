@@ -1,14 +1,13 @@
 <?php
-include '../../config.php';
+include '../../app/Grimoire/core_inc.php';
+
 
 require '../../app/model/database.class.php';
-require '../../model/security.class.php';
 
 $db = new Database();
-$sec = new Security();
 
 $campos = array(
-	'senha' => $sec->criptografar($_POST['senha1']),
+	'senha' => criptografar($_POST['senha1']),
 	'reset' => ''
 );
 

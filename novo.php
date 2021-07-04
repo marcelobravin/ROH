@@ -13,7 +13,7 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 	</head>
 <body>
-	<?php require_once 'public/views/header.php' ?>
+	<?php require_once 'public/views/frames/header.php' ?>
 	<div class="container">
 
 		<div class="container-selects">

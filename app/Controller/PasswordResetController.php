@@ -1,5 +1,7 @@
 <?php
-include '../../config.php';
+// include '../../../config.php';
+include '../../app/Grimoire/core_inc.php';
+
 
 require ROOT.'app/model/database.class.php';
 
@@ -66,7 +68,9 @@ echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 $assunto = "Redefinição de senha";
-$servidor = "http://localhost/roh/";
+$servidor = "http://localhost/PROJETOS/roh/";
+
+// $servidor = "http://". ROOT;
 $endereco = "reset-senha.php?email=". $user['login'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senha</a>';
 
@@ -83,10 +87,10 @@ if ( $enviarEmail == 1 ) {
 	echo "Erro ao enviar email para o usuário: ". $user['login'];
 	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
-
-	/* em ambiente de teste exibir conteúdo do email */
-	echo "<hr>";
-	echo $assunto;
-	echo "<br>";
-	echo $body;
+	if ( !PRODUCAO ) { /* em ambiente de teste exibir conteúdo do email */
+		echo "<hr>";
+		echo $assunto;
+		echo "<br>";
+		echo $body;
+	}
 }

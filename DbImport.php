@@ -17,7 +17,7 @@ define( "DIRETORIO", ROOT."_arquivos_auto_gerados" );
 
 
 
-if ( inicializarSistema() )
+if ( importarBD() )
 	echo "Importação de BD realizada com sucesso!";
 else
 	echo "Erro ao importar BD";
