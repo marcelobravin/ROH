@@ -1,78 +1,55 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
+	#bloquear não logados
 
-	require 'app/model/database.class.php';
+	if ( empty($_GET['modulo']) )
+		redirecionar("index.php");
 
-	if ( isset($_GET['modulo']) )
-		define('MODULO', $_GET['modulo']);
-	else die('Modulo não selecionado');
+	define('MODULO', $_GET['modulo']);
+	$PAGINA['titulo']		= "Lista";
+	$PAGINA['subtitulo']	= MODULO;
+	// $PAGINA['endereco']		= "home.php";
 
 	$paginacao = paginationCore(MODULO, 3);
-?><!DOCTYPE html>
-<html lang="pt-br">
+?>
+<!DOCTYPE html>
+<html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
-		<meta charset="UTF-8">
-		<title>Login - Relatório Ocupação Hospitalar</title>
-		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
-
-		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
+		<?php include "public/views/frames/metas.php" ?>
 		<link rel="stylesheet" type="text/css" href="public/css/usuarios.css">
-		<link rel="stylesheet" type="text/css" href="public/css/topo.css">
-		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
-		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-
-		<script>
-			$(document).ready(function(){
-				$(".excluir").click(function(){
-					return confirm("Tem certeza que deseja excluir esse usuário?")
-				})
-			})
-		</script>
-		<style>
-			tbody tr,
-			tbody tr td {
-				text-align: center;
-				height: 20px !important;
-			}
-			.centralizar { text-align: center }
-			a[href='#'] { color:red }
-
-		</style>
 	</head>
 <body>
 	<?php require_once 'public/views/frames/header.php' ?>
 	<div class="container-tabelas">
-		<div>
+		<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
 			<?php echo esvaziarMensagem() ?>
 		</div>
 
-		<div class="container-usuario">
-			<button>
-				<a href="register.php?modulo=<?php echo MODULO ?>">
-					+ <?php echo MODULO ?>
-				</a>
-			</button>
+		<div class="controle">
+			<div class="container-usuario">
+				<button>
+					<a href="formulario-cadastro.php?modulo=<?php echo MODULO ?>">
+						+ <?php echo ucwords(MODULO) ?>
+					</a>
+				</button>
+			</div>
+
+			<span class="resultados">
+				<?php paginacaoHeader( $paginacao['registros'] ) ?>
+			</span>
+			<div class="paginacao">
+				<?php selecaoResultadosPorPagina( $paginacao ) ?>
+			</div>
 		</div>
-
-		<div>
-			<?php echo esvaziarMensagem() ?>
-		</div>
-
-		<?php paginacaoHeader( $paginacao['registros'] ) ?>
-
-		<?php selecaoResultadosPorPagina( $paginacao ) ?>
 
 		<?php require 'public/views/lista-'.MODULO.'.php' ?>
 
-		<div class="centralizar">
+		<div class="navegacao-pag">
 			<?php echo implode('&nbsp;&nbsp;', $paginacao['links']) ?>
 		</div>
 
 	</div>
-	<script type="text/javascript" src="public/scripts/usuarios.js"></script>
+	<script type="text/javascript" src="public/scripts/exclusao.js"></script>
 </body>
 </html>
-
-<?php require("app\Grimoire\processosFinais.php"); ?>

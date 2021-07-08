@@ -1,22 +1,16 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-
-require ROOT.'app/model/database.class.php';
-
-
 if ( !isset($_GET['id']) ) {
 	die("Id inválido");
 }
 
 
-$db = new Database();
-
 $condicoes = array(
 	'id'	=> $_GET['id'],
 	'token'	=> $_GET['token']
 );
-$user = $db->selecionar('usuario', $condicoes);
+$user = selecionar('usuario', $condicoes);
 
 if ( empty($user) ) {
 	echo "Token inválido!";
@@ -27,14 +21,15 @@ if ( empty($user) ) {
 		'email_confirmado'	=> true,
 		'token'				=> ''
 	);
-	$rowCount = $db->atualizar('usuario', $campos, ['id' => $_GET['id']]);
+	$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 	if ( $rowCount == 0 ) {
-		echo "Erro ao validar email!";
+		$_SESSION['mensagem'] = "Erro ao validar email!";
+		$_SESSION['mensagemClasse'] = "sucesso";
 	} else {
-		echo "Email validado com sucesso!";
+		$_SESSION['mensagem'] = "Email validado com sucesso!";
+		$_SESSION['mensagemClasse'] = "erro";
 	}
-
 }
 
-echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
+header('Location: ../../lista.php?modulo=usuario');

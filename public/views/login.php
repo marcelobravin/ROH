@@ -1,14 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
-		<meta charset="UTF-8">
-		<title>Login - Relatório Ocupação Hospitalar</title>
-		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
-		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
+		<?php include "public/views/frames/metas.php" ?>
 		<link rel="stylesheet" type="text/css" href="public/css/login.css">
-		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
 	</head>
 <body>
 	<div class="container-login">
@@ -17,11 +11,11 @@
 			<form action="app/Controller/LoginController.php" method="post">
 				<h1>Ocupação Hospitalar</h1>
 				<div class="inputs">
-					<input type="text" name="login" id="login" value="usuario@email.com" placeholder=" " />
+					<input type="text" name="login" id="login" />
 					<label> Usuário </label>
 				</div>
 				<div class="inputs">
-					<input type="password" name="senha" id="senha" value="12345678" placeholder=" " />
+					<input type="password" name="senha" id="senha" />
 					<label> Senha </label>
 					<i class="fas fa-eye"></i>
 				</div>
@@ -32,8 +26,7 @@
 			</form>
 		</div>
 	</div>
-<script type="text/javascript" src="public/scripts/login.js"></script>
+
+	<script type="text/javascript" src="public/scripts/login.js"></script>
 </body>
 </html>
-
-<?php require("app\Grimoire\processosFinais.php"); ?>

@@ -1,24 +1,22 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-
-require '../../app/model/database.class.php';
-
-$db = new Database();
 $campos = array(
 	'ativo' => $_GET['ativo']
 );
-$rowCount = $db->atualizar('usuario', $campos, ['id' => $_GET['id']]);
+$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 if ( $rowCount == 1 ) {
+	$_SESSION['mensagemClasse'] = "sucesso";
+
 	if ( $_GET['ativo'] ) {
 		$_SESSION['mensagem'] = "Usuário {$_GET['id']} ativado com sucesso!";
 	} else {
 		$_SESSION['mensagem'] = "Usuário {$_GET['id']} desativado com sucesso!";
 	}
-	header('Location: ../../lista.php?modulo=usuario');
-	exit;
 } else {
-	echo "Erro ao desativar o usuário: ". $_GET['id'];
-	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
+	$_SESSION['mensagem'] = "Erro ao desativar o usuário: ". $_GET['id'];
+	$_SESSION['mensagemClasse'] = "erro";
 }
+
+header('Location: ../../lista.php?modulo=usuario');

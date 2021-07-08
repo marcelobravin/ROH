@@ -2,6 +2,37 @@
 /* #4974a5 */
 /* #385a64 */
 
+.controle{
+    display: flex;
+    flex-flow: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+.controle .paginacao{
+    display: flex;
+    align-items: center;
+    flex-grow: 2;
+}
+.controle .paginacao form{
+    display: flex;
+    flex: 1;
+    flex-flow: row wrap;
+    align-items: center;
+    padding: 0px 10px;
+    justify-content: space-between;
+}
+/*.controle .paginacao form input[type="submit"], .controle .paginacao form p, .controle .paginacao form select{
+    flex: 1;
+}*/
+.controle .paginacao form input[type="submit"]{
+    order: 3;
+}
+.controle .paginacao form select{
+    order: 2;
+}
+.controle span{
+    order: 1;
+}
 .container-usuario{
     padding: 10px 0px;
     display: flex;
@@ -52,7 +83,10 @@ th, tfoot{
     color: #fff;
     background: #00dfc0;
 }
-button{
+th a{
+    color: #fff;
+}
+button, input[type="submit"]{
     background: #00dfc0;
     width: 122px;
     height: 50px;
@@ -61,10 +95,21 @@ button{
     cursor: pointer;
     transition: 1s;
 }
-button:hover{
+select{
+    border-radius: 15px;
+    height: 26px;
+    font-size: 14px;
+}
+button:hover, input[type="submit"]:hover{
     transform: translateY(-5px);
     transition: 1s;
 }
-button a, button span{
+button a, button span, input[type="submit"]{
     color: #fff;
+}
+
+@media only screen and (max-width: 610px){
+    td button{
+        width: 28%;
+    }
 }

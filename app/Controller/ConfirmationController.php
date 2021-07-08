@@ -13,7 +13,7 @@ $db = new Database();
 $condicoes = array(
 	'id' => $_GET['id']
 );
-$user = $db->selecionar('usuario', $condicoes);
+$user = selecionar('usuario', $condicoes);
 $user = $user[0];
 
 
@@ -34,7 +34,7 @@ $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu em
 $campos = array(
 	'token' => $token
 );
-$rowCount = $db->atualizar('usuario', $campos, ['id' => $_GET['id']]);
+$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 
 

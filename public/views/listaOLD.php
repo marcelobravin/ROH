@@ -18,14 +18,14 @@
 </style>
 
 <?php #srequire_once 'public/views/frames/header.php' ?>
-<div class="container-tabelas">
+<div class="container-tabelas fdfdfdff">
 	<div>
 		<?php echo esvaziarMensagem() ?>
 	</div>
 
 	<div class="container-usuario">
 		<button>
-			<a href="register.php?modulo=<?php echo MODULO ?>">
+			<a href="formulario-cadastro.php?modulo=<?php echo MODULO ?>">
 				+ <?php echo MODULO ?>
 			</a>
 		</button>

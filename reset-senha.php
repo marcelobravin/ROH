@@ -4,175 +4,85 @@
 		<meta charset="UTF-8">
 		<title>Reset de Senha - Relatório Ocupação Hospitalar</title>
 		<link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
-		<link rel="stylesheet" type="text/css" href="">
-		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-		<!-- <script src='js/lib/jquery-3.3.1.js?j=$r'></script> -->
-		<script>
-			$(document).on("change, keyup", "input", function(){
-				check()
-			})
+		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
+		<link rel="stylesheet" type="text/css" href="public/css/reset-senha.css">
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" ></script>
 
-			function check() {
-				if (
-					(
-						$("#senha1").val() != ''
-						&&
-						$("#senha2").val() != ''
-					) &&
-					$("#senha1").val() == $("#senha2").val()
-				) {
-					$(":submit").removeAttr("disabled")
-				} else {
-					$(":submit").attr("disabled", "disabled")
-				}
-			}
-
-			// function validateEmail(email) {
-			// 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-			// 	return re.test(email);
-			// }
-
-			// function CheckPassword(inputtxt) {
-			// 	var decimal = /^(?=.\d)(?=.[a-z])(?=.[A-Z])(?=.[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
-			// 	if( decimal.test(inputtxt) ) {
-			// 		return true;
-			// 	} else {
-			// 		return false;
-			// 	}
-			// }
-
-			// The password is at least 8 characters long
-			function has8Chars (str) {
-				var patt = /^.{8,}$/;
-				return patt.test(str);
-			}
-			// The password has at least one uppercase letter
-			function hasUpper (str) {
-				var patt = /[A-Z]/;
-				return patt.test(str);
-			}
-			// The password has at least one lowercase letter
-			function hasLower (str) {
-				var patt = /[a-z]/;
-				return patt.test(str);
-			}
-			// The password has at least one digit
-			function hasNumber (str) {
-				var patt = /[0-9]/;
-				return patt.test(str);
-			}
-			// The password has at least one special character ([^A-Za-z0-9]).
-			function hasSymbol (str) {
-				var patt = /[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/; /* ------------ VERIFICAR */
-				return patt.test(str);
-			}
-
-			function validatePasswordStrenght (str) {
-				let sn = 0;
-				if ( has8Chars(str)) { sn++; $("#tamanho").addClass("validado")    ;} else { $("#tamanho").removeClass("validado")    }
-				if ( hasUpper(str) ) { sn++; $("#maiusculas").addClass("validado") ;} else { $("#maiusculas").removeClass("validado") }
-				if ( hasLower(str) ) { sn++; $("#minusculas").addClass("validado") ;} else { $("#minusculas").removeClass("validado") }
-				if ( hasNumber(str)) { sn++; $("#numeros").addClass("validado")    ;} else { $("#numeros").removeClass("validado")    }
-				if ( hasSymbol(str)) { sn++; $("#simbolos").addClass("validado")   ;} else { $("#simbolos").removeClass("validado")   }
-
-				$("#password-strength-meter").attr('data-value', sn);
-			}
-
-			$(document).ready(function(){
-				$("#senha1").keyup(function(){
-					validatePasswordStrenght( $(this).val() )
-				});
-
-				$("#reveal").click(function(){
-					if ( $(this).attr("src") == "public/img/eye-view.png") {
-						$(this).attr("src", "public/img/eye-hide.png")
-						$(":password").attr("type", "text")
-					} else {
-						$(this).attr("src", "public/img/eye-view.png")
-						$(":text").attr("type", "password")
-					}
-				})
-			});
-		</script>
-
-		<style>
-			li { list-style-type: none }
-			li:before { content: '✗ '; color: red}
-
-			.validado { color: green }
-			.validado:before { content: '✓ '; color: green}
-
-			#medidorForcaSenha {
-				background-color: silver;
-				border: 1px solid silver;
-				border-radius: 6px;
-			}
-
-			#password-strength-meter { height: 18px; transition: 1s; text-indent: 10px}
-			[data-value="0"] { width:  10%; background: silver; }
-			[data-value="1"] { width:  25%; background: red; }
-			[data-value="2"] { width:  50%; background: yellow; }
-			[data-value="3"] { width:  75%; background: orange; }
-			[data-value="4"] { width: 100%; background: lime; }
-			[data-value="5"] { width: 100%; background: cyan; }
-
-			.texto-medidor { display: none }
-
-			[data-value="1"] > span._1 { display: inline }
-			[data-value="2"] > span._2 { display: inline }
-			[data-value="3"] > span._3 { display: inline }
-			[data-value="4"] > span._4 { display: inline }
-			[data-value="5"] > span._5 { display: inline }
-		</style>
 	</head>
 <body>
 
-	<form action="app/Controller/PasswordUpdateController.php" method="post">
-		<h1>Esqueci a senha</h1>
-		<input type="hidden" name="email" id="email" value="<?php echo $_GET['email'] ?>" />
-		<input type="hidden" name="token" id="token" value="<?php echo $_GET['token'] ?>" />
+	<div class="container-login">
+		<div class="container-form">
+			<form action="app/Controller/PasswordUpdateController.php" method="post">
+			<!-- <form> -->
+				<h1>Esqueci a senha</h1>
+				<input type="hidden" name="email" id="email" value="<?php echo $_GET['email'] ?>" />
+				<input type="hidden" name="token" id="token" value="<?php echo $_GET['token'] ?>" />
 
-		<p>
-			<label>
-				Nova Senha
-				<br>
-				<input type="password" name="senha1" id="senha1" value="" autocomplete="current-password" />
-			</label>
-			<img src="public/img/eye-view.png" alt="" id="reveal">
-		</p>
+				<div class="inputs">
+					<input type="password" name="senha1" id="senha1" value="" autocomplete="current-password" placeholder=" " />
+					<label>Nova Senha</label>
+					<i class="fas fa-eye"></i>
+				</div>
+				<div class="inputs">
+					<input type="password" name="senha2" id="senha2" value="" placeholder=" " />
+					<label>Confirme a senha</label>
+				</div>
+				<div class="inputs botao">
+					<input type="submit" value="Redefinir Senha" disabled />
+					<!-- <button id="enviar">Redefinir Senha</button> -->
+				</div>
+			</form>
 
-		<p>
-			<label>
-				Confirme a senha
-				<br>
-				<input type="password" name="senha2" id="senha2" value="" />
-			</label>
-		</p>
+		</div>
+			<div class="forca-senha">
+				<h2>A nova senha deve conter:</h2>
 
-		<input type="submit" value="Redefinir Senha" disabled />
-	</form>
+				<ul class="lista-rec">
+					<li id="tamanho">
+						<i class="fas fa-check"></i>
+						<span>Letras maiúsculas</span>
+					</li>
+					<li id="maiusculas">
+						<i class="fas fa-check"></i>
+						<span>Letras minúsculas</span>
+					</li>
+					<li id="minusculas">
+						<i class="fas fa-check"></i>
+						<span>Números</span>
+					</li>
+					<li id="numeros">
+						<i class="fas fa-check"></i>
+						<span>Caracteres especiais</span>
+					</li>
+					<li id="simbolos">
+						<i class="fas fa-check"></i>
+						<span>Mínimo de 8 caracteres</span>
+					</li>
+				</ul>
 
-	<div>
-		<p>A nova senha deve conter:</p>
+				<div class="container-prog">
+					<span>Força da senha:</span>
+		            <div class="barra-prog">
 
-		<ul>
-			<li id="tamanho">Mínimo de 8 caracteres</li>
-			<li id="maiusculas">Letras maiúsculas</li>
-			<li id="minusculas">Letras minúsculas</li>
-			<li id="numeros">Números</li>
-			<li id="simbolos">Caracteres especiais</li>
-		</ul>
+		            </div>
+		        </div>
 
-		<div id="medidorForcaSenha">
-			<div data-value="0" id="password-strength-meter">
-				<span class="texto-medidor _1">Muito fraca</span>
-				<span class="texto-medidor _2">Fraca</span>
-				<span class="texto-medidor _3">Médio</span>
-				<span class="texto-medidor _4">Forte</span>
-				<span class="texto-medidor _5">Muito forte</span>
-			</div>
+				<!-- <div id="medidorForcaSenha">
+					<div data-value="0" id="password-strength-meter">
+						<span class="texto-medidor _1">Muito fraca</span>
+						<span class="texto-medidor _2">Fraca</span>
+						<span class="texto-medidor _3">Médio</span>
+						<span class="texto-medidor _4">Forte</span>
+						<span class="texto-medidor _5">Muito forte</span>
+					</div>
+				</div> -->
 		</div>
 	</div>
+<script type="text/javascript" src="public/scripts/reset-senha.js"></script>
+<script type="text/javascript" src="public/scripts/sweet-alert.js"></script>
 
 </body>
 </html>

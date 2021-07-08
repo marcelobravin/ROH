@@ -39,7 +39,7 @@ class Paciente{
 
         $db = new Database('paciente');
 
-        $this->id = $db->create([
+        $this->id = create([
             'nome' => $this->nome,
             'email' => $this->email
         ]);

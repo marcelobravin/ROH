@@ -7,7 +7,7 @@ $(document).ready(function(){
     }
     else{
         $(":submit").attr("disabled", "disabled");
-        $(":submit").css("opacity", "0");
+        $(":submit").css("opacity", ".2");
     }
 })
 
@@ -17,7 +17,7 @@ $("input").on("input", function(){
         $(":submit").css("opacity", "1");
     } else {
         $(":submit").attr("disabled", "disabled");
-        $(":submit").css("opacity", "0");
+        $(":submit").css("opacity", ".2");
     }
 })
 

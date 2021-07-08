@@ -1,4 +1,4 @@
-<table>
+<table id="usuarios" class="display" style="width:100%">
 	<thead>
 		<tr>
 			<th>Usuário</th>
@@ -19,7 +19,7 @@
 					<?php if ($obj['id'] == $_SESSION['user']['id']) : ?>
 						<span>Excluir</span>
 					<?php else: ?>
-						<a href="app/Controller/DeleteController.php?id=<?php echo $obj['id'] ?>" class="excluir">Excluir</a>
+						<a href="app/Controller/DeleteController.php?id=<?php echo $obj['id'] ?>&modulo=usuario" class="excluir">Excluir</a>
 					<?php endif ?>
 				</button>
 				<button <?php if ($obj['id'] == $_SESSION['user']['id']) { echo 'disabled'; } ?>>

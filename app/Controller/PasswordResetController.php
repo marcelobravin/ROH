@@ -1,40 +1,14 @@
 <?php
-// include '../../../config.php';
 include '../../app/Grimoire/core_inc.php';
-
-
-require ROOT.'app/model/database.class.php';
-
-
-
-// echo('<pre>');
-// print_r($_POST);
-// echo('</pre>');
 
 if ( !isset($_POST['email']) ) {
 	die("Email inválido");
 }
 
-
-
-
-
-
-$db = new Database();
-
 $condicoes = array(
 	'login' => $_POST['email']
 );
-$user = $db->selecionar('usuario', $condicoes);
-
-
-
-
-
-// echo('<pre>');
-// print_r($user);
-// echo('</pre>');
-
+$user = selecionar('usuario', $condicoes);
 
 
 if ( empty($user) ) {
@@ -47,7 +21,7 @@ if ( empty($user) ) {
 	$campos = array(
 		'reset'	=> $token
 	);
-	$rowCount = $db->atualizar('usuario', $campos, ['id' => $user['id']]);
+	$rowCount = atualizar('usuario', $campos, ['id' => $user['id']]);
 
 	if ( $rowCount == 0 ) {
 		echo "Erro ao validar email!";
@@ -68,9 +42,7 @@ echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 $assunto = "Redefinição de senha";
-$servidor = "http://localhost/PROJETOS/roh/";
-
-// $servidor = "http://". ROOT;
+$servidor = "http://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
 $endereco = "reset-senha.php?email=". $user['login'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senha</a>';
 

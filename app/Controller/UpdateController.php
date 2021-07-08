@@ -1,55 +1,38 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-
-require '../../app/model/database.class.php';
-
-$db = new Database();
-
-# Se usuário não alterou a senha, hasheia ela novamente
 $condicoes = array(
 	'id' => $_POST['id']
 );
 
-
 $campos = array(
 	'login' => $_POST['login']
-	// 'senha' => $_POST['senha']
 );
-$rowCount = $db->atualizar('usuario', $campos, ['id' => $_POST['id']]);
 
+try {
+	$rowCount = atualizar('usuario', $campos, $condicoes);
 
-if (is_numeric($rowCount) && $rowCount > 0) {
-	$_SESSION['mensagem'] = "Atualizado o registro número:". $_POST['id'];
+	if (is_numeric($rowCount) && $rowCount > 0) {
+		$_SESSION['mensagem'] = "Atualizado o registro número: ". $_POST['id'];
+		$_SESSION['mensagemClasse'] = "sucesso";
 
-	$db->registrarLog('U', 'usuario', $_POST['id']);
-	header('Location: ../../lista.php?modulo=usuario');
-	exit;
-} else {
+		registrarOperacao('U', 'usuario', $_POST['id']);
+		// registrarLog('U', 'usuario', $_POST['id']);
 
-	# tentou atualizar o login para um repetido
-	if ( contem("Duplicate entry 'login' for key 'login'", $_POST['id']) ) {
-		echo "Login já existe!";
 	} else {
-		echo "Nenhuma alteração realizada!";
+		# clicou atualizar sem adicionar nenhuma alteração
+		$_SESSION['mensagem'] = "Nenhuma alteração realizada!";
+		$_SESSION['mensagemClasse'] = "erro";
 	}
-}
 
-/**
- * Verifica se a string contém o trecho solicitado
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
- *
- * @param	string
- * @param	string
- * @return	bool
- */
-function contem($agulha, $palheiro) {
-	if (strpos($palheiro, $agulha) !== false)
-		return true;
-}
-?>
 
-<p>
-	<a href="../../lista.php?modulo=usuario">voltar</a>
-</p>
+} catch (PDOException $e) {
+	$_SESSION['mensagemClasse'] = "erro";
+	if ( contem("Duplicate entry 'login' for key 'login'", $_POST['id']) ) {
+		# tentou atualizar o login para um repetido
+		$_SESSION['mensagem'] = "Login já existe!";
+		$_SESSION['mensagemClasse'] = "erro";
+	}
+} finally {
+	header('Location: ../../lista.php?modulo=usuario');
+}

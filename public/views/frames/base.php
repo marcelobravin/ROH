@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php echo IDIOMA ?>">
+<html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
 		<?php include "public/views/frames/metas.php" ?>
 	</head>
@@ -22,4 +22,5 @@
 	</body>
 </html>
 
-<?php require("app\Grimoire\processosFinais.php"); ?>
+<?php #require("app\Grimoire\processosFinais.php"); ?>
+<?php #require("app/Grimoire/processosFinais.php"); ?>

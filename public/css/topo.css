@@ -9,9 +9,8 @@ header{
     justify-content: center;
 }
 .container-menu{
+    height: 100%;
     display: flex;
-    width: 100%;
-    max-width: 90%;
     align-items: center;
     justify-content: space-between;
 }
@@ -25,7 +24,7 @@ header .container-menu h1{
     color: #fff;
     height: 100%;
 }
-.container-menu ul{
+#menu-desk .container-menu ul{
     height: 100%;
     display: flex;
     align-items: center;
@@ -41,8 +40,61 @@ header .container-menu h1{
     height: 100%;
     transition: .3s;
 }
-.container-menu ul li:hover{
+#menu-desk .container-menu ul li:hover{
     background: #00dfc0;
     transition: .6s;
     transform: scale(1.1);
+}
+#menu-desk, #menu-mobile{
+    width: 100%;
+    max-width: 90%;
+}
+
+/* Menu Mobile */
+
+#menu-mobile{
+    display: none;
+}
+#menu-mobile label{
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+#menu-mobile .container-menu{
+    width: 100%;
+}
+#menu-mobile .container-menu ul{
+    position: absolute;
+    flex-flow: column;
+    width: 105px;
+    background: #385a64;
+    transform: translate(-27px, 100px);
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    order: 1;
+    opacity: 0;
+    transition: 1s;
+}
+#menu-mobile .container-menu ul li{
+    color: #00dfc0;
+    height: auto;
+}
+#ativa_menu:checked ~ ul{
+    transform: rotateY(-180deg) translate(136px, 100px);
+    transition: 2s;
+}
+#menu-mobile .container-menu h1{
+    order: 2;
+}
+#menu-mobile .container-menu a{
+    order: 3;
+}
+
+@media only screen and (max-width: 768px){
+    #menu-desk{
+        display: none;
+    }
+    #menu-mobile{
+        display: flex;
+    }
 }
