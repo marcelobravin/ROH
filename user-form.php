@@ -3,6 +3,8 @@
 
 	#bloquear não logados
 
+	#verificar permissão de acesso
+
 	$PAGINA['titulo']		= "Atualização";
 	$PAGINA['subtitulo']	= "Usuário";
 	// $PAGINA['endereco']		= "home.php";
@@ -16,10 +18,7 @@
 		$condicoes = array(
 			'id' => $_GET['id']
 		);
-		$user = selecionar('usuario', $condicoes);
-
-		if ( sizeof($user) > 0 )
-			$user = $user[0];
+		$user = localizar('usuario', $condicoes);
 	}
 ?><!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>">

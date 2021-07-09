@@ -38,4 +38,6 @@
 	}
 	a[href='#'] { color:red }
 	.ambiente_desenvolvimento { border: 1px solid red; box-sizing: border-box;}
+	[disabled] textarea,
+	[disabled] input { background-color: silver}
 </style>

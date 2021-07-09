@@ -6,6 +6,10 @@
 
 	$categorias = selecionar("categoria", array(), "ORDER BY titulo");
 	$hospitais = selecionar("hospital", array(), "ORDER BY titulo");
+
+	$hospitalValido = false;
+	if ( isset($_GET['hospital']) )
+		$hospitalValido = positivo($_GET['hospital']); # inteiro tb
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
@@ -43,66 +47,70 @@
 
 		<div class="container-tabelas">
 
-			<?php foreach ($categorias as $v) : ?>
-				<form action="app/Controller/DefineTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel">
+			<?php if ( !$hospitalValido ): ?>
+				Selecione um hospital!
+			<?php else: ?>
 
-					<input type="hidden" name="hospital" value="1" class="hospitalSelecionado" />
+				<?php foreach ($categorias as $v) : ?>
+					<form action="app/Controller/DefineTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel" <?php echo $hospitalValido ? "" : "disabled" ?>>
 
-					<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
+						<input type="hidden" name="hospital" value="<?php echo $_GET['hospital'] ?>" class="hospitalSelecionado" />
 
-					<?php $especialidades = selecionar("elemento", array('categoria_id'=>$v['id']), "ORDER BY titulo") ?>
+						<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
 
-					<table id="metas">
+						<?php $especialidades = selecionar("elemento", array('categoria_id'=>$v['id']), "ORDER BY titulo") ?>
 
-						<caption><?php echo $v['legenda'] ?></caption>
+						<table id="metas">
 
-						<thead>
-							<tr>
-								<th>Especialidade dos Leitos</th>
-								<th title="Essa instituição realiza esse tipo de atendimento?">Aplicável?</th>
-								<th>Leitos</th>
-							</tr>
-						</thead>
+							<caption><?php echo $v['legenda'] ?></caption>
 
-						<?php foreach ($especialidades as $e) : ?>
+							<thead>
+								<tr>
+									<th>Especialidade dos Leitos</th>
+									<th title="Essa instituição realiza esse tipo de atendimento?">Aplicável?</th>
+									<th>Leitos</th>
+								</tr>
+							</thead>
 
-							<?php
-								# localiza metas estabelecidas para essa especialidade
-								$cond = array(
-									// 'hospital_id' => 1, # ---------------------- PARAMETRIZAR
-									'hospital_id' => isset($_GET['hospital']) ? $_GET['hospital'] : 0,
-									'elemento_id' => $e['id']
-								);
-								$meta = localizar("meta", $cond);
+							<?php foreach ($especialidades as $e) : ?>
 
-								if ( empty( $meta ) ) {
-									$meta['ativo'] = 0;
-									$meta['quantidade'] = 0;
-								}
-							?>
+								<?php
+									# localiza metas estabelecidas para essa especialidade
+									$cond = array(
+										'hospital_id' => isset($_GET['hospital']) ? $_GET['hospital'] : 0,
+										'elemento_id' => $e['id']
+									);
+									$meta = localizar("meta", $cond);
 
-							<tr>
-								<td>
-									<?php echo $e['titulo'] ?>
-									<input type="hidden" name="especialidadeId" value="<?php echo $e['id'] ?>" />
-								</td>
-								<td><input type="checkbox" name="checkbox-<?php echo $e['id'] ?>" id="checkbox-<?php echo $e['id'] ?>" value="1" <?php echo checked ($meta['ativo']) ?>/></td>
-								<td><input type="text" name="leitos[<?php echo $e['id'] ?>]" id="leitos-<?php echo $e['id'] ?>" value="<?php echo $meta['quantidade'] ?>" /></td>
-							</tr>
-						<?php endforeach ?>
+									if ( empty( $meta ) ) {
+										$meta['ativo'] = 0;
+										$meta['quantidade'] = 0;
+									}
+								?>
 
-						<tfoot>
-							<tr>
-								<td colspan="4">
-									<?php echo $v['observacoes'] ?>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
-					<input type="submit" value="Atualizar Metas" />
-				</form>
+								<tr>
+									<td>
+										<?php echo $e['titulo'] ?>
+										<input type="hidden" name="especialidadeId" value="<?php echo $e['id'] ?>" />
+									</td>
+									<td><input type="checkbox" name="checkbox-<?php echo $e['id'] ?>" id="checkbox-<?php echo $e['id'] ?>" value="1" <?php echo checked ($meta['ativo']) ?>/></td>
+									<td><input type="text" name="leitos[<?php echo $e['id'] ?>]" id="leitos-<?php echo $e['id'] ?>" value="<?php echo $meta['quantidade'] ?>" /></td>
+								</tr>
+							<?php endforeach ?>
 
-			<?php endforeach ?>
+							<tfoot>
+								<tr>
+									<td colspan="4">
+										<?php echo $v['observacoes'] ?>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+						<input type="submit" value="Atualizar Metas" />
+					</form>
+
+				<?php endforeach ?>
+			<?php endif ?>
 
 		</div>
 	</div>

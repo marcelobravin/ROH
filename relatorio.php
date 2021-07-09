@@ -47,14 +47,14 @@
 			<div class="inputs">
 				<label for="hospital">Hospital</label>
 				<select name="hospital" id="hospital">
-					<?php echo gerarOptionsAA($hospitais) ?>
+					<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 				</select>
 			</div>
 
 			<div class="inputs">
 				<label for="mes">Mês</label>
 				<select name="mes" id="mes">
-					<?php echo gerarOptions($meses) ?>
+					<?php echo gerarOptions($meses, $_GET['mes_selecionado']) ?>
 				</select>
 			</div>
 
@@ -79,7 +79,6 @@
 					<?php $especialidades = selecionar("elemento", array('categoria_id'=>$v['id']), "ORDER BY titulo") ?>
 
 					<table>
-
 						<caption><?php echo $v['legenda'] ?></caption>
 
 						<thead>
@@ -96,7 +95,7 @@
 							<?php
 								# localiza metas estabelecidas para essa especialidade
 								$cond = array(
-									'hospital_id' => 1, # ---------------------- PARAMETRIZAR
+									'hospital_id' => isset($_GET['HOSPITAL']) ? $_GET['HOSPITAL'] : 0,
 									'elemento_id' => $e['id']
 								);
 								$meta = localizar("meta", $cond);
@@ -135,8 +134,9 @@
 							</tr>
 						</tfoot>
 					</table>
-					<input type="submit" value="Atualizar Metas" />
 				</form>
+
+				<hr>
 
 			<?php endforeach ?>
 

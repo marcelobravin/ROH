@@ -32,7 +32,6 @@
 				</div>
 				<div class="inputs botao">
 					<input type="submit" value="Redefinir Senha" disabled />
-					<!-- <button id="enviar">Redefinir Senha</button> -->
 				</div>
 			</form>
 

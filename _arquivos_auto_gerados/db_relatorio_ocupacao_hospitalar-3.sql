@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 07-Jul-2021 às 17:55
+-- Tempo de geração: 08-Jul-2021 às 21:52
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `db_relatorio_ocupacao_hospitalar`
 --
-CREATE DATABASE IF NOT EXISTS `db_relatorio_ocupacao_hospitalar` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `db_relatorio_ocupacao_hospitalar`;
 
 -- --------------------------------------------------------
 
@@ -205,12 +203,9 @@ INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `
 (63, 'São Luiz Gonzaga', 1, '2021-07-05 14:31:58', NULL, NULL, 1, NULL, NULL),
 (64, 'São Luiz Gonzaga2', 1, '2021-07-05 16:01:24', NULL, NULL, 1, NULL, NULL),
 (65, 'São Luiz Gonzaga', 1, '2021-07-05 16:01:35', NULL, NULL, 1, NULL, NULL),
-(66, 'dsads', 1, '2021-07-05 16:11:23', NULL, NULL, 1, NULL, NULL),
 (67, 'São Luiz Gonzaga', 1, '2021-07-05 16:12:12', NULL, NULL, 1, NULL, NULL),
 (68, 'São Luiz Gonzaga', 1, '2021-07-05 16:12:16', NULL, NULL, 1, NULL, NULL),
-(69, 'dsads', 1, '2021-07-06 07:33:59', NULL, NULL, 1, NULL, NULL),
 (70, 'São Luiz Gonzaga2', 1, '2021-07-06 07:36:57', NULL, NULL, 1, NULL, NULL),
-(71, 'dsads', 1, '2021-07-06 07:38:08', NULL, NULL, 1, NULL, NULL),
 (72, 'São Luiz Gonzaga2', 1, '2021-07-06 07:38:24', NULL, NULL, 1, NULL, NULL),
 (73, 'dsads', 1, '2021-07-06 07:38:45', NULL, NULL, 1, NULL, NULL);
 
@@ -268,7 +263,11 @@ INSERT INTO `meta` (`id`, `hospital_id`, `elemento_id`, `quantidade`, `ativo`, `
 (55, 1, 23, 9999, 0, '2021-07-07 12:00:38', NULL, NULL, 1, NULL, NULL),
 (56, 1, 22, 999, 0, '2021-07-07 12:00:38', NULL, NULL, 1, NULL, NULL),
 (57, 1, 21, 99, 0, '2021-07-07 12:00:38', NULL, NULL, 1, NULL, NULL),
-(58, 1, 24, 9, 0, '2021-07-07 12:00:38', NULL, NULL, 1, NULL, NULL);
+(58, 1, 24, 9, 0, '2021-07-07 12:00:38', NULL, NULL, 1, NULL, NULL),
+(83, 66, 13, 20, 0, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
+(84, 66, 12, 30, 1, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
+(85, 66, 11, 40, 0, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
+(86, 66, 14, 50, 1, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -317,8 +316,7 @@ INSERT INTO `usuario` (`id`, `login`, `senha`, `email_confirmado`, `token`, `ati
 (5, 'login2', '$2y$12$OcY3OftOC..9GBSgNcyxZu7152L37DuCUTx9abrt2rxw1VaUhpc.u', 0, NULL, 1, NULL, '2021-07-05 16:04:58', NULL, NULL, 1, NULL, NULL),
 (6, 'usuario2@email.com', '$2y$12$AMdrHo0maWuKLDRImZGMneoiB4O9R8hWCOKufYQuBAVgLys3nWtM2', 0, NULL, 0, NULL, '2021-07-05 16:05:08', NULL, NULL, 1, NULL, NULL),
 (7, 'zé', '$2y$12$MTpaUfpzCK6zJ2hz3BHWo.YoMZDGZZTDB468J7IXhcmeJ6cnI9Ziu', 0, NULL, 1, NULL, '2021-07-06 07:29:56', NULL, NULL, 1, NULL, NULL),
-(8, 'login', '$2y$12$QKI.v.2Su6lu/tSuvuC9K.91Uphu1E6JX75DvrYCXAcWD/dJo3eVS', 0, NULL, 1, NULL, '2021-07-06 07:32:32', NULL, NULL, 1, NULL, NULL),
-(10, 'X250617', '$2y$12$KqntNpGDIuL0Mb3TcjY8pe7FbJKmyaVl/wFq1mJIEXGFY/SHVeoZ6', 0, NULL, 1, NULL, '2021-07-07 07:31:05', NULL, NULL, 1, NULL, NULL);
+(8, 'login', '$2y$12$QKI.v.2Su6lu/tSuvuC9K.91Uphu1E6JX75DvrYCXAcWD/dJo3eVS', 0, NULL, 1, NULL, '2021-07-06 07:32:32', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -448,7 +446,7 @@ ALTER TABLE `hospital`
 -- AUTO_INCREMENT de tabela `meta`
 --
 ALTER TABLE `meta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de tabela `resultado`
