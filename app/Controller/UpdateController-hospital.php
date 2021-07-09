@@ -6,18 +6,18 @@ $condicoes = array(
 );
 
 $campos = array(
-	'login' => $_POST['login']
+	'titulo' => $_POST['titulo'],
+	'ativo' => $_POST['ativo']
 );
 
 try {
-	$rowCount = atualizar('usuario', $campos, $condicoes);
+	$rowCount = atualizar('hospital', $campos, $condicoes);
 
 	if (is_numeric($rowCount) && $rowCount > 0) {
 		$_SESSION['mensagem'] = "Atualizado o registro número: ". $_POST['id'];
 		$_SESSION['mensagemClasse'] = "sucesso";
 
-		registrarOperacao('U', 'usuario', $_POST['id']);
-		// registrarLog('U', 'usuario', $_POST['id']);
+		registrarOperacao('U', 'hospital', $_POST['id']);
 
 	} else {
 		# clicou atualizar sem adicionar nenhuma alteração
@@ -34,5 +34,5 @@ try {
 		$_SESSION['mensagemClasse'] = "erro";
 	}
 } finally {
-	header('Location: ../../lista.php?modulo=usuario');
+	header('Location: ../../lista.php?modulo=hospital');
 }

@@ -7,19 +7,22 @@
 	$PAGINA['subtitulo']	= "Hospitais";
 	// $PAGINA['endereco']		= "home.php";
 
-	if ( isset($_GET['modulo']) )
-		define('MODULO', $_GET['modulo']);
+	if ( !isset($_GET['modulo']) )
+		die("modulo invalido");
 
-	if ( isset($_GET['codigo']) ) {
+	if ( !isset($_GET['codigo']) )
+		die("codigo invalido");
 
-		$condicoes = array(
-			'id' => $_GET['codigo']
-		);
-		$obj = selecionar(MODULO, $condicoes);
-		if ( sizeof($obj) > 0 )
-			$obj = $obj[0];
 
-	}
+	define('MODULO', $_GET['modulo']);
+	$condicoes = array(
+		'id' => $_GET['codigo']
+	);
+	$obj = localizar(MODULO, $condicoes);
+
+	if ( empty($obj) )
+		die("Objeto não encontrado");
+
 ?><!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>">
 <head>
@@ -28,13 +31,13 @@
 <body>
 	<?php include "public/views/frames/header.php" ?>
 
-	<a href="app/Controller/LogoutController.php">Logout</a>
-
 	<p>
-		<a href="FormGenerate.php">Gerar formulário conforme definição do BD</a>
+		<a href="index.php?action=gerar-formulario">Gerar formulário conforme definição do BD</a>
 	</p>
 
-	<form action="app/Controller/RegisterController-<?php echo MODULO ?>.php" method="post">
+	<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
+		<input type="hidden" name="id" id="id" value="<?php echo $obj['id'] ?>" />
+
 		<div>
 			<label for="titulo"title="Descrição do Título">Título</label>
 			<input type="text" name="titulo" id="titulo" value="<?php echo $obj['titulo'] ?>" class="obrigatorio" required="required" maxlength="255" />

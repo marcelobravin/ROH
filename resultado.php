@@ -82,7 +82,9 @@
 			<div class="inputs">
 				<label for="hospital">Hospital</label>
 				<select name="hospital" id="hospital">
-					<option>Selecione...</option>
+					<?php if ( !$hospitalValido ): ?>
+						<option>Selecione...</option>
+					<?php endif ?>
 					<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 				</select>
 			</div>
@@ -103,14 +105,13 @@
 				Selecione um hospital!
 			<?php else: ?>
 				<?php foreach ($categorias as $v) : ?>
-					<form action="app/Controller/DefineTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel" <?php echo $hospitalValido ? '' : 'disabled' ?>>
+					<form action="app/Controller/DefineTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel" <?php echo $hospitalValido ? "" : "disabled" ?>>
 
 						<input type="hidden" name="hospital" value="<?php echo $_GET['hospital'] ?>" class="hospitalSelecionado" />
 
 						<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
 
 						<?php $especialidades = selecionar("elemento", array('categoria_id'=>$v['id']), "ORDER BY titulo") ?>
-
 
 						<table>
 							<caption><?php echo $v['legenda'] ?></caption>
@@ -134,15 +135,9 @@
 									);
 									$meta = localizar("meta", $cond);
 
-									// if ( empty( $meta ) ) {
-									// 	$meta['quantidade'] = 0;
-									// }
-
-
 									if ( empty( $meta ) ) {
-										die("Meta não definida para esse hospital!");
+										$meta['quantidade'] = 0;
 									}
-
 								?>
 
 								<tr>
