@@ -2,7 +2,7 @@
 		/**
 			* _log_acesso
 			* @package grimoire/modelos
-			* @version 08-07-2021 08:34:19
+			* @version 10-07-2021 16:45:01
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);

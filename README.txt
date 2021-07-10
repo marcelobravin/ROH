@@ -16,8 +16,8 @@ Ponto de geração de formularios - http://localhost/roh/app/FormGenerate.php
 
 # Features
 senha criptografada
-atualizar cadastro de usuário no painel de administração não atualiza senha
 auto atendimento para reset de senha
+	atualizar cadastro de usuário no painel de administração não atualiza senha
 	medidor de força de senha
 botão visualizar senha em login e alterar senha
 exclusão lógica (desativar usuário)
@@ -29,9 +29,11 @@ lista de usuários não permite excluir o próprio usuário logado
 	adicionar ao desativar
 credenciais de DB em arquivo .env
 bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
+	log acesso
 log operações
-paginação nas listas
-bloquear usuarios não logados
+paginação real nas listas
+bloqueio de usuarios não logados em páginas internas
+não mudar email de usuário na tela de atualizar senha
 
 
 
@@ -39,7 +41,6 @@ bloquear usuarios não logados
 Módulo de definição de metas (associação): escolhe hospital depois escolhe elementos a vincular, define metas
 Módulo preencher metas: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
 validar email na tela de esqueci a senha
-não mudar email de usuário na tela de atualizar senha
 informar alterações não salvas em formulários ao recarregar ou fechar
 sincronização de dados offline
 tempo de sessão
@@ -57,5 +58,4 @@ reset de senha
 	sem senha mímina
 	corrigir regxep símbolos
 
-testar envio de email
 registrar exclusão lógica

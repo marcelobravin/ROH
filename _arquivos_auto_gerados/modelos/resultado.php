@@ -2,7 +2,7 @@
 		/**
 			* resultado
 			* @package grimoire/modelos
-			* @version 08-07-2021 08:34:19
+			* @version 10-07-2021 16:45:02
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
@@ -35,6 +35,15 @@
 			);
 		
 			$campos[3] = array(
+				"Field"		=> "mes",
+				"Type"		=> "tinyint(2)",
+				"Null"		=> "NO",
+				"Key"		=> "",
+				"Default"	=> "",
+				"Extra"		=> ""
+			);
+		
+			$campos[4] = array(
 				"Field"		=> "justificativa",
 				"Type"		=> "text",
 				"Null"		=> "YES",
@@ -43,7 +52,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[4] = array(
+			$campos[5] = array(
 				"Field"		=> "justificativa_aceita",
 				"Type"		=> "tinyint(1)",
 				"Null"		=> "NO",
@@ -52,7 +61,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[5] = array(
+			$campos[6] = array(
 				"Field"		=> "criado_em",
 				"Type"		=> "datetime",
 				"Null"		=> "NO",
@@ -61,7 +70,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[6] = array(
+			$campos[7] = array(
 				"Field"		=> "criado_por",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",

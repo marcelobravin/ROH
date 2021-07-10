@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Tempo de geração: 08-Jul-2021 às 21:52
--- Versão do servidor: 10.4.18-MariaDB
--- versão do PHP: 8.0.3
+-- Host: 127.0.0.1
+-- Tempo de geração: 10-Jul-2021 às 21:22
+-- Versão do servidor: 10.4.19-MariaDB
+-- versão do PHP: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `db_relatorio_ocupacao_hospitalar`
 --
+CREATE DATABASE IF NOT EXISTS `db_relatorio_ocupacao_hospitalar` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `db_relatorio_ocupacao_hospitalar`;
 
 -- --------------------------------------------------------
 
@@ -139,75 +141,7 @@ CREATE TABLE `hospital` (
 
 INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
 (1, 'São Luiz Gonzaga', 1, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(2, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(3, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(4, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(5, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(6, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(7, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(8, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(9, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(10, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(11, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(12, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(13, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(14, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(15, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(16, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(17, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(18, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(19, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(20, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(21, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(22, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(23, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(24, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(25, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(26, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(27, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(28, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(29, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(30, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(31, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(32, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(33, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(34, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(35, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(36, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(37, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(38, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(39, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(40, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(41, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(42, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(43, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(44, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(45, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(46, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(47, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(48, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(49, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(50, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(51, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(52, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(53, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(54, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(55, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(56, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(57, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(58, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(59, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(60, 'São Luiz Gonzaga', 0, '2021-07-04 18:58:55', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(61, 'sad', 1, '2021-07-05 12:20:33', NULL, NULL, 1, NULL, NULL),
-(62, 'São Luiz Gonzaga2', 1, '2021-07-05 14:31:52', NULL, NULL, 1, NULL, NULL),
-(63, 'São Luiz Gonzaga', 1, '2021-07-05 14:31:58', NULL, NULL, 1, NULL, NULL),
-(64, 'São Luiz Gonzaga2', 1, '2021-07-05 16:01:24', NULL, NULL, 1, NULL, NULL),
-(65, 'São Luiz Gonzaga', 1, '2021-07-05 16:01:35', NULL, NULL, 1, NULL, NULL),
-(67, 'São Luiz Gonzaga', 1, '2021-07-05 16:12:12', NULL, NULL, 1, NULL, NULL),
-(68, 'São Luiz Gonzaga', 1, '2021-07-05 16:12:16', NULL, NULL, 1, NULL, NULL),
-(70, 'São Luiz Gonzaga2', 1, '2021-07-06 07:36:57', NULL, NULL, 1, NULL, NULL),
-(72, 'São Luiz Gonzaga2', 1, '2021-07-06 07:38:24', NULL, NULL, 1, NULL, NULL),
-(73, 'dsads', 1, '2021-07-06 07:38:45', NULL, NULL, 1, NULL, NULL);
+(74, 'São Luiz Gonzaga23', 1, '2021-07-09 12:09:20', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -267,7 +201,18 @@ INSERT INTO `meta` (`id`, `hospital_id`, `elemento_id`, `quantidade`, `ativo`, `
 (83, 66, 13, 20, 0, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
 (84, 66, 12, 30, 1, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
 (85, 66, 11, 40, 0, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
-(86, 66, 14, 50, 1, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL);
+(86, 66, 14, 50, 1, '2021-07-07 15:02:05', NULL, NULL, 1, NULL, NULL),
+(90, 1, 28, 2, 0, '2021-07-09 15:46:57', NULL, NULL, 1, NULL, NULL),
+(91, 1, 27, 9, 0, '2021-07-09 15:46:57', NULL, NULL, 1, NULL, NULL),
+(92, 1, 29, 8, 0, '2021-07-09 15:46:57', NULL, NULL, 1, NULL, NULL),
+(93, 1, 30, 6, 0, '2021-07-09 15:46:57', NULL, NULL, 1, NULL, NULL),
+(94, 1, 26, 2, 0, '2021-07-09 15:46:57', NULL, NULL, 1, NULL, NULL),
+(95, 1, 25, 1, 0, '2021-07-09 15:46:57', NULL, NULL, 1, NULL, NULL),
+(96, 74, 10, 100, 1, '2021-07-09 16:22:35', NULL, NULL, 1, NULL, NULL),
+(97, 74, 13, 110, 1, '2021-07-09 16:22:35', NULL, NULL, 1, NULL, NULL),
+(98, 74, 12, 120, 1, '2021-07-09 16:22:35', NULL, NULL, 1, NULL, NULL),
+(99, 74, 11, 130, 1, '2021-07-09 16:22:35', NULL, NULL, 1, NULL, NULL),
+(100, 74, 14, 140, 1, '2021-07-09 16:22:35', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -279,11 +224,23 @@ CREATE TABLE `resultado` (
   `id` int(11) NOT NULL,
   `meta_id` int(11) NOT NULL,
   `resultado` int(3) NOT NULL,
+  `mes` tinyint(2) NOT NULL,
   `justificativa` text DEFAULT NULL,
   `justificativa_aceita` tinyint(1) NOT NULL DEFAULT 0,
   `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
   `criado_por` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `resultado`
+--
+
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES
+(43, 10, 1, 7, '', 0, '2021-07-09 22:16:17', 1),
+(44, 13, 3, 7, '', 0, '2021-07-09 22:16:17', 1),
+(45, 12, 4, 7, '', 0, '2021-07-09 22:16:17', 1),
+(46, 11, 55, 7, '', 0, '2021-07-09 22:16:17', 1),
+(47, 14, 55, 7, '', 0, '2021-07-09 22:16:17', 1);
 
 -- --------------------------------------------------------
 
@@ -312,8 +269,7 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `login`, `senha`, `email_confirmado`, `token`, `ativo`, `reset`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
-(1, 'usuario@email.com', '$2y$12$VN1AGBQv7i1RqtLpBFuqKecXfO7O7RVlnEfFsI7Vhi6G/LU.PCJ2K', 1, '', 0, '60e4383eb8e4b', '2021-07-02 10:21:37', '2021-07-04 18:21:51', '0000-00-00 00:00:00', 1, 0, 0),
-(5, 'login2', '$2y$12$OcY3OftOC..9GBSgNcyxZu7152L37DuCUTx9abrt2rxw1VaUhpc.u', 0, NULL, 1, NULL, '2021-07-05 16:04:58', NULL, NULL, 1, NULL, NULL),
+(1, 'usuario@email.com', '$2y$12$.oqI.kRnIrk3v.S7CMGJ4.N.qmg8Z5/kr1fYd/UxgnH0K8ZurKLP6', 1, '', 0, '', '2021-07-02 10:21:37', '2021-07-04 18:21:51', '0000-00-00 00:00:00', 1, 0, 0),
 (6, 'usuario2@email.com', '$2y$12$AMdrHo0maWuKLDRImZGMneoiB4O9R8hWCOKufYQuBAVgLys3nWtM2', 0, NULL, 0, NULL, '2021-07-05 16:05:08', NULL, NULL, 1, NULL, NULL),
 (7, 'zé', '$2y$12$MTpaUfpzCK6zJ2hz3BHWo.YoMZDGZZTDB468J7IXhcmeJ6cnI9Ziu', 0, NULL, 1, NULL, '2021-07-06 07:29:56', NULL, NULL, 1, NULL, NULL),
 (8, 'login', '$2y$12$QKI.v.2Su6lu/tSuvuC9K.91Uphu1E6JX75DvrYCXAcWD/dJo3eVS', 0, NULL, 1, NULL, '2021-07-06 07:32:32', NULL, NULL, 1, NULL, NULL);
@@ -339,7 +295,9 @@ CREATE TABLE `_log_acesso` (
 
 INSERT INTO `_log_acesso` (`id`, `usuarioId`, `sucesso`, `ip`, `navegador`, `datahora`) VALUES
 (35, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-07-06 11:06:04'),
-(36, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-07-07 10:33:54');
+(36, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-07-07 10:33:54'),
+(37, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.124\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-07-09 00:06:49'),
+(38, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.124\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-07-10 16:49:08');
 
 -- --------------------------------------------------------
 
@@ -357,6 +315,13 @@ CREATE TABLE `_log_operacoes` (
   `navegador` varchar(400) NOT NULL,
   `datahora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `_log_operacoes`
+--
+
+INSERT INTO `_log_operacoes` (`id`, `usuarioId`, `acao`, `tabela`, `objetoId`, `ip`, `navegador`, `datahora`) VALUES
+(6, 1, 'U', 'hospital', 74, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.124 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.124\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-07-10 18:31:27');
 
 --
 -- Índices para tabelas despejadas
@@ -440,19 +405,19 @@ ALTER TABLE `elemento`
 -- AUTO_INCREMENT de tabela `hospital`
 --
 ALTER TABLE `hospital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de tabela `meta`
 --
 ALTER TABLE `meta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT de tabela `resultado`
 --
 ALTER TABLE `resultado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
@@ -464,13 +429,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de tabela `_log_operacoes`
 --
 ALTER TABLE `_log_operacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

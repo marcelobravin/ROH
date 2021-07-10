@@ -20,15 +20,12 @@
 <body>
 	<?php include "public/views/frames/header.php" ?>
 
-	<a href="app/Controller/LogoutController.php">Logout</a>
-
 	<p>
-		<a href="FormGenerate.php">Gerar formulário conforme definição do BD</a>
+		<a href="index.php?action=gerar-formulario">Gerar formulário conforme definição do BD</a>
 	</p>
 
-
 	<form action="app/Controller/RegisterController-<?php echo MODULO ?>.php" method="post">
-		<?php require '_arquivos_auto_gerados/views/'.MODULO.'.html' ?>
+		<?php require '_arquivos_auto_gerados/views/'.MODULO.'-insercao.html' ?>
 		<input type="submit" value="CADASTRAR" />
 	</form>
 

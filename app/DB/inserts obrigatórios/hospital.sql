@@ -1,0 +1,1 @@
+INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('1', 'São Luiz Gonzaga', '1', '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '0', '0');

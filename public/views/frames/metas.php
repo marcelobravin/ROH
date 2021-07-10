@@ -40,4 +40,24 @@
 	.ambiente_desenvolvimento { border: 1px solid red; box-sizing: border-box;}
 	[disabled] textarea,
 	[disabled] input { background-color: silver}
+
+	input[type="submit"] {
+		/* border: 1px solid gray; */
+		background-color: #609bf5;
+		color: white;
+		padding: 10px 30px;
+		border-radius: 6px;
+		margin: 0 auto;
+		display: block;
+		margin-top: 20px;
+	}
+
+	input[type="submit"]:hover {
+		/* border: 1px solid silver; */
+		text-decoration: underline;
+	}
+/*
+	input[type="submit"]:focus {
+		margin-top: 22px;
+	} */
 </style>

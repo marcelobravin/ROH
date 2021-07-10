@@ -32,7 +32,7 @@
 	<?php include "public/views/frames/header.php" ?>
 
 	<p>
-		<a href="index.php?action=gerar-formulario">Gerar formulário conforme definição do BD</a>
+		<a href="index.php?action=gerar-formulario-atualizacao&tabela=<?php echo MODULO ?>">Gerar formulário de atualização conforme definição do BD</a>
 	</p>
 
 	<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
