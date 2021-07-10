@@ -50,6 +50,6 @@
 		</div>
 
 	</div>
-	<script type="text/javascript" src="public/scripts/exclusao.js"></script>
+	<script src="public/scripts/exclusao.js"></script>
 </body>
 </html>

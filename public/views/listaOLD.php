@@ -46,4 +46,4 @@
 	</div>
 
 </div>
-<script type="text/javascript" src="public/scripts/usuarios.js"></script>
+<script src="public/scripts/usuarios.js"></script>

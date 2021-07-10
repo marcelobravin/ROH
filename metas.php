@@ -114,7 +114,7 @@
 
 		</div>
 	</div>
-<script type="text/javascript" src="public/scripts/metas.js"></script>
+<script src="public/scripts/metas.js"></script>
 
 </body>
 </html>

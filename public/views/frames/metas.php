@@ -30,7 +30,7 @@
 <link rel="stylesheet" type="text/css" href="public/css/topo.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-<script type="text/javascript" src="public/scripts/sweet-alert.js"></script>
+<script src="public/scripts/sweet-alert.js"></script>
 
 <style type="text/css">
 	.obrigatorio:before {

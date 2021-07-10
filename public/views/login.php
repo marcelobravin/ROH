@@ -27,6 +27,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="public/scripts/login.js"></script>
+	<script src="public/scripts/login.js"></script>
 </body>
 </html>

@@ -21,9 +21,9 @@
 		<?php include "public/views/frames/metas.php" ?>
 		<link rel="stylesheet" type="text/css" href="public/css/metas.css">
 
-		<script type="text/javascript" src="public/scripts/metas.js"></script>
+		<script src="public/scripts/metas.js"></script>
 
-		<script type="text/javascript">
+		<script>
 			$(document).ready(function(){
 				$(".sucesso, .erro").click(function(){
 					$(this).slideToggle('slow')

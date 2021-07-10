@@ -25,6 +25,6 @@
 			</form>
 		</div>
 	</div>
-<script type="text/javascript" src="public/scripts/esqueci-senha.js"></script>
+<script src="public/scripts/esqueci-senha.js"></script>
 </body>
 </html>

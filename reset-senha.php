@@ -80,8 +80,8 @@
 				</div> -->
 		</div>
 	</div>
-<script type="text/javascript" src="public/scripts/reset-senha.js"></script>
-<script type="text/javascript" src="public/scripts/sweet-alert.js"></script>
+<script src="public/scripts/reset-senha.js"></script>
+<script src="public/scripts/sweet-alert.js"></script>
 
 </body>
 </html>
