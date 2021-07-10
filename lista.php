@@ -2,6 +2,8 @@
 	include 'app/Grimoire/core_inc.php';
 
 	#bloquear não logados
+	if ( !LOGADO )
+		redirecionar("index.php");
 
 	if ( empty($_GET['modulo']) )
 		redirecionar("index.php");
@@ -11,7 +13,7 @@
 	$PAGINA['subtitulo']	= MODULO;
 	// $PAGINA['endereco']		= "home.php";
 
-	$paginacao = paginationCore(MODULO, 3);
+	$paginacao = paginationCore(MODULO);
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>

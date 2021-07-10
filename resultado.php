@@ -113,7 +113,7 @@
 
 						<input type="hidden" name="hospital" value="<?php echo $_GET['hospital'] ?>" class="hospitalSelecionado" />
 
-						<input type="hiddedn" name="mes" value="<?php echo $in_mesAtual ?>" />
+						<input type="hidden" name="mes" value="<?php echo $in_mesAtual ?>" />
 
 						<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
 
