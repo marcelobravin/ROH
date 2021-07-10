@@ -8,7 +8,8 @@
 	$hospitais	= selecionar("hospital", array(), "ORDER BY titulo");
 
 	$meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
-	$mesAtual = $meses[date('n')];
+	$st_mesAtual = $meses[date('n')];
+	$in_mesAtual = date('n');
 
 	$hospitalValido = false;
 	if ( isset($_GET['hospital']) )
@@ -19,6 +20,9 @@
 	<head>
 		<?php include "public/views/frames/metas.php" ?>
 		<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+
+		<script type="text/javascript" src="public/scripts/metas.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".sucesso, .erro").click(function(){
@@ -97,7 +101,7 @@
 			</div>
 		</div>
 
-		<h3><?php echo $mesAtual ?> - <?php echo date('Y') ?></h3>
+		<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
 
 		<div class="container-tabelas">
 
@@ -105,9 +109,11 @@
 				Selecione um hospital!
 			<?php else: ?>
 				<?php foreach ($categorias as $v) : ?>
-					<form action="app/Controller/DefineTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel" <?php echo $hospitalValido ? "" : "disabled" ?>>
+					<form action="app/Controller/FillTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel" <?php echo $hospitalValido ? "" : "disabled" ?>>
 
 						<input type="hidden" name="hospital" value="<?php echo $_GET['hospital'] ?>" class="hospitalSelecionado" />
+
+						<input type="hiddedn" name="mes" value="<?php echo $in_mesAtual ?>" />
 
 						<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
 
@@ -137,6 +143,9 @@
 
 									if ( empty( $meta ) ) {
 										$meta['quantidade'] = 0;
+										#fechar tudo
+										echo "</table></form>";
+										die("<p>Meta não definida para esse hospital</p>");
 									}
 								?>
 
@@ -178,6 +187,5 @@
 
 		</div>
 	</div>
-<script type="text/javascript" src="public/scripts/metas.js"></script>
 </body>
 </html>

@@ -9,17 +9,85 @@
 
 	$meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
 	$mesAtual = $meses[date('n')];
-?>
-<!DOCTYPE html>
+
+	$mesSelecionado = isset( $_GET['mes'] ) ? $_GET['mes'] : $mesAtual;
+	$hospitalSelecionado = isset( $_GET['hospital'] ) ? $_GET['hospital'] : 1; # corrigir
+
+
+
+
+		// $matriz = array();
+	// foreach ($especialidades as $e) {
+	// 	# localiza metas estabelecidas para essa especialidade
+	// 	$cond = array(
+	// 		'hospital_id'	=> $hospitalSelecionado,
+	// 		'elemento_id'	=> $e['id']
+	// 		// 'mes'			=> $e['mes']
+	// 	);
+	// 	$matriz[] = localizar("meta", $cond);
+	// }
+
+	$cond = array(
+		'hospital_id'	=> $hospitalSelecionado,
+	);
+	$metas = selecionar("meta", $cond);
+
+
+	foreach ($metas as $i => $v) {
+		$metas[$i]['elemento'] = localizar( "elemento", array('id'=>$v['elemento_id']) );
+		$metas[$i]['resultado'] = localizar( "resultado", array(
+			'meta_id'	=> $v['id']
+			, 'mes'		=> $mesSelecionado
+		));
+	}
+
+
+
+
+echo('<pre>');
+// print_r($especialidades);
+print_r($metas);
+echo('</pre>');
+
+	exit;
+
+?><!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
 		<?php include "public/views/frames/metas.php" ?>
 		<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+
+		<script type="text/javascript" src="public/scripts/metas.js"></script>
+
 		<script type="text/javascript">
 			$(document).ready(function(){
 				$(".sucesso, .erro").click(function(){
 					$(this).slideToggle('slow')
 				});
+
+				$("#mes").change(function(){
+					$( "form" ).addClass("invisivel")
+					$( "#bloco-"+ $(this).val() ).removeClass("invisivel")
+				})
+
+
+				$("#mes").change(function(){
+					var h = $(this).val()
+					let paginaAtual = window.location.href
+					let fragmentos = paginaAtual.split('?')
+
+					const queryString = window.location.search;
+
+					const urlParams = new URLSearchParams(queryString);
+
+					const hospital = urlParams.get('hospital')
+
+					console.log(hospital);
+
+					fragmentos = fragmentos[0].split('/')
+					window.location.href = fragmentos[5] + "?hospital="+hospital+"&mes="+h // PROJETOS/roh
+				})
+
 			});
 		</script>
 		<style>
@@ -54,7 +122,7 @@
 			<div class="inputs">
 				<label for="mes">Mês</label>
 				<select name="mes" id="mes">
-					<?php echo gerarOptions($meses, $_GET['mes_selecionado']) ?>
+					<?php echo gerarOptions($meses, $mesSelecionado) ?>
 				</select>
 			</div>
 
@@ -71,13 +139,6 @@
 			<?php foreach ($categorias as $v) : ?>
 				<form action="app/Controller/DefineTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel">
 
-					<!-- Mudar via jquery o hospital selecionado -->
-					<input type="hidden" name="hospital" value="1" class="hospitalSelecionado" />
-
-					<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
-
-					<?php $especialidades = selecionar("elemento", array('categoria_id'=>$v['id']), "ORDER BY titulo") ?>
-
 					<table>
 						<caption><?php echo $v['legenda'] ?></caption>
 
@@ -91,20 +152,6 @@
 						</thead>
 
 						<?php foreach ($especialidades as $e) : ?>
-
-							<?php
-								# localiza metas estabelecidas para essa especialidade
-								$cond = array(
-									'hospital_id' => isset($_GET['HOSPITAL']) ? $_GET['HOSPITAL'] : 0,
-									'elemento_id' => $e['id']
-								);
-								$meta = localizar("meta", $cond);
-
-								if ( empty( $meta ) ) {
-									$meta['ativo'] = 0;
-									$meta['quantidade'] = 0;
-								}
-							?>
 
 							<tr>
 								<td>
@@ -142,6 +189,5 @@
 
 		</div>
 	</div>
-<script type="text/javascript" src="public/scripts/metas.js"></script>
 </body>
 </html>
