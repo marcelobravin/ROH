@@ -1,5 +1,5 @@
 <?php
-	include 'app/Grimoire/core_inc.php';
+	require 'app/Grimoire/core_inc.php';
 
 	if ( LOGADO ) {
 		$PAGINA['titulo']		= "Home";
@@ -8,7 +8,7 @@
 
 		include "public/views/frames/base.php";
 	} else {
-		$PAGINA['titulo']		= TITULO_SITE;
+		// $PAGINA['titulo']		= TITULO_SITE;
 		$PAGINA['subtitulo']	= "Login";
 		$PAGINA['endereco']		= "login.php";
 

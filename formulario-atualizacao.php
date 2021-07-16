@@ -27,27 +27,20 @@
 <html lang="<?php echo IDIOMA ?>">
 <head>
 	<?php include "public/views/frames/metas.php" ?>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </head>
 <body>
 	<?php include "public/views/frames/header.php" ?>
 
-	<p>
-		<a href="index.php?action=gerar-formulario-atualizacao&tabela=<?php echo MODULO ?>">Gerar formulário de atualização conforme definição do BD</a>
-	</p>
+	<div class="container">
+		<h2>Atualização</h2>
 
-	<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
-		<input type="hidden" name="id" id="id" value="<?php echo $obj['id'] ?>" />
+		<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
+			<?php #require 'public/views/forms/'.MODULO.'-atualizacao.php'  #--- prod ?>
+			<?php require '_arquivos_auto_gerados/views/'.MODULO.'-atualizacao.php' #  dev ?>
 
-		<div>
-			<label for="titulo"title="Descrição do Título">Título</label>
-			<input type="text" name="titulo" id="titulo" value="<?php echo $obj['titulo'] ?>" class="obrigatorio" required="required" maxlength="255" />
-		</div>
-		<div>
-			<label for="ativo" title="Descrição do Título">ativo</label>
-			<label><input type="checkbox" name="ativo" id="ativo" value="1" class="obrigatorio" required="required" <?php echo checked ($obj['ativo'], 1) ?> />Ativo</label>
-		</div>
-
-		<input type="submit" value="ATUALIZAR" />
-	</form>
+			<input type="submit" value="ATUALIZAR" />
+		</form>
+	</div>
 </body>
 </html>

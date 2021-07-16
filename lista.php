@@ -1,9 +1,8 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
-	#bloquear não logados
-	if ( !LOGADO )
-		redirecionar("index.php");
+	// if ( !LOGADO )
+	// 	redirecionar("index.php");
 
 	if ( empty($_GET['modulo']) )
 		redirecionar("index.php");
@@ -23,6 +22,7 @@
 	</head>
 <body>
 	<?php require_once 'public/views/frames/header.php' ?>
+
 	<div class="container-tabelas">
 		<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
 			<?php echo esvaziarMensagem() ?>

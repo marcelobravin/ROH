@@ -1,11 +1,12 @@
 <?php
 		/**
-			* resultado
-			* @package grimoire/modelos
-			* @version 10-07-2021 16:45:02
+			 * resultado
+			 * @package grimoire/modelos
+			 * @version 16-07-2021 16:02:44
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
+		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -20,7 +21,7 @@
 				"Field"		=> "meta_id",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",
-				"Key"		=> "",
+				"Key"		=> "MUL",
 				"Default"	=> "",
 				"Extra"		=> ""
 			);
@@ -44,6 +45,15 @@
 			);
 		
 			$campos[4] = array(
+				"Field"		=> "ano",
+				"Type"		=> "int(4)",
+				"Null"		=> "NO",
+				"Key"		=> "",
+				"Default"	=> "",
+				"Extra"		=> ""
+			);
+		
+			$campos[5] = array(
 				"Field"		=> "justificativa",
 				"Type"		=> "text",
 				"Null"		=> "YES",
@@ -52,7 +62,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[5] = array(
+			$campos[6] = array(
 				"Field"		=> "justificativa_aceita",
 				"Type"		=> "tinyint(1)",
 				"Null"		=> "NO",
@@ -61,7 +71,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[6] = array(
+			$campos[7] = array(
 				"Field"		=> "criado_em",
 				"Type"		=> "datetime",
 				"Null"		=> "NO",
@@ -70,7 +80,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[7] = array(
+			$campos[8] = array(
 				"Field"		=> "criado_por",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",

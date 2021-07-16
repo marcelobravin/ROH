@@ -1,11 +1,12 @@
 <?php
 		/**
-			* categoria
-			* @package grimoire/modelos
-			* @version 10-07-2021 16:45:02
+			 * categoria
+			 * @package grimoire/modelos
+			 * @version 16-07-2021 16:02:44
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
+		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -28,7 +29,7 @@
 			$campos[2] = array(
 				"Field"		=> "legenda",
 				"Type"		=> "varchar(255)",
-				"Null"		=> "NO",
+				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
 				"Extra"		=> ""
@@ -37,7 +38,7 @@
 			$campos[3] = array(
 				"Field"		=> "observacoes",
 				"Type"		=> "varchar(255)",
-				"Null"		=> "NO",
+				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
 				"Extra"		=> ""

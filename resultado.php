@@ -1,82 +1,148 @@
 <?php
-	include 'app/Grimoire/core_inc.php';
+include 'app/Grimoire/core_inc.php';
 
-	$PAGINA['titulo']		= "Verificação de Metas";
-	$PAGINA['subtitulo']	= DESCRICAO_SITE;
+$PAGINA['titulo']		= "Verificação de Metas";
+$PAGINA['subtitulo']	= DESCRICAO_SITE;
 
-	$categorias	= selecionar("categoria", array(), "ORDER BY titulo");
-	$hospitais	= selecionar("hospital", array(), "ORDER BY titulo");
+$categorias	= selecionar("categoria", array(), "ORDER BY titulo");
+$hospitais	= selecionar("hospital", array(), "ORDER BY titulo");
 
-	$meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
-	$st_mesAtual = $meses[date('n')];
-	$in_mesAtual = date('n');
+$meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
+$st_mesAtual = $meses[date('n')];
+$in_mesAtual = date('n');
 
-	$hospitalValido = false;
-	if ( isset($_GET['hospital']) )
-		$hospitalValido = positivo($_GET['hospital']); # inteiro tb
+$hospitalValido = false;
+if ( isset($_GET['hospital']) ) {
+	$hospitalValido = positivo($_GET['hospital']);
+
+	$sql = "
+		SELECT
+			c.id					categoria_id,
+			c.titulo				categoria_nome,
+			c.legenda				categoria_legenda,
+			c.ativo					categoria_ativo,
+
+			'-',
+
+			e.categoria_id			elemento_categoria_id,
+			e.titulo				elemento_nome,
+			e.id					elemento_id,
+
+			'--',
+
+			m.elemento_id			meta_elemento_id,
+			m.quantidade			meta_quantidade,
+			m.ativo					meta_ativo,
+			m.hospital_id			meta_hospital_id,
+			m.id					meta_id,
+
+			'---',
+
+			r.meta_id				resultado_meta_id,
+			r.resultado				resultado,
+			r.mes					mes,
+			r.justificativa			justificativa,
+			r.justificativa_aceita	justificativa_aceita,
+			r.id					resultado_id
+
+
+			-- c.*,
+			-- '||',
+			-- e.*,
+			-- '||',
+			-- m.*,
+			-- '||',
+			-- r.*
+		FROM
+			categoria	c,
+			elemento	e
+
+			LEFT OUTER JOIN (meta m)
+				ON m.elemento_id		= e.id
+				-- AND m.hospital_id		= {$_GET['hospital']}
+			LEFT OUTER JOIN (resultado r)
+				ON r.meta_id			= m.id
+				-- AND r.mes				= {$in_mesAtual}
+
+		WHERE
+			e.categoria_id = c.id
+
+		ORDER BY
+			c.titulo,
+			e.titulo
+	";
+
+	$matriz = executar( $sql );
+
+	# separa metas e resultados por categorias para facilitar
+	$especialidades = array();
+	foreach ($matriz as $e) {
+		$especialidades[$e['categoria_nome']][] = $e;
+	}
+}
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
-	<head>
-		<?php include "public/views/frames/metas.php" ?>
-		<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+<head>
+	<?php include "public/views/frames/metas.php" ?>
+	<link rel="stylesheet" type="text/css" href="public/css/metas.css">
 
-		<script src="public/scripts/metas.js"></script>
+	<script src="public/scripts/metas.js"></script>
 
-		<script>
-			$(document).ready(function(){
-				$(".sucesso, .erro").click(function(){
-					$(this).slideToggle('slow')
-				})
+	<script>
+		$(document).ready(function(){
+			$(".sucesso, .erro").click(function(){
+				$(this).slideToggle('slow')
+			})
 
-				$("[type='text']").on("keyup change", function(){
-					let $this = $(this)
-					let id = $this.data("id")
+			$("[type='text']").on("keyup change", function(){
+				let $this = $(this)
+				let id = $this.data("id")
 
-					if ( $this.val() < $this.data("meta") ) {
-						$("#justificativa-" +id).removeAttr("disabled")
-						// $("#checkbox-" +id).removeAttr("disabled")
-						$this.parent().parent().addClass("insuficiente")
-					} else {
-						$("#justificativa-" +id).attr("disabled", "disabled")
-						$("#checkbox-" +id).attr("disabled", "disabled")
-						$this.parent().parent().removeClass("insuficiente")
-					}
-				})
+				if (  $this.val()!="" && $this.val() < $this.data("meta") ) {
+					$("#justificativa-" +id).removeAttr("disabled")
+					// $("#checkbox-" +id).removeAttr("disabled")
+					$this.parent().parent().addClass("insuficiente")
+				} else {
+					$("#justificativa-" +id).attr("disabled", "disabled")
+					$("#checkbox-" +id).attr("disabled", "disabled")
+					$this.parent().parent().removeClass("insuficiente")
+				}
+			})
 
-				$("textarea").on("keyup change", function(){
-					let $this = $(this)
-					let id = $this.data("id")
+			$("textarea").on("keyup change", function(){
+				let $this = $(this)
+				let id = $this.data("id")
 
-					if ( $this.val() == "" ) {
-						$("#checkbox-" +id).attr("disabled", "disabled")
-					} else {
-						$("#checkbox-" +id).removeAttr("disabled")
-					}
-				})
+				if ( $this.val() == "" ) {
+					$("#checkbox-" +id).attr("disabled", "disabled")
+				} else {
+					$("#checkbox-" +id).removeAttr("disabled")
+				}
+			})
 
-			});
-		</script>
-		<style>
-			textarea {
-				resize: none;
-				min-width:	310px;
-				max-width:	310px;
+		});
+	</script>
+	<style>
+		textarea {
+			resize: none;
+			min-width: 310px;
+			max-width: 310px;
 
-				min-height:	70px;
-				/* max-height:	80px; */
-			}
-			.insuficiente {
-				/* border: 1px solid red */
-				background-color: #ffb8b8 !important
-			}
-		</style>
-	</head>
+			min-height:	70px;
+		}
+		.insuficiente {
+			background-color: #ffb8b8 !important
+		}
+
+		i { color: gray; font-size: 14px}
+	</style>
+</head>
 <body>
 	<?php require_once 'public/views/frames/header.php' ?>
 
 	<div class="container">
-		<h2>Preencher Ocupação Atual</h2>
+		<h2><?php echo $PAGINA['titulo'] ?></h2>
 
 		<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
 			<?php echo esvaziarMensagem() ?>
@@ -96,7 +162,7 @@
 			<div class="inputs">
 				<label for="categoria">Categoria</label>
 				<select name="categoria" id="categoria">
-					<?php echo gerarOptionsAA($categorias) ?>
+					<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
 				</select>
 			</div>
 		</div>
@@ -108,64 +174,70 @@
 			<?php if ( !$hospitalValido ): ?>
 				Selecione um hospital!
 			<?php else: ?>
+
 				<?php foreach ($categorias as $v) : ?>
-					<form action="app/Controller/FillTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivel" <?php echo $hospitalValido ? "" : "disabled" ?>>
+					<form action="app/Controller/FillTarget.php" method="post" id="bloco-<?php echo $v['id'] ?>" class="invisivela" <?php echo $hospitalValido ? "" : "disabled" ?>>
+						<h4><?php echo $v['titulo'] ?></h4>
 
 						<input type="hidden" name="hospital" value="<?php echo $_GET['hospital'] ?>" class="hospitalSelecionado" />
-
 						<input type="hidden" name="mes" value="<?php echo $in_mesAtual ?>" />
-
 						<input type="hidden" name="categoria_id" id="categoria_id-<?php echo $v['id'] ?>" value="<?php echo $v['id'] ?>" />
-
-						<?php $especialidades = selecionar("elemento", array('categoria_id'=>$v['id']), "ORDER BY titulo") ?>
 
 						<table>
 							<caption><?php echo $v['legenda'] ?></caption>
 
 							<thead>
 								<tr>
-									<th>Especialidade dos Leitos</th>
-									<th>Volume de saída</th>
+									<th>Especialidade<br>dos Leitos</th>
+									<th>Volume<br>de saída</th>
 									<th title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
-									<th title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Aceita?</th>
+									<th title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
 								</tr>
 							</thead>
 
-							<?php foreach ($especialidades as $e) : ?>
-
-								<?php
-									# localiza metas estabelecidas desse hospital para essa especialidade
-									$cond = array(
-										'hospital_id' => isset($_GET['hospital']) ? $_GET['hospital'] : 0,
-										'elemento_id' => $e['id']
-									);
-									$meta = localizar("meta", $cond);
-
-									if ( empty( $meta ) ) {
-										$meta['quantidade'] = 0;
-										#fechar tudo
-										echo "</table></form>";
-										die("<p>Meta não definida para esse hospital</p>");
-									}
-								?>
-
+							<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
 								<tr>
 									<td>
-										<?php echo $e['titulo'] ?>
-										<input type="hidden" name="especialidadeId" value="<?php echo $e['id'] ?>" />
+										<?php echo $e['elemento_nome'] ?>
+										<input type="hidden" name="especialidadeId" value="<?php echo $e['elemento_id'] ?>" />
 									</td>
+
 									<td>
-										<p>
-											Meta:
-											<?php echo $meta['quantidade'] ?>
-										</p>
-										<input type="text" name="leitos[<?php echo $e['id'] ?>]" id="leitos-<?php echo $e['id'] ?>" data-meta="<?php echo $meta['quantidade'] ?>" data-id="<?php echo $e['id'] ?>" />
+										<?php if ( !isset($e['meta_quantidade']) ): ?>
+											<i>Meta não definida!</i>
+											<br>
+											<i>
+												<a href="metas.php?<?php echo $_SERVER['QUERY_STRING'] ?>&categoria=<?php echo $v['id'] ?>">Definir meta</a>
+											</i>
+
+										<?php else: ?>
+											<p>
+												Meta: <?php echo $e['meta_quantidade'] ?>
+											</p>
+
+											<?php if ( isset($e['resultado']) ): ?>
+												<input type="text" disabled value="<?php echo $e['resultado'] ?>" />
+											<?php else: ?>
+												<input type="text" name="leitos[<?php echo $e['meta_id'] ?>]" id="leitos-<?php echo $e['meta_id'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['meta_id'] ?>" value="<?php echo $e['resultado'] ?>" />
+											<?php endif ?>
+
+										<?php endif ?>
 									</td>
+
 									<td>
-										<textarea name="justificativa[<?php echo $e['id'] ?>]" id="justificativa-<?php echo $e['id'] ?>"  data-id="<?php echo $e['id'] ?>" disabled></textarea>
+										<?php if ( isset($e['resultado']) ): ?>
+											<textarea disabled><?php echo $e['justificativa'] ?></textarea>
+										<?php else: ?>
+											<textarea name="justificativa[<?php echo $e['meta_id'] ?>]" id="justificativa-<?php echo $e['meta_id'] ?>" data-id="<?php echo $e['meta_id'] ?>" disabled><?php echo $e['justificativa'] ?></textarea>
+										<?php endif ?>
 									</td>
+
 									<td>
-										<input type="checkbox" name="checkbox-<?php echo $e['id'] ?>" id="checkbox-<?php echo $e['id'] ?>" value="1" disabled />
+										<?php if ( isset($e['resultado']) ): ?>
+											<input type="checkbox" disabled <?php echo $e['justificativa_aceita'] ? "checked" : "" ?> />
+										<?php else: ?>
+											<input type="checkbox" name="checkbox-<?php echo $e['meta_id'] ?>" id="checkbox-<?php echo $e['meta_id'] ?>" value="1" disabled />
+										<?php endif ?>
 									</td>
 								</tr>
 							<?php endforeach ?>

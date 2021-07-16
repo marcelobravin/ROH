@@ -2,6 +2,15 @@
 Relatório de Ocupação Hospitalar
 
 
+
+adicionar campos em usuário
+	telefone
+	nome
+	endereço
+	cpf
+
+
+
 Prioridades
 formularios de cadastro e atualização
 definição de metas
@@ -9,9 +18,9 @@ definição de metas
 	consulta meses anteriores
 
 # Migração
-Ponto de exportação de BD - http://localhost/roh/app/DbExport.php
-Ponto de importação de BD - http://localhost/roh/app/DbImport.php
-Ponto de geração de formularios - http://localhost/roh/app/FormGenerate.php
+Ponto de exportação de BD - http://localhost/roh/index.php?action=dbExport
+Ponto de importação de BD - http://localhost/roh/index.php?action=dbImport
+Ponto de geração de formularios - http://localhost/roh/index.php?action=gerar-formulario
 
 
 # Features
@@ -34,12 +43,14 @@ log operações
 paginação real nas listas
 bloqueio de usuarios não logados em páginas internas
 não mudar email de usuário na tela de atualizar senha
+Módulo de definição de metas (associação): escolhe hospital depois escolhe elementos a vincular, define metas
+Módulo preencher metas: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
+Módulo categoria, elemento
 
 
 
 # TODO
-Módulo de definição de metas (associação): escolhe hospital depois escolhe elementos a vincular, define metas
-Módulo preencher metas: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
+salvar em pdf
 validar email na tela de esqueci a senha
 informar alterações não salvas em formulários ao recarregar ou fechar
 sincronização de dados offline
@@ -47,11 +58,8 @@ tempo de sessão
 token de sessão
 Tempo expiração de token
 OK - envio de email
-salvar em pdf
 exclusão if not cascade
 tempo de hash no caso de usuario incorreto
-
-Módulo categoria, elemento
 Excluir usuário se e-mail não foi validado
 
 reset de senha

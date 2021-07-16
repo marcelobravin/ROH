@@ -1,11 +1,12 @@
 <?php
 		/**
-			* usuario
-			* @package grimoire/modelos
-			* @version 10-07-2021 16:45:02
+			 * usuario
+			 * @package grimoire/modelos
+			 * @version 16-07-2021 16:02:44
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
+		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -55,7 +56,7 @@
 			$campos[5] = array(
 				"Field"		=> "ativo",
 				"Type"		=> "tinyint(1)",
-				"Null"		=> "NO",
+				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "1",
 				"Extra"		=> ""
@@ -71,6 +72,42 @@
 			);
 		
 			$campos[7] = array(
+				"Field"		=> "telefone",
+				"Type"		=> "varchar(15)",
+				"Null"		=> "YES",
+				"Key"		=> "",
+				"Default"	=> "",
+				"Extra"		=> ""
+			);
+		
+			$campos[8] = array(
+				"Field"		=> "nome",
+				"Type"		=> "varchar(255)",
+				"Null"		=> "YES",
+				"Key"		=> "",
+				"Default"	=> "",
+				"Extra"		=> ""
+			);
+		
+			$campos[9] = array(
+				"Field"		=> "endereco",
+				"Type"		=> "varchar(255)",
+				"Null"		=> "YES",
+				"Key"		=> "",
+				"Default"	=> "",
+				"Extra"		=> ""
+			);
+		
+			$campos[10] = array(
+				"Field"		=> "cpf",
+				"Type"		=> "varchar(14)",
+				"Null"		=> "NO",
+				"Key"		=> "",
+				"Default"	=> "",
+				"Extra"		=> ""
+			);
+		
+			$campos[11] = array(
 				"Field"		=> "criado_em",
 				"Type"		=> "datetime",
 				"Null"		=> "NO",
@@ -79,7 +116,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[8] = array(
+			$campos[12] = array(
 				"Field"		=> "atualizado_em",
 				"Type"		=> "datetime",
 				"Null"		=> "YES",
@@ -88,7 +125,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[9] = array(
+			$campos[13] = array(
 				"Field"		=> "excluido_em",
 				"Type"		=> "datetime",
 				"Null"		=> "YES",
@@ -97,7 +134,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[10] = array(
+			$campos[14] = array(
 				"Field"		=> "criado_por",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",
@@ -106,7 +143,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[11] = array(
+			$campos[15] = array(
 				"Field"		=> "atualizado_por",
 				"Type"		=> "int(11)",
 				"Null"		=> "YES",
@@ -115,7 +152,7 @@
 				"Extra"		=> ""
 			);
 		
-			$campos[12] = array(
+			$campos[16] = array(
 				"Field"		=> "excluido_por",
 				"Type"		=> "int(11)",
 				"Null"		=> "YES",

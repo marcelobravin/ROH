@@ -4,10 +4,10 @@
 	require 'app/model/database.class.php';
 
 
-	if ( !LOGADO ) {
-		echo "Usuário não logado";
+	// if ( !LOGADO ) {
+	// 	echo "Usuário não logado";
 
-	} else {
+	// } else {
 		if ( isset($_GET['modulo']) )
 			define('MODULO', $_GET['modulo']);
 		else die('Modulo não selecionado');
@@ -23,4 +23,4 @@
 		$paginacao = paginationCore(MODULO, 3);
 
 		include "public/views/frames/base.php";
-	}
+	// }

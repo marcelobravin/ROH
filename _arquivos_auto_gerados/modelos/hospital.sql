@@ -1,3 +1,0 @@
-INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('1', 'São Luiz Gonzaga', '1', '2021-07-04 18:58:48', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '0', '0');
-INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('74', 'São Luiz Gonzaga23', '1', '2021-07-09 12:09:20', '', '', '1', '', '');
-INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('75', 'po', '1', '2021-07-10 16:34:58', '', '', '1', '', '');

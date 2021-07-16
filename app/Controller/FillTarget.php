@@ -18,7 +18,6 @@ foreach ($_POST['leitos'] as $key => $value) { #renomear para elemento id
 		unset($_POST['leitos'][$key]);
 }
 
-$_SESSION['mensagem'] = "Registrados os resultados do hospital ". $_POST['hospital'] . " no o mês atual";
+$_SESSION['mensagem'] = "Registrados os resultados do hospital ". $_POST['hospital'] . " no mês atual";
 $_SESSION['mensagemClasse'] = "sucesso";
-// header('Location: ../../metas.php');
 voltar();

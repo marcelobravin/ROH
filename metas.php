@@ -32,7 +32,9 @@
 			<div class="inputs">
 				<label for="hospital">Hospital</label>
 				<select name="hospital" id="hospital">
-					<option>Selecione</option>
+					<?php if ( !$hospitalValido ) : ?>
+						<option>Selecione...</option>
+					<?php endif ?>
 					<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 				</select>
 			</div>
@@ -40,7 +42,7 @@
 			<div class="inputs">
 				<label for="categoria">Categoria</label>
 				<select name="categoria" id="categoria">
-					<?php echo gerarOptionsAA($categorias) ?>
+					<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
 				</select>
 			</div>
 		</div>

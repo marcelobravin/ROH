@@ -1,15 +1,14 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-
 # ------------------------------------------------------------------------------ insercao de novas especialidades
-foreach ($_POST['leitos'] as $key => $value) { #renomear para elemento id
+foreach ($_POST['leitos'] as $key => $value) {
 	$values = array(
 		'hospital_id'	=> $_POST['hospital'],
 		'elemento_id'	=> $key,
 		'quantidade'	=> $value,
+		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0,
 		'criado_por'	=> $_SESSION['user']['id'],
-		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0
 	);
 
 	$id = inserir('meta', $values);
@@ -18,24 +17,22 @@ foreach ($_POST['leitos'] as $key => $value) { #renomear para elemento id
 		unset($_POST['leitos'][$key]);
 }
 
-
 # ------------------------------------------------------------------------------ atualização de especialidades
-foreach ($_POST['leitos'] as $key => $value) { #renomear para elemento id
+foreach ($_POST['leitos'] as $key => $value) {
 	$values = array(
-		'hospital_id'	=> $_POST['hospital'],
 		'quantidade'	=> $value,
-		'atualizado_por'=> $_SESSION['user']['id'],
-		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0
+		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0,
+		'atualizado_por'=> $_SESSION['user']['id']
 	);
 
 	$where = array(
+		'hospital_id'	=> $_POST['hospital'],
 		'elemento_id'	=> $key
 	);
 
 	$sql = atualizar("meta", $values, $where);
 }
 
-
 $_SESSION['mensagem'] = "Atualizadas as metas do hospital ". $_POST['hospital'];
 $_SESSION['mensagemClasse'] = "sucesso";
-header('Location: ../../metas.php');
+voltar();

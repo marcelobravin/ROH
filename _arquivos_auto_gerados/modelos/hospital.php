@@ -1,11 +1,12 @@
 <?php
 		/**
-			* hospital
-			* @package grimoire/modelos
-			* @version 10-07-2021 16:45:02
+			 * hospital
+			 * @package grimoire/modelos
+			 * @version 16-07-2021 16:02:44
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
+		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -28,7 +29,7 @@
 			$campos[2] = array(
 				"Field"		=> "ativo",
 				"Type"		=> "tinyint(1)",
-				"Null"		=> "NO",
+				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
 				"Extra"		=> ""

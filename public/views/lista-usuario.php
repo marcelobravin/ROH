@@ -13,7 +13,8 @@
 			<td><?php echo $obj['login'] ?></td>
 			<td>
 				<button>
-					<a href="user-form.php?id=<?php echo $obj['id'] ?>">Editar</a>
+					<!--a href="user-form.php?id=<?php echo $obj['id'] ?>">Editar</a-->
+					<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $obj['id'] ?>">Editar</a>
 				</button>
 				<button <?php if ($obj['id'] == $_SESSION['user']['id']) { echo 'disabled'; } ?>>
 					<?php if ($obj['id'] == $_SESSION['user']['id']) : ?>
@@ -31,9 +32,9 @@
 						<?php endif ?>
 					<?php else: ?>
 						<?php if ( $obj['ativo'] ): ?>
-							<a href="app/Controller/DeactivateController.php?id=<?php echo $obj['id'] ?>&ativo=0" class="desativar">Desativar</a>
+							<a href="app/Controller/DeactivateController.php?id=<?php echo $obj['id'] ?>&ativo=0&modulo=usuario" class="desativar">Desativar</a>
 						<?php else: ?>
-							<a href="app/Controller/DeactivateController.php?id=<?php echo $obj['id'] ?>&ativo=1" class="desativar">Ativar</a>
+							<a href="app/Controller/DeactivateController.php?id=<?php echo $obj['id'] ?>&ativo=1&modulo=usuario" class="desativar">Ativar</a>
 						<?php endif ?>
 					<?php endif ?>
 				</button>

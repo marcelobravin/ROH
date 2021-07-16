@@ -16,18 +16,23 @@
 <html lang="<?php echo IDIOMA ?>">
 <head>
 	<?php include "public/views/frames/metas.php" ?>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	<style>
+		.obrigatorio:before { content: "*"; display: block }
+	</style>
 </head>
 <body>
 	<?php include "public/views/frames/header.php" ?>
+	<div class="container">
+		<h2>Cadastro</h2>
 
-	<p>
-		<a href="index.php?action=gerar-formulario">Gerar formulário conforme definição do BD</a>
-	</p>
+		<form action="app/Controller/RegisterController-<?php echo MODULO ?>.php" method="post">
+			<?php #require 'public/views/forms/'.MODULO.'-insercao.html' #---------- prod ?>
+			<?php require '_arquivos_auto_gerados/views/'.MODULO.'-insercao.html' #  dev ?>
 
-	<form action="app/Controller/RegisterController-<?php echo MODULO ?>.php" method="post">
-		<?php require '_arquivos_auto_gerados/views/'.MODULO.'-insercao.html' ?>
-		<input type="submit" value="CADASTRAR" />
-	</form>
+			<input type="submit" value="CADASTRAR" />
+		</form>
+	</div>
 
 </body>
 </html>

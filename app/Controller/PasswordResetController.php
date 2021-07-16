@@ -53,13 +53,14 @@ $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senh
 $enviarEmail = enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "Automatico");
 if ( $enviarEmail == 1 ) {
 	$_SESSION['mensagem'] = "Email enviado para o usuário {$_GET['id']} com sucesso!";
-	header('Location: '. ROOT .'lista.php?modulo=usuario');
+	voltar();
+	// header('Location: '. ROOT .'lista.php?modulo=usuario');
 	exit;
 } else {
 	echo "Erro ao enviar email para o usuário: ". $user['login'];
 	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
-	if ( !PRODUCAO ) { /* em ambiente de teste exibir conteúdo do email */
+	if ( !PRODUCAO ) { /* em ambiente de teste exibe o conteúdo do email */
 		echo "<hr>";
 		echo $assunto;
 		echo "<br>";
