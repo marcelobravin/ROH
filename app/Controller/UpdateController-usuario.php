@@ -1,11 +1,8 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-
-
-
-
-
+#verifica se usuario tem permissão de editar esse registro
+# verifica se esse registro é editável
 
 
 # valida preenchimento de campos NOT NULL
@@ -14,16 +11,6 @@ $camposObrigatorios = array(
 	'login'	=> $_POST['login'],
 	'cpf'	=> $_POST['cpf']
 );
-$camposVazios = validarCamposObrigatorios($camposObrigatorios);
-if ( !empty($camposVazios) ) {
-	echo('<pre>');
-	echo "Campos obrigatorios que estão vazios: ";
-	print_r($camposVazios);
-	echo('</pre>');
-	die();
-}
-
-
 
 # valida formato dos campos
 $post = $_POST;
@@ -38,29 +25,54 @@ $mapaFormatos = array(
 	'endereco'	=> 'alfanumerico_e_espacos',
 	'cpf'		=> 'cpf'
 );
-$camposEmFormatoInvalidos = validarFormatos($post, $mapaFormatos);
-if ( !empty($camposEmFormatoInvalidos) ) {
-	echo('<pre>');
-	echo "Campos que não estão no padrão definido: ";
-	print_r($camposEmFormatoInvalidos);
-	echo('</pre>');
-	die();
+
+validacao($camposObrigatorios, $post, $mapaFormatos);
+
+function validacao ($camposObrigatorios, $post, $mapaFormatos)
+{
+	# validações específicas
+	foreach ($mapaFormatos as $i => $v) {
+		if ($v == "cpf") {
+			if ( !validarCPF($post[$i]) )
+				die("CPF inválido");
+
+			unset($camposObrigatorios[$v]);
+			unset($mapaFormatos[$v]);
+			unset($post[$v]);
+		}
+	}
+
+	$camposVazios = validarCamposObrigatorios($camposObrigatorios);
+	if ( !empty($camposVazios) ) {
+		echo('<pre>');
+		echo "Campos obrigatórios que estão vazios: ";
+		print_r($camposVazios);
+		echo('</pre>');
+		die();
+	}
+
+	$camposEmFormatoInvalidos = validarFormatos($post, $mapaFormatos);
+	if ( !empty($camposEmFormatoInvalidos) ) {
+		echo('<pre>');
+		echo "Campos que não estão no padrão definido: ";
+		print_r($camposEmFormatoInvalidos);
+		echo('</pre>');
+		die();
+	}
+
+	return true;
 }
 
 
+// echo('<pre>');
+// print_r($cpfValido);
+// echo('</pre>');
 
-
-echo padrao ('emailg');
-
-
-echo "tudo ok";
-exit;
-
-# validações específicas
-// if ($formato[$i] == 'email')	$validade = validaEmail($v);
 // if ($formato[$i] == 'cpf')		$validade = validarCpf($v);
 
 
+// echo "tudo ok";
+// exit;
 
 
 
@@ -74,10 +86,10 @@ $condicoes = array(
 $campos = array(
 	'login' => $_POST['login'], # ---------------------------------------------- não deve alterar
 
-	'ativo'		=> $_POST['ativo'], #1
-    'telefone'	=> $_POST['telefone'], #(11) 95989-0399
-    'nome'		=> $_POST['nome'], #Marcelo de Souza Bravin
-    'endereco'	=> $_POST['endereco'], #Avenida Francisco Rodrigues Filho
+	'ativo'		=> $_POST['ativo'], # 1
+    'telefone'	=> $_POST['telefone'], # (11) 95989-0399
+    'nome'		=> $_POST['nome'], # Marcelo de Souza Bravin
+    'endereco'	=> $_POST['endereco'], # Avenida Francisco Rodrigues Filho
     'cpf'		=> $_POST['cpf'] #
 );
 
@@ -107,5 +119,4 @@ try {
 	}
 } finally {
 	voltar();
-	// header('Location: ../../lista.php?modulo=usuario');
 }
