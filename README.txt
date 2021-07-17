@@ -3,6 +3,8 @@ Relatório de Ocupação Hospitalar
 
 
 
+
+
 adicionar campos em usuário
 	telefone
 	nome
@@ -46,6 +48,7 @@ não mudar email de usuário na tela de atualizar senha
 Módulo de definição de metas (associação): escolhe hospital depois escolhe elementos a vincular, define metas
 Módulo preencher metas: seleciona hospital e mês e preenche metas definidas para os elementos, preenche justificativas
 Módulo categoria, elemento
+excluir decide e realiza exclusão lógica ou permanente
 
 
 
@@ -65,5 +68,3 @@ Excluir usuário se e-mail não foi validado
 reset de senha
 	sem senha mímina
 	corrigir regxep símbolos
-
-registrar exclusão lógica
