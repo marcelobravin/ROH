@@ -2,7 +2,7 @@
 		/**
 			 * usuario
 			 * @package grimoire/modelos
-			 * @version 16-07-2021 16:02:44
+			 * @version 16-07-2021 22:07:14
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
@@ -21,7 +21,7 @@
 				"Field"		=> "login",
 				"Type"		=> "char(60)",
 				"Null"		=> "NO",
-				"Key"		=> "UNI",
+				"Key"		=> "",
 				"Default"	=> "",
 				"Extra"		=> ""
 			);
@@ -40,7 +40,7 @@
 				"Type"		=> "tinyint(1)",
 				"Null"		=> "NO",
 				"Key"		=> "",
-				"Default"	=> "0",
+				"Default"	=> "",
 				"Extra"		=> ""
 			);
 		
@@ -58,7 +58,7 @@
 				"Type"		=> "tinyint(1)",
 				"Null"		=> "YES",
 				"Key"		=> "",
-				"Default"	=> "1",
+				"Default"	=> "",
 				"Extra"		=> ""
 			);
 		
@@ -112,7 +112,7 @@
 				"Type"		=> "datetime",
 				"Null"		=> "NO",
 				"Key"		=> "",
-				"Default"	=> "current_timestamp()",
+				"Default"	=> "",
 				"Extra"		=> ""
 			);
 		

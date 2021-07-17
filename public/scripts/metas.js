@@ -19,9 +19,15 @@ $(document).ready(function(){
 		let fragmentos = paginaAtual.split('?')
 
 		fragmentos = fragmentos[0].split('/')
+
 		// achar roh +1
-		window.location.href = fragmentos[4] + "?hospital="+h // roh
-		// window.location.href = fragmentos[5] + "?hospital="+h // PROJETOS/roh
+		/* verificar compatibilidade */
+		var indiceRaiz = fragmentos.findIndex(function buscarIndice (value, idx) {
+			if (value == "ROH")
+				return idx;
+		})
+
+		window.location.href = fragmentos[indiceRaiz+1] + "?hospital="+h
 	})
 
 	if ( hospitalId != null )

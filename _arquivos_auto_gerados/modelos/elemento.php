@@ -2,7 +2,7 @@
 		/**
 			 * elemento
 			 * @package grimoire/modelos
-			 * @version 16-07-2021 16:02:44
+			 * @version 16-07-2021 22:07:14
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
@@ -40,7 +40,7 @@
 				"Type"		=> "tinyint(1)",
 				"Null"		=> "NO",
 				"Key"		=> "",
-				"Default"	=> "1",
+				"Default"	=> "",
 				"Extra"		=> ""
 			);
 		
@@ -49,7 +49,7 @@
 				"Type"		=> "datetime",
 				"Null"		=> "NO",
 				"Key"		=> "",
-				"Default"	=> "current_timestamp()",
+				"Default"	=> "",
 				"Extra"		=> ""
 			);
 		
@@ -59,7 +59,7 @@
 				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> "on update current_timestamp()"
+				"Extra"		=> ""
 			);
 		
 			$campos[6] = array(

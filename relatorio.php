@@ -126,8 +126,13 @@ if ( isset($_GET['hospital']) ) {
 
 				fragmentos = fragmentos[0].split('/')
 				// achar roh +1
-				window.location.href = fragmentos[4] + "?hospital="+1+"&mes="+h
-				// window.location.href = fragmentos[5] + "?hospital="+h // PROJETOS/roh
+				/* verificar compatibilidade */
+				var indiceRaiz = fragmentos.findIndex(function buscarIndice (value, idx) {
+					if (value == "ROH")
+					return idx;
+				})
+
+				window.location.href = fragmentos[indiceRaiz+1] + "?hospital="+1+"&mes="+h
 			})
 
 			// $('h3').click(function(){
