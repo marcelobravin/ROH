@@ -12,6 +12,8 @@ $id = inserir('hospital', $values);
 if (is_numeric($id) && $id > 0) {
 	$_SESSION['mensagem'] = "Inserido registro número: ". $id;
 	$_SESSION['mensagemClasse'] = "sucesso";
+
+	registrarOperacao('I', 'hospital', $id);
 } else {
 
 	if ( contem("Duplicate entry", $id) ) {

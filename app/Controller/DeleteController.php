@@ -1,13 +1,9 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-# TODO
-# verificar se usuário tem permissão de acesso para excluir
-
-# verificar dependências do objeto a ser excluído
 
 # verifica se modulo existe
-$whiteList = array(
+$whiteList = array( #colocar em configs?
 	'usuario',
 	'hospital'
 );
@@ -15,18 +11,45 @@ $whiteList = array(
 if ( !in_array($_GET['modulo'], $whiteList) ) {
 	$_SESSION['mensagem'] = "Módulo inválido";
 	$_SESSION['mensagemClasse'] = "erro";
-	exit;
+	voltar();
 }
 
 
-$exclusao = excluir($_GET['modulo'], ['id'=>$_GET['id']] );
 
-if ( $exclusao == 1 ) {
-	$_SESSION['mensagem'] = "Registro de {$_GET['modulo']} número {$_GET['id']} excluído com sucesso!";
-	$_SESSION['mensagemClasse'] = "sucesso";
-} else {
-	$_SESSION['mensagem'] = "Erro ao excluir o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
-	$_SESSION['mensagemClasse'] = "erro";
+
+
+# verifica dependências do objeto a ser excluído
+if ( temDependencias($_GET['modulo'], $_GET['id']) ) { # ----------------------- exclusão lógica
+
+	$exclusaoLogica = exclusaoLogica($_GET['modulo'], $_GET['id']);
+
+	if ( $exclusaoLogica == 1 ) {
+		$_SESSION['mensagem'] = "Registro de {$_GET['modulo']} número {$_GET['id']} excluído com sucesso!";
+		$_SESSION['mensagemClasse'] = "sucesso";
+
+		registrarOperacao('d', $_GET['modulo'], $_GET['id']);
+
+	} else {
+		$_SESSION['mensagem'] = "Erro ao excluir o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
+		$_SESSION['mensagemClasse'] = "erro";
+	}
+
+} else { # --------------------------------------------------------------------- exclusão permanente
+
+	$exclusao = excluir($_GET['modulo'], ['id'=>$_GET['id']] );
+
+	if ( $exclusao == 1 ) {
+		$_SESSION['mensagem'] = "Registro de {$_GET['modulo']} número {$_GET['id']} apagado com sucesso!";
+		$_SESSION['mensagemClasse'] = "sucesso";
+
+		registrarOperacao('D', $_GET['modulo'], $_GET['id']);
+
+	} else {
+		$_SESSION['mensagem'] = "Erro ao apagar o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
+		$_SESSION['mensagemClasse'] = "erro";
+	}
+
 }
 
-header('Location: ../../lista.php?modulo='. $_GET['modulo']);
+voltar();
+// header('Location: ../../lista.php?modulo='. $_GET['modulo']);

@@ -27,6 +27,7 @@ if ( empty($user) ) {
 		echo "Erro ao validar email!";
 	} else {
 		echo "Link de redefinição de senha registrado com sucesso!";
+		#registrarOperacao('U', 'usuario', 0); #usuario não está na sessão
 	}
 
 }

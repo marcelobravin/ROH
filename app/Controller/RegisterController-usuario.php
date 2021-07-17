@@ -12,6 +12,9 @@ $id = inserir('usuario', $values);
 if (is_numeric($id) && $id > 0) {
 	$_SESSION['mensagem'] = "Inserido registro número: ". $id;
 	$_SESSION['mensagemClasse'] = "sucesso";
+
+	registrarOperacao('I', 'usuario', $id);
+
 } else {
 
 	if ( contem("Duplicate entry", $id) ) {

@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS _log_operacoes (
 	objetoId INT(11) NOT NULL,
 	ip VARCHAR(15),
 	navegador VARCHAR(400) NOT NULL,
-	datahora TIMESTAMP NOT NULL,
+	datahora TIMESTAMP NOT NULL DEFAULT current_timestamp(),
 INDEX (id)
 );

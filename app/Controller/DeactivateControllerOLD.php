@@ -14,10 +14,12 @@ if ( $rowCount == 1 ) {
 	} else {
 		$_SESSION['mensagem'] = $_GET['modulo']. " {$_GET['id']} desativado com sucesso!";
 	}
+
+	registrarOperacao('U', $_GET['modulo'], $_GET['id']);
+
 } else {
 	$_SESSION['mensagem'] = "Erro ao desativar o : ". $_GET['modulo'] ." " . $_GET['id'];
 	$_SESSION['mensagemClasse'] = "erro";
 }
 
 voltar();
-// header('Location: ../../lista.php?modulo=usuario');

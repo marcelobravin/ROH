@@ -24,14 +24,6 @@
 				<button>
 					<a href="app/Controller/DeleteController.php?id=<?php echo $obj['id'] ?>&modulo=hospital" class="excluir">Excluir</a>
 				</button>
-
-				<button>
-					<?php if ( $obj['ativo'] ): ?>
-						<a href="app/Controller/DeactivateController.php?id=<?php echo $obj['id'] ?>&ativo=0&modulo=hospital" class="desativar">Desativar</a>
-					<?php else: ?>
-						<a href="app/Controller/DeactivateController.php?id=<?php echo $obj['id'] ?>&ativo=1&modulo=hospital" class="desativar">Ativar</a>
-					<?php endif ?>
-				</button>
 			</td>
 		</tr>
 	<?php endforeach ?>

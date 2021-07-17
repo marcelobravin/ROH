@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS resultado (
 	ano INT(4) NOT NULL,
 	justificativa TEXT,
 	justificativa_aceita TINYINT(1) NOT NULL,
-	criado_em DATETIME NOT NULL,
+	criado_em DATETIME NOT NULL DEFAULT current_timestamp(),
 	criado_por INT(11) NOT NULL,
 INDEX (id)
 );

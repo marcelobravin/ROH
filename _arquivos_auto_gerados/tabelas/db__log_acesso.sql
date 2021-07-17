@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS _log_acesso (
 	sucesso TINYINT(1) NOT NULL,
 	ip VARCHAR(15) NOT NULL,
 	navegador VARCHAR(400) NOT NULL,
-	datahora TIMESTAMP NOT NULL,
+	datahora TIMESTAMP NOT NULL DEFAULT current_timestamp(),
 INDEX (id)
 );
