@@ -119,8 +119,9 @@ if ( isset($_GET['hospital']) ) {
 	<script>
 		$(document).ready(function(){
 
+
 			$("#mes").change(function(){
-				var h = $(this).val()
+				var mes = $(this).val()
 				let paginaAtual = window.location.href
 				let fragmentos = paginaAtual.split('?')
 
@@ -132,7 +133,8 @@ if ( isset($_GET['hospital']) ) {
 					return idx;
 				})
 
-				window.location.href = fragmentos[indiceRaiz+1] + "?hospital="+1+"&mes="+h
+				const hospitalId = findGetParameter("hospital")
+				window.location.href = fragmentos[indiceRaiz+1] + "?hospital="+hospitalId+"&mes="+mes
 			})
 
 			// $('h3').click(function(){
