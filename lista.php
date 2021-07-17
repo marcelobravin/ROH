@@ -1,16 +1,11 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
-	// if ( !LOGADO )
-	// 	redirecionar("index.php");
-
 	if ( empty($_GET['modulo']) )
 		redirecionar("index.php");
 
 	define('MODULO', $_GET['modulo']);
 	$PAGINA['titulo']		= "Lista";
-	$PAGINA['subtitulo']	= MODULO;
-	// $PAGINA['endereco']		= "home.php";
 
 	$paginacao = paginationCore(MODULO);
 ?>
