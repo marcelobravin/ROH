@@ -5,77 +5,36 @@ include '../../app/Grimoire/core_inc.php';
 # verifica se esse registro é editável
 
 
-# valida preenchimento de campos NOT NULL
-$camposObrigatorios = array(
-	'id'	=> $_POST['id'], # para updates id é obrigatorio
-	'login'	=> $_POST['login'],
-	'cpf'	=> $_POST['cpf']
-);
-
-# valida formato dos campos
+# não validar formatos
 $post = $_POST;
-unset($post['id']);
-unset($post['ativo']);
+// unset($post['id']);
+// unset($post['ativo']);
+
 $mapaFormatos = array(
-	// 'id'		=> 'id',
 	'login'		=> 'email',
-	// 'ativo'		=> 'ativo',
 	'telefone'	=> 'celular',
 	'nome'		=> 'letras_e_espaco',
-	'endereco'	=> 'alfanumerico_e_espacos',
+	'endereco'	=> 'endereco',
 	'cpf'		=> 'cpf'
 );
 
-validacao($camposObrigatorios, $post, $mapaFormatos);
+# valida preenchimento de campos NOT NULL
+$camposObrigatorios = array(
+	'id'	=> $_POST['id'], # para updates id é obrigatorio
+	'login'	=> $_POST['login'], // ! ja cobertos pela validacao anterior, pode mandar redundante que o sistema ignora
+	'cpf'	=> $_POST['cpf'] // ! ja cobertos pela validacao anterior, pode mandar redundante que o sistema ignora
+);
 
-function validacao ($camposObrigatorios, $post, $mapaFormatos)
-{
-	# validações específicas
-	foreach ($mapaFormatos as $i => $v) {
-		if ($v == "cpf") {
-			if ( !validarCPF($post[$i]) )
-				die("CPF inválido");
+# valida tudo!
+$formularioValido = validacao($camposObrigatorios, $post, $mapaFormatos);
 
-			unset($camposObrigatorios[$v]);
-			unset($mapaFormatos[$v]);
-			unset($post[$v]);
-		}
-	}
 
-	$camposVazios = validarCamposObrigatorios($camposObrigatorios);
-	if ( !empty($camposVazios) ) {
-		echo('<pre>');
-		echo "Campos obrigatórios que estão vazios: ";
-		print_r($camposVazios);
-		echo('</pre>');
-		die();
-	}
-
-	$camposEmFormatoInvalidos = validarFormatos($post, $mapaFormatos);
-	if ( !empty($camposEmFormatoInvalidos) ) {
-		echo('<pre>');
-		echo "Campos que não estão no padrão definido: ";
-		print_r($camposEmFormatoInvalidos);
-		echo('</pre>');
-		die();
-	}
-
-	return true;
+if ( !$formularioValido) {
+	echo('<pre>');
+	print_r($formularioValido);
+	echo('</pre>');
+	exit;
 }
-
-
-// echo('<pre>');
-// print_r($cpfValido);
-// echo('</pre>');
-
-// if ($formato[$i] == 'cpf')		$validade = validarCpf($v);
-
-
-// echo "tudo ok";
-// exit;
-
-
-
 
 
 
@@ -92,6 +51,8 @@ $campos = array(
     'endereco'	=> $_POST['endereco'], # Avenida Francisco Rodrigues Filho
     'cpf'		=> $_POST['cpf'] #
 );
+
+# validar tamanho maximo geralmente em strings, pois validamnos apenas a composiçãos do caracteres
 
 
 try {
