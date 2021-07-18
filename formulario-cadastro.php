@@ -24,6 +24,9 @@
 <body>
 	<?php include "public/views/frames/header.php" ?>
 	<div class="container">
+		<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
+			<?php echo esvaziarMensagem() ?>
+		</div>
 		<h2>Cadastro</h2>
 
 		<form action="app/Controller/RegisterController-<?php echo MODULO ?>.php" method="post">

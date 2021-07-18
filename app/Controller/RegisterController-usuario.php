@@ -4,40 +4,12 @@ include '../../app/Grimoire/core_inc.php';
 require '../../app/Model/Validation-user.php';
 
 
-$formularioValido = xxx ($_POST);
+$errosFormulario = validarFormulario($_POST);
 
-
-if ( !empty($formularioValido) ) {
-	echo('<pre>');
-	print_r($formularioValido);
-	echo('</pre>');
-	exit;
+if ( !empty($errosFormulario) ) {
+	montaMensagemValidacao($errosFormulario);
+	voltar();
 }
-
-
-
-// $errosBloqueantes = array();
-// foreach ($camposObrigatorios as $i => $v) {
-// 	// echo $i;
-// 	foreach ($validacao as $i2 => $v2) {
-
-// 		foreach ($v2 as $i3 => $v3) {
-
-// 			if ($i == $v3["campo"])
-// 				$errosBloqueantes[] = $i;
-// 		}
-// 	}
-
-// }
-
-
-// if ( !empty($errosBloqueantes) ) {
-// 	echo('<pre>');
-// 	print_r($errosBloqueantes);
-// 	echo('</pre>');
-// 	exit;
-// }
-
 
 
 

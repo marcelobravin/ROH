@@ -1,5 +1,5 @@
 <?php
-function xxx ( $post, $update=false )
+function validarFormulario ( $post, $update=false )
 {
 	# valida preenchimento de campos NOT NULL
 	$camposObrigatorios = array(

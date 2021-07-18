@@ -5,22 +5,14 @@ require '../../app/Model/Validation-user.php';
 
 #verifica se usuario tem permissão de editar esse registro
 # verifica se esse registro é editável
+// $_POST['login']='';
 
+$errosFormulario = validarFormulario($_POST);
 
-$formularioValido = xxx ($_POST);
-
-
-
-if ( !empty($formularioValido) ) {
-	echo('<pre>');
-	print_r($formularioValido);
-	echo('</pre>');
-	exit;
+if ( !empty($errosFormulario) ) {
+	montaMensagemValidacao($errosFormulario);
+	voltar();
 }
-
-
-
-
 
 $condicoes = array(
 	'id' => $_POST['id']
