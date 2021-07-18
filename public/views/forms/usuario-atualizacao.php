@@ -10,7 +10,7 @@
 </div>
 <div>
 	<label for="ativo">Ativo</label>
-	<label><input type="checkbox" name="ativo" id="ativo" value="1" class="obrigatorio" required="required" checked="checked" />Ativo</label>
+	<label><input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj['ativo']) ?> />Ativo</label>
 </div>
 <div>
 	<label for="telefone">Telefone</label>
@@ -28,3 +28,6 @@
 	<label for="cpf">Cpf</label>
 	<input type="text" name="cpf" id="cpf" value="<?php echo $obj["cpf"] ?>"class="obrigatorio" required="required" maxlength="14" />
 </div>
+
+>>>
+<?php echo $obj['ativo'] ?>

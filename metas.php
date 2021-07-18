@@ -95,7 +95,7 @@
 										<?php echo $e['titulo'] ?>
 										<input type="hidden" name="especialidadeId" value="<?php echo $e['id'] ?>" />
 									</td>
-									<td><input type="checkbox" name="checkbox-<?php echo $e['id'] ?>" id="checkbox-<?php echo $e['id'] ?>" value="1" <?php echo checked ($meta['ativo']) ?>/></td>
+									<td><input type="checkbox" name="checkbox-<?php echo $e['id'] ?>" id="checkbox-<?php echo $e['id'] ?>" value="1" <?php echo checked ($meta['ativo']) ?> /></td>
 									<td><input type="text" name="leitos[<?php echo $e['id'] ?>]" id="leitos-<?php echo $e['id'] ?>" value="<?php echo $meta['quantidade'] ?>" /></td>
 								</tr>
 							<?php endforeach ?>

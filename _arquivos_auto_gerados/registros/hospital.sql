@@ -1,2 +1,3 @@
 INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('1', 'São Luiz Gonzaga', '1', '2021-07-04 18:58:48', '2021-07-17 12:53:53', '', '1', '0', '1');
 INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('75', 'São João', '1', '2021-07-17 12:25:01', '2021-07-17 12:53:59', '2021-07-17 12:53:59', '9', '', '9');
+INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('78', 'sd', '', '2021-07-18 09:24:45', '', '', '9', '', '');

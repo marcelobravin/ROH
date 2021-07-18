@@ -1,8 +1,6 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
-	#bloquear não logados
-
 	$PAGINA['titulo']		= "Atualização";
 	$PAGINA['subtitulo']	= "Hospitais";
 	// $PAGINA['endereco']		= "home.php";
@@ -33,6 +31,9 @@
 	<?php include "public/views/frames/header.php" ?>
 
 	<div class="container">
+		<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
+			<?php echo esvaziarMensagem() ?>
+		</div>
 		<h2>Atualização</h2>
 
 		<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">

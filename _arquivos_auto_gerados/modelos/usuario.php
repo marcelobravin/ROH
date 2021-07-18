@@ -2,7 +2,7 @@
 		/**
 			 * usuario
 			 * @package grimoire/modelos
-			 * @version 17-07-2021 19:53:16
+			 * @version 18-07-2021 13:21:40
 		*/
 
 		$tabela = limparNomeArquivo(__FILE__);
@@ -21,7 +21,7 @@
 				"Field"		=> "login",
 				"Type"		=> "char(60)",
 				"Null"		=> "NO",
-				"Key"		=> "",
+				"Key"		=> "UNI",
 				"Default"	=> "",
 				"Extra"		=> ""
 			);

@@ -1,40 +1,24 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
+require '../../app/Model/Validation-user.php';
+
 #verifica se usuario tem permissão de editar esse registro
 # verifica se esse registro é editável
 
 
-# não validar formatos
-$post = $_POST;
-// unset($post['id']);
-// unset($post['ativo']);
-
-$mapaFormatos = array(
-	'login'		=> 'email',
-	'telefone'	=> 'celular',
-	'nome'		=> 'letras_e_espaco',
-	'endereco'	=> 'endereco',
-	'cpf'		=> 'cpf'
-);
-
-# valida preenchimento de campos NOT NULL
-$camposObrigatorios = array(
-	'id'	=> $_POST['id'], # para updates id é obrigatorio
-	'login'	=> $_POST['login'], // ! ja cobertos pela validacao anterior, pode mandar redundante que o sistema ignora
-	'cpf'	=> $_POST['cpf'] // ! ja cobertos pela validacao anterior, pode mandar redundante que o sistema ignora
-);
-
-# valida tudo!
-$formularioValido = validacao($camposObrigatorios, $post, $mapaFormatos);
+$formularioValido = xxx ($_POST);
 
 
-if ( !$formularioValido) {
+
+if ( !empty($formularioValido) ) {
 	echo('<pre>');
 	print_r($formularioValido);
 	echo('</pre>');
 	exit;
 }
+
+
 
 
 
@@ -46,14 +30,11 @@ $campos = array(
 	'login' => $_POST['login'], # ---------------------------------------------- não deve alterar
 
 	'ativo'		=> $_POST['ativo'], # 1
-    'telefone'	=> $_POST['telefone'], # (11) 95989-0399
-    'nome'		=> $_POST['nome'], # Marcelo de Souza Bravin
-    'endereco'	=> $_POST['endereco'], # Avenida Francisco Rodrigues Filho
-    'cpf'		=> $_POST['cpf'] #
+	'telefone'	=> $_POST['telefone'], # (11) 95989-0399
+	'nome'		=> $_POST['nome'], # Marcelo de Souza Bravin
+	'endereco'	=> $_POST['endereco'], # Avenida Francisco Rodrigues Filho
+	'cpf'		=> $_POST['cpf'] #
 );
-
-# validar tamanho maximo geralmente em strings, pois validamnos apenas a composiçãos do caracteres
-
 
 try {
 	$rowCount = atualizar('usuario', $campos, $condicoes);
