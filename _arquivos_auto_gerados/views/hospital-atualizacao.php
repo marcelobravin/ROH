@@ -1,8 +1,5 @@
-<!-- 18-07-2021 15:19:07-->
-<div>
-	<label for="id">Id <span class="simbolo-obrigatorio">*</span></label>
-	<input type="hidden" name="id" id="id" value="<?php echo $obj["id"] ?>" />
-</div>
+<!-- 18-07-2021 15:42:55-->
+<input type="hidden" name="id" id="id" value="<?php echo $obj["id"] ?>" />
 <div>
 	<label for="titulo" title="Descrição do Título">Título <span class="simbolo-obrigatorio">*</span></label>
 	<input type="text" name="titulo" id="titulo" value="<?php echo $obj["titulo"] ?>" class="obrigatorio" required="required" maxlength="255" />
