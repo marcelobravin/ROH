@@ -1,12 +1,9 @@
 <?php
 		/**
-			 * resultado
-			 * @package grimoire/modelos
-			 * @version 18-07-2021 15:19:13
+		 * resultado
+		 * @package	grimoire/modelos
+		 * @version	23-07-2021 16:33:03
 		*/
-
-		$tabela = limparNomeArquivo(__FILE__);
-		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -21,7 +18,7 @@
 				"Field"		=> "meta_id",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",
-				"Key"		=> "",
+				"Key"		=> "MUL",
 				"Default"	=> "",
 				"Extra"		=> ""
 			);
@@ -89,6 +86,4 @@
 				"Extra"		=> ""
 			);
 		
-		$sql = montarCriacao($tabela, $campos);
-		executar($sql);
 	

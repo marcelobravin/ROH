@@ -1,4 +1,4 @@
-<!-- 18-07-2021 15:42:55-->
+<!-- 23-07-2021 16:17:36-->
 <input type="hidden" name="id" id="id" value="<?php echo $obj["id"] ?>" />
 <div>
 	<label for="titulo" title="Descrição do Título">Título <span class="simbolo-obrigatorio">*</span></label>
@@ -6,5 +6,5 @@
 </div>
 <div>
 	<label for="ativo" title="Descrição do Título">Ativo</label>
-	<label><input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj["ativo"]) ?> />Ativo</label>
+	<input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj["ativo"]) ?> />
 </div>

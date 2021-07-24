@@ -1,12 +1,9 @@
 <?php
 		/**
-			 * hospital
-			 * @package grimoire/modelos
-			 * @version 18-07-2021 15:19:13
+		 * hospital
+		 * @package	grimoire/modelos
+		 * @version	23-07-2021 16:33:03
 		*/
-
-		$tabela = limparNomeArquivo(__FILE__);
-		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -89,6 +86,4 @@
 				"Extra"		=> ""
 			);
 		
-		$sql = montarCriacao($tabela, $campos);
-		executar($sql);
 	

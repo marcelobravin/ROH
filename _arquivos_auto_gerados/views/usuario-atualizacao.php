@@ -1,12 +1,12 @@
-<!-- 18-07-2021 15:42:45-->
+<!-- 23-07-2021 16:17:36-->
 <input type="hidden" name="id" id="id" value="<?php echo $obj["id"] ?>" />
 <div>
 	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
-	<input type="text" name="login" id="login" value="<?php echo $obj["login"] ?>" class="obrigatorio" required="required" maxlength="60" />
+	<span  required="required"><?php echo $obj["login"] ?></span>
 </div>
 <div>
 	<label for="ativo">Ativo</label>
-	<label><input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj["ativo"]) ?> />Ativo</label>
+	<input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj["ativo"]) ?> />
 </div>
 <div>
 	<label for="telefone">Telefone</label>

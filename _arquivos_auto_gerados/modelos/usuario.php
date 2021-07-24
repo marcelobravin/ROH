@@ -1,12 +1,9 @@
 <?php
 		/**
-			 * usuario
-			 * @package grimoire/modelos
-			 * @version 18-07-2021 15:19:13
+		 * usuario
+		 * @package	grimoire/modelos
+		 * @version	23-07-2021 16:33:03
 		*/
-
-		$tabela = limparNomeArquivo(__FILE__);
-		$campos = array();
 		
 			$campos[0] = array(
 				"Field"		=> "id",
@@ -40,7 +37,7 @@
 				"Type"		=> "tinyint(1)",
 				"Null"		=> "NO",
 				"Key"		=> "",
-				"Default"	=> "",
+				"Default"	=> "0",
 				"Extra"		=> ""
 			);
 		
@@ -102,7 +99,7 @@
 				"Field"		=> "cpf",
 				"Type"		=> "varchar(14)",
 				"Null"		=> "NO",
-				"Key"		=> "",
+				"Key"		=> "UNI",
 				"Default"	=> "",
 				"Extra"		=> ""
 			);
@@ -161,6 +158,4 @@
 				"Extra"		=> ""
 			);
 		
-		$sql = montarCriacao($tabela, $campos);
-		executar($sql);
 	

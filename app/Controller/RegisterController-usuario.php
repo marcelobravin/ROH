@@ -3,49 +3,34 @@ include '../../app/Grimoire/core_inc.php';
 
 require '../../app/Model/Validation-user.php';
 
-
+# ------------------------------------------------------------------------------ validacao
 $errosFormulario = validarFormulario($_POST);
-
 if ( !empty($errosFormulario) ) {
-	montaMensagemValidacao($errosFormulario);
+	montaRespostaValidacao($errosFormulario);
 	voltar();
 }
 
-
-
-
-
-
-
-
-
-
+# ------------------------------------------------------------------------------ operacao
 $values = array(
+	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
 	'login'			=> $_POST['login'],
-	'senha'			=> criptografar($_POST['senha']),
+	'senha'			=> criptografar($_POST['cpf']),
+	'cpf'			=> $_POST['cpf'],
 	'criado_por'	=> $_SESSION['user']['id']
 );
 $id = inserir('usuario', $values);
 
-
-if (is_numeric($id) && $id > 0) {
+# ------------------------------------------------------------------------------ resposta
+if ( is_numeric($id) && $id > 0 ) {
 	$_SESSION['mensagem'] = "Inserido registro número: ". $id;
 	$_SESSION['mensagemClasse'] = "sucesso";
 
 	registrarOperacao('I', 'usuario', $id);
+	redirecionar(PROTOCOLO . ROOT_HTTP."formulario-atualizacao.php?modulo=usuario&codigo={$id}");
 
+# ------------------------------------------------------------------------------ erros
 } else {
-
-	if ( contem("Duplicate entry", $id) ) {
-		$_SESSION['mensagem'] = "Login já existe!";
-
-	} else {
-		echo('<pre>');
-		print_r($id);
-		echo('</pre>');
-	}
-
 	$_SESSION['mensagemClasse'] = "erro";
+	montarMensagemErro( $id );
+	voltar();
 }
-
-header('Location: ../../lista.php?modulo=usuario');

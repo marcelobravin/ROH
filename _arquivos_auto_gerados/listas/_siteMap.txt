@@ -1,0 +1,207 @@
+├── app (4)
+|	├── Controller (15)
+|	|	├── ConfirmationController.php
+|	|	├── DeactivateControllerOLD.php
+|	|	├── DefineTarget.php
+|	|	├── DeleteController.php
+|	|	├── ExportController.php
+|	|	├── FillTarget.php
+|	|	├── LoginController.php
+|	|	├── LogoutController.php
+|	|	├── MailValidationController.php
+|	|	├── PasswordResetController.php
+|	|	├── PasswordUpdateController.php
+|	|	├── RegisterController-hospital.php
+|	|	├── RegisterController-usuario.php
+|	|	├── UpdateController-hospital.php
+|	|	└── UpdateController-usuario.php
+|	├── DB (3)
+|	|	├── db_relatorio_ocupacao_hospitalar.sql
+|	|	├── db_roh.sql
+|	|	├── inserts obrigatorios (4)
+|	|	|	├── categoria.sql
+|	|	|	├── elemento.sql
+|	|	|	├── hospital.sql
+|	|	|	└── usuario.sql
+|	├── Grimoire (6)
+|	|	├── biblioteca (24)
+|	|	|	├── acesso.php
+|	|	|	├── arquivos.php
+|	|	|	├── email.php
+|	|	|	├── expressoesRegulares.php
+|	|	|	├── formularios.php
+|	|	|	├── html.php
+|	|	|	├── imagens.php
+|	|	|	├── javascript.php
+|	|	|	├── js (1)
+|	|	|	|	└── funcoes.js
+|	|	|	├── numeros.php
+|	|	|	├── opcionais (9)
+|	|	|	|	├── cores.php
+|	|	|	|	├── debug.php
+|	|	|	|	├── eCommerce.php
+|	|	|	|	├── instalacao.php
+|	|	|	|	├── internacionalizacao (3)
+|	|	|	|	|	├── home.php
+|	|	|	|	|	├── terms (2).json
+|	|	|	|	|	└── terms.json
+|	|	|	|	├── internacionalizacao.php
+|	|	|	|	├── jsonHandler.php
+|	|	|	|	├── listas (4)
+|	|	|	|	|	├── dias_da_semana.json
+|	|	|	|	|	├── internacionalizacao (2)
+|	|	|	|	|	|	├── dias_da_semana[EN-US].js
+|	|	|	|	|	|	└── meses[EN-US].js
+|	|	|	|	|	├── MAP.json
+|	|	|	|	|	└── meses_do_ano.json
+|	|	|	|	└── objetos.php
+|	|	|	├── paginacao.php
+|	|	|	├── persistencia (2)
+|	|	|	|	├── persistencia-oracle.php
+|	|	|	|	└── persistencia-pdo.php
+|	|	|	├── seguranca.php
+|	|	|	├── snippets.php
+|	|	|	├── sql.php
+|	|	|	├── templates.php
+|	|	|	├── tempo.php
+|	|	|	├── texto.php
+|	|	|	├── validacao (1)
+|	|	|	|	└── inscricaoEstadual.php
+|	|	|	├── validacao.php
+|	|	|	├── vetores.php
+|	|	|	├── ws.php
+|	|	|	├── Z-organizar (5)
+|	|	|	|	├── blades (1)
+|	|	|	|	|	└── language-control.php
+|	|	|	|	├── DEPRECATED (3)
+|	|	|	|	|	├── crossbrowser.php
+|	|	|	|	|	├── css3.php
+|	|	|	|	|	└── javascript.php
+|	|	|	|	├── _siteMap.txt
+|	|	|	|	├── stages.php
+|	|	|	|	└── version.json
+|	|	├── configuracoes.php
+|	|	├── core_inc.php
+|	|	├── processosFinais.php
+|	|	├── processosIniciais.php
+|	|	└── README.md
+|	├── Model (2)
+|	|	├── Validation-hospital.php
+|	|	└── Validation-user.php
+├── _arquivos_auto_gerados (7)
+|	├── constraints_db_relatorio_ocupacao_hospitalar.sql
+|	├── listas (3)
+|	|	├── _ALL.json
+|	|	├── _projectSize.json
+|	|	└── _siteMap.txt
+|	├── minified (2)
+|	|	├── css (9)
+|	|	|	├── datatables.css
+|	|	|	├── esqueci-senha.css
+|	|	|	├── login.css
+|	|	|	├── metas.css
+|	|	|	├── normalize.css
+|	|	|	├── resets.css
+|	|	|	├── reset-senha.css
+|	|	|	├── topo.css
+|	|	|	└── usuarios.css
+|	|	├── js (5)
+|	|	|	├── esqueci-senha.js
+|	|	|	├── exclusao.js
+|	|	|	├── login.js
+|	|	|	├── metas.js
+|	|	|	└── reset-senha.js
+|	├── modelos (8)
+|	|	├── categoria.php
+|	|	├── elemento.php
+|	|	├── hospital.php
+|	|	├── _log_acesso.php
+|	|	├── _log_operacoes.php
+|	|	├── meta.php
+|	|	├── resultado.php
+|	|	└── usuario.php
+|	├── registros (8)
+|	|	├── categoria.sql
+|	|	├── elemento.sql
+|	|	├── hospital.sql
+|	|	├── _log_acesso.sql
+|	|	├── _log_operacoes.sql
+|	|	├── meta.sql
+|	|	├── resultado.sql
+|	|	└── usuario.sql
+|	├── tabelas (8)
+|	|	├── tb_categoria.sql
+|	|	├── tb_elemento.sql
+|	|	├── tb_hospital.sql
+|	|	├── tb__log_acesso.sql
+|	|	├── tb__log_operacoes.sql
+|	|	├── tb_meta.sql
+|	|	├── tb_resultado.sql
+|	|	└── tb_usuario.sql
+|	├── views (4)
+|	|	├── hospital-atualizacao.php
+|	|	├── hospital-insercao.html
+|	|	├── usuario-atualizacao.php
+|	|	└── usuario-insercao.html
+├── .env
+├── esqueci-a-senha.php
+├── formulario-atualizacao.php
+├── formulario-cadastro.php
+├── index.php
+├── listaMODULAR.php
+├── lista.php
+├── metas.php
+├── public (5)
+|	├── css (9)
+|	|	├── datatables.css
+|	|	├── esqueci-senha.css
+|	|	├── login.css
+|	|	├── metas.css
+|	|	├── normalize.css
+|	|	├── resets.css
+|	|	├── reset-senha.css
+|	|	├── topo.css
+|	|	└── usuarios.css
+|	├── img (8)
+|	|	├── bg.jpg
+|	|	├── esqueci-senha.png
+|	|	├── eye-hide.png
+|	|	├── eye-view.png
+|	|	├── favicon-32x32(1).png
+|	|	├── favicon-32x32.png
+|	|	├── login.jpg
+|	|	└── login.png
+|	├── scripts (5)
+|	|	├── esqueci-senha.js
+|	|	├── exclusao.js
+|	|	├── login.js
+|	|	├── metas.js
+|	|	└── reset-senha.js
+|	├── vendors (3)
+|	|	├── all.css
+|	|	├── jquery-3.6.0.slim.min.js
+|	|	└── sweet-alert.js
+|	├── views (8)
+|	|	├── components (1)
+|	|	|	└── linkConfirmacaoEmail.php
+|	|	├── forms (4)
+|	|	|	├── hospital-atualizacao.php
+|	|	|	├── hospital-insercao.html
+|	|	|	├── usuario-atualizacao.php
+|	|	|	└── usuario-insercao.html
+|	|	├── frames (6)
+|	|	|	├── base.php
+|	|	|	├── footer.php
+|	|	|	├── header.php
+|	|	|	├── head.php
+|	|	|	├── includes-datatables.php
+|	|	|	└── metas.php
+|	|	├── home.php
+|	|	├── lista-hospital.php
+|	|	├── listaOLD.php
+|	|	├── lista-usuario.php
+|	|	└── login.php
+├── README.txt
+└── relatorio.php
+├── reset-senha.php
+├── resultado.php

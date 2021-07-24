@@ -19,6 +19,10 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 	<style>
 		.obrigatorio:before { content: "*"; display: block }
+		label {
+			display: block;
+			margin-top: 15px;
+		}
 	</style>
 </head>
 <body>

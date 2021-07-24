@@ -26,6 +26,12 @@
 <head>
 	<?php include "public/views/frames/metas.php" ?>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	<style>
+		label {
+			display: block;
+			margin-top: 15px;
+		}
+	</style>
 </head>
 <body>
 	<?php include "public/views/frames/header.php" ?>

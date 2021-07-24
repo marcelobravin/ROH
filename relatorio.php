@@ -88,6 +88,7 @@ if ( isset($_GET['hospital']) ) {
 
 		WHERE
 			e.categoria_id = c.id
+			AND m.ativo		= 1
 
 		ORDER BY
 			c.titulo,
@@ -265,78 +266,92 @@ if ( isset($_GET['hospital']) ) {
 							</tr>
 						</thead>
 
-						<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
+						<?php if ( !isset($especialidades[$v['titulo']]) ) : ?>
 							<tr>
-								<td>
-									<?php echo $e['elemento_nome'] ?>
-									<input type="hidden" name="especialidadeId" value="<?php echo $e['elemento_id'] ?>" />
+								<td colspan="7">
+									Nenhuma definição dessa categoria encontrada para esse hospital!
 								</td>
-
-								<td>
-									<?php if ( isset($e['meta_quantidade']) ): ?>
-										<?php echo $e['meta_quantidade'] ?>
-									<?php else: ?>
-										<i>Meta não<br>definida!</i>
-									<?php endif ?>
-								</td>
-
-								<td>
-									<?php if ( isset($e['meta_quantidade']) ): ?>
-										<?php if ( isset($e['resultado']) ): ?>
-											<span <?php echo $e['resultado'] < $e['meta_quantidade'] ? 'class="insuficiente"' : '' ?>>
-												<?php echo $e['resultado'] ?>
-											</span>
-										<?php else: ?>
-											<i>Meta não<br>verificada!</i>
-										<?php endif ?>
-									<?php else: ?>
-										&nbsp;
-									<?php endif ?>
-								</td>
-
-								<td>
-									<?php if ( isset($e['resultado']) ): ?>
-										<textarea disabled><?php echo $e['justificativa'] ?></textarea>
-									<?php else: ?>
-										&nbsp;
-									<?php endif ?>
-								</td>
-
-								<td>
-									<?php if ( isset($e['justificativa']) ): ?>
-										<?php if ( isset($e['justificativa_aceita']) && $e['justificativa_aceita'] ): ?>
-											<span class="suficiente">
-												Sim
-											</span>
-										<?php else: ?>
-											Não
-										<?php endif ?>
-									<?php else: ?>
-										&nbsp;
-									<?php endif ?>
-								</td>
-
-								<td>
-									<?php if ( isset($e['autor']) ): ?>
-										<a href="lista.php?modulo=usuario&id=<?php echo $e['autor_id'] ?>">
-											<?php echo $e['autor'] ?>
-										</a>
-									<?php endif ?>
-								</td>
-
-								<td>
-									<?php if ( isset($e['criacao']) ): ?>
-										<?php echo converterData( descartarHorario($e['criacao']) ) ?>
-									<?php endif ?>
-								</td>
-
 							</tr>
-						<?php endforeach ?>
+						<?php else : ?>
+							<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
+								<tr>
+									<td>
+										<?php echo $e['elemento_nome'] ?>
+										<input type="hidden" name="especialidadeId" value="<?php echo $e['elemento_id'] ?>" />
+									</td>
+
+									<td>
+										<?php if ( isset($e['meta_quantidade']) ): ?>
+											<?php echo $e['meta_quantidade'] ?>
+										<?php else: ?>
+											<i>Meta não<br>definida!</i>
+										<?php endif ?>
+									</td>
+
+									<td>
+										<?php if ( isset($e['meta_quantidade']) ): ?>
+											<?php if ( isset($e['resultado']) ): ?>
+												<span <?php echo $e['resultado'] < $e['meta_quantidade'] ? 'class="insuficiente"' : '' ?>>
+													<?php echo $e['resultado'] ?>
+												</span>
+											<?php else: ?>
+												<i>Meta não<br>verificada!</i>
+											<?php endif ?>
+										<?php else: ?>
+											&nbsp;
+										<?php endif ?>
+									</td>
+
+									<td>
+										<?php if ( isset($e['resultado']) ): ?>
+											<textarea disabled><?php echo $e['justificativa'] ?></textarea>
+										<?php else: ?>
+											&nbsp;
+										<?php endif ?>
+									</td>
+
+									<td>
+										<?php if ( isset($e['resultado']) && $e['resultado'] < $e['meta_quantidade'] ): ?>
+										<?php #if ( isset($e['justificativa']) ): ?>
+											<?php if ( isset($e['justificativa_aceita']) && $e['justificativa_aceita'] ): ?>
+												<span class="suficiente">
+													Sim
+												</span>
+											<?php else: ?>
+												Não
+											<?php endif ?>
+										<?php else: ?>
+											-
+										<?php endif ?>
+									</td>
+
+									<td>
+										<?php if ( isset($e['autor']) ): ?>
+											<a href="lista.php?modulo=usuario&id=<?php echo $e['autor_id'] ?>">
+												<?php echo $e['autor'] ?>
+											</a>
+										<?php endif ?>
+									</td>
+
+									<td>
+										<?php if ( isset($e['criacao']) ): ?>
+											<?php echo converterData( descartarHorario($e['criacao']) ) ?>
+										<?php endif ?>
+									</td>
+
+								</tr>
+							<?php endforeach ?>
+						<?php endif ?>
 
 						<tfoot>
 							<tr>
 								<td colspan="7">
 									<?php echo $v['observacoes'] ?>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="7">
+									&nbsp;
 								</td>
 							</tr>
 						</tfoot>
@@ -348,7 +363,10 @@ if ( isset($_GET['hospital']) ) {
 		</div>
 
 		<?php if ( isset($matriz) ): # TODO: substituir por verificação de existência de resultado?>
-			<button>Exportar</button>
+			<button>
+				<a href="app/Controller/ExportController.php?hospital=<?php echo $_GET['hospital'] ?>&mes=<?php echo $mesSelecionado ?>&ano=<?php echo $anoSelecionado ?>">Exportar</a>
+			</button>
+
 		<?php endif ?>
 
 	</div>

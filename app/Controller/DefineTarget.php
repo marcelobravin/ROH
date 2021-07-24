@@ -13,8 +13,10 @@ foreach ($_POST['leitos'] as $key => $value) {
 
 	$id = inserir('meta', $values);
 
-	if ( is_numeric($id) )
+	if ( is_numeric($id) ) {
 		unset($_POST['leitos'][$key]);
+		registrarOperacao('I', 'meta', $id);
+	}
 }
 
 # ------------------------------------------------------------------------------ atualização de especialidades
@@ -30,7 +32,12 @@ foreach ($_POST['leitos'] as $key => $value) {
 		'elemento_id'	=> $key
 	);
 
-	$sql = atualizar("meta", $values, $where);
+	$rows = atualizar("meta", $values, $where);
+
+	if ( positivo($rows) ) {
+		$id = localizar('meta', $where, '', 'id');
+		registrarOperacao('U', 'meta', $id['id']);
+	}
 }
 
 $_SESSION['mensagem'] = "Atualizadas as metas do hospital ". $_POST['hospital'];

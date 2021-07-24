@@ -11,6 +11,8 @@
 				<a href="resultado.php" title="Preencher metas"><li>Preencher</li></a>
 				<a href="relatorio.php" title="Visualizar metas"><li>Relatório</li></a>
 			</ul>
+
+			<span><?php echo $_SESSION['user']['login'] ?></span>
 			<a href="app/Controller/LogoutController.php">
 				<i class="fas fa-power-off"></i>
 			</a>

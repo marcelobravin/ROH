@@ -1,31 +1,34 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
+require '../../app/Model/Validation-hospital.php';
+
+# ------------------------------------------------------------------------------ validacao
+$errosFormulario = validarFormulario($_POST);
+if ( !empty($errosFormulario) ) {
+	montaRespostaValidacao($errosFormulario);
+	voltar();
+}
+
+# ------------------------------------------------------------------------------ operacao
 $values = array(
+	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
 	'titulo'		=> $_POST['titulo'],
-	'criado_por'	=> $_SESSION['user']['id'],
-	'ativo'			=> $_POST['ativo']
+	'criado_por'	=> $_SESSION['user']['id']
 );
 $id = inserir('hospital', $values);
 
-
-if (is_numeric($id) && $id > 0) {
+# ------------------------------------------------------------------------------ resposta
+if ( is_numeric($id) && $id > 0 ) {
 	$_SESSION['mensagem'] = "Inserido registro número: ". $id;
 	$_SESSION['mensagemClasse'] = "sucesso";
 
 	registrarOperacao('I', 'hospital', $id);
+	redirecionar(PROTOCOLO . ROOT_HTTP."formulario-atualizacao.php?modulo=hospital&codigo={$id}");
+
+# ------------------------------------------------------------------------------ erros
 } else {
-
-	if ( contem("Duplicate entry", $id) ) {
-		$_SESSION['mensagem'] = "Login já existe!";
-
-	} else {
-		echo('<pre>');
-		print_r($id);
-		echo('</pre>');
-	}
-
 	$_SESSION['mensagemClasse'] = "erro";
+	montarMensagemErro( $id );
+	voltar();
 }
-
-header('Location: ../../lista.php?modulo=hospital');

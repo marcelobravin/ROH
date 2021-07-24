@@ -1,38 +1,42 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
+require '../../app/Model/Validation-hospital.php';
+
+# ------------------------------------------------------------------------------ validacao
+$errosFormulario = validarFormulario($_POST, true); # definições vem do modelo
+if ( !empty($errosFormulario) ) {
+	montaRespostaValidacao($errosFormulario);
+	voltar();
+}
+
+# ------------------------------------------------------------------------------ operacao
 $condicoes = array(
 	'id' => $_POST['id']
 );
 
 $campos = array(
-	'titulo' => $_POST['titulo'],
-	'ativo' => $_POST['ativo']
+	'ativo'		=> isset($_POST['ativo']) ? 1 : 0,
+	'titulo'	=> $_POST['titulo']
 );
 
-try {
-	$rowCount = atualizar('hospital', $campos, $condicoes);
+$resultado = atualizar('hospital', $campos, $condicoes);
 
-	if (is_numeric($rowCount) && $rowCount > 0) {
-		$_SESSION['mensagem'] = "Atualizado o registro número: ". $_POST['id'];
-		$_SESSION['mensagemClasse'] = "sucesso";
-
+# ------------------------------------------------------------------------------ resposta
+if ( is_numeric($resultado) ) {
+	if ( $resultado > 0 ) {
+		$_SESSION['mensagem']		= "Atualizado o registro número: ". $_POST['id'];
+		$_SESSION['mensagemClasse']	= "sucesso";
 		registrarOperacao('U', 'hospital', $_POST['id']);
-
-	} else {
+	} else if ( $resultado == 0 ) {
 		# clicou atualizar sem adicionar nenhuma alteração
-		$_SESSION['mensagem'] = "Nenhuma alteração realizada!";
-		$_SESSION['mensagemClasse'] = "erro";
+		$_SESSION['mensagem']		= "Nenhuma alteração realizada!";
+		$_SESSION['mensagemClasse']	= "erro";
 	}
 
-
-} catch (PDOException $e) {
+} else { # --------------------------------------------------------------------- erros
 	$_SESSION['mensagemClasse'] = "erro";
-	if ( contem("Duplicate entry 'login' for key 'login'", $_POST['id']) ) {
-		# tentou atualizar o login para um repetido
-		$_SESSION['mensagem'] = "Login já existe!";
-		$_SESSION['mensagemClasse'] = "erro";
-	}
-} finally {
-	header('Location: ../../lista.php?modulo=hospital');
+	montarMensagemErro( $resultado );
 }
+
+voltar();
