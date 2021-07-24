@@ -6,7 +6,7 @@
 	</head>
 <body>
 	<div class="container-login">
-		<img src="public/img/login.png">
+		<img src="public/img/login.png" alt="Usuário observando um sistema computacional">
 		<div class="container-form">
 			<form action="app/Controller/LoginController.php" method="post">
 				<h1>Ocupação Hospitalar</h1>

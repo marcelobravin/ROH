@@ -237,7 +237,7 @@ if ( isset($_GET['hospital']) ) {
 				Selecione um hospital!
 			<?php else: ?>
 
-				<table>
+				<table aria-label="Tabela de verificação de cumprimento de metas">
 					<?php foreach ($categorias as $v) : ?>
 
 						<thead>
@@ -256,13 +256,13 @@ if ( isset($_GET['hospital']) ) {
 							</tr>
 
 							<tr>
-								<th>Especialidade<br>dos Leitos</th>
-								<th>Leitos</th>
-								<th>Volume<br>de saída</th>
-								<th title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
-								<th title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
-								<th>Responsável<br>pela vistoria</th>
-								<th>Data da<br>vistoria</th>
+								<th scope="Coluna id">Especialidade<br>dos Leitos</th>
+								<th scope="Coluna id">Leitos</th>
+								<th scope="Coluna id">Volume<br>de saída</th>
+								<th scope="Coluna id" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
+								<th scope="Coluna id" title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
+								<th scope="Coluna id">Responsável<br>pela vistoria</th>
+								<th scope="Coluna id">Data da<br>vistoria</th>
 							</tr>
 						</thead>
 
@@ -284,7 +284,7 @@ if ( isset($_GET['hospital']) ) {
 										<?php if ( isset($e['meta_quantidade']) ): ?>
 											<?php echo $e['meta_quantidade'] ?>
 										<?php else: ?>
-											<i>Meta não<br>definida!</i>
+											<em>Meta não<br>definida!</em>
 										<?php endif ?>
 									</td>
 
@@ -295,7 +295,7 @@ if ( isset($_GET['hospital']) ) {
 													<?php echo $e['resultado'] ?>
 												</span>
 											<?php else: ?>
-												<i>Meta não<br>verificada!</i>
+												<em>Meta não<br>verificada!</em>
 											<?php endif ?>
 										<?php else: ?>
 											&nbsp;

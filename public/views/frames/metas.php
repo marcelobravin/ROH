@@ -1,7 +1,7 @@
 <meta charset="<?php echo CARACTERES ?>">
 <title>
 	<?php echo $PAGINA['titulo'] ?>
-	<?php echo !empty($PAGINA['titulo']) && !empty($PAGINA['titulo']) ? SEPARADOR_TITULO : "" ?>
+	<?php echo !empty($PAGINA['titulo']) && !empty($PAGINA['subtitulo']) ? SEPARADOR_TITULO : "" ?>
 	<?php echo $PAGINA['subtitulo'] ?>
 </title>
 <meta name="description" content="<?php echo DESCRICAO_SITE ?>">

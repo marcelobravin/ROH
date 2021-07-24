@@ -11,7 +11,7 @@
 	</head>
 <body>
 	<div class="container-login">
-		<img src="public/img/esqueci-senha.png">
+		<img src="public/img/esqueci-senha.png" alt="Usuário confuso tentando lembrar a senha">
 		<div class="container-form">
 			<form action="app/Controller/PasswordResetController.php" method="post">
 				<h1>Trocar Senha</h1>

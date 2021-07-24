@@ -1,13 +1,13 @@
-<table>
+<table aria-label="Lista de hospitais">
 	<thead>
 		<tr>
-			<th>
+			<th scope="Coluna id">
 				<?php criarLinkOrdenacao("id", "id") ?>
 			</th>
-			<th>
+			<th scope="Coluna nome">
 				<?php criarLinkOrdenacao("titulo", "nome") ?>
 			</th>
-			<th>Opções</th>
+			<th scope="Coluna opções">Opções</th>
 		</tr>
 	</thead>
 

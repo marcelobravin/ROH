@@ -1,9 +1,9 @@
-<table id="usuarios" class="display" style="width:100%">
+<table id="usuarios" class="display" style="width:100%" aria-label="Lista de usuários do sistema">
 	<thead>
 		<tr>
-			<th>Usuário</th>
-			<th>ID</th>
-			<th>Opções</th>
+			<th scope="Coluna usuário">Usuário</th>
+			<th scope="Coluna id">ID</th>
+			<th scope="Coluna opções">Opções</th>
 		</tr>
 	</thead>
 	<tbody>
