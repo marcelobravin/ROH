@@ -26,6 +26,7 @@ else
 
 	define( 'PALAVRAS_CHAVE'	, '' );
 	define( 'SEPARADOR_TITULO'	, ' - ' ); # ----------------------------------- símbolo a ser usado para separar o titulo do site do título da página
+	define( 'CEP_ORIGEM'		, '08710-190' ); # ----------------------------------- símbolo a ser usado para separar o titulo do site do título da página
 
 /**
  * Nome de diretório e subdiretórios

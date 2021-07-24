@@ -224,7 +224,7 @@ function ordenarPor ($chave_ordenacao="data")
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -270,7 +270,7 @@ function paginationCore ($tabela, $linksPaginasExibir=PAGINACAO_PAE)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -331,7 +331,7 @@ function selecaoResultadosPorPagina ($vetorPaginacao)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -356,7 +356,7 @@ function definirExibicao ()
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -383,7 +383,7 @@ function criarLinkOrdenacao ($atributo, $nomeCampo)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -415,7 +415,7 @@ function defineOrdemPaginacao ($ordenacaoDefault='id')
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");

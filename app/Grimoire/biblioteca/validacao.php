@@ -346,7 +346,8 @@ function validarData ($data, $dataMinima=null, $dataMaxima=null)
 /**
  * Inclui e valida inscrição estadual
  * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
+ * @since	05-07-2015
+ * @version	24/07/2021 16:17:30
  *
  * @param	string
  * @param	string
@@ -354,187 +355,22 @@ function validarData ($data, $dataMinima=null, $dataMaxima=null)
  */
 function validaIE ($ie, $uf="SP")
 {
-	include "opcionais/validacao/inscricaoEstadual.php";
+	include_once "opcionais/validacao/inscricaoEstadual.php";
 	return CheckIE($ie, $uf);
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
- * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
  *
  * @param	string
- * @return	bool
- *
- * @uses	validacao.php->validar()
- * @example
-echo validarIp("189.18.125.-183");
-echo validarIp("255.18.125.183");
-* @todo
-function validarIp ($ip, $ipv6=false)
-{
-*/
-function validarIp ($ip)
-{
-	if (validar("ip", $ip) == true) {
-		$quaternion = explode(".", $ip);
-		foreach ($quaternion as $vetor) {
-			if ($vetor > 255 || $vetor < 0) return 0;
-		}
-	} else {
-		return false;
-	}
-	return true;
-}
-
-/**
- * Valida senha criptografada
- * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
- *
  * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
  * @return	bool
- *
- * @example
-		$user_input = 'mypassword';
-		$password = '$1$lr0.Kr0.$q3XbIJ4KV1jgyyF7sZ0VC/'; // let the salt be automatically
-		// echo $password = criptografar('mypassword'); // let the salt be automatically
-		echo validarSenha($user_input, $password);
- */
-function validarSenha ($user_input, $password)
-{
-	return crypt($user_input, $password) === $password;
-}
-
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Validar nome de usuário
- * Essa regra é para permitir usuários com nome de 4 a 28 caracteres, alfanuméricos e acentuados:
- */
-function validaUserName ()
-{
-	$string = "userNaME4234432_";
-	if (preg_match('/^[a-z\d_]{4,28}$/i', $string))
-		echo "example 1 successful.";
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Números telefônicos
- * Essa regra é para validar números de telefone, e os números devem ser escritos da seguinte maneira (###)###-####:
- */
-function validaNumeroTelefonicos ()
-{
-	$string = "(032)555-5555";
-	if (preg_match('/^(\(?[2-9]{1}[0-9]{2}\)?|[0-9]{3,3}[-. ]?)[ ][0-9]{3,3}[-. ]?[0-9]{4,4}$/', $string))
-		echo "example 2 successful.";
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Endereços de e-mail
- * A regra para validar e-mails é a seguinte:
- */
-function validaEnderecoEmail ()
-{
-	$string = "first.last@domain.co.uk";
-	if (preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $string))
-		echo "example 3 successful.";
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Códigos Postais
- * Permie utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
- */
-function validaCodigoPostal ()
-{
-	$string = "55324-4324";
-	if (preg_match('/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/', $string))
-		echo "example 4 successful.";
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -553,62 +389,31 @@ function validaEnderecosIP ()
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Verifica se o valor se encaixa no padrão
+ * @package	grimoire/bibliotecas/validacao.php
+ * @version	05-07-2015
  *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
+ * @param	string
+ * @return	bool
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
+ * @uses	validacao.php->validar()
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+	echo validarIp("189.18.125.-183");
+	echo validarIp("255.18.125.183");
 */
-/**
- *
- * Cores Hexadecimais
- * Você também pode verificar valores hexadecimais em suas 2 formas, a normal e a abreviada: (#333, 333, #333333 o 333333) com o símbolo # opcional
- */
-function validaCoresHexadecimais ()
+function validarIp ($ip)
 {
-	$string = "#666666";
-	if (preg_match('/^#(?:(?:[a-f\d]{3}){1,2})$/i', $string))
-		echo "example 6 successful.";
-}
+	if (validar("ip", $ip) == true) {
 
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Datas
- * Um formato de data típico MM/DD/YYYY e sua validação é a seguinte:
-*/
-function validaData ()
-{
-	$string = "10/15/2007";
-	if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $string))
-		echo "example 8 successful.";
+		$quaternion = explode(".", $ip);
+		foreach ($quaternion as $vetor) {
+			if ($vetor > 255 || $vetor < 0)
+				return 0;
+		}
+	} else {
+		return false;
+	}
+	return true;
 }
 
 /**
@@ -618,205 +423,11 @@ function validaData ()
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function validaPrimitivos ($parametro)
-{
-	if (
-		is_array($parametro)	||
-		is_numeric($parametro)	||
-		is_bool($parametro)		||
-		is_float($parametro)	||
-		is_file($parametro)		||
-		is_dir($parametro)		||
-		is_int($parametro)		||
-		is_null($parametro)
-	)
-		return true;
-
-	return false;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function url ($param)
-{
-	return filter_var( $param, FILTER_VALIDATE_URL );
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function tamanhoMaximo ($param, $maxlength)
-{
-	return strlen($param) > $maxlength;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function tamanhoMinimo ($param, $minlength)
-{
-	return strlen($param) > $minlength;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function dataValida ($date, $format = 'Y-m-d')
-{
-	$d = DateTime::createFromFormat($format, $date);
-	return !empty($d) ? 1 : 0;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function verificarDataMaior ($data1, $data2)
-{
-	return strtotime($data1) > strtotime($data2);
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function verificarDataMenor ($data1, $data2)
-{
-	return strtotime($data1) < strtotime($data2);
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function verificarDataIgual ($data1, $data2)
-{
-	return strtotime($data1) == strtotime($data2);
-}
-
-/**
- * Ensures an ip address is both a valid IP and does not fall within
- * a private network range.
- */
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
- *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -850,17 +461,405 @@ function validate_ip ($ip)
 }
 
 /**
+ * Valida senha criptografada
+ * @package	grimoire/bibliotecas/validacao.php
+ * @version	05-07-2015
+ *
+ * @param	string
+ * @return	bool
+ *
+ * @example
+		$user_input = 'mypassword';
+		$password = '$1$lr0.Kr0.$q3XbIJ4KV1jgyyF7sZ0VC/'; // let the salt be automatically
+		// echo $password = criptografar('mypassword'); // let the salt be automatically
+		echo validarSenha($user_input, $password);
+ */
+function validarSenha ($user_input, $password)
+{
+	return crypt($user_input, $password) === $password;
+}
+
+
+/**
  * Escreve o conteúdo em um arquivo
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+/**
+ *
+ * Validar nome de usuário
+ * Essa regra é para permitir usuários com nome de 4 a 28 caracteres, alfanuméricos e acentuados:
+ */
+function validaUserName ()
+{
+	$string = "userNaME4234432_";
+	if (preg_match('/^[a-z\d_]{4,28}$/i', $string))
+		echo "example 1 successful.";
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+/**
+ *
+ * Números telefônicos
+ * Essa regra é para validar números de telefone, e os números devem ser escritos da seguinte maneira (###)###-####:
+ */
+function validaNumeroTelefonicos ()
+{
+	$string = "(032)555-5555";
+	if (preg_match('/^(\(?[2-9]{1}[0-9]{2}\)?|[0-9]{3,3}[-. ]?)[ ][0-9]{3,3}[-. ]?[0-9]{4,4}$/', $string))
+		echo "example 2 successful.";
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+/**
+ *
+ * Endereços de e-mail
+ * A regra para validar e-mails é a seguinte:
+ */
+function validaEnderecoEmail ()
+{
+	$string = "first.last@domain.co.uk";
+	if (preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $string))
+		echo "example 3 successful.";
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+/**
+ *
+ * Códigos Postais
+ * Permie utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
+ */
+function validaCodigoPostal ()
+{
+	$string = "55324-4324";
+	if (preg_match('/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/', $string))
+		echo "example 4 successful.";
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+/**
+ *
+ * Cores Hexadecimais
+ * Você também pode verificar valores hexadecimais em suas 2 formas, a normal e a abreviada: (#333, 333, #333333 o 333333) com o símbolo # opcional
+ */
+function validaCoresHexadecimais ()
+{
+	$string = "#666666";
+	if (preg_match('/^#(?:(?:[a-f\d]{3}){1,2})$/i', $string))
+		echo "example 6 successful.";
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+/**
+ *
+ * Datas
+ * Um formato de data típico MM/DD/YYYY e sua validação é a seguinte:
+*/
+function validaData ()
+{
+	$string = "10/15/2007";
+	if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $string))
+		echo "example 8 successful.";
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function validaPrimitivos ($parametro)
+{
+	if (
+		is_array($parametro)	||
+		is_numeric($parametro)	||
+		is_bool($parametro)		||
+		is_float($parametro)	||
+		is_file($parametro)		||
+		is_dir($parametro)		||
+		is_int($parametro)		||
+		is_null($parametro)
+	)
+		return true;
+
+	return false;
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function url ($param)
+{
+	return filter_var( $param, FILTER_VALIDATE_URL );
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function tamanhoMaximo ($param, $maxlength)
+{
+	return strlen($param) > $maxlength;
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function tamanhoMinimo ($param, $minlength)
+{
+	return strlen($param) > $minlength;
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function dataValida ($date, $format = 'Y-m-d')
+{
+	$d = DateTime::createFromFormat($format, $date);
+	return !empty($d) ? 1 : 0;
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function verificarDataMaior ($data1, $data2)
+{
+	return strtotime($data1) > strtotime($data2);
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function verificarDataMenor ($data1, $data2)
+{
+	return strtotime($data1) < strtotime($data2);
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function verificarDataIgual ($data1, $data2)
+{
+	return strtotime($data1) == strtotime($data2);
+}
+
+/**
+ * Ensures an ip address is both a valid IP and does not fall within
+ * a private network range.
+ */
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -878,11 +877,11 @@ function isEmail ($param)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -903,11 +902,11 @@ function positivo ($param)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");

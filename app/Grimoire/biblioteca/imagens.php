@@ -450,11 +450,11 @@ function retornarImagem2 ($imagem, $x=100, $y=100, $fundo="F9F9F9", $letra="CCCC
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -488,11 +488,11 @@ function imageClassifier ($images)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -515,11 +515,11 @@ function imageGrouper ($images)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -581,11 +581,11 @@ function imageCollation ($images, $fileName)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -615,11 +615,11 @@ function createTransparentImage ($sum_width, $sum_height)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -680,11 +680,11 @@ function processImages ($tmp, $images, $dimensions, $sqRt)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -706,11 +706,11 @@ function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP"
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");

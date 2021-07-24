@@ -240,9 +240,9 @@ css defaults
     //  * @since 05-07-2015
     //  * @version  17/09/2016 21:22:34
     //  *
-    //  * @param    string
-    //  * @param    string
-    //  * @param    boolean se função deve montar o value também
+    //  * @param	 string
+    //  * @param	 string
+    //  * @param	 boolean se função deve montar o value também
     //  * @return   string
     //  */
     // function selected ($parametro, $alvo, $montarValue=true)
@@ -329,7 +329,7 @@ css defaults
      * @package grimoire/bibliotecas/numeros.php
      * @version 05-07-2015
      *
-     * @param   double
+     * @param	double
      * @return  string
      */
     function converterBytes ($bytes, $escala)
@@ -358,8 +358,8 @@ css defaults
     //  * @package grimoire/bibliotecas/arquivos.php
     //  * @version 05-07-2015
     //  *
-    //  * @param    string
-    //  * @param    bool
+    //  * @param	 string
+    //  * @param	 bool
     //  * @return   array
     //  *
     //  * @example
@@ -392,7 +392,7 @@ css defaults
     // /**
     //  * Verifica se o valor se encaixa no padrão
     //  *
-    //  * @param    string
+    //  * @param	 string
     //  * @return   bool
     //  *
     //  * @example
@@ -418,8 +418,8 @@ css defaults
     //  * @package grimoire/bibliotecas/acesso.php
     //  * @version 05-07-2015
     //  *
-    //  * @uses     GRIMOIRE."modelos/"
-    //  * @uses     persistencia.php->executar()
+    //  * @uses	 GRIMOIRE."modelos/"
+    //  * @uses	 persistencia.php->executar()
     //  */
     // //popularTabelas();
     // function popularTabelas ()
@@ -445,7 +445,7 @@ css defaults
     // /**
     //  * Exibe mensagem de erro
     //  *
-    //  * @param    string
+    //  * @param	 string
     //  *
     //  * @uses texto.php->startsWith()
     //  * @uses acesso.php->importarBD()
@@ -502,8 +502,8 @@ css defaults
     //  * @package grimoire/bibliotecas/arquivos.php
     //  * @version 05-07-2015
     //  *
-    //  * @param    string
-    //  * @param    int
+    //  * @param	 string
+    //  * @param	 int
     //  * @return   bool
     //  *
     //  * @uses expressoesRegulares.php->padrao()
@@ -540,7 +540,7 @@ colocar montar criacao para pegar descrições em json
      * @since   05-07-2015
      * @version 30-06-2021
      *
-     * @param   string
+     * @param	string
      */
     function exibirTemplate ($campos, $labels, $esconder=array(), $registro=null)
     {
@@ -613,12 +613,12 @@ define( "VALIDADE"              , "" );
  * @package grimoire/bibliotecas/acesso.php
  * @version 20-07-2015
  *
- * @param   string
- * @return  bool
+ * @param	string
+ * @return	bool
  *
- * @uses    configuracoes.php->VALIDADE
- * @uses    tempo.php->agora()
- * @uses    tempo.php->diferencaTempo()
+ * @uses	configuracoes.php->VALIDADE
+ * @uses	tempo.php->agora()
+ * @uses	tempo.php->diferencaTempo()
  */
 function checarValidade ()
 {
@@ -649,10 +649,10 @@ gerarBuild(Producao=true)
      * @package grimoire/bibliotecas/tempo.php
      * @version 05-07-2015
      *
-     * @param   string
-     * @return  bool
+     * @param	string
+     * @return	bool
      *
-     * @uses        expressoesRegulares.php->padrao()
+     * @uses	    expressoesRegulares.php->padrao()
      * @example
             tempo();
      */

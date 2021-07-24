@@ -13,11 +13,11 @@
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	echo escrever("arquivo.txt", "pan");

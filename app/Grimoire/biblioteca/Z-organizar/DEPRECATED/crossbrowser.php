@@ -7,8 +7,8 @@
 /**
  * Cria comentário condicional para IE
  *
- * @param   string: versao do IE
- * @param   bool: operador de versão
+ * @param	string: versao do IE
+ * @param	bool: operador de versão
  * @return  string
  */
 function ie($versao="5.5000", $operador="") {
@@ -28,7 +28,7 @@ function ie($versao="5.5000", $operador="") {
 /**
  * Verifica se o valor se encaixa no padrão
  *
- * @param   string
+ * @param	string
  * @return  string
  */
 function navegadorVelho() {
@@ -38,7 +38,7 @@ function navegadorVelho() {
 /**
  * Gera noscript
  *
- * @param   string
+ * @param	string
  * @return  string
  *
  * @example

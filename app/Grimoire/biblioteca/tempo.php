@@ -61,11 +61,11 @@ function agoraLimpo ($timestamp=false)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
  	echo apos(20151104, 20151130);
@@ -89,11 +89,11 @@ function apos ( $dataInicial, $dataAlvo="" )
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -327,11 +327,11 @@ function diferenca ($data1, $data2)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -357,11 +357,11 @@ function diferenca3 ($dataInicial, $dataFinal="")
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -430,11 +430,11 @@ function hora ()
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -457,11 +457,11 @@ function horasEmMinutos ($horas)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -545,11 +545,11 @@ function nicetime ($date)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -664,11 +664,11 @@ function trataMes ($numeroMes, $limiteCaracteres=0)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -695,11 +695,11 @@ echo entre(20151104, 20151130, 20151130);
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");

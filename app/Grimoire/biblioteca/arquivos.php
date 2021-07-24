@@ -40,7 +40,7 @@ function anexarArquivo ($vetor, $caminho)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -76,7 +76,7 @@ function array_para_csv (array &$array)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -529,7 +529,7 @@ function headersExcell ($arquivo)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -643,7 +643,7 @@ function retornarExtensao ($arquivo)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	$termos = retornarJson("secretaria/map.json");
@@ -679,7 +679,7 @@ function retornarJson ($mapaTermos="termos/character_map.json")
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -716,7 +716,7 @@ function converterJson ($json)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	$diasSemana = getJson('app/Grimoire/biblioteca/opcionais/listas/dias_da_semana.json');

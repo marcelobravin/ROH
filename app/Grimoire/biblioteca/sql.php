@@ -234,11 +234,11 @@ function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");

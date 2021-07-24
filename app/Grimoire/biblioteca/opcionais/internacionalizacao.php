@@ -137,11 +137,11 @@ function defineDefaultLanguage ()
  * @since   05-07-2015
  * @version 27/04/2020 18:46:46
  *
- * @param   string
- * @param   string/null
+ * @param	string
+ * @param	string/null
  * @return  string
  *
- * @uses    terms.json
+ * @uses	terms.json
 	erros possiveis:
 	erros recebidos de getTermsMap
 	termos inválido
@@ -180,11 +180,11 @@ function sanitizeText( $string )
  * @since 05-07-2015
  * @version 10/09/2016 01:00:17
  *
- * @param   string
- * @param   string
+ * @param	string
+ * @param	string
  * @return  string
  *
- * @uses    TERMOS
+ * @uses	TERMOS
  *
  * @todo    separar arquivo de termos
  */

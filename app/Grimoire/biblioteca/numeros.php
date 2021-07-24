@@ -88,11 +88,10 @@ function calcularPorcentagem ($quantidade, $total)
  */
 function calcularPorcentagem2 ($porcentagem, $total)
 {
-	if ($porcentagem > 0 && $total > 0) {
+	if ($porcentagem > 0 && $total > 0)
 		return floatval($porcentagem * ($total / 100));
-	} else {
+	else
 		return -1;
-	}
 }
 
 /**
@@ -238,11 +237,11 @@ function regraDeTres ($valorParcial, $valorTotal)
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param   string
- * @param   string
- * @param   bool    Conservar conteúdo, append
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
  *
- * @return  bool
+ * @return	bool
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
