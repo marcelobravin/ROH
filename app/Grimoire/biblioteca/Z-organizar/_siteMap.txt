@@ -1,0 +1,763 @@
+├── README.md
+├── _end.php
+├── assets (9)
+|   ├── audio (2)
+|   |   ├── BGM (31)
+|   |   |   ├── 1975_newgrounds_jermai.mp3
+|   |   |   ├── 25+Norwegian+Folk+Songs+and+Dances,+Op.+17+-+23.+Have+You+By+Chances+Seen+My+Wife+-+Saag+Du+Nokke+Kjaerringa+Mi+(For+Recorder+Ensemble+-+Papalin).mp3
+|   |   |   ├── Action-Rhythm-1.mp3
+|   |   |   ├── Blissful-Trance.mp3
+|   |   |   ├── Bog-Creatures-On-the-Move_Looping.mp3
+|   |   |   ├── BoxCat_Games_-_01_-_Breaking_In.mp3
+|   |   |   ├── BoxCat_Games_-_05_-_Battle_Boss.mp3
+|   |   |   ├── BoxCat_Games_-_09_-_eCommerce.mp3
+|   |   |   ├── BoxCat_Games_-_10_-_Epic_Song.mp3
+|   |   |   ├── BoxCat_Games_-_20_-_Battle_Normal.mp3
+|   |   |   ├── BoxCat_Games_-_25_-_Victory.mp3
+|   |   |   ├── Bumbling-Burglars_Looping.mp3
+|   |   |   ├── CatAstroPhi_shmup_normal.wav
+|   |   |   ├── Dark Descent.mp3
+|   |   |   ├── Enterin The Skies.mp3
+|   |   |   ├── Etude+Op.+25+no.+9+in+G+flat+major+-+Butterfly.mp3
+|   |   |   ├── Fantasy_Game_Background_Looping.mp3
+|   |   |   ├── Gloria+laus.mp3
+|   |   |   ├── Here-Come-the-Weirds_v001.mp3
+|   |   |   ├── Mind Over Matter.mp3
+|   |   |   ├── My-Fat-Cat.mp3
+|   |   |   ├── RPG-Battle-Climax.mp3
+|   |   |   ├── Realm Of Hades.mp3
+|   |   |   ├── Richard Wagner - Lohengrin - Prelude to Act III-[AudioTrimmer.com].mp3
+|   |   |   ├── Rise of spirit.mp3
+|   |   |   ├── Serenity-Before-Fuji.mp3
+|   |   |   ├── battleThemeA.mp3
+|   |   |   ├── feeding frenzy.ogg
+|   |   |   ├── horror-dark-piano-9-sound-effect-534058.mp3
+|   |   |   ├── oedipus_wizball_highscore.mp3
+|   |   |   └── prepare_your_swords.mp3
+|   |   ├── SE (49)
+|   |   |   ├── 173326__soundnimja__jump-1.wav
+|   |   |   ├── 8bit_bomb_explosion.wav.ogg
+|   |   |   ├── 90143__pengo-au__steam-burst.wav
+|   |   |   ├── Car_Honk_2.mp3
+|   |   |   ├── Car_Honk_Long_3.mp3
+|   |   |   ├── Damp Electric Shock 3.mp3
+|   |   |   ├── Down-Draft.mp3
+|   |   |   ├── Error or failed.mp3
+|   |   |   ├── Fire-Torch-Whoosh-Med 2.mp3
+|   |   |   ├── HardFastClank5.mp3
+|   |   |   ├── ICE Thin Smashed Brittle Fragments 05.mp3
+|   |   |   ├── Jump_9.mp3
+|   |   |   ├── KNOB.wav
+|   |   |   ├── Large Bubble-SoundBible.com-1084083477.wav
+|   |   |   ├── PowerDown16.mp3
+|   |   |   ├── PowerUp16.mp3
+|   |   |   ├── QUAKE+3-[AudioTrimmer.com].mp3
+|   |   |   ├── School Bus Light Button_ 07.mp3
+|   |   |   ├── Subtle_Jump.mp3
+|   |   |   ├── Vibrant_Game_Cartoon_Start_Game_1.mp3
+|   |   |   ├── Vibrant_Game_Shutter_Alert_1_Short_Quick.mp3
+|   |   |   ├── Vibrant_Game__Bell_Twinkle_Positive_Touch_1.mp3
+|   |   |   ├── azathoth (18)
+|   |   |   |   ├── alien-ambience-motion-1-sound-effect-68603516.mp3
+|   |   |   |   ├── alien-slurpy-atmospherics-03-sound-effect-67965699.mp3
+|   |   |   |   ├── alien-slurpy-atmospherics-08-sound-effect-7592774.mp3
+|   |   |   |   ├── epic-impact-05-sound-effect-6338501.mp3
+|   |   |   |   ├── epic-impact-10-sound-effect-35833741.mp3
+|   |   |   |   ├── epic-scifi-horror-fx-01-sound-effect-71676636.mp3
+|   |   |   |   ├── epic-scifi-horror-fx-02-sound-effect-89489747.mp3
+|   |   |   |   ├── epic-scifi-horror-fx-03-sound-effect-23306275.mp3
+|   |   |   |   ├── epic-scifi-horror-fx-04-sound-effect-57745362.mp3
+|   |   |   |   ├── epic-scifi-horror-fx-05-sound-effect-91293335.mp3
+|   |   |   |   ├── fantasy-battle-scene-03-sound-effect-29885865.mp3
+|   |   |   |   ├── fantasy-dark-sanctuary-sound-effect-20867920.mp3
+|   |   |   |   ├── horror-dark-piano-10-sound-effect-13839722.mp3
+|   |   |   |   ├── piano-horror-short-drone-2-sound-effect-65109253.mp3
+|   |   |   |   ├── sci-fi-alientalk-70-sound-effect-48193360.mp3
+|   |   |   |   ├── sci-fi-scanner-445-sound-effect-99624634.mp3
+|   |   |   |   ├── scream_horror1.mp3
+|   |   |   |   └── swells-voxreverse-211-sound-effect-47207642.mp3
+|   |   |   ├── beep.wav
+|   |   |   ├── boss (6)
+|   |   |   |   ├── 167890__erdie__monster.wav
+|   |   |   |   ├── No_mercy-Hipis-1227409429.wav
+|   |   |   |   ├── monster-breathe-223-sound-effect-71151734.mp3
+|   |   |   |   ├── scream-huge-monster-01-sound-effect-93972779.mp3
+|   |   |   |   ├── scream-huge-monster-02-sound-effect-29144288.mp3
+|   |   |   |   └── scream-huge-monster-09-sound-effect-80786133.mp3
+|   |   |   ├── builder-game-ceramic-break-large-music-085149904_prev.m4a
+|   |   |   ├── button-11.wav
+|   |   |   ├── centuryfox.wav
+|   |   |   ├── doorslam.wav
+|   |   |   ├── epic-impact-09-sound-effect-7107544.mp3
+|   |   |   ├── fantasy-mage-spell-1-sound-effect-58181763.mp3
+|   |   |   ├── goku (1)
+|   |   |   |   └── kamehameha.swf.mp3
+|   |   |   ├── goutte.wav
+|   |   |   ├── hurricane.wav
+|   |   |   ├── ion-blaster-single-shot-sound-effect-36358643.mp3
+|   |   |   ├── mario (4)
+|   |   |   |   ├── mario-jump-gaming-sound-effect-hd.mp3
+|   |   |   |   ├── mario-mushroom-sound.mp3
+|   |   |   |   ├── smw_coin.wav
+|   |   |   |   └── smw_pipe.wav
+|   |   |   ├── mega_man (4)
+|   |   |   |   ├── 04-stage-start.mp3
+|   |   |   |   ├── mega man sounds (15)
+|   |   |   |   |   ├── 1-st.mp3
+|   |   |   |   |   ├── 1.mp3
+|   |   |   |   |   ├── 10.mp3
+|   |   |   |   |   ├── 11.mp3
+|   |   |   |   |   ├── 12.mp3
+|   |   |   |   |   ├── 2.mp3
+|   |   |   |   |   ├── 3.mp3
+|   |   |   |   |   ├── 32.mp3
+|   |   |   |   |   ├── 33.mp3
+|   |   |   |   |   ├── 4.mp3
+|   |   |   |   |   ├── 5.mp3
+|   |   |   |   |   ├── 6.mp3
+|   |   |   |   |   ├── 7.mp3
+|   |   |   |   |   ├── 8.mp3
+|   |   |   |   |   └── 9.mp3
+|   |   |   |   ├── mega-man-1up.mp3
+|   |   |   |   └── megaman-3-death-sound-effect.mp3
+|   |   |   ├── notes (7)
+|   |   |   |   ├── 316898__jaz-the-man-2__do.wav
+|   |   |   |   ├── 316902__jaz-the-man-2__la.wav
+|   |   |   |   ├── 316904__jaz-the-man-2__fa.wav
+|   |   |   |   ├── 316906__jaz-the-man-2__mi.wav
+|   |   |   |   ├── 316908__jaz-the-man-2__re.wav
+|   |   |   |   ├── 316912__jaz-the-man-2__sol.wav
+|   |   |   |   └── 316913__jaz-the-man-2__si[do].wav
+|   |   |   ├── p-ping.mp3
+|   |   |   ├── pitfall (4)
+|   |   |   |   ├── 01_-_Pitfall!_-_A26_-_Vine_Fanfare.ogg
+|   |   |   |   ├── 02_-_Pitfall!_-_A26_-_Death_Fanfare.ogg
+|   |   |   |   ├── 03_-_Pitfall!_-_A26_-_Treasure_Fanfare.ogg
+|   |   |   |   └── Pitfall Jump Sound (Atari 2600).mp3
+|   |   |   ├── plate-ceramic-slide-pick-up-countertop_G1vseO4d_NWM-[AudioTrimmer.com].mp3
+|   |   |   ├── s20.wav
+|   |   |   ├── sonic (1)
+|   |   |   |   └── tumblr_lsyzfdXgyU1qhnj8eo1.mp3
+|   |   |   ├── swish--short--fast--3-sound-effect-9698487.mp3
+|   |   |   ├── swish--short--light--1-sound-effect-56536866.mp3
+|   |   |   ├── voices (28)
+|   |   |   |   ├── Sega.wav
+|   |   |   |   ├── Versão Brasileira Herbert Richers - Locução Mariano Dublasievicz.mp3
+|   |   |   |   ├── Voice 01 - Rise From Your Grave.mp3
+|   |   |   |   ├── Well Done CCBY3.ogg
+|   |   |   |   ├── altered_beast_-_power_up.mp3
+|   |   |   |   ├── gulp-4-sound-effect-14343262.mp3
+|   |   |   |   ├── jeez.mp3
+|   |   |   |   ├── kono tjack wa goran no suponsaa no teikyou de okurishimashita.mp3
+|   |   |   |   ├── voice-clip-male-311-sound-effect-33993531.mp3
+|   |   |   |   ├── voice-clip-male-334-sound-effect-96444703.mp3
+|   |   |   |   ├── voice-clip-male-357-sound-effect-30770875.mp3
+|   |   |   |   ├── voice-clip-male-369-sound-effect-79153443.mp3
+|   |   |   |   ├── voice-clip-male-399-sound-effect-95501709.mp3
+|   |   |   |   ├── voice-clip-male-424-sound-effect-78149415.mp3
+|   |   |   |   ├── voice-clip-male-432-sound-effect-34472657.mp3
+|   |   |   |   ├── voice-clip-male-543-sound-effect-52130127.mp3
+|   |   |   |   ├── voice-clip-male-567-sound-effect-74496460.mp3
+|   |   |   |   ├── voice-clip-male-675-sound-effect-967408.mp3
+|   |   |   |   ├── voice-clip-male-682-sound-effect-9274292.mp3
+|   |   |   |   ├── voice-clip-male-689-sound-effect-62921143.mp3
+|   |   |   |   ├── voice-clip-male-701-sound-effect-47802735.mp3
+|   |   |   |   ├── voice-clip-male-712-sound-effect-28732300.mp3
+|   |   |   |   ├── voice-clip-male-743-sound-effect-15313721.mp3
+|   |   |   |   ├── voice-clip-male-886-sound-effect-860596.mp3
+|   |   |   |   ├── voice-clip-male-904-sound-effect-78741456.mp3
+|   |   |   |   ├── voice-clip-male-912-sound-effect-52447510.mp3
+|   |   |   |   ├── voice-clip-male-930-sound-effect-44390870.mp3
+|   |   |   |   └── zapsplat_human_male_man_cough_single_into_cloth_or_arm_muffled_006_48678.mp3
+|   |   |   ├── windhowl-[AudioTrimmer.com].wav
+|   |   |   ├── zelda (1)
+|   |   |   |   └── 139-item-catch.mp3
+|   |   |   └── zip thump_06.mp3
+|   ├── fonts (6)
+|   |   ├── Games-XvD2.ttf
+|   |   ├── PressStartK-EX89.ttf
+|   |   ├── Retronoid-BZX3.ttf
+|   |   ├── Stranger back in the Night.ttf
+|   |   ├── TheCalling.ttf
+|   |   ├── sega (5)
+|   |   |   ├── b593a614952261da06c53a02d1954f44.eot
+|   |   |   ├── b593a614952261da06c53a02d1954f44.svg
+|   |   |   ├── b593a614952261da06c53a02d1954f44.ttf
+|   |   |   ├── b593a614952261da06c53a02d1954f44.woff
+|   |   |   └── b593a614952261da06c53a02d1954f44.woff2
+|   ├── galatic-travel.json
+|   ├── images (15)
+|   |   ├── ajax-loader.gif
+|   |   ├── auto-generated (11)
+|   |   |   ├── 14x14.png
+|   |   |   ├── 16x16.png
+|   |   |   ├── 20x20.png
+|   |   |   ├── 22x22.png
+|   |   |   ├── 26x22.png
+|   |   |   ├── 26x26.png
+|   |   |   ├── 28x46.png
+|   |   |   ├── 32x16.png
+|   |   |   ├── 32x32.png
+|   |   |   ├── 48x48.png
+|   |   |   └── 64x64.png
+|   |   ├── backgrounds (24)
+|   |   |   ├── arab.png
+|   |   |   ├── bank.png
+|   |   |   ├── building.png
+|   |   |   ├── castle.png
+|   |   |   ├── church.png
+|   |   |   ├── circus.png
+|   |   |   ├── clock-tower.png
+|   |   |   ├── construction-site.png
+|   |   |   ├── convenience-store.png
+|   |   |   ├── derelict-house.png
+|   |   |   ├── eiffel.png
+|   |   |   ├── ferris-wheel.png
+|   |   |   ├── hindu.png
+|   |   |   ├── hospital.png
+|   |   |   ├── house.png
+|   |   |   ├── japanese-castle.png
+|   |   |   ├── japanese-gate.png
+|   |   |   ├── mountain-snowy.png
+|   |   |   ├── mountain.png
+|   |   |   ├── neon.png
+|   |   |   ├── synagogue.png
+|   |   |   ├── taco.png
+|   |   |   ├── temple.png
+|   |   |   └── vulcano.png
+|   |   ├── favicon_io-1 (9)
+|   |   |   ├── android-chrome-192x192.png
+|   |   |   ├── android-chrome-512x512.png
+|   |   |   ├── apple-touch-icon.png
+|   |   |   ├── favicon-16x16.png
+|   |   |   ├── favicon-32x32.png
+|   |   |   ├── favicon.ico
+|   |   |   ├── flags (8)
+|   |   |   |   ├── alemanha.ico
+|   |   |   |   ├── brasil.ico
+|   |   |   |   ├── egito.ico
+|   |   |   |   ├── espanha.ico
+|   |   |   |   ├── estados_unidos.ico
+|   |   |   |   ├── franca.ico
+|   |   |   |   ├── japao.ico
+|   |   |   |   └── russia.ico
+|   |   |   ├── site.webmanifest
+|   |   |   ├── stages (35)
+|   |   |   |   ├── arab.ico
+|   |   |   |   ├── bank.ico
+|   |   |   |   ├── building.ico
+|   |   |   |   ├── castle.ico
+|   |   |   |   ├── church.ico
+|   |   |   |   ├── circus.ico
+|   |   |   |   ├── clock-tower.ico
+|   |   |   |   ├── construction-site.ico
+|   |   |   |   ├── convenience-store.ico
+|   |   |   |   ├── derelict-house.ico
+|   |   |   |   ├── eiffel.ico
+|   |   |   |   ├── ferris-wheel.ico
+|   |   |   |   ├── game-completed.ico
+|   |   |   |   ├── game-end.ico
+|   |   |   |   ├── game-over.ico
+|   |   |   |   ├── hindu.ico
+|   |   |   |   ├── hospital.ico
+|   |   |   |   ├── hotel.ico
+|   |   |   |   ├── house.ico
+|   |   |   |   ├── japanese-castle.ico
+|   |   |   |   ├── japanese-gate.ico
+|   |   |   |   ├── manual.ico
+|   |   |   |   ├── menu.ico
+|   |   |   |   ├── motel.ico
+|   |   |   |   ├── mount-fuji.ico
+|   |   |   |   ├── mountain-snowy.ico
+|   |   |   |   ├── mountain.ico
+|   |   |   |   ├── neon.ico
+|   |   |   |   ├── post-office.ico
+|   |   |   |   ├── ranking.ico
+|   |   |   |   ├── selection.ico
+|   |   |   |   ├── synagogue.ico
+|   |   |   |   ├── taco.ico
+|   |   |   |   ├── temple.ico
+|   |   |   |   └── vulcano.ico
+|   |   ├── green-orb.png
+|   |   ├── icons (85)
+|   |   |   ├── arrow-left.png
+|   |   |   ├── arrow-right.png
+|   |   |   ├── asteroid_14.png
+|   |   |   ├── asteroid_20.png
+|   |   |   ├── asteroid_26.png
+|   |   |   ├── asteroid_32.png
+|   |   |   ├── bacteria.png
+|   |   |   ├── balloon.png
+|   |   |   ├── barrel.png
+|   |   |   ├── barrier.png
+|   |   |   ├── block1.png
+|   |   |   ├── block2.png
+|   |   |   ├── block3.png
+|   |   |   ├── block4.png
+|   |   |   ├── block5.png
+|   |   |   ├── block6.png
+|   |   |   ├── block7.png
+|   |   |   ├── book-blue.png
+|   |   |   ├── book-green.png
+|   |   |   ├── book-red.png
+|   |   |   ├── book-yellow.png
+|   |   |   ├── box-metal.png
+|   |   |   ├── box-wood.png
+|   |   |   ├── brick.png
+|   |   |   ├── brick0-active.png
+|   |   |   ├── brick0.png
+|   |   |   ├── brick1-active B.png
+|   |   |   ├── brick1-active.png
+|   |   |   ├── brick1.png
+|   |   |   ├── brick2-active.png
+|   |   |   ├── brick2.png
+|   |   |   ├── brick3-active.png
+|   |   |   ├── brick3.png
+|   |   |   ├── brick4-active.png
+|   |   |   ├── brick4.png
+|   |   |   ├── brick5-active.png
+|   |   |   ├── brick5.png
+|   |   |   ├── brick6.png
+|   |   |   ├── brick_gray.png
+|   |   |   ├── brick_large.png
+|   |   |   ├── brick_large_gray.png
+|   |   |   ├── cactus.png
+|   |   |   ├── dash.png
+|   |   |   ├── decorations (5)
+|   |   |   |   ├── corn.png
+|   |   |   |   ├── palm-tree.png
+|   |   |   |   ├── tree-pointy.png
+|   |   |   |   ├── tree-round.png
+|   |   |   |   └── tree-round2.png
+|   |   |   ├── door2_48.png
+|   |   |   ├── door_48.png
+|   |   |   ├── droplet.png
+|   |   |   ├── fire-blue.png
+|   |   |   ├── fire.png
+|   |   |   ├── fire2.png
+|   |   |   ├── flags (8)
+|   |   |   |   ├── alemanha.png
+|   |   |   |   ├── brasil.png
+|   |   |   |   ├── egito.png
+|   |   |   |   ├── espanha.png
+|   |   |   |   ├── estados_unidos.png
+|   |   |   |   ├── franca.png
+|   |   |   |   ├── japao.png
+|   |   |   |   └── russia.png
+|   |   |   ├── foods (66)
+|   |   |   |   ├── apple.png
+|   |   |   |   ├── avocado.png
+|   |   |   |   ├── bacon.png
+|   |   |   |   ├── banana.png
+|   |   |   |   ├── beer.png
+|   |   |   |   ├── bento.png
+|   |   |   |   ├── bonbon.png
+|   |   |   |   ├── bread.png
+|   |   |   |   ├── brocoli.png
+|   |   |   |   ├── burrito.png
+|   |   |   |   ├── cake.png
+|   |   |   |   ├── candy.png
+|   |   |   |   ├── carrot.png
+|   |   |   |   ├── chard.png
+|   |   |   |   ├── cheese.png
+|   |   |   |   ├── cherry.png
+|   |   |   |   ├── chocolate.png
+|   |   |   |   ├── cocktail.png
+|   |   |   |   ├── coconut.png
+|   |   |   |   ├── coffee.png
+|   |   |   |   ├── cookie.png
+|   |   |   |   ├── corn.png
+|   |   |   |   ├── croissant.png
+|   |   |   |   ├── cucumber.png
+|   |   |   |   ├── cucumber2.png
+|   |   |   |   ├── cupcake.png
+|   |   |   |   ├── custard.png
+|   |   |   |   ├── donut.png
+|   |   |   |   ├── eggplant.png
+|   |   |   |   ├── falafel.png
+|   |   |   |   ├── fortune-cookie.png
+|   |   |   |   ├── fries.png
+|   |   |   |   ├── garlic.png
+|   |   |   |   ├── grapes.png
+|   |   |   |   ├── green-apple.png
+|   |   |   |   ├── gyoza.png
+|   |   |   |   ├── hamburger.png
+|   |   |   |   ├── hotdog.png
+|   |   |   |   ├── icecream.png
+|   |   |   |   ├── kebab.png
+|   |   |   |   ├── kebab2.png
+|   |   |   |   ├── kiwi.png
+|   |   |   |   ├── lemon.png
+|   |   |   |   ├── lollipop.png
+|   |   |   |   ├── mango.png
+|   |   |   |   ├── martini.png
+|   |   |   |   ├── meat.png
+|   |   |   |   ├── mushroom.png
+|   |   |   |   ├── onigiri.png
+|   |   |   |   ├── onion.png
+|   |   |   |   ├── orange.png
+|   |   |   |   ├── oyster.png
+|   |   |   |   ├── pancakes.png
+|   |   |   |   ├── pepper.png
+|   |   |   |   ├── pizza.png
+|   |   |   |   ├── potato.png
+|   |   |   |   ├── pretzel.png
+|   |   |   |   ├── sake.png
+|   |   |   |   ├── salad.png
+|   |   |   |   ├── sandwich.png
+|   |   |   |   ├── sushi.png
+|   |   |   |   ├── taco.png
+|   |   |   |   ├── waffle.png
+|   |   |   |   ├── watermelon.png
+|   |   |   |   ├── whisky.png
+|   |   |   |   └── wine.png
+|   |   |   ├── full-moon.png
+|   |   |   ├── galo.png
+|   |   |   ├── gear.png
+|   |   |   ├── gift1.png
+|   |   |   ├── gift2.png
+|   |   |   ├── gift3.png
+|   |   |   ├── gift4.png
+|   |   |   ├── gift5.png
+|   |   |   ├── heart-2.png
+|   |   |   ├── heart-3.png
+|   |   |   ├── heart-gift.png
+|   |   |   ├── hourglass.png
+|   |   |   ├── lever-down.png
+|   |   |   ├── lever-up.png
+|   |   |   ├── lightning.png
+|   |   |   ├── mini (8)
+|   |   |   |   ├── camera.png
+|   |   |   |   ├── full-screen-off.png
+|   |   |   |   ├── full-screen.png
+|   |   |   |   ├── gamePad.png
+|   |   |   |   ├── joystick.png
+|   |   |   |   ├── question-mark.png
+|   |   |   |   ├── sound-off.png
+|   |   |   |   └── sound.png
+|   |   |   ├── new-moon.png
+|   |   |   ├── newspaper.png
+|   |   |   ├── note.png
+|   |   |   ├── pinata.png
+|   |   |   ├── plumbus.png
+|   |   |   ├── shopping-cart.png
+|   |   |   ├── skins (2)
+|   |   |   |   ├── dragon_ball.png
+|   |   |   |   └── gold.png
+|   |   |   ├── snow-flake.png
+|   |   |   ├── star.png
+|   |   |   ├── status (14)
+|   |   |   |   ├── alien.png
+|   |   |   |   ├── clover.png
+|   |   |   |   ├── comet.png
+|   |   |   |   ├── face-frozen.png
+|   |   |   |   ├── face-red.png
+|   |   |   |   ├── feather.png
+|   |   |   |   ├── ff.png
+|   |   |   |   ├── fork.png
+|   |   |   |   ├── h.png
+|   |   |   |   ├── hurt.png
+|   |   |   |   ├── muscle.png
+|   |   |   |   ├── shield.png
+|   |   |   |   ├── skull.png
+|   |   |   |   └── stopwatch.png
+|   |   |   ├── swords.png
+|   |   |   ├── toolbox.png
+|   |   |   ├── trash-bin.png
+|   |   |   ├── treasures (16)
+|   |   |   |   ├── coins.png
+|   |   |   |   ├── credit-card.png
+|   |   |   |   ├── crown.png
+|   |   |   |   ├── diamond.png
+|   |   |   |   ├── jewel_blue.png
+|   |   |   |   ├── jewel_green.png
+|   |   |   |   ├── jewel_purple.png
+|   |   |   |   ├── jewel_red.png
+|   |   |   |   ├── jewel_white.png
+|   |   |   |   ├── jewel_yellow.png
+|   |   |   |   ├── key.png
+|   |   |   |   ├── money-bag.png
+|   |   |   |   ├── money.png
+|   |   |   |   ├── ring.png
+|   |   |   |   ├── scroll.png
+|   |   |   |   └── trophy.png
+|   |   |   ├── vase.png
+|   |   |   ├── vehicles (11)
+|   |   |   |   ├── ambulance.png
+|   |   |   |   ├── bus.png
+|   |   |   |   ├── car.png
+|   |   |   |   ├── car2.png
+|   |   |   |   ├── fire-truck.png
+|   |   |   |   ├── helicopter.png
+|   |   |   |   ├── microbus.png
+|   |   |   |   ├── police-car.png
+|   |   |   |   ├── rv.png
+|   |   |   |   ├── taxi.png
+|   |   |   |   └── truck.png
+|   |   |   └── whirlwind.png
+|   |   ├── logos (1)
+|   |   |   └── logo (3).png
+|   |   ├── master-system-grid.jpg
+|   |   ├── particles (6)
+|   |   |   ├── blue.png
+|   |   |   ├── green.png
+|   |   |   ├── red.png
+|   |   |   ├── sun.png
+|   |   |   ├── white.png
+|   |   |   └── yellow.png
+|   |   ├── pixels (13)
+|   |   |   ├── 1x1_black.png
+|   |   |   ├── 1x1_blue.png
+|   |   |   ├── 1x1_brown.png
+|   |   |   ├── 1x1_darkgray.png
+|   |   |   ├── 1x1_gray.png
+|   |   |   ├── 1x1_green.png
+|   |   |   ├── 1x1_lightblue.png
+|   |   |   ├── 1x1_lime.png
+|   |   |   ├── 1x1_orange.png
+|   |   |   ├── 1x1_purple.png
+|   |   |   ├── 1x1_red.png
+|   |   |   ├── 1x1_white.png
+|   |   |   └── 1x1_yellow.png
+|   |   ├── prints (4)
+|   |   |   ├── cover.jpg
+|   |   |   ├── inteface1.jpg
+|   |   |   ├── inteface2.jpg
+|   |   |   └── interface.jpg
+|   |   ├── ratings1-jumbo.jpg
+|   |   ├── skies (24)
+|   |   |   ├── Dawn_StarryVariant.png
+|   |   |   ├── Dawn_WithStars - Copia.png
+|   |   |   ├── Dawn_WithStars-recortado.png
+|   |   |   ├── Dawn_WithStars.png
+|   |   |   ├── Dusk_Apocalyptic.png
+|   |   |   ├── Dusk_Creepy - copia.png
+|   |   |   ├── Dusk_Creepy-recortado.png
+|   |   |   ├── Dusk_Creepy.png
+|   |   |   ├── Horror.png
+|   |   |   ├── Night_Romantic.png
+|   |   |   ├── Night_Starry - copia.png
+|   |   |   ├── Night_Starry-recortado.png
+|   |   |   ├── Night_Starry.png
+|   |   |   ├── Starfield.png
+|   |   |   ├── Stormy-reverseY.png
+|   |   |   ├── Stormy.png
+|   |   |   ├── Sunny.png
+|   |   |   ├── harrier-bg.png
+|   |   |   ├── haze.png
+|   |   |   ├── skyfinal.png
+|   |   |   ├── space3.png
+|   |   |   ├── starfield.jpg
+|   |   |   ├── sunset.png
+|   |   |   └── zpos.png
+|   |   ├── sprites (13)
+|   |   |   ├── 241-2414569_super-saiyan-goku-by-belial-goku-sprites.png
+|   |   |   ├── 4536cc1f193d538.png
+|   |   |   ├── 4fcdcacfc0e99c5d0186b5f1826944ae.png
+|   |   |   ├── 66-669998_sega-logo-sonic-the-hedgehog-genesis-sprites.png
+|   |   |   ├── 72dcf240f3daf39c28cee25ec2ae9ec7.png
+|   |   |   ├── dude.png
+|   |   |   ├── hero.png
+|   |   |   ├── heroBKP.png
+|   |   |   ├── monster-sprite-png-1.png
+|   |   |   ├── monster-sprite-png-2.png
+|   |   |   ├── monster-sprite-png-3.png
+|   |   |   ├── monster-sprite-png-4.png
+|   |   |   └── ring.png
+|   |   └── swirl.png
+|   ├── lists (9)
+|   |   ├── end.json
+|   |   ├── foods.json
+|   |   ├── fortune-cookie.json
+|   |   ├── stages.json
+|   |   ├── stagesConfig.json
+|   |   ├── temp (17)
+|   |   |   ├── _14x14.json
+|   |   |   ├── _16x16.json
+|   |   |   ├── _20x20.json
+|   |   |   ├── _22x22.json
+|   |   |   ├── _26x22.json
+|   |   |   ├── _26x26.json
+|   |   |   ├── _28x46.json
+|   |   |   ├── _32x16.json
+|   |   |   ├── _32x32.json
+|   |   |   ├── _48x48.json
+|   |   |   ├── _64x64.json
+|   |   |   ├── _ALL.json
+|   |   |   ├── _BGM.json
+|   |   |   ├── _SE.json
+|   |   |   ├── _icons.json
+|   |   |   ├── _projectSize.json
+|   |   |   └── _siteMap.txt
+|   |   ├── terms-menu.json
+|   |   ├── terms.json
+|   |   └── version.json
+|   ├── scripts (19)
+|   |   ├── boss.js
+|   |   ├── canvas-fadeIn.js
+|   |   ├── carrossel.js
+|   |   ├── combos.js
+|   |   ├── configs.js
+|   |   ├── end.js
+|   |   ├── game-pad.js
+|   |   ├── helpers.js
+|   |   ├── level-design.js
+|   |   ├── library.js
+|   |   ├── loadResources.js
+|   |   ├── minified (18)
+|   |   |   ├── boss.js
+|   |   |   ├── canvas-fadeIn.js
+|   |   |   ├── carrossel.js
+|   |   |   ├── combos.js
+|   |   |   ├── configs.js
+|   |   |   ├── end.js
+|   |   |   ├── game-pad.js
+|   |   |   ├── helpers.js
+|   |   |   ├── level-design.js
+|   |   |   ├── library.js
+|   |   |   ├── loadResources.js
+|   |   |   ├── moves.js
+|   |   |   ├── non-essencial.js
+|   |   |   ├── selection.js
+|   |   |   ├── skins.js
+|   |   |   ├── system.js
+|   |   |   ├── video.js
+|   |   |   └── virtual-control.js
+|   |   ├── moves.js
+|   |   ├── non-essencial.js
+|   |   ├── selection.js
+|   |   ├── skins.js
+|   |   ├── system.js
+|   |   ├── video.js
+|   |   └── virtual-control.js
+|   ├── styles (7)
+|   |   ├── internationalization.css
+|   |   ├── manual.css
+|   |   ├── menu.css
+|   |   ├── minified (6)
+|   |   |   ├── internationalization.css
+|   |   |   ├── manual.css
+|   |   |   ├── menu.css
+|   |   |   ├── ranking.css
+|   |   |   ├── style.css
+|   |   |   └── videos.css
+|   |   ├── ranking.css
+|   |   ├── style.css
+|   |   └── videos.css
+|   ├── vendor (7)
+|   |   ├── OwlCarousel2-2.3.4 (2)
+|   |   |   ├── dist (2)
+|   |   |   |   ├── assets (5)
+|   |   |   |   |   ├── ajax-loader.gif
+|   |   |   |   |   ├── owl.carousel.min.css
+|   |   |   |   |   ├── owl.theme.default.min.css
+|   |   |   |   |   ├── owl.theme.green.min.css
+|   |   |   |   |   └── owl.video.play.png
+|   |   |   |   └── owl.carousel.min.js
+|   |   |   ├── src (3)
+|   |   |   |   ├── img (2)
+|   |   |   |   |   ├── ajax-loader.gif
+|   |   |   |   |   └── owl.video.play.png
+|   |   |   |   ├── js (13)
+|   |   |   |   |   ├── .jscsrc
+|   |   |   |   |   ├── .jshintrc
+|   |   |   |   |   ├── owl.animate.js
+|   |   |   |   |   ├── owl.autoheight.js
+|   |   |   |   |   ├── owl.autoplay.js
+|   |   |   |   |   ├── owl.autorefresh.js
+|   |   |   |   |   ├── owl.carousel.js
+|   |   |   |   |   ├── owl.hash.js
+|   |   |   |   |   ├── owl.lazyload.js
+|   |   |   |   |   ├── owl.navigation.js
+|   |   |   |   |   ├── owl.support.js
+|   |   |   |   |   ├── owl.support.modernizr.js
+|   |   |   |   |   └── owl.video.js
+|   |   |   |   ├── scss (11)
+|   |   |   |   |   ├── _animate.scss
+|   |   |   |   |   ├── _autoheight.scss
+|   |   |   |   |   ├── _core.scss
+|   |   |   |   |   ├── _lazyload.scss
+|   |   |   |   |   ├── _theme.default.scss
+|   |   |   |   |   ├── _theme.green.scss
+|   |   |   |   |   ├── _theme.scss
+|   |   |   |   |   ├── _video.scss
+|   |   |   |   |   ├── owl.carousel.scss
+|   |   |   |   |   ├── owl.theme.default.scss
+|   |   |   |   |   └── owl.theme.green.scss
+|   |   ├── jquery-3.4.1.min.js
+|   |   ├── onscreenControls (2)
+|   |   |   ├── Sprites (2)
+|   |   |   |   ├── flatDark (7)
+|   |   |   |   |   ├── flatDark02.png
+|   |   |   |   |   ├── flatDark04.png
+|   |   |   |   |   ├── flatDark05.png
+|   |   |   |   |   ├── flatDark09.png
+|   |   |   |   |   ├── flatDark43.png
+|   |   |   |   |   ├── flatDark44.png
+|   |   |   |   |   └── flatDark48.png
+|   |   |   |   ├── flatLight (7)
+|   |   |   |   |   ├── flatLight02.png
+|   |   |   |   |   ├── flatLight04.png
+|   |   |   |   |   ├── flatLight05.png
+|   |   |   |   |   ├── flatLight09.png
+|   |   |   |   |   ├── flatLight43.png
+|   |   |   |   |   ├── flatLight44.png
+|   |   |   |   |   └── flatLight48.png
+|   |   |   └── license.txt
+|   |   ├── pace-1.0.2 (2)
+|   |   |   ├── pace.min.js
+|   |   |   ├── themes (1)
+|   |   |   |   ├── mark (1)
+|   |   |   |   |   └── pace-theme-loading-bar.css
+|   |   ├── phaser-arcade-physics.min.js
+|   |   ├── phaser.min.js
+|   |   └── phaser3-logo.png
+|   ├── videos (2)
+|   |   ├── skull.mp4
+|   |   └── wormhole.mp4
+├── author.php
+├── boss-stage.php
+├── changelog.php
+├── control (17)
+|   ├── _db-credentials.php
+|   ├── assetPipeline.php
+|   ├── control.php
+|   ├── email-formulario-cadastro.php
+|   ├── email-validate.php
+|   ├── error-manager.php
+|   ├── food-formulario-cadastro.php
+|   ├── image-processing.php
+|   ├── internationalization.php
+|   ├── language-control.php
+|   ├── load-progress.php
+|   ├── manual-functions.php
+|   ├── minifier.php
+|   ├── persistence.php
+|   ├── stages.php
+|   ├── verify-progress.php
+|   └── visitor-data.php
+├── credits.php
+├── db (1)
+|   └── phaser.sql
+├── end.php
+├── game-completed.php
+├── game-over.php
+├── index.php
+├── manual.php
+├── menu.php
+├── outro.php
+├── ranking.php
+├── selection.php
+├── stage-select.php
+├── stage.php
+├── texts (3)
+|   ├── anotacoes.md
+|   ├── bugs.md
+|   └── ideias.md
+├── title.php
+├── views (5)
+|   ├── donation.html
+|   ├── google-analytics.php
+|   ├── language-list.php
+|   ├── master-system.php
+|   └── view.php

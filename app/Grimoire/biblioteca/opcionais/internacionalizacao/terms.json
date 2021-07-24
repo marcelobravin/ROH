@@ -1,0 +1,566 @@
+{
+    "espacoParaIniciar": {
+        "AR"      : "اضغط على الفضاء للبدء"
+        , "DE"    : "Drücken Sie die Leertaste,\\num zu starten"
+        , "en-US" : "Press space to start"
+        , "ES"    : "Presione la barra espaciadora\\npara comenzar"
+        , "FR"    : "Appuyez sur espace pour commencer"
+        , "JP"    : "スペースキーを押して開始"
+        , "pt-BR" : "Pressione espaço para iniciar"
+        , "RU"    : "Нажмите пробел, чтобы начать"
+    }
+    ,"toqueParaIniciar": {
+        "AR"      : "المس الشاشة للبدء"
+        , "DE"    : "Berühren Sie den Bildschirm,\\num zu starten"
+        , "en-US" : "Touch the screen to start"
+        , "ES"    : "Toca la pantalla para comenzar"
+        , "FR"    : "Touchez l\\'écran pour commencer"
+        , "JP"    : "画面をタッチして開始します"
+        , "pt-BR" : "Toque na tela para iniciar"
+        , "RU"    : "Нажмите на экран, чтобы начать"
+    }
+    , "querIniciarJogo": {
+        "AR"      : "هل تريد القيام بخطوة؟"
+        , "DE"    : "Möchten Sie einen Schritt machen?"
+        , "en-US" : "Do you want to make a move?"
+        , "ES"    : "¿Quieres hacer un movimiento?"
+        , "FR"    : "Voulez-vous faire un pas?"
+        , "JP"    : "動きたいですか？"
+        , "pt-BR" : "Tá afim de dar uma jogada?"
+        , "RU"    : "Вы хотите сделать ход?"
+    }
+    , "qualSeuNome": {
+        "AR"      : "كيف أتصل بك؟"
+        , "DE"    : "Wie soll ich dich nennen?"
+        , "en-US" : "What should i call you?"
+        , "ES"    : "¿Cómo debería llamarte?"
+        , "FR"    : "Comment dois-je t\\'appeler?"
+        , "JP"    : "どのように呼べばいいですか"
+        , "pt-BR" : "Como devo te chamar?"
+        , "RU"    : "Как мне позвонить тебе?"
+    }
+    , "qualComidaFavorita": {
+        "AR"      : "ما هو طعامك المفضل؟"
+        , "DE"    : "Was ist dein Lieblingsessen?"
+        , "en-US" : "What is your favorite food?"
+        , "ES"    : "¿Cuál es tu comida favorita?"
+        , "FR"    : "Quelle est ta nourriture préférée?"
+        , "JP"    : "好きな食べ物は？"
+        , "pt-BR" : "Qual sua comida preferida?"
+        , "RU"    : "Какая твоя любимая еда?"
+    }
+    , "instrucoesComandos1": {
+        "AR"      : "AD/← →: تحرك"
+        , "DE"    : "AD/← →: bewegen"
+        , "en-US" : "AD/← →: move"
+        , "ES"    : "AD/← →: moverse"
+        , "FR"    : "AD/← →: bouger"
+        , "JP"    : "AD/← →: 動く"
+        , "pt-BR" : "AD/← →: movimentar"
+        , "RU"    : "AD/← →: привод"
+    }
+    , "instrucoesComandos2": {
+        "AR"      : "Shift: تخطي"
+        , "DE"    : "Shift: überspringen"
+        , "en-US" : "Shift: jump"
+        , "ES"    : "Shift: saltar"
+        , "FR"    : "Shift: sauter"
+        , "JP"    : "Shift: スキップする"
+        , "pt-BR" : "Shift: pular"
+        , "RU"    : "Shift: пропускать"
+    }
+    , "instrucoesComandos3": {
+        "AR"      : "أدخل / الفضاء: رمي"
+        , "DE"    : "ENTER/Leertaste: werfen"
+        , "en-US" : "ENTER/Space Bar: throw"
+        , "ES"    : "ENTER/Barra espaciadora: lanzar"
+        , "FR"    : "ENTER/Barre d\\'espace: jeter"
+        , "JP"    : "ENTER/スペースバー：新聞を投げる"
+        , "pt-BR" : "ENTER/Espaço: arremessar"
+        , "RU"    : "ENTER/Пробел: бросить"
+    }
+    , "jogoPausadoLinha1": {
+        "AR"      : "تم إيقاف اللعبة مؤقتًا "
+        , "DE"    : "Spiel angehalten"
+        , "en-US" : "Game Paused"
+        , "ES"    : "Juego en pausa"
+        , "FR"    : "Jeu suspendu"
+        , "JP"    : "ゲームの一時停止"
+        , "pt-BR" : "Jogo Pausado"
+        , "RU"    : "Игра приостановлена"
+    }
+    , "jogoPausadoLinha2": {
+        "AR"      : "دد هذه الشاشة و"
+        , "DE"    : "Wählen Sie diesen Bildschirm und"
+        , "en-US" : "Select this screen and"
+        , "ES"    : "Seleccione esta pantalla y"
+        , "FR"    : "Sélectionnez cet écran et"
+        , "JP"    : "この画面を選択して"
+        , "pt-BR" : "Selecione essa tela e"
+        , "RU"    : "Выберите этот экран и"
+    }
+    , "jogoPausadoLinha3": {
+        "AR"      : "اضغط على ESC للمتابعة"
+        , "DE"    : "Drücken Sie ESC, um fortzufahren"
+        , "en-US" : "Press ESC to continue"
+        , "ES"    : "Presione ESC para continuar"
+        , "FR"    : "Appuyez sur ESC pour continuer"
+        , "JP"    : "Escキーを押して続行します"
+        , "pt-BR" : "Pressione ESC para despausar"
+        , "RU"    : "Нажмите ESC для продолжения"
+    }
+    , "jogoPausadoLinha3Mobile": {
+        "AR"      : "المس الشاشة للمتابعة"
+        , "DE"    : "Berühren Sie den Bildschirm, um fortzufahren"
+        , "en-US" : "Touch the screen to continue"
+        , "ES"    : "Toca la pantalla para continuar"
+        , "FR"    : "Touchez l\\'écran pour continuer"
+        , "JP"    : "画面をタッチして続行します"
+        , "pt-BR" : "Toque na tela para continuar"
+        , "RU"    : "Нажмите на экран, чтобы продолжить"
+    }
+    , "timeOver": {
+        "AR"      : "انتهى الوقت"
+        , "DE"    : "Zeit vorbei!"
+        , "en-US" : "Time over!"
+        , "ES"    : "Se acabó el tiempo!"
+        , "FR"    : "Temps écoulé!"
+        , "JP"    : "時間切れ!"
+        , "pt-BR" : "O tempo acabou!"
+        , "RU"    : "Время прошло!"
+    }
+    , "voceVenceu": {
+        "AR"      : "لقد فزت!"
+        , "DE"    : "Du hast gewonnen!"
+        , "en-US" : "You won!"
+        , "ES"    : "¡Ganaste!"
+        , "FR"    : "Tu as gagné!"
+        , "JP"    : "勝った！"
+        , "pt-BR" : "Você venceu!"
+        , "RU"    : "Вы выиграли!"
+    }
+    , "suaSorte": {
+        "AR"      : "suaSorte"
+        , "DE"    : "suaSorte"
+        , "en-US" : "suaSorte"
+        , "ES"    : "suaSorte"
+        , "FR"    : "suaSorte"
+        , "JP"    : "suaSorte"
+        , "pt-BR" : "suaSorte"
+        , "RU"    : "suaSorte"
+    }
+    , "iniciandoEstagio": {
+        "AR"      : "مرحلة البداية"
+        , "DE"    : "Startphase"
+        , "en-US" : "Starting stage"
+        , "ES"    : "Comenzando la etapa"
+        , "FR"    : "Étape de départ"
+        , "JP"    : "開始段階"
+        , "pt-BR" : "Iniciando estágio"
+        , "RU"    : "Начальная стадия"
+    }
+    , "collectedStars": {
+        "AR"      : "جمعت النجوم"
+        , "DE"    : "Sterne gesammelt"
+        , "en-US" : "Collected stars"
+        , "ES"    : "Estrellas recogidas"
+        , "FR"    : "Étoiles collectées"
+        , "JP"    : "集めた星"
+        , "pt-BR" : "Estrelas coletadas"
+        , "RU"    : "Собранные звезды"
+    }
+    , "collectedFood": {
+        "AR"      : "أغذية مجمعة"
+        , "DE"    : "Gesammelte Lebensmittel"
+        , "en-US" : "Collected food"
+        , "ES"    : "Alimentos recolectados"
+        , "FR"    : "Aliments collectés"
+        , "JP"    : "収集した食品"
+        , "pt-BR" : "Alimentos coletados"
+        , "RU"    : "Собранные продукты"
+    }
+    , "qualification": {
+        "AR"      : "المؤهل"
+        , "DE"    : "Qualifikation"
+        , "en-US" : "Qualification"
+        , "ES"    : "Calificación"
+        , "FR"    : "Qualification"
+        , "JP"    : "資格"
+        , "pt-BR" : "Qualificação"
+        , "RU"    : "Квалификация"
+    }
+    , "remainingTime": {
+        "AR"      : "الوقت المتبقي"
+        , "DE"    : "Verbleibende Zeit"
+        , "en-US" : "Remaining Time"
+        , "ES"    : "Tiempo restante"
+        , "FR"    : "Temps restant"
+        , "JP"    : "残り時間"
+        , "pt-BR" : "Tempo remanescente"
+        , "RU"    : "Оставшееся время"
+    }
+    , "maxCombo": {
+        "AR"      : "السرد الأقصى"
+        , "DE"    : "Maximale Combo"
+        , "en-US" : "Max Combo"
+        , "ES"    : "Combo máximo"
+        , "FR"    : "Combo maximum"
+        , "JP"    : "最大コンボ"
+        , "pt-BR" : "Combo máximo"
+        , "RU"    : "Максимальный комбо"
+    }
+    , "voceMorreu": {
+        "AR"      : "ماتت ..."
+        , "DE"    : "Du bist gestorben..."
+        , "en-US" : "You died..."
+        , "ES"    : "Moriste..."
+        , "FR"    : "Tu es mort..."
+        , "JP"    : "あなたが死んだ..."
+        , "pt-BR" : "Você morreu..."
+        , "RU"    : "Ты умер..."
+    }
+    , "biblioteca": {
+        "AR"      : "مكتبة"
+        , "DE"    : "Bibliothek"
+        , "en-US" : "Library"
+        , "ES"    : "Biblioteca"
+        , "FR"    : "La bibliothèque"
+        , "JP"    : "図書館"
+        , "pt-BR" : "Biblioteca"
+        , "RU"    : "библиотека"
+    }
+    , "fase": {
+        "AR"      : "المسرح"
+        , "DE"    : "Bühne"
+        , "en-US" : "Stage"
+        , "ES"    : "Fase"
+        , "FR"    : "Étape"
+        , "JP"    : "ステージ"
+        , "pt-BR" : "Fase"
+        , "RU"    : "фаза"
+    }
+    , "chefe": {
+        "AR"      : "رئيس"
+        , "DE"    : "Boss"
+        , "en-US" : "Boss"
+        , "ES"    : "Jefe"
+        , "FR"    : "Patron"
+        , "JP"    : "ボス"
+        , "pt-BR" : "Chefe"
+        , "RU"    : "Босс"
+    }
+    , "livro1": {
+        "AR"      : "يا ليفرو دو باتو"
+        , "DE"    : "Das Entenbuch"
+        , "en-US" : "The Duck Book"
+        , "ES"    : "El Libro del Pato"
+        , "FR"    : "Le Livre de Canard"
+        , "JP"    : "ダックブック"
+        , "pt-BR" : "O Livro do Pato"
+        , "RU"    : "Утиная Книга"
+    }
+    , "livro2": {
+        "AR"      : "مغامرات مغامر"
+        , "DE"    : "Die Abenteuer eines Abenteurers"
+        , "en-US" : "The Adventures of an Adventurer"
+        , "ES"    : "Las Aventuras de un Aventurero"
+        , "FR"    : "Les Aventures d\\'un Aventurier"
+        , "JP"    : "冒険家の冒険"
+        , "pt-BR" : "As Aventuras de um Aventureiro"
+        , "RU"    : "Приключения Авантюриста"
+    }
+    , "livro3": {
+        "AR"      : "رحلة البطل"
+        , "DE"    : "Die Reise des Helden"
+        , "en-US" : "The Hero\\'s Journey"
+        , "ES"    : "El Viaje del Heroe"
+        , "FR"    : "Le Voyage du Héros"
+        , "JP"    : "ヒーローの旅"
+        , "pt-BR" : "A Jornada do Herói"
+        , "RU"    : "Путешествие Героя"
+    }
+    , "livro4": {
+        "AR"      : "Necronomicon"
+        , "DE"    : "Necronomicon"
+        , "en-US" : "Necronomicon"
+        , "ES"    : "Necronomicon"
+        , "FR"    : "Necronomicon"
+        , "JP"    : "ネクロノミコン"
+        , "pt-BR" : "Necronomicon"
+        , "RU"    : "Некрономикон"
+    }
+    , "querEsseModo": {
+        "AR"      : "هل تريد اللعب في هذا الوضع؟"
+        , "DE"    : "Willst du in diesem Modus spielen?"
+        , "en-US" : "Do you want to play this mode?"
+        , "ES"    : "¿Quieres jugar en este modo?"
+        , "FR"    : "Vous voulez jouer dans ce mode?"
+        , "JP"    : "このモードでプレイしたいですか？"
+        , "pt-BR" : "Quer jogar nesse modo?"
+        , "RU"    : "Хотите поиграть в этом режиме?"
+    }
+    , "leveIssoComVoce": {
+        "AR"      : "من الخطر أن تذهب بمفردك ، خذ هذا معك."
+        , "DE"    : "Es ist gefährlich, alleine zu gehen und das mitzunehmen."
+        , "en-US" : "It is dangerous to go alone, take this with you."
+        , "ES"    : "Es peligroso ir solo, llévate esto contigo."
+        , "FR"    : "Il est dangereux d\\'y aller seul, emportez ça avec vous."
+        , "JP"    : "一人で行くのは危険ですので、これを持って行ってください。"
+        , "pt-BR" : "É perigoso ir sozinho, leve isso com você."
+        , "RU"    : "Опасно идти одному, взять это с собой."
+    }
+    , "agoraVaza": {
+        "AR"      : "اذهب بعيدا الان!"
+        , "DE"    : "Jetzt geh weg!"
+        , "en-US" : "Now go away!"
+        , "ES"    : "¡Ahora vete!"
+        , "FR"    : "Maintenant allez-vous-en!"
+        , "JP"    : "もう行け！"
+        , "pt-BR" : "Agora vaza!"
+        , "RU"    : "Теперь иди прочь!"
+    }
+    , "querTentarDeNovo": {
+        "AR"      : "هل تريد المحاولة مرة أخرى؟"
+        , "DE"    : "Möchten Sie es erneut versuchen?"
+        , "en-US" : "Do you want to try again?"
+        , "ES"    : "¿Quieres intentarlo de nuevo?"
+        , "FR"    : "Voulez-vous réessayer?"
+        , "JP"    : "もう一度やりたいですか？"
+        , "pt-BR" : "Quer tentar novamente?"
+        , "RU"    : "Хотите попробовать еще раз?"
+    }
+    , "naoQuerTentar": {
+        "AR"      : "حسنًا إذًا! تبا لك!"
+        , "DE"    : "Ok dann!\\nFICK DICH!"
+        , "en-US" : "Ok then!\\nFUCK YOU!"
+        , "ES"    : "Ok entonces!\\n¡JÓDETE!"
+        , "FR"    : "Ok alors!\\nBAISE!"
+        , "JP"    : "じゃあね！\\nあなたをファック！"
+        , "pt-BR" : "Tá então!\\nFODA-SE!"
+        , "RU"    : "Хорошо тогда!\\NЕБАТЬ ТЕБЯ!"
+    }
+    , "parabens": {
+        "AR"      : "مبروك!"
+        , "DE"    : "Glückwunsch!"
+        , "en-US" : "Congratulations!"
+        , "ES"    : "¡Felicitaciones!"
+        , "FR"    : "Félicitations!"
+        , "JP"    : "おめでとうございます！"
+        , "pt-BR" : "Parabéns!"
+        , "RU"    : "Поздравляем!"
+    }
+    , "yes": {
+        "AR"      : "نعم"
+        , "DE"    : "Ja"
+        , "en-US" : "Yes"
+        , "ES"    : "Si"
+        , "FR"    : "Oui"
+        , "JP"    : "はい"
+        , "pt-BR" : "Sim"
+        , "RU"    : "да"
+    }
+    , "no": {
+        "AR"      : "لا"
+        , "DE"    : "Nein"
+        , "en-US" : "No"
+        , "ES"    : "No"
+        , "FR"    : "Non"
+        , "JP"    : "いいえ"
+        , "pt-BR" : "Não"
+        , "RU"    : "Не"
+    }
+    , "fellDown": {
+        "AR"      : "لقد أخطأت!"
+        , "DE"    : "Du wurdest reingelegt!"
+        , "en-US" : "Wasted!"
+        , "ES"    : "Te jodiste!"
+        , "FR"    : "Tu t\\'es fait foutre!"
+        , "JP"    : "あなたはめちゃくちゃになりました！"
+        , "pt-BR" : "Se fudeu!"
+        , "RU"    : "Вы облажались!"
+    }
+
+
+
+
+    , "none": {
+        "AR"      : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "DE"    : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "en-US" : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "ES"    : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "FR"    : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "JP"    : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "pt-BR" : "Extra, extra!\\nReceita de bolonha caseira!"
+        , "RU"    : "Extra, extra!\\nReceita de bolonha caseira!"
+    }
+    , "basicMecanics": {
+        "AR"      : "اركض خلف النجوم وستحصل على الطعام!\\nوعندما تجد المفتاح يمكنك فتح باب الخروج!"
+        , "DE"    : "Lauf den Sternen nach und du bekommst Essen!\\nUnd wenn du den Schlüssel findest, kannst du die Ausgangstür öffnen!"
+        , "en-US" : "Run after the stars and you\\'ll get food!\\nAnd when you find the key you can open the exit door!"
+        , "ES"    : "¡Corre tras las estrellas y obtendrás comida!\\nY cuando encuentres la llave, ¡podrás abrir la puerta de salida!"
+        , "FR"    : "Courez après les étoiles et vous obtiendrez de la nourriture!\\nEt lorsque vous trouverez la clé, vous pouvez ouvrir la porte de sortie!"
+        , "JP"    : "星を追いかけると食べ物が手に入ります！\\nそして鍵を見つけたら出口のドアを開けられます！"
+        , "pt-BR" : "Corra atrás das estrelas e ganhará comida!\\nE ao encontrar a chave poderá abrir a porta de saída!"
+        , "RU"    : "Бегите за звездами, и вы получите еду!\\nИ когда вы найдете ключ, вы сможете открыть выходную дверь!"
+    }
+    , "intermediateMecanics": {
+        "AR"      : "كسر الأواني ويمكنك الفوز بالعناصر!"
+        , "DE"    : "Zerbrich die Töpfe und du kannst Gegenstände gewinnen!"
+        , "en-US" : "Break the pots and you can win items!"
+        , "ES"    : "¡Rompe las ollas y podrás ganar objetos!"
+        , "FR"    : "Cassez les pots et vous pouvez gagner des objets!"
+        , "JP"    : "ポットを壊して、アイテムを獲得できます！"
+        , "pt-BR" : "Quebre os vasos e você poderá ganhar itens!"
+        , "RU"    : "Разбивайте банки и вы можете выигрывать предметы!"
+    }
+    , "traps": {
+        "AR"      : "احترس من الأشياء الحادة أو الضارة\\nاحترس من إيكاروس ، لا تطير بالقرب من الشمس!"
+        , "DE"    : "Achten Sie auf scharfe oder schädliche Gegenstände\\n Achten Sie auf Ikarus, fliegen Sie nicht zu nah an die Sonne!"
+        , "en-US" : "Watch out for sharp or harmful objects\\nWatch out for Icarus, don\\'t fly too close to the sun!"
+        , "ES"    : "Cuidado con los objetos punzantes o dañinos\\n ¡Cuidado con Ícaro, no vueles demasiado cerca del sol!"
+        , "FR"    : "Méfiez-vous des objets tranchants ou nocifs\\nMéfiez-vous d\\'Icare, ne vole pas trop près du soleil!"
+        , "JP"    : "鋭利な物体や有害な物体に注意してください\\nイカルスに注意してください。太陽に近づきすぎないでください。"
+        , "pt-BR" : "Cuidado com objetos pontiagudos ou nocivos\\nAtente para o caso de Icarus, não voe muito perto do sol!"
+        , "RU"    : "Остерегайтесь острых или вредных предметов\\nОсторожитесь с Икаром, не летайте слишком близко к солнцу!"
+    }
+    , "gifts": {
+        "AR"      : "استمر في فتح هدية!\\nيمكن أن يساعدك محتواها كثيرًا!\\n\\nاحرص على عدم تدميرها بالطوب!"
+        , "DE"    : "Halten Sie gedrückt, um ein Geschenk zu öffnen!\\nIhr Inhalt kann Ihnen sehr helfen!\\n\\n Achten Sie darauf, sie nicht mit Ihren Steinen zu zerstören!"
+        , "en-US" : "Hold up to open a gift!\\nTheir content can help you a lot!\\n\\nBe careful not to destroy them with your bricks!"
+        , "ES"    : "¡Espera para abrir un regalo!\\n¡Su contenido puede ayudarte mucho!\\n\\n¡Ten cuidado de no destruirlos con tus ladrillos!"
+        , "FR"    : "Tenez bon pour ouvrir un cadeau!\\nLeur contenu peut vous aider beaucoup!\\n\\nFaites attention à ne pas les détruire avec vos briques!"
+        , "JP"    : "持ち上げて贈り物を開いてください！\\nその内容はあなたの役に立ちます！\\n\\nレンガで破壊しないように注意してください！"
+        , "pt-BR" : "Segure para cima para abrir um presente!\\nO conteúdo deles pode te ajudar muito!\\n\\nCuidado para não destruí-los com suas tijoladas!"
+        , "RU"    : "Держите его, чтобы открыть подарок!\\n\\nИх содержание может вам очень помочь!"
+    }
+    , "peppers": {
+        "AR"      : "يوفر الفلفل سرعة إضافية مؤقتًا بالإضافة إلى تسخين الجسم لمكافحة آثار البرد والرطوبة!"
+        , "DE"    : "Paprika bietet vorübergehend zusätzliche Geschwindigkeit und erwärmt den Körper zusätzlich, um die Auswirkungen von Kälte und Feuchtigkeit zu bekämpfen!"
+        , "en-US" : "Peppers provide extra speed temporarily in addition to heating the body to combat the effects of cold and humidity!"
+        , "ES"    : "¡Los pimientos proporcionan velocidad adicional temporalmente además de calentar el cuerpo para combatir los efectos del frío y la humedad!"
+        , "FR"    : "Les poivrons fournissent temporairement une vitesse supplémentaire en plus de chauffer le corps pour lutter contre les effets du froid et de l\\'humidité!"
+        , "JP"    : "唐辛子は、体を加熱して寒さと湿気の影響に対抗することに加えて、一時的に速度を高めます！"
+        , "pt-BR" : "Pimentas fornecem velocidade extra temporariamente além de esquentar o corpo combatendo os efeitos do frio e umidade!"
+        , "RU"    : "Перец обеспечивает дополнительную скорость временно в дополнение к нагреву тела для борьбы с эффектами холода и влажности!"
+    }
+    , "elevators": {
+        "AR"      : "المصاعد هي طرق مريحة ومريحة للتحرك!"
+        , "DE"    : "Aufzüge sind bequeme und bequeme Bewegungsmöglichkeiten!"
+        , "en-US" : "Elevators are convenient and comfortable ways of moving!"
+        , "ES"    : "¡Los ascensores son formas convenientes y cómodas de moverse!"
+        , "FR"    : "Les ascenseurs sont des moyens de déplacement pratiques et confortables!"
+        , "JP"    : "エレベーターは便利で快適な移動方法です！"
+        , "pt-BR" : "Elevadores são formas convenientes e confortáveis de movimentação!"
+        , "RU"    : "Лифты - это удобные и комфортные способы перемещения!"
+    }
+    , "winds": {
+        "AR"      : "الرياح القوية يمكن أن تجرّك!\\nHold on!"
+        , "DE"    : "Starke Winde können dich ziehen!\\nHalt an!"
+        , "en-US" : "Strong winds can drag you!\\nHold on!"
+        , "ES"    : "¡Los vientos fuertes pueden arrastrarte!"
+        , "FR"    : "Des vents forts peuvent vous traîner!\\nTenez bon!"
+        , "JP"    : "強風があなたを引きずる可能性があります！\\nホールド！"
+        , "pt-BR" : "Fortes ventos podem arrastar você!\\nSegure-se firme!"
+        , "RU"    : "Сильные ветры могут тянуть тебя!"
+    }
+    , "balloons": {
+        "AR"      : "يوبي! البالونات ممتعة جدًا!\\nاحذروا المنصات الحمراء ،فهي ساخنة!"
+        , "DE"    : "Yupi! Luftballons machen so viel Spaß!\\nBeware von roten Plattformen, sie sind heiß!"
+        , "en-US" : "Yupi! Balloons are so much fun!\\nBeware of red platforms, they are hot!"
+        , "ES"    : "Yupi! ¡Los globos son muy divertidos!\\n¡Tenga cuidado con las plataformas rojas, están calientes!"
+        , "FR"    : "Yupi! Les ballons sont tellement amusants!\\nMéfiez-vous des plates-formes rouges, elles sont chaudes!"
+        , "JP"    : "ゆぴ！風船はとても楽しいです！\\n赤いプラットフォームに注意してください。"
+        , "pt-BR" : "Yupi! Balões são tão divertidos!\\nCuidado com as platformas vermelhas, elas são quentes!"
+        , "RU"    : "Yupi! Воздушные шары - это так весело!\\nОстерегайтесь красных платформ, они горячие!"
+    }
+    , "transit": {
+        "AR"      : "Bibi!\\nحذار من السيارات في الغابة الخرسانية!\\nAh!والمنصات الرمادية سالكة!"
+        , "DE"    : "Bibi!\\nBeware von Autos im Betondschungel!\\nAh! Und die grauen Plattformen sind unpassierbar!"
+        , "en-US" : "Bibi!\\nBeware of cars in the concrete jungle!\\nAh! And the gray platforms are impassable!"
+        , "ES"    : "Bibi!\\n ¡Cuidado con los coches en la jungla de hormigón!\\nAh! ¡Y las plataformas grises son intransitables!"
+        , "FR"    : "Bibi!\\nMéfiez-vous des voitures dans la jungle de béton!\\nAh! Et les plateformes grises sont infranchissables!"
+        , "JP"    : "ビビ！\\nコンクリートジャングルの車に注意！\\nAh！灰色のプラットフォームは通れません！"
+        , "pt-BR" : "Bibi!\\nCuidado com os carros na selva de concreto!\\nAh! E as plataformas cinza são intransponíveis!"
+        , "RU"    : "Биби!\\n Остерегайтесь машин в бетонных джунглях!\\nAh! А серые платформы непроходимы!"
+    }
+    , "airTransit": {
+        "AR"      : "المدن الكبيرة لديها طرق حركة جوية مزدحمة للغاية."
+        , "DE"    : "Großstädte haben sehr belebte Flugrouten."
+        , "en-US" : "Large cities have very busy air traffic routes."
+        , "ES"    : "Las grandes ciudades tienen rutas de tráfico aéreo muy concurridas."
+        , "FR"    : "Les grandes villes ont des routes de trafic aérien très fréquentées."
+        , "JP"    : "大都市には非常に混雑した航空路があります。"
+        , "pt-BR" : "Cidades grandes possuem rotas de tráfego aéreo bem movimentadas."
+        , "RU"    : "Большие города имеют очень загруженные маршруты воздушного движения."
+    }
+    , "holes": {
+        "AR"      : "شاهد خطوتك شاهد خطوتك!\\nإنه سقوط طويل!\\nوأنت لا تعرف أين كانت تلك الحفرة"
+        , "DE"    : "Pass auf deinen Schritt auf!\\nEs ist ein langer Fall!\\nUnd du weißt nicht, wo dieses Loch war!"
+        , "en-US" : "Watch your Watch your step!\\nIt\\'s a long fall!\\nAnd you don\\'t know where that hole has been!"
+        , "ES"    : "¡Cuidado con tu paso!\\n¡Es una larga caída!\\n¡Y no sabes dónde estaba ese agujero!"
+        , "FR"    : "Regardez votre pas!\\nC\\'est une longue chute!\\nEt vous ne savez pas où était ce trou!"
+        , "JP"    : "足元に気をつけて！\\nそれは長い落下です！\\nそして、あなたはその穴がどこにあったのか分かりません！"
+        , "pt-BR" : "Cuidado onde pisa!\\nÉ uma longa queda!\\nE você não sabe onde esse buraco esteve!"
+        , "RU"    : "Следи за своим шагом!\\nОн долго падал!\\nА ты не знаешь, где была эта дыра!"
+    }
+    , "lightnings": {
+        "AR"      : "CABRUM!\\nاحذر ما يأتي من السماء!"
+        , "DE"    : "CABRUM!\\nBeware von dem, was vom Himmel kommt!"
+        , "en-US" : "CABRUM!\\nBeware of what comes from heaven!"
+        , "ES"    : "CABRUM!\\n¡Cuidado con lo que viene del cielo!"
+        , "FR"    : "CABRUM!\\nMéfiez-vous de ce qui vient du ciel!"
+        , "JP"    : "CABRUM！\\n天国から来ることに注意してください！"
+        , "pt-BR" : "CABRUM!\\nCuidado com o que vem do céu!"
+        , "RU"    : "КАБРУМ!\\n Остерегайтесь того, что приходит с небес!"
+    }
+    , "whirlwinds": {
+        "AR"      : "الرياح القوية يمكن أن تجرّك!\\nHold on!"
+        , "DE"    : "Starke Winde können dich ziehen!\\nHalt an!"
+        , "en-US" : "Strong winds can drag you!\\nHold on!"
+        , "ES"    : "¡Los vientos fuertes pueden arrastrarte!"
+        , "FR"    : "Des vents forts peuvent vous traîner!\\nTenez bon!"
+        , "JP"    : "強風があなたを引きずる可能性があります！\\nホールド！"
+        , "pt-BR" : "Fortes ventos podem arrastar você!\\nSegure-se firme!"
+        , "RU"    : "Сильные ветры могут тянуть тебя!"
+    }
+    , "neons": {
+        "AR"      : "يجب توخي الحذر عند العمل باستخدام المعدات الكهربائية.\\nتأكد من إيقاف تشغيلها قبل استخدامها."
+        , "DE"    : "Bei der Arbeit mit elektrischen Geräten ist besondere Vorsicht geboten.\\nStellen Sie sicher, dass diese ausgeschaltet sind, bevor Sie sie verwenden."
+        , "en-US" : "Every care must be taken when working with electrical equipment.\\nMake sure they are switched off before using them."
+        , "ES"    : "Se debe tener mucho cuidado al trabajar con equipos eléctricos.\\nAsegúrese de que estén apagados antes de usarlos."
+        , "FR"    : "Toutes les précautions doivent être prises lorsque vous travaillez avec des équipements électriques.\\nAssurez-vous qu\\'ils sont éteints avant de les utiliser."
+        , "JP"    : "電気機器を取り扱う際は、細心の注意を払ってください。\\n使用する前に、電源がオフになっていることを確認してください。"
+        , "pt-BR" : "Todo cuidado deve ser empregado ao trabalhar com equipamentos elétricos.\\nCertifique-se que estejam desligados antes de utilizá-los."
+        , "RU"    : "При работе с электрооборудованием необходимо соблюдать осторожность.\\nУбедитесь, что они выключены перед использованием."
+    }
+    , "blizzards": {
+        "AR"      : "تهب الرياح القارضة باستمرار المسافرين غير الحذرين على هذه المنحدرات المجمدة."
+        , "DE"    : "Der beißende Wind peitscht die unachtsamen Reisenden ständig auf diesen gefrorenen Hängen."
+        , "en-US" : "The biting wind constantly whips the unwary travelers on these frozen slopes."
+        , "ES"    : "El viento penetrante azota constantemente a los viajeros desprevenidos en estas laderas heladas."
+        , "FR"    : "Le vent mordant fouette constamment les voyageurs imprudents sur ces pentes gelées."
+        , "JP"    : "凍りついた斜面では、激しい風が絶えず不注意な旅行者を揺さぶっています。"
+        , "pt-BR" : "O vento cortante açoita constantemente os incautos viajantes destas encostas congeladas."
+        , "RU"    : "Резкий ветер постоянно бьет неосторожных путешественников по этим замерзшим склонам."
+    }
+    , "tremors": {
+        "AR"      : "تمثل التضاريس غير المستقرة خطرًا إضافيًا على أي شخص يجرؤ على المغامرة في هذه الأحواض القرمزية المتلألئة."
+        , "DE"    : "Das instabile Gelände stellt eine zusätzliche Gefahr für jeden dar, der es wagt, sich in diese sprudelnden scharlachroten Teiche zu wagen."
+        , "en-US" : "The unstable terrain represents an additional danger for anyone who dares to venture into these bubbling scarlet pools."
+        , "ES"    : "El terreno inestable representa un peligro adicional para cualquiera que se atreva a aventurarse en estas piscinas escarlatas burbujeantes."
+        , "FR"    : "Le terrain instable représente un danger supplémentaire pour quiconque ose s\\'aventurer dans ces piscines écarlates bouillonnantes."
+        , "JP"    : "不安定な地形は、あえて泡立つ緋色のプールに挑戦しようとする人にとって、さらなる危険を表しています。"
+        , "pt-BR" : "O terreno instável representa um perigo adicional para quem ousa se aventurar em meio a essas piscinas escarlates borbulhantes."
+        , "RU"    : "Нестабильная местность представляет дополнительную опасность для любого, кто осмелится рискнуть в эти пузырящиеся алые лужи."
+    }
+    , "bacterias": {
+        "AR"      : "Cof ، cof ... الأنفلونزا أمسكت بي ، أنا مريض قليلاً اليوم ..."
+        , "DE"    : "Cof, cof ... Die Grippe hat mich erwischt, ich bin heute ein bisschen unwohl ..."
+        , "en-US" : "Cof, cof ... The flu caught me, I\\'m a little unwell today ..."
+        , "ES"    : "Cof, cof ... La gripe me atrapó, estoy un poco mal hoy ..."
+        , "FR"    : "Cof, cof ... La grippe m\\'a attrapé, je suis un peu malade aujourd\\'hui ..."
+        , "JP"    : "Cof、cof ...インフルエンザが私を捕まえた、私は今日少し体調が悪い..."
+        , "pt-BR" : "Cof, cof... A gripe me pegou, estou um pouco indisposto hoje..."
+        , "RU"    : "Коф, Коф ... Грипп поймал меня, я немного плохо себя чувствую сегодня ..."
+    }
+}

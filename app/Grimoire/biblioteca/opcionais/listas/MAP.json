@@ -1,0 +1,12 @@
+{
+  "colunas": [
+    "numero",
+    "nome",
+    "abreviacao"
+  ],
+
+  "registros": [
+    [ "2", "são paulo", "sp" ],
+    [ "1", "rio de janeiro", "rj" ]
+  ]
+}
