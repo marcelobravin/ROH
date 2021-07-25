@@ -7,7 +7,7 @@ if ( isset($_REQUEST['action']) ) {
 
 	switch ( $_REQUEST['action'] ) {
 
-		case 'popularTabela' :  #-------------------------------------------
+		case 'popularTabela' :
 			if ( isset($_REQUEST['tabela']) )
 				$tabela = $_REQUEST['tabela'];
 			else
@@ -17,76 +17,8 @@ if ( isset($_REQUEST['action']) ) {
 			popularTabela($tabela, $quantidade);
 			break;
 
-		case 'insercaoMatricial' :  #---------------------------------------
-			// ! TODO realizar insercao do diretorio de inserts obrigatorios
-			if ( isset($_REQUEST['tabela']) )
-				$tabela = $_REQUEST['tabela'];
-			else
-				die("Forneça o nome da tabela desejada");
-
-			/* substituir por pegar os inserts básicos ------------------ */
-			switch ( $tabela ) {
-				case 'categoria':
-					$matriz = array(
-						array ("criado_por"=> 1, "titulo" => "Equipe"),
-						array ("criado_por"=> 1, "titulo" => "Internação"),
-						array ("criado_por"=> 1, "titulo" => "Ambulatório"),
-						array ("criado_por"=> 1, "titulo" => "Consultas ambulatoriais"),
-						array ("criado_por"=> 1, "titulo" => "Procedimentos e cirurgias ambulatoriais"),
-						array ("criado_por"=> 1, "titulo" => "SADT"),
-						array ("criado_por"=> 1, "titulo" => "Atenção domiciliar")
-					);
-					break;
-
-				case 'elemento':
-					$matriz = array(
-						array("criado_por" => 1, "categoria_id" => 1,"titulo" => "Clínica médica"),
-						array("criado_por" => 1, "categoria_id" => 1,"titulo" => "Clínica Cirúrgica"),
-						array("criado_por" => 1, "categoria_id" => 1,"titulo" => "Pedatria"),
-						array("criado_por" => 1, "categoria_id" => 1,"titulo" => "Ginecologia e Obstetrícia"),
-
-						array("criado_por" => 1, "categoria_id" => 2,"titulo" => "Clínica médica e cirúrgica"),
-						array("criado_por" => 1, "categoria_id" => 2,"titulo" => "Pedatria"),
-						array("criado_por" => 1, "categoria_id" => 2,"titulo" => "Obstetrícia"),
-						array("criado_por" => 1, "categoria_id" => 2,"titulo" => "Cuidados intermediários"),
-						array("criado_por" => 1, "categoria_id" => 2,"titulo" => "UTI Neonatal"),
-
-						array("criado_por" => 1, "categoria_id" => 3,"titulo" => "Clínica médica e cirúrgica"),
-						array("criado_por" => 1, "categoria_id" => 3,"titulo" => "Pedatria"),
-						array("criado_por" => 1, "categoria_id" => 3,"titulo" => "Obstetrícia"),
-						array("criado_por" => 1, "categoria_id" => 3,"titulo" => "Cuidados intermediários"),
-						array("criado_por" => 1, "categoria_id" => 3,"titulo" => "UTI Neonatal"),
-
-						array("criado_por" => 1, "categoria_id" => 4,"titulo" => "Clínica médica e cirúrgica"),
-						array("criado_por" => 1, "categoria_id" => 4,"titulo" => "Pedatria"),
-						array("criado_por" => 1, "categoria_id" => 4,"titulo" => "Obstetrícia"),
-						array("criado_por" => 1, "categoria_id" => 4,"titulo" => "Cuidados intermediários"),
-						array("criado_por" => 1, "categoria_id" => 4,"titulo" => "UTI Neonatal"),
-
-						array("criado_por" => 1, "categoria_id" => 5,"titulo" => "Clínica médica e cirúrgica"),
-						array("criado_por" => 1, "categoria_id" => 5,"titulo" => "Pedatria"),
-						array("criado_por" => 1, "categoria_id" => 5,"titulo" => "Obstetrícia"),
-						array("criado_por" => 1, "categoria_id" => 5,"titulo" => "Cuidados intermediários"),
-						array("criado_por" => 1, "categoria_id" => 5,"titulo" => "UTI Neonatal"),
-
-						array("criado_por" => 1, "categoria_id" => 6,"titulo" => "Ultrassonografia geral"),
-						array("criado_por" => 1, "categoria_id" => 6,"titulo" => "Tomografia"),
-						array("criado_por" => 1, "categoria_id" => 6,"titulo" => "Ecocardiograma"),
-						array("criado_por" => 1, "categoria_id" => 6,"titulo" => "Colonoscopia"),
-						array("criado_por" => 1, "categoria_id" => 6,"titulo" => "Endoscopia"),
-						array("criado_por" => 1, "categoria_id" => 6,"titulo" => "Radiologia"),
-
-						array("criado_por" => 1, "categoria_id" => 7,"titulo" => "Ultrassonografia geral"),
-						array("criado_por" => 1, "categoria_id" => 7,"titulo" => "Tomografia"),
-						array("criado_por" => 1, "categoria_id" => 7,"titulo" => "Ecocardiograma"),
-						array("criado_por" => 1, "categoria_id" => 7,"titulo" => "Colonoscopia"),
-						array("criado_por" => 1, "categoria_id" => 7,"titulo" => "Endoscopia"),
-						array("criado_por" => 1, "categoria_id" => 7,"titulo" => "Radiologia")
-					);
-					break;
-
-			}
-			insercaoMatricial($tabela, $matriz);
+		case 'cargaInicial' :
+			importarRegistros(ROOT."app/DB/inserts obrigatorios/*.sql");
 			break;
 
 		case 'criacaoTabela' :
@@ -130,7 +62,7 @@ if ( isset($_REQUEST['action']) ) {
 				$t = descreverTabela($tabela);
 				foreach ($t as $v) {
 
-					if ( terminaCom($v['Field'], '_id',) ) {
+					if ( comecaCom('id_', $v['Field']) ) {
 						$tab = explode('_', $v['Field']);
 						$sql2[] = criacaoFK($tabela, $tab[0]);
 					}
@@ -158,7 +90,6 @@ if ( isset($_REQUEST['action']) ) {
 			break;
 
 		case 'gerar-formulario' :
-
 			foreach ($MODULOS as $key => $value) {
 				# default
 				$sobreEscreverCampos	= array();
@@ -293,30 +224,18 @@ if ( isset($_REQUEST['action']) ) {
 		case 'gerarEnv'			: die( gerarEnv () ); break;
 
 		case 'exportConstraints':
-			$c =  exportarConstaints();
+			$c = exportarConstaints();
 			echo '<pre>';
 			print_r($c);
 			echo '</pre>';
 			break;
 
-		// case 'gerarBuildProducao		: die(gerarHtaccess ('$SITE')); //break;
-		// clonar projeto em modo produção[retirados arquivos de debug, autogerados, inicializado o DB {truncar todas tabelas, realizar inserts básicos}]
-
-		// contabilizar caracteres e arquivos
-		// criar grafico de tipos de arquivos
-		// case 'gerar_spritemap'		: die(gerarSpritemap(IMAGENS."/icones"));
-		// case 'gerar_modelos'			: die(assetPipeline()); //break;
-		// case 'criarTabelaLog'		: die(criarTabelaLog()); //break;
-		//case 'criarEstruturaDiretorio': die(criarTabelaLog()); //break;
-		// case 'logoff'				: if (CONTROLE_ACESSO) registraLogOff(); die(generateSiteMap()); //break;
-
-		# default: echo "Ação inválida!";
 		default:
 			echo '<ul>';
 			echo '<li><a href="index.php?action=dbExport">dbExport</a></li>';
 			echo '<li><a href="index.php?action=dbImport">dbImport</a></li>';
 			echo '<li><a href="index.php?action=popularTabela">popularTabela</a></li>';
-			echo '<li><a href="index.php?action=insercaoMatricial&tabela=categoria">insercaoMatricial</a></li>';
+			echo '<li><a href="index.php?action=cargaInicial&tabela=categoria">cargaInicial</a></li>';
 			echo '<li><a href="index.php?action=criacaoTabela&tabela=">criacaoTabela</a></li>';
 			echo '<li><a href="index.php?action=gerar-formulario">gerar-formulario</a></li>';
 			echo '<li><a href="index.php?action=gerar-formulario-atualizacao&tabela=usuario">gerar-formulario-atualizacao</a></li>';

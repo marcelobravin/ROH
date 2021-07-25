@@ -99,8 +99,7 @@ function contem ($agulha, $palheiro)
  *
  * @todo	Inverter parametros
  */
-function comecaCom  ($haystack, $needle
-)
+function comecaCom ($haystack, $needle)
 {
 	return $needle === "" || strpos($haystack, $needle) === 0;
 }
@@ -116,8 +115,7 @@ function comecaCom  ($haystack, $needle
  *
  * @todo	Inverter parametros
  */
-function terminaCom  ($haystack, $needle
-)
+function terminaCom ($needle, $haystack)
 {
 	return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
@@ -239,8 +237,8 @@ function minimizarArquivo ($buffer)
  * @param	string
  * @return	string
  *
- * @uses		texto.php->retirarAcento()
- * @uses		texto.php->retirarCaracterEspecial()
+ * @uses	texto.php->retirarAcento()
+ * @uses	texto.php->retirarCaracterEspecial()
  * @example
 		echo reescrever("Endereço da sucessão");
  */
@@ -312,7 +310,7 @@ function retirarAcento ($string)
  * @param	string
  * @return	bool
  *
- * @uses		expressoesRegulares.php->padrao()
+ * @uses	expressoesRegulares.php->padrao()
  * @example
 		echo retornarEndereco();
  */
@@ -346,10 +344,10 @@ function retornarEndereco3 ()
 	$s = "";
 	#$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
 	$protocol = substr(strtolower($_SERVER["SERVER_PROTOCOL"]), 0, strpos(strtolower($_SERVER["SERVER_PROTOCOL"]), "/")) . $s;
-	$port		 = ($_SERVER["SERVER_PORT"] == "80") ? "" : (":" . $_SERVER["SERVER_PORT"]);
-	$uri			= $protocol . "://" . $_SERVER['SERVER_NAME'] . $port . $_SERVER['REQUEST_URI'];
-	$segments = explode('?', $uri, 2);
-	$url			= $segments[0];
+	$port		= ($_SERVER["SERVER_PORT"] == "80") ? "" : (":" . $_SERVER["SERVER_PORT"]);
+	$uri		= $protocol . "://" . $_SERVER['SERVER_NAME'] . $port . $_SERVER['REQUEST_URI'];
+	$segments	= explode('?', $uri, 2);
+	$url		= $segments[0];
 	return $url;
 }
 
@@ -430,105 +428,152 @@ function utf8_rawurldecode ($raw_url_encoded)
 	}
 }
 
-
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
 function remove_html_comments ($content = '')
 {
-    return preg_replace('/<!--(.|\s)*?-->/', '', $content);
+	return preg_replace('/<!--(.|\s)*?-->/', '', $content);
 }
 
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
 function removeBlockComments ($content = '')
 {
-    return preg_replace('!/\*.*?\*/!s', '', $content);
+	return preg_replace('!/\*.*?\*/!s', '', $content);
 }
 
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
 function removeJsLineComments ($content = '')
 {
-    return preg_replace('/\/\/.*\n/', '', $content);
+	return preg_replace('/\/\/.*\n/', '', $content);
 }
 
-function removeLineBreaks  ($str
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
+function removeLineBreaks ($str
 )
 {
-    return preg_replace( "/\r|\n/", "", $str );
-    // return preg_replace( "/\r|\n|\t/", "", $str );
+	return preg_replace( "/\r|\n/", "", $str );
+	// return preg_replace( "/\r|\n|\t/", "", $str );
 }
 
-function removeDoubleSpaces  ($str
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
+function removeDoubleSpaces ($str
 )
 {
-    return preg_replace( "/  /", "", $str );
+	return preg_replace( "/  /", "", $str );
 }
 
-function removeEspacoEsimbolo  ($contents)
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
+function removeEspacoEsimbolo ($contents)
 {
-    //switch, case, break, function,  typeof
+	//switch, case, break, function,  typeof
 	;
-    //não tirar
-        //case
-        //typeof
-    //adicionar exclusivo js
-        // ;
-        /*;}*/
-        // console.log
-    //adicionar exclusivo php
-        //else_ & _if
-        // html comments
+	//não tirar
+		//case
+		//typeof
+	//adicionar exclusivo js
+		// ;
+		/*;}*/
+		// console.log
+	//adicionar exclusivo php
+		//else_ & _if
+		// html comments
 
-    /* }*/ ## bug
+	/* }*/ ## bug
 
-    # testar
-    /* -*/
-    /*- */
-    /* &*/
-    /*& */
-    /*> */
-    /* >*/
-    /*;;*/
-    /*console.log("baixo")*/ # remover
-    /*console.log( funcao() */ # remover
+	# testar
+	/* -*/
+	/*- */
+	/* &*/
+	/*& */
+	/*> */
+	/* >*/
+	/*;;*/
+	/*console.log("baixo")*/ # remover
+	/*console.log( funcao() */ # remover
 
-    $response = $contents;
-    $response = preg_replace('!console.log.*?\)!s', '', $response);
+	$response = $contents;
+	$response = preg_replace('!console.log.*?\)!s', '', $response);
 
-    $response = preg_replace('/\s\!/'  , '!'   , $response);
-    $response = preg_replace('/\s\(/'  , '('   , $response);
-    $response = preg_replace('/\s\)/'  , ')'   , $response);
-    $response = preg_replace('/\s\,/'  , ','   , $response);
-    $response = preg_replace('/\s\:/'  , ':'   , $response);
-    $response = preg_replace('/\s\=/'  , '='   , $response);
-    $response = preg_replace('/\s\{/'  , '{'   , $response);
-    $response = preg_replace('/\s\}/'  , '}'   , $response);
-    $response = preg_replace('/\s\|/'  , '|'   , $response);
-    $response = preg_replace('/\s\+/'  , '+'   , $response);
-    $response = preg_replace('/\s\;/'  , ';'   , $response);
-    $response = preg_replace('/\s\</'  , '<'   , $response);
-    $response = preg_replace('/\s\>/'  , '>'   , $response);
-    $response = preg_replace('/\s\-/'  , '-'   , $response);
-    $response = preg_replace('/\s\&/'  , '&'   , $response);
-    $response = preg_replace('/\s\//'  , '/'   , $response);
-    // $response = preg_replace('/\sif/'  , 'if'  , $response); # causam problema em js
-    $response = preg_replace('/\selse/', 'else', $response);
+	$response = preg_replace('/\s\!/'  , '!'   , $response);
+	$response = preg_replace('/\s\(/'  , '('   , $response);
+	$response = preg_replace('/\s\)/'  , ')'   , $response);
+	$response = preg_replace('/\s\,/'  , ','   , $response);
+	$response = preg_replace('/\s\:/'  , ':'   , $response);
+	$response = preg_replace('/\s\=/'  , '='   , $response);
+	$response = preg_replace('/\s\{/'  , '{'   , $response);
+	$response = preg_replace('/\s\}/'  , '}'   , $response);
+	$response = preg_replace('/\s\|/'  , '|'   , $response);
+	$response = preg_replace('/\s\+/'  , '+'   , $response);
+	$response = preg_replace('/\s\;/'  , ';'   , $response);
+	$response = preg_replace('/\s\</'  , '<'   , $response);
+	$response = preg_replace('/\s\>/'  , '>'   , $response);
+	$response = preg_replace('/\s\-/'  , '-'   , $response);
+	$response = preg_replace('/\s\&/'  , '&'   , $response);
+	$response = preg_replace('/\s\//'  , '/'   , $response);
+	// $response = preg_replace('/\sif/'  , 'if'  , $response); # causam problema em js
+	$response = preg_replace('/\selse/', 'else', $response);
 
-    $response = preg_replace('/\!\s/'  , '!'   , $response);
-    $response = preg_replace('/\(\s/'  , '('   , $response);
-    $response = preg_replace('/\)\s/'  , ')'   , $response);
-    $response = preg_replace('/\,\s/'  , ','   , $response);
-    $response = preg_replace('/\:\s/'  , ':'   , $response);
-    $response = preg_replace('/\=\s/'  , '='   , $response);
-    $response = preg_replace('/\{\s/'  , '{'   , $response);
-    $response = preg_replace('/\}\s/'  , '}'   , $response);
-    $response = preg_replace('/\|\s/'  , '|'   , $response);
-    $response = preg_replace('/\+\s/'  , '+'   , $response);
-    $response = preg_replace('/\;\s/'  , ';'   , $response);
-    $response = preg_replace('/\<\s/'  , '<'   , $response);
-    $response = preg_replace('/\>\s/'  , '>'   , $response);
-    $response = preg_replace('/\-\s/'  , '-'   , $response);
-    $response = preg_replace('/\&\s/'  , '&'   , $response);
-    $response = preg_replace('/\/\s/'  , '/'   , $response);
-    $response = preg_replace('/if\s/'  , 'if'  , $response);
-    // $response = preg_replace('/else\s/', 'else', $response); # causam problema em js
+	$response = preg_replace('/\!\s/'  , '!'   , $response);
+	$response = preg_replace('/\(\s/'  , '('   , $response);
+	$response = preg_replace('/\)\s/'  , ')'   , $response);
+	$response = preg_replace('/\,\s/'  , ','   , $response);
+	$response = preg_replace('/\:\s/'  , ':'   , $response);
+	$response = preg_replace('/\=\s/'  , '='   , $response);
+	$response = preg_replace('/\{\s/'  , '{'   , $response);
+	$response = preg_replace('/\}\s/'  , '}'   , $response);
+	$response = preg_replace('/\|\s/'  , '|'   , $response);
+	$response = preg_replace('/\+\s/'  , '+'   , $response);
+	$response = preg_replace('/\;\s/'  , ';'   , $response);
+	$response = preg_replace('/\<\s/'  , '<'   , $response);
+	$response = preg_replace('/\>\s/'  , '>'   , $response);
+	$response = preg_replace('/\-\s/'  , '-'   , $response);
+	$response = preg_replace('/\&\s/'  , '&'   , $response);
+	$response = preg_replace('/\/\s/'  , '/'   , $response);
+	$response = preg_replace('/if\s/'  , 'if'  , $response);
+	// $response = preg_replace('/else\s/', 'else', $response); # causam problema em js
 
-    $response = preg_replace('/\;\;/'  , ';'   , $response);
+	$response = preg_replace('/\;\;/'  , ';'   , $response);
 
-    return $response;
+	return $response;
 }

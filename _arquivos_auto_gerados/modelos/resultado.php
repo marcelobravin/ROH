@@ -2,7 +2,7 @@
 		/**
 		 * resultado
 		 * @package	grimoire/modelos
-		 * @version	23-07-2021 16:33:03
+		 * @version	25-07-2021 11:20:16
 		*/
 		
 			$campos[0] = array(
@@ -15,7 +15,7 @@
 			);
 		
 			$campos[1] = array(
-				"Field"		=> "meta_id",
+				"Field"		=> "id_meta",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",
 				"Key"		=> "MUL",

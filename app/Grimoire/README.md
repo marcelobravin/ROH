@@ -1,6 +1,22 @@
-
+senha SQ
 cj-xfaYum4CR#rb
 
+
+verificar validação ip
+    duplicata
+
+
+    Clock -> desenvolvimento
+    Converter para oo
+
+    Transação oo
+    Paginação
+    Validação
+    Conexão
+
+Eco sobrecarga de métodos
+String builder
+Carga inicial roda sqls básicos (usar no gerar build produção) tira de processos iniciais e coloca em .sql fora de efêmeros
 
 .button.disabled {
     color: #bbb!important;
@@ -9,6 +25,10 @@ cj-xfaYum4CR#rb
     cursor: not-allowed!important;
     box-shadow: none!important;
 }
+
+snipetts
+table
+aria-label="Lista de hospitais"
 
 
 header( "refresh:5;url=wherever.php" );
@@ -222,6 +242,697 @@ css defaults
     */
 
 
+
+    // function  backtrace()
+    // {
+
+    //  $callers = debug_backtrace();
+    //  $arrBacktrace = array();
+    //  $callersNum = count($callers);
+
+    //  echo('<pre>');
+    //  print_r($callers);
+    //  echo('</pre>');
+
+    //  for ($i = 1; $i < $callersNum; $i++) {
+    //      $arrBacktrace [] = sprintf('%s::%s(%d)', $callers[$i]['class'], $callers[$i]['function'], $callers[$i]['line'])
+    // ;
+    //  }
+
+    //  return implode('->', $arrBacktrace);
+    // }
+
+    // function  lancarExcecao( $mssg )
+    // {
+    //  backtrace();
+    //  throw new Exception($mssg);
+    // }
+
+
+    /**
+     * Executa comando em ambiente de teste apenas se parametro get estiver incluído
+     *
+     * @param   string
+     * @return  bool
+     *
+     * @example
+        // http://localhost/isabella-blanco/?AMBTST
+        ambtst();
+     * @internal PERIGO
+     */
+    function ambtst ($comandos="echo 'teste!';")
+    {
+        if (isset($_GET['AMBTST'])) {
+        eval($comandos);
+        }
+    }
+
+    /**
+    * Função para gerar senhas aleatórias
+    * @package grimoire/bibliotecas/texto.php
+    * @version 05-07-2015
+    *
+    * @author       Thiago Belem <contato@thiagobelem.net>
+    *
+    * @param int $tamanho Tamanho da senha a ser gerada
+    * @param bool $maiusculas Se terá letras maiúsculas
+    * @param bool $numeros Se terá números
+    * @param bool $simbolos Se terá símbolos
+    *
+    * @return string A senha gerada
+    */
+    function geraSenha ($tamanho=8, $maiusculas=true, $numeros=true, $simbolos=false)
+    {
+        $lmin       = 'abcdefghijklmnopqrstuvwxyz';
+        $lmai       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $num        = '1234567890';
+        $simb       = '!@#$%*-';
+        $retorno    = '';
+        $caracteres = '';
+
+        $caracteres .= $lmin;
+        if ($maiusculas)    $caracteres .= $lmai;
+        if ($numeros)       $caracteres .= $num;
+        if ($simbolos)      $caracteres .= $simb;
+
+        $len = strlen($caracteres);
+        for ($n = 1; $n <= $tamanho; $n++) {
+            $rand = mt_rand(1, $len);
+            $retorno .= $caracteres[$rand-1];
+        }
+        return $retorno;
+    }
+
+
+    /**
+     * Gera uma string legível
+     * @package grimoire/bibliotecas/texto.php
+     * @version 05-07-2015
+     *
+     * @param   string
+     * @return  bool
+     *
+     * @example
+            echo readable_random_string();
+     * @todo
+            gerador de senha forte
+            function gerarSenha ($caracteres=6, $senhaForte=true) {// contem numeros e letras em U
+                C
+     */
+    function readable_random_string ($length=6)
+    {
+        $conso = array("b","c","d","f","g","h","j","k","l","m","n","p","r","s","t","v","w","x","y","z");
+        $vocal = array("a","e","i","o","u");
+        $password = "";
+
+        srand((double)microtime()*1000000);
+        $max = $length/2;
+        for($i=1; $i <= $max; $i++) {
+            $password .= $conso[rand(0,19)];
+            $password .= $vocal[rand(0,4)];
+        }
+        return $password;
+    }
+
+    /**
+     * Exibe todas informações do sistema
+     * @package grimoire/bibliotecas/acesso.php
+     * @version 17-07-2015
+     *
+     * @param   bool    bloquear usuários logados ou deslogados
+     * @param   string
+     *
+     * @uses    acesso.php->logado()
+     */
+    function debug ()
+    {
+        echo "Arquivos incluídos neste:";
+        exibir(get_included_files());
+
+        get_defined_constants();
+
+        print_r(array_keys(get_defined_vars()));
+        // print_r($GLOBALS);
+        echo '<pre>';
+        echo "<h1>ERROS</h1>";
+        var_dump(__FILE__, __LINE__);
+        ini_set('display_errors', 'On');
+        error_reporting(E_ALL);
+        // echo "<h1>FILE</h1>";
+        // var_dump($_FILE);
+        echo "<h1>REQUEST</h1>";
+        var_dump($_REQUEST);
+        echo "<h1>POST</h1>";
+        var_dump($_POST);
+        echo "<h1>GET</h1>";
+        var_dump($_GET);
+        echo "<h1>COOKIE</h1>";
+        var_dump($_COOKIE);
+        echo "<h1>SESSION</h1>";
+        session_start();
+        var_dump($_SESSION);
+        echo "<h1>SERVER</h1>";
+        var_dump($_SERVER);
+        echo '</pre>';
+        // get all php files
+        $files = glob('*.php');
+        print_r($files);
+        echo "<hr>";
+        echo phpinfo();
+
+        $ini_array = parse_ini_file("sample.ini");
+        print_r($ini_array);
+    }
+
+
+    /**
+     * Retorna o endereço da página atual
+     * @package grimoire/bibliotecas/texto.php
+     * @version 05-07-2015
+     *
+     * @return  string
+     *
+     * @example
+            echo retornarEndereco();
+     */
+    function retornarEndereco ()
+    {
+        return "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    }
+
+    /**
+     * Decriptografa uma string
+     * @package grimoire/bibliotecas/texto.php
+     * @version 05-07-2015
+     *
+     * @param   string
+     * @param   string
+     * @return  boolean
+     *
+     * @example
+            $hashed_password = criptografia('mypassword');
+            $user_input = 'mypassword';
+            echo decriptografar($user_input, $hashed_password);
+     */
+    /*
+        You should pass the entire results of crypt() as the salt for comparing a
+        password, to avoid problems when different hashing algorithms are used. (As
+        it says above, standard DES-based password hashing uses a 2-character salt,
+        but MD5-based hashing uses 12.)
+    */
+    function decriptografar($string, $stringCriptografada) {
+        return false;
+        if (crypt($string, $stringCriptografada) === $stringCriptografada) {
+    }
+
+    <?php
+        //echo h1("Ola Mundo!");
+
+        function seletor($regra, $seletor="*"){
+            return "
+            <style>
+                $seletor {
+                    $regra
+                }
+            </style>";
+        }
+
+        //echo seletor(opacity(0.6));
+        function opacity($numero) {
+            return "
+            -khtml-opacity: $numero; /* Konqueror extension (Safari 1.1) */
+                -moz-opacity: $numero; /* Mozilla extension */
+                         opacity: $numero; /* Android 2.1+, Chrome 4+, Firefox 2+, IE 9+, iOS 3.2+, Opera 9+, Safari 3.1+ */
+                    -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=". $numero * 100 .")'; /* IE 8 */
+                            filter: alpha(opacity=50); /* IE 5-7 */
+            ";
+                            //filter: progid:DXImageTransform.Microsoft.Alpha(opacity=". $numero * 100 .");
+        }
+
+        //echo seletor(gradient("#000000", "#FFFFFF"));
+        function gradient($from, $to) {
+            return "
+            background-color: $from; /* Old browsers */
+            background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to)); /* Chrome, Safari 4+ */
+            background-image: -webkit-linear-gradient(top, $from, $to); /* Chrome 10-25, iOS 5+, Safari 5.1+ */
+            background-image:       -moz-linear-gradient(top, $from, $to); /* Firefox 3.6-15 */
+            background-image:        -ms-linear-gradient(top, $from, $to); /* IE10+ */
+            background-image:           -o-linear-gradient(top, $from, $to); /* Opera 11.10-12.00 */
+            background-image:                linear-gradient(to bottom, $from, $to); /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$from', endColorstr='$to', GradientType=0); /* IE6-8 */
+            ";
+
+            /*
+    /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+    //background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzFlNTc5OSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUwJSIgc3RvcC1jb2xvcj0iIzI5ODlkOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjUxJSIgc3RvcC1jb2xvcj0iIzIwN2NjYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM3ZGI5ZTgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+    //background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%); /* FF3.6+ */
+    //background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+    //background: -webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+    //background: -o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* Opera 11.10+ */
+    //background: -ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* IE10+ */
+    //background: linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%); /* W3C */
+
+        }
+
+        //echo seletor(borderRadius("5px"));
+        function borderRadius($radius) {
+            return "
+            border: 1px solid red;
+            -webkit-border-radius: $radius; /* Android ≤ 1.6, iOS 1-3.2, Safari 3-4 */
+             -khtml-border-radius: $radius;
+                 -moz-border-radius: $radius;
+                            border-radius: $radius; /* Android 2.1+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 5+ */
+
+            /* useful if you don't want a bg color from leaking outside the border: */
+            background-clip: padding-box; /* Android 2.2+, Chrome, Firefox 4+, IE 9+, iOS 4+, Opera 10.50+, Safari 4+ */
+            ";
+
+        }
+
+
+        //echo seletor(textShadow());
+        function textShadow($x=0, $y=0, $blur="5px", $cor="#000000") {
+            return "
+            text-shadow: $x $y $blur $cor; /* Chrome, Firefox 3.5+, IE 10+, Opera 9+, Safari 1+ */
+            ";
+         /*
+        filter:
+                            progid:DXImageTransform.Microsoft.Glow(Color=#eeeeee,Strength=2)
+                            progid:DXImageTransform.Microsoft.blur(pixelradius=5, enabled='true')
+                    ;
+
+    zoom:1;
+    filter: progid:DXImageTransform.Microsoft.Glow(Color=#000000,Strength=1);
+    -ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=-1, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=-1, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=-1, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=0, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=1, OffY=1, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=0, OffY=1, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=1, Color=#000000)
+    progid:DXImageTransform.Microsoft.dropshadow(OffX=-1, OffY=0, Color=#000000)";
+     */
+        }
+
+
+        //echo seletor(boxShadow("1px", "1px", "5px", "BLACK"));
+        //echo seletor(boxShadow("1px", "1px", "5px", "#000000", true));
+        function boxShadow($x=0, $y=0, $blur="5px", $cor="#000000", $inset=false) {
+            $inset ? $interna="inset" : $interna="";
+            return "
+            -webkit-box-shadow: $interna $x $y $blur $cor; /* Android 2.3+, iOS 4.0.2-4.2, Safari 3-4 */
+                 -moz-box-shadow: $interna $x $y $blur $cor;
+                            box-shadow: $interna $x $y $blur $cor; /* Chrome 6+, Firefox 4+, IE 9+, iOS 5+, Opera */
+            -ms-filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='$cor'); /* NÂO FUNFA*/
+                    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='$cor');
+            ";
+
+        }
+
+        //echo seletor(transform(90), "h1");
+        function transform($rotacao=0, $scale=1, $skew=1, $translate=0) {
+        $rotacao = $rotacao . "deg";
+        $skew = $skew . "deg";
+        $translate = $translate . "px";
+            return "
+            -webkit-transform: rotate($rotacao) scale($scale) skew($skew) translate($translate); /* Chrome, Safari 3.1+ */
+                 -moz-transform: rotate($rotacao) scale($scale) skew($skew) translate($translate); /* Firefox 3.5-15    */
+                    -ms-transform: rotate($rotacao) scale($scale) skew($skew) translate($translate); /* IE 9    */
+                     -o-transform: rotate($rotacao) scale($scale) skew($skew) translate($translate); /* Opera 10.50-12.00   */
+                            transform: rotate($rotacao) scale($scale) skew($skew) translate($translate); /* Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+        }
+
+
+        //echo seletor(skew(90), "h1");
+        function skew($skew=1) {
+        $skew = $skew . "deg";
+            return "
+            -webkit-transform: skew($skew); /* Chrome, Safari 3.1+  */
+                 -moz-transform: skew($skew); /* Firefox 3.5-15 */
+                    -ms-transform: skew($skew); /* IE 9 */
+                     -o-transform: skew($skew); /* Opera 10.50-12.00    */
+                            transform: skew($skew); /* Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+        }
+
+        //echo seletor(scale(2), "h1");
+        function scale($scale=1) {
+            return "
+            -webkit-transform: scale($scale); /* Chrome, Safari 3.1+    */
+                 -moz-transform: scale($scale); /* Firefox 3.5-15   */
+                    -ms-transform: scale($scale); /* IE 9   */
+                     -o-transform: scale($scale); /* Opera 10.50-12.00  */
+                            transform: scale($scale); /* Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+        }
+
+        //echo seletor(rotate(90), "h1");
+        function rotate($rotacao=0) {
+            $rotacao = $rotacao . "deg";
+            return "
+            -webkit-transform: rotate($rotacao); /* Chrome, Safari 3.1+ */
+                 -moz-transform: rotate($rotacao); /* Firefox 3.5-15    */
+                    -ms-transform: rotate($rotacao); /* IE 9    */
+                     -o-transform: rotate($rotacao); /* Opera 10.50-12.00   */
+                            transform: rotate($rotacao); /* Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+        }
+
+        //echo seletor(rotateX(90), "h1");
+        function rotateX($rotacao=0) {
+            $rotacao = $rotacao . "deg";
+            return "
+            -webkit-transform: rotateX($rotacao); /* Chrome, Safari 3.1+    */
+                 -moz-transform: rotateX($rotacao); /* Firefox 3.5-15   */
+                    -ms-transform: rotateX($rotacao); /* IE 9   */
+                     -o-transform: rotateX($rotacao); /* Opera 10.50-12.00  */
+                            transform: rotateX($rotacao); /* Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+        }
+
+        //echo seletor(rotateY(90), "h1");
+        function rotateY($rotacao=0) {
+            $rotacao = $rotacao . "deg";
+            return "
+            -webkit-transform: rotateY($rotacao); /* Chrome, Safari 3.1+    */
+                 -moz-transform: rotateY($rotacao); /* Firefox 3.5-15   */
+                    -ms-transform: rotateY($rotacao); /* IE 9   */
+                     -o-transform: rotateY($rotacao); /* Opera 10.50-12.00  */
+                            transform: rotateY($rotacao); /* Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+        }
+
+        //echo seletor(transition(3, "border"), "h1");
+        //echo seletor("color:red", "h1:hover");
+        function transition($tempo=1, $propriedade="all", $transitionTiming="ease") {
+            $tempo = $tempo . "s";
+            return "
+            -webkit-transition: $propriedade $tempo $transitionTiming; /* Chrome 1-25, Safari 3.2+ */
+                 -moz-transition: $propriedade $tempo $transitionTiming; /* Firefox 4-15 */
+                     -o-transition: $propriedade $tempo $transitionTiming; /* Opera 10.50–12.00 */
+                            transition: $propriedade $tempo $transitionTiming; /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+            // Transition Timing
+            //ease-in-out
+            //ease-out
+            //ease-in
+            //ease
+            // linear
+        }
+
+        //echo seletor(animation("minhaAnimacao"), "h1");
+        function animation($animacao, $tempo=1, $repeticao="infinite", $transitionTiming="ease") {
+            $tempo = $tempo . "s";
+            return "
+            -webkit-animation: $animacao $tempo $repeticao $transitionTiming; /* Chrome, Safari 5+ */
+                 -moz-animation: $animacao $tempo $repeticao $transitionTiming; /* Firefox 5-15 */
+                     -o-animation: $animacao $tempo $repeticao $transitionTiming; /* Opera 12.00 */
+                            animation: $animacao $tempo $repeticao $transitionTiming; /* Chrome, Firefox 16+, IE 10+, Opera 12.10+ */
+            ";
+            // Transition Timing
+            //ease-in-out
+            //ease-out
+            //ease-in
+            //ease
+            // linear
+        }
+
+        /*
+        //$animacao = array(0=>"color: red", 50=>"color: lime", 100=>"color: blue");
+        $animacao = array("font-size: 10px", "font-size: 20px");
+        echo "<style>
+            h1 { -moz-animation: minhaAnimacao 1s infinite; }";
+        echo keyframes("minhaAnimacao", $animacao);
+        echo "</style>";
+        */
+        function keyframes($animacao, $frames=array()) {
+            $resposta="";
+
+            if (sizeof($frames) == 2) {
+                $resposta .= "from {". reset($frames) ." }\n ";
+                $resposta .= "to {". end($frames) ." }\n ";
+            } else {
+                foreach ($frames as $indice=>$valor) {
+                    $resposta .= $indice ."% {". $valor ."; }\n ";
+                }
+            }
+
+            return "
+                @-webkit-keyframes $animacao { $resposta }
+                     @-moz-keyframes $animacao { $resposta }
+                         @-o-keyframes $animacao { $resposta }
+                                @keyframes $animacao { $resposta }
+            ";
+        }
+
+
+        //echo seletor(perspective(), "h1");
+        function perspective() {
+            return "
+                -webkit-perspective: 300px; /* Chrome 12+, Safari 4+ */
+                     -moz-perspective: 300px;   /* Firefox 10+ */
+                        -ms-perspective: 300px; /* IE 10 */
+                                perspective: 300px;
+            ";
+        }
+
+        //echo seletor(preserve3d(), "h1");
+        function preserve3d() {
+            return "
+             -webkit-transform-style: preserve-3d;
+                    -moz-transform-style: preserve-3d;
+                     -ms-transform-style: preserve-3d;
+                             transform-style: preserve-3d;
+            ";
+        }
+
+
+
+
+
+            function fontFace($fonte) {
+                    return "
+                            @font-face {
+                                    font-family: '{$fonte} Regular';
+                                    src: url('{$fonte}.eot');
+                                    src: local('{$fonte} Regular'),
+                                            local('{$fonte}'),
+                                            url('{$fonte}.ttf') format('truetype'),
+                                            url('{$fonte}.svg#font') format('svg');
+                            }
+
+
+                            body {
+                                    font-family: '{$fonte} Regular', Helvetica, Arial, sans-serif;
+                            }
+                    ";
+            }
+
+
+
+    /*
+    @font-face {
+        font-family: 'WebFont';
+        src: url('myfont.woff') format('woff'), // Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+
+                 url('myfont.ttf') format('truetype'); // Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5
+
+
+        src:url('font/fontawesome-webfont.eot?v=3.2.1');
+        src:url('font/fontawesome-webfont.eot?#iefix&v=3.2.1') format('embedded-opentype'),
+                url('font/fontawesome-webfont.woff?v=3.2.1') format('woff'),
+                url('font/fontawesome-webfont.ttf?v=3.2.1') format('truetype'),
+                url('font/fontawesome-webfont.svg#fontawesomeregular?v=3.2.1') format('svg');
+
+    }
+
+
+
+    .box_rgba {
+        background-color: transparent;
+        background-color: rgba(180, 180, 144, 0.6); // Chrome, Firefox 3+, IE 9+, Opera 10.10+, Safari 3+
+    }
+
+    .box_3dtransforms {
+
+    }
+
+    * {
+        -webkit-box-sizing: border-box; // Android ≤ 2.3, iOS ≤ 4
+             -moz-box-sizing: border-box; // Firefox 1+
+                        box-sizing: border-box; // Chrome, IE 8+, Opera, Safari 5.1
+    }
+
+    .box_columns {
+        -webkit-column-count: 2;    -webkit-column-gap: 15px; // Chrome, Safari 3
+             -moz-column-count: 2;       -moz-column-gap: 15px; // Firefox 3.5+
+                        column-count: 2;                    column-gap: 15px; // Opera 11+
+    }
+
+    .box_bgsize {
+        -webkit-background-size: 100% 100%; // Safari 3-4
+                        background-size: 100% 100%; // Chrome, Firefox 4+, IE 9+, Opera, Safari 5+
+    }
+
+    .box_tabsize {
+        -moz-tab-size: 2; // Firefox 4+
+            -o-tab-size: 2; // Opera 10.60+
+                 tab-size: 2;
+    }
+    */
+
+
+    /**
+     * Escreve o conteúdo em um arquivo
+     *
+     * @package grimoire/bibliotecas/arquivos.php
+     * @since   05-07-2015
+     * @version 24-06-2021
+     *
+     * @param   string
+     * @param   string
+     * @param   bool    Conservar conteúdo, append
+     *
+     * @return  bool
+     *
+     * @example
+        cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+        echo array_para_csv($array);
+    */
+    function generateToken ()
+    {
+        return md5(uniqid(rand(), true));
+    }
+
+    /*
+    password_verify($_POST['senha'], $user['senha'])
+    */
+
+
+    /*
+    function hashPassword ($password, $timeCost=10) {
+            $options = array(
+                'time_cost'      => $timeCost
+                , 'memory_cost' => '2048k'
+                , 'threads'      => 6
+            );
+
+            //* https://stackoverflow.com/questions/56497578/php-warning-use-of-undefined-constant-password-argon2id-when-using-password-has *
+            if( defined('PASSWORD_ARGON2ID') ) {
+                $hash = password_hash($password, PASSWORD_ARGON2ID, $options);
+            } else {
+                $hash = password_hash($password, PASSWORD_DEFAULT , $options);
+                // $hash = password_hash($password, PASSWORD_DEFAULT);
+            }
+
+            return $hash;
+    }
+    */
+
+    /**
+     * Tenta executar um comando
+     *
+     * @param   string
+     *
+     * @uses    debug.php->exibir()
+     */
+    function tentar ($comando)
+    {
+        try {
+            eval($comando);
+        } catch (Exception $e) {
+            exibir($e);
+            exit;
+        }
+    }
+
+    // /**
+    //  * Exibe mensagem de erro
+    //  *
+    //  * @param    string
+    //  *
+    //  * @uses texto.php->startsWith()
+    //  * @uses acesso.php->importarBD()
+    //  * @uses debug.php->exibir()
+    //  * @todo enviar e-mail para administrador do site em caso de erro
+    //  */
+    // function exibirErro ($sql="")
+    // {
+    //  if (AMBTST) {
+    //      $mensagem = mysql_error() . ' - ' . $sql;
+    //      if (startsWith($mensagem, "Unknown database")) {
+    //          if (INICIALIZAR_SISTEMA)
+    //          importarBD();
+    //      }
+    //  } else {
+    //      $mensagem = "Ocorreu um erro! Tente novamente mais tarde!";
+    //  }
+
+    //  throw new ErrorException($mensagem);
+    //  exibir($mensagem);
+    //  die();
+    // }
+
+
+    // /**
+    //  * Realiza inserções nas tabelas
+    //  * @package grimoire/bibliotecas/acesso.php
+    //  * @version 05-07-2015
+    //  *
+    //  * @uses     GRIMOIRE."modelos/"
+    //  * @uses     persistencia.php->executar()
+    //  */
+    // //popularTabelas();
+    // function popularTabelas ()
+    //{
+    //  $modelos = glob(GRIMOIRE."/modelos/registros/*.sql");
+
+    //  foreach ($modelos as $modelo) {
+    //      $sqls = file_get_contents($modelo);
+    //      $sqls = explode(";\n", $sqls);
+    //      foreach ($sqls as $key => $sql) {
+    //          echo $sql. "<br>";
+    //          if (!empty($sql)) {
+    //              try {
+    //                  executar($sql);
+    //              } catch (Exception $e) {
+    //                  exibir($e);
+    //              }
+    //          }
+    //      }
+    //  }
+    // }
+
+
+    // /**
+    //  * Verifica se o valor se encaixa no padrão
+    //  *
+    //  * @param    string
+    //  * @return   bool
+    //  *
+    //  * @example
+    //  echo demora(100, "");
+    //  * @internal PERIGO
+    //  */
+    // function demora ($iteracoes=10, $comandos="echo 'hello world!';")
+    // {
+    //  $inicio = inicio(); # ???
+    //  for ($i=0; $i<$iteracoes; $i++) {
+    //      $start = microtime(true); # ???
+    //      for ($i = 0; $i < RUNS; ++$i) {
+    //          eval($comandos);
+    //      }
+    //  }
+
+    //  echo "execution took: ". intervalo($inicio). " seconds.";
+    // }
+
+
+
+
+
+
     // /**
     //  *
     //  * Buscar comentários multi-linha
@@ -240,9 +951,9 @@ css defaults
     //  * @since 05-07-2015
     //  * @version  17/09/2016 21:22:34
     //  *
-    //  * @param	 string
-    //  * @param	 string
-    //  * @param	 boolean se função deve montar o value também
+    //  * @param    string
+    //  * @param    string
+    //  * @param    boolean se função deve montar o value também
     //  * @return   string
     //  */
     // function selected ($parametro, $alvo, $montarValue=true)
@@ -329,7 +1040,7 @@ css defaults
      * @package grimoire/bibliotecas/numeros.php
      * @version 05-07-2015
      *
-     * @param	double
+     * @param   double
      * @return  string
      */
     function converterBytes ($bytes, $escala)
@@ -358,8 +1069,8 @@ css defaults
     //  * @package grimoire/bibliotecas/arquivos.php
     //  * @version 05-07-2015
     //  *
-    //  * @param	 string
-    //  * @param	 bool
+    //  * @param    string
+    //  * @param    bool
     //  * @return   array
     //  *
     //  * @example
@@ -392,7 +1103,7 @@ css defaults
     // /**
     //  * Verifica se o valor se encaixa no padrão
     //  *
-    //  * @param	 string
+    //  * @param    string
     //  * @return   bool
     //  *
     //  * @example
@@ -418,8 +1129,8 @@ css defaults
     //  * @package grimoire/bibliotecas/acesso.php
     //  * @version 05-07-2015
     //  *
-    //  * @uses	 GRIMOIRE."modelos/"
-    //  * @uses	 persistencia.php->executar()
+    //  * @uses     GRIMOIRE."modelos/"
+    //  * @uses     persistencia.php->executar()
     //  */
     // //popularTabelas();
     // function popularTabelas ()
@@ -445,7 +1156,7 @@ css defaults
     // /**
     //  * Exibe mensagem de erro
     //  *
-    //  * @param	 string
+    //  * @param    string
     //  *
     //  * @uses texto.php->startsWith()
     //  * @uses acesso.php->importarBD()
@@ -502,8 +1213,8 @@ css defaults
     //  * @package grimoire/bibliotecas/arquivos.php
     //  * @version 05-07-2015
     //  *
-    //  * @param	 string
-    //  * @param	 int
+    //  * @param    string
+    //  * @param    int
     //  * @return   bool
     //  *
     //  * @uses expressoesRegulares.php->padrao()
@@ -540,7 +1251,7 @@ colocar montar criacao para pegar descrições em json
      * @since   05-07-2015
      * @version 30-06-2021
      *
-     * @param	string
+     * @param   string
      */
     function exibirTemplate ($campos, $labels, $esconder=array(), $registro=null)
     {
@@ -613,12 +1324,12 @@ define( "VALIDADE"              , "" );
  * @package grimoire/bibliotecas/acesso.php
  * @version 20-07-2015
  *
- * @param	string
- * @return	bool
+ * @param   string
+ * @return  bool
  *
- * @uses	configuracoes.php->VALIDADE
- * @uses	tempo.php->agora()
- * @uses	tempo.php->diferencaTempo()
+ * @uses    configuracoes.php->VALIDADE
+ * @uses    tempo.php->agora()
+ * @uses    tempo.php->diferencaTempo()
  */
 function checarValidade ()
 {
@@ -649,10 +1360,10 @@ gerarBuild(Producao=true)
      * @package grimoire/bibliotecas/tempo.php
      * @version 05-07-2015
      *
-     * @param	string
-     * @return	bool
+     * @param   string
+     * @return  bool
      *
-     * @uses	    expressoesRegulares.php->padrao()
+     * @uses        expressoesRegulares.php->padrao()
      * @example
             tempo();
      */

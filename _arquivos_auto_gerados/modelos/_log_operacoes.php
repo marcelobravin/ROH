@@ -2,7 +2,7 @@
 		/**
 		 * _log_operacoes
 		 * @package	grimoire/modelos
-		 * @version	23-07-2021 16:33:03
+		 * @version	25-07-2021 11:20:16
 		*/
 		
 			$campos[0] = array(

@@ -378,10 +378,10 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 		} else if ($campo['Type'] == "datetime" || $campo['Type'] == "timestamp") {
 			$atributos['maxlength'] = 19;
 		# enum
-		} else if ( comecaCom($campo['Type'], "enum") ) {
+		} else if ( comecaCom("enum", $campo['Type']) ) {
 			$tipo = 'radio';
 		# bit
-		} else if ( comecaCom($campo['Type'],"bit") || comecaCom($campo['Type'], "tinyint(1)") ) {
+		} else if ( comecaCom("bit", $campo['Type']) || comecaCom("tinyint(1)", $campo['Type']) ) {
 			$tipo = 'checkbox';
 		# text
 		} else if ($campo['Type'] == "text") {
@@ -403,7 +403,7 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 				$tipo = "hidden";
 
 			# Se campo for chave estrangeira
-			if (terminaCom($campo['Field'], "_id"))
+			if (comecaCom("id_", $campo['Field']))
 				$tipo = "foreignKey";
 		}
 

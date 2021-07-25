@@ -614,21 +614,19 @@ function chmod_r($path, $permission=0777) {
  * Prepara o ambiente para execução do projeto
  * @package	grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
- * @version	24-06-2021
+ * @version	25/07/2021 11:00:34
  *
  * @uses	persistencia.php->criarBanco()
- * @uses	persistencia.php->importarTabelas()
  * @uses	persistencia.php->importarRegistros()
  */
 function importarBD ()
 {
 	criarBanco();
 
-	#if ( !importarTabelas(ARQUIVOS_EFEMEROS ."/modelos/*.php") )
-	if ( !importarTabelas(ARQUIVOS_EFEMEROS ."/tabelas/*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/tabelas/*.sql") )
 		throw new Exception( 'Erro: importarTabelas()');
 
-	if ( !importarConstraints(ARQUIVOS_EFEMEROS ."/constraints_*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/constraints_*.sql") )
 		throw new Exception( 'Erro: importarConstraints()');
 
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/registros/*.sql") )
@@ -659,104 +657,6 @@ function criarTabelaLog ()
 }
 
 /**
- * Cria tabelas no BD conforme arquivos no diretório modelos
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	20/07/2021 14:09:17
- *
- * @uses	GRIMOIRE."modelos/"
- * @example
-	gerarTabelas();
- */
-function importarTabelas ($diretorio)
-{
-	$modelos = glob($diretorio);
-
-	foreach ($modelos as $m) {
-
-		$sql = file_get_contents($m);
-		try {
-			echo $sql;
-			br();
-			# echo executarStmt($sql, array(), 'I');
-			executar($sql);
-		} catch (Exception $e) {
-			echo('<pre>');
-			print_r($e->getMessage());
-			echo('</pre>');
-		}
-	}
-
-	return true;
-}
-
-/**
- * Cria tabelas no BD conforme arquivos no diretório modelos
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	20/07/2021 14:09:17
- *
- * @uses	GRIMOIRE."modelos/"
- * @example
-	gerarTabelas();
- */
-function importarConstraints ($diretorio)
-{
-	$modelos = glob($diretorio);
-
-	foreach ($modelos as $m) {
-
-		$sql = file_get_contents($m);
-		try {
-			echo $sql;
-			br();
-			# echo executarStmt($sql, array(), 'I');
-			executar($sql);
-		} catch (Exception $e) {
-			echo('<pre>');
-			print_r($e->getMessage());
-			echo('</pre>');
-		}
-	}
-
-	return true;
-}
-
-// /**
-//  * Cria tabelas no BD conforme arquivos no diretório modelos
-//  * @package	grimoire/bibliotecas/arquivos.php
-//  * @since	05-07-2015
-//  * @version	25-06-2021
-//  *
-//  * @uses	GRIMOIRE."modelos/"
-//  * @example
-// 	gerarTabelas();
-//  */
-// function importarTabelasPorModelo ($diretorio)
-// {
-// 	$modelos = glob($diretorio);
-
-// 	foreach ($modelos as $m) {
-// 		try {
-
-// 			# $tabela = limparNomeArquivo(__FILE__);
-// 			# $campos = array();
-// 			include($m);
-
-// 			# $sql = montarCriacao($tabela, $campos);
-// 			# executar($sql);
-
-// 		} catch (Exception $e) {
-// 			echo('<pre>');
-// 			print_r($m);
-// 			echo('</pre>');
-// 			echo $e->getMessage();
-// 			return false;
-// 		}
-// 	}
-
-// 	return true;
-// }
-
-/**
  * Realiza inserções nas tabelas
  * @package	grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
@@ -780,12 +680,11 @@ function importarRegistros ($diretorio)
 				try {
 					echo $sql;
 					br();
-					# echo executarStmt($sql, array(), 'I');
 					executar($sql);
 				} catch (Exception $e) {
-					echo('<pre>');
+					echo '<pre>';
 					print_r($e->getMessage());
-					echo('</pre>');
+					echo '</pre>';
 				}
 			}
 		}
@@ -827,11 +726,24 @@ function gerarInserts ($tabela)
 
 /**
  * Realiza multiplas inserções
+ * @package	grimoire/bibliotecas/instalacao.php
  * @since	28/06/2021 11:52:15
- * @todo
- * 		inserir matriz
+ *
+ * @param	string
+ * @param	array
+ *
  * @example
-	popularTabela('hospital', 3);
+	$matriz = array(
+		array ("criado_por"=> 1, "titulo" => "Equipe"),
+		array ("criado_por"=> 1, "titulo" => "Internação"),
+		array ("criado_por"=> 1, "titulo" => "Ambulatório"),
+		array ("criado_por"=> 1, "titulo" => "Consultas ambulatoriais"),
+		array ("criado_por"=> 1, "titulo" => "Procedimentos e cirurgias ambulatoriais"),
+		array ("criado_por"=> 1, "titulo" => "SADT"),
+		array ("criado_por"=> 1, "titulo" => "Atenção domiciliar")
+	);
+
+	insercaoMatricial('categoria', $matriz);
 */
 function insercaoMatricial ($tabela, $matriz)
 {
@@ -906,7 +818,6 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 
 	return $sql;
 }
-
 
 /* @todo verificar se precisa do foreach ao inves de um where */
 function exportarConstaints ($db=DBNAME)

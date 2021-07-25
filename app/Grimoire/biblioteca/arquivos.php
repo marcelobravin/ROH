@@ -14,7 +14,6 @@
  * @return	array
  *
  * @uses		arquivos.php->fazerUpload()
- * @todo		identificar tipo de arquivo
  */
 function anexarArquivo ($vetor, $caminho)
 {
@@ -702,7 +701,6 @@ function converterJson ($json)
 
 	return "Arquivo não é um json válido". json_last_error();
 }
-
 
 /**
  * Escreve o conteúdo em um arquivo

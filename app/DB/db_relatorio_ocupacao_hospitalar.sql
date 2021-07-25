@@ -62,7 +62,7 @@ INSERT INTO `categoria` (`id`, `titulo`, `legenda`, `observacoes`, `ativo`, `cri
 
 CREATE TABLE `elemento` (
   `id` int(11) NOT NULL,
-  `categoria_id` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL,
   `titulo` char(255) NOT NULL,
   `ativo` tinyint(1) NOT NULL,
   `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
@@ -77,7 +77,7 @@ CREATE TABLE `elemento` (
 -- Extraindo dados da tabela `elemento`
 --
 
-INSERT INTO `elemento` (`id`, `categoria_id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
+INSERT INTO `elemento` (`id`, `id_categoria`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
 (1, 1, 'Clínica médica', 1, '2021-07-06 10:35:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
 (2, 1, 'Clínica Cirúrgica', 1, '2021-07-06 10:35:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
 (3, 1, 'Pedatria', 1, '2021-07-06 10:35:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
@@ -173,8 +173,8 @@ INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `
 
 CREATE TABLE `meta` (
   `id` int(11) NOT NULL,
-  `hospital_id` int(11) NOT NULL,
-  `elemento_id` int(11) NOT NULL,
+  `id_hospital` int(11) NOT NULL,
+  `id_elemento` int(11) NOT NULL,
   `quantidade` int(3) NOT NULL,
   `ativo` tinyint(1) NOT NULL,
   `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
@@ -189,7 +189,7 @@ CREATE TABLE `meta` (
 -- Extraindo dados da tabela `meta`
 --
 
-INSERT INTO `meta` (`id`, `hospital_id`, `elemento_id`, `quantidade`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
+INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
 (339, 3, 10, 9, 1, '2021-07-22 11:41:50', '2021-07-23 08:12:43', NULL, 21, 21, NULL),
 (340, 3, 13, 5, 1, '2021-07-22 11:41:50', '2021-07-23 08:12:26', NULL, 21, 21, NULL),
 (341, 3, 12, 6, 1, '2021-07-22 11:41:50', '2021-07-23 08:12:43', NULL, 21, 21, NULL),
@@ -240,7 +240,7 @@ INSERT INTO `meta` (`id`, `hospital_id`, `elemento_id`, `quantidade`, `ativo`, `
 
 CREATE TABLE `resultado` (
   `id` int(11) NOT NULL,
-  `meta_id` int(11) NOT NULL,
+  `id_meta` int(11) NOT NULL,
   `resultado` int(3) NOT NULL,
   `mes` tinyint(2) NOT NULL,
   `ano` int(4) NOT NULL,
@@ -489,7 +489,7 @@ ALTER TABLE `categoria`
 ALTER TABLE `elemento`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`),
-  ADD KEY `fk_categoria` (`categoria_id`);
+  ADD KEY `fk_categoria` (`id_categoria`);
 
 --
 -- Índices para tabela `hospital`
@@ -503,16 +503,16 @@ ALTER TABLE `hospital`
 --
 ALTER TABLE `meta`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `meta_uq` (`hospital_id`,`elemento_id`),
+  ADD UNIQUE KEY `meta_uq` (`id_hospital`,`id_elemento`),
   ADD KEY `id` (`id`),
-  ADD KEY `fk_elemento` (`elemento_id`);
+  ADD KEY `fk_elemento` (`id_elemento`);
 
 --
 -- Índices para tabela `resultado`
 --
 ALTER TABLE `resultado`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `resultado_uq` (`meta_id`,`mes`,`ano`),
+  ADD UNIQUE KEY `resultado_uq` (`id_meta`,`mes`,`ano`),
   ADD KEY `id` (`id`);
 
 --
@@ -598,20 +598,20 @@ ALTER TABLE `_log_operacoes`
 -- Limitadores para a tabela `elemento`
 --
 ALTER TABLE `elemento`
-  ADD CONSTRAINT `fk_categoria` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `meta`
 --
 ALTER TABLE `meta`
-  ADD CONSTRAINT `fk_elemento` FOREIGN KEY (`elemento_id`) REFERENCES `elemento` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_hospital` FOREIGN KEY (`hospital_id`) REFERENCES `hospital` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_elemento` FOREIGN KEY (`id_elemento`) REFERENCES `elemento` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_hospital` FOREIGN KEY (`id_hospital`) REFERENCES `hospital` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `resultado`
 --
 ALTER TABLE `resultado`
-  ADD CONSTRAINT `fk_meta` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_meta` FOREIGN KEY (`id_meta`) REFERENCES `meta` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
