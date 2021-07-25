@@ -52,4 +52,3 @@ if ( temDependencias($_GET['modulo'], $_GET['id']) ) { # -----------------------
 }
 
 voltar();
-// header('Location: ../../lista.php?modulo='. $_GET['modulo']);

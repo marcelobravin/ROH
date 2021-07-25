@@ -13,16 +13,10 @@ foreach ($_POST['leitos'] as $key => $value) { #renomear para elemento id
 		'criado_por'			=> $_SESSION['user']['id'],
 	);
 
-	if ( !empty($value) )
-	$respostas[] = inserir('resultado', $values);
+	if ( !empty($value) ) {
+		$respostas[] = inserir('resultado', $values);
+	}
 }
-
-
-// echo('<pre>');
-// print_r($respostas);
-// echo('</pre>');
-// exit;
-
 
 $_SESSION['mensagem'] = "Registrados os resultados do hospital ". $_POST['hospital'] . " no mês atual";
 $_SESSION['mensagemClasse'] = "sucesso";

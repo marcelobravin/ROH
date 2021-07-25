@@ -55,8 +55,6 @@ $enviarEmail = enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "A
 if ( $enviarEmail == 1 ) {
 	$_SESSION['mensagem'] = "Email enviado para o usuário {$_GET['id']} com sucesso!";
 	voltar();
-	// header('Location: '. ROOT .'lista.php?modulo=usuario');
-	exit;
 } else {
 	echo "Erro ao enviar email para o usuário: ". $user['login'];
 	echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';

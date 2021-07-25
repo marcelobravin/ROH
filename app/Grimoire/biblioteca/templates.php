@@ -8,10 +8,7 @@
 /**
  * @since 28/06/2021 09:50:48
  * @version 06/07/2021 08:31:37
- * @todo
- * criar relacionamento com tabela usuario, parametrizavel
- * parametrizar drop table if exists
- * adicionar comentarios nas colunos
+ *
  * @example
 	echo criacaoTemplateTabela("hospital");
 	echo "<pre>". criacaoTemplateTabela("hospital");

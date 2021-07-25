@@ -725,3 +725,19 @@ function selecionado2 ($valor1, $valor2, $atributo='selected')
 	if ( isset($valor1) && isset($valor2) && $valor1==$valor2 )
 		return $atributo.'="'. $atributo .'"';
 }
+
+/**
+ * Cria um link para uma janela popup
+ * @package grimoire/bibliotecas/javascript.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
+function popup ($pagina)
+{
+	return "
+	<a onclick=\"Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=720,height=600,left=430,top=23'); return false;\" href=\"{$pagina}\">
+		pop up
+	</a>";
+}

@@ -187,11 +187,11 @@ function identificarNavegador ()
 	if ($version==null || $version=="") {$version="?";}
 
 	return array(
-		'userAgent' => $u_agent,
-		'name'			=> $bname,
-		'version'	 => $version,
+		'userAgent'	=> $u_agent,
+		'name'		=> $bname,
+		'version'	=> $version,
 		'platform'	=> $platform,
-		'pattern'	 => $pattern
+		'pattern'	=> $pattern
 	);
 }
 
@@ -218,7 +218,7 @@ function identificarNavegador2 ()
 	);
 	foreach ($bots as $bot) {
 		// if bot, returns OTHER
-		if (strpos(strtoupper($var), $bot) !== FALSE)
+		if ( !strpos(strtoupper($var), $bot) )
 			return $info;
 	}
 	// loop the valid browsers
@@ -227,7 +227,7 @@ function identificarNavegador2 ()
 		$f = $s + strlen($parent);
 		$version = substr($var, $f, 5);
 		$version = preg_replace('/[^0-9,.]/', '', $version);
-		if (strpos(strtoupper($var), $parent) !== FALSE) {
+		if ( !strpos(strtoupper($var), $parent) ) {
 			$info['browser'] = $parent;
 			$info['version'] = $version;
 			return $info;
@@ -255,7 +255,7 @@ function get_ip_address()
 	// check for IPs passing through proxies
 	if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 		// check if multiple ips exist in var
-		if (strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') !== false) {
+		if ( !strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') ) {
 			$iplist = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
 			foreach ($iplist as $ip) {
 				if (validate_ip($ip))

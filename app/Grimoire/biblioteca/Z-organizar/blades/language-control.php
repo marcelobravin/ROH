@@ -18,21 +18,22 @@
 
 	$idioma = '';
 	switch ( $_SESSION['selectedLanguage']) {
-		case 'AR':	$idioma = 'arabe';
+		case 'AR':		$idioma = 'arabe';
 			break;
-		case 'DE':	$idioma = 'alemao';
+		case 'DE':		$idioma = 'alemao';
 			break;
-		case 'en-US': $idioma = 'ingles';
+		case 'en-US':	$idioma = 'ingles';
 			break;
-		case 'ES':	$idioma = 'espanhol';
+		case 'ES':		$idioma = 'espanhol';
 			break;
-		case 'FR':	$idioma = 'frances';
+		case 'FR':		$idioma = 'frances';
 			break;
-		case 'JP':	$idioma = 'japones';
+		case 'JP':		$idioma = 'japones';
 			break;
-		case 'pt-BR': $idioma = 'portugues';
+		case 'pt-BR':	$idioma = 'portugues';
 			break;
-		case 'RU':	$idioma = 'russo';
+		case 'RU':		$idioma = 'russo';
 			break;
+		default:		$idioma = "Idioma não encontrado!";
 	}
 ?>

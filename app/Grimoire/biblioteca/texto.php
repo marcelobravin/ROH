@@ -96,8 +96,6 @@ function contem ($agulha, $palheiro)
  * @param	string
  * @param	string
  * @return	bool
- *
- * @todo	Inverter parametros
  */
 function comecaCom ($needle, $haystack)
 {
@@ -112,8 +110,6 @@ function comecaCom ($needle, $haystack)
  * @param	string
  * @param	string
  * @return	bool
- *
- * @todo	Inverter parametros
  */
 function terminaCom ($needle, $haystack)
 {

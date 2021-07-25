@@ -20,7 +20,6 @@
 		//echo $sql = atualizacao("tabela", array("nome"=>"Jose"), "id=1");
 		//echo $sql = atualizacao("tabela", array("nome"=>"Jose"));
 		//echo $sql = atualizacao("tabela", array("nome"=>"Jose"), 4);
- * @todo Dá pra melhorar substituindo a adição de virgulas por implode
  */
 function atualizacao ($tabela, $objeto, $condicao="")
 {

@@ -47,7 +47,7 @@ function anexarArquivo ($vetor, $caminho)
 */
 function array_para_csv (array &$array)
 {
-	if (count($array) == 0)
+	if ( empty($array) )
 		return null;
 
 	ob_start();
@@ -225,12 +225,13 @@ function download ($arquivo)
 			case "php": // deixar vazio por segurança
 			case "htm": // deixar vazio por segurança
 			case "html": // deixar vazio por segurança
+			default: // deixar vazio por segurança
 		}
 		header("Content-Type: ".$tipo); // informa o tipo do arquivo ao navegador
 		header("Content-Length: ". filesize($arquivo)); // informa o tamanho do arquivo ao navegador
 		//header("Content-Disposition: attachment; filename=".basename($arquivo)); // informa ao navegador que é tipo anexo e faz abrir a janela de download, tambem informa o nome do arquivo
-		readfile($arquivo); // lê o arquivo
-		exit; // aborta pós-ações
+		readfile($arquivo);
+		exit;
 	}
 }
 
@@ -245,6 +246,8 @@ function download ($arquivo)
  *
  * @param	string
  * @param	string
+ * @param	bool	flaga para definir se conteudo deve ser acrescentado ou sobrescrito
+ *
  * @param	bool	Sucesso no registro do conteúdo
  *
  * @example
@@ -252,9 +255,9 @@ function download ($arquivo)
 */
 function escrever ($arquivo, $conteudo, $sobreescrever=false)
 {
-	if ( !$sobreescrever )
-		if ( file_exists($arquivo) )
-			$conteudo = file_get_contents($arquivo) . $conteudo;
+	if ( !$sobreescrever && file_exists($arquivo) ) {
+		$conteudo = file_get_contents($arquivo) . $conteudo;
+	}
 
 	file_put_contents($arquivo, $conteudo);
 	return true;
@@ -412,10 +415,6 @@ function excluirArquivos ($criterio)
 		echo fazerUpload($_FILES['foto'], true, "", 1024, array("imagem"));
 		echo fazerUpload($_FILES['foto'], null, "", 1024, array("imagem"));
 	}
- * @todo
-	if arquivo != null
-	retornar mensagem de erro caso pasta não tenha permissão de acesso
-	opcao overwrite
 */
 //echo fazerUpload($_FILES['arquivo'], true, "../../img/fotos/"); // IMPORTANTE ADICIONAR BARRA NO FINAL
 function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAceitados=null, $sobrescrever=false)
@@ -556,7 +555,7 @@ function incluir ($caminho = "frames/metas.php")
 function identificarTipo ($arquivo)
 {
 	$extensao = retornarExtensao($arquivo);
-	if (strpos($arquivo, "/") != false) // Se tiver barra identifica por tipo
+	if ( !strpos($arquivo, "/") ) // Se tiver barra identifica por tipo
 		$extensao = substr(strrchr($extensao, "/"), 1); // GAMB ???
 
 	$extensao = strtolower($extensao);

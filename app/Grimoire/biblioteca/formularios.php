@@ -75,7 +75,8 @@ function gerarInputs ($descricao, $registro=null, $sobreEscreverCampos=array(), 
  * @uses	formularios.php->gerarInputs()
  * @uses	formularios.php->gerarLabels()
  * @uses	sql.php->selecao()
- * @todo
+ *
+ * @example
 		$sobreescreverLabels = array('titulo'=> 'Título');
 		$sobreEscreverCampos = array();
 		$remover = array();

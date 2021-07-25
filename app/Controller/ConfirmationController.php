@@ -1,14 +1,11 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-require ROOT.'app/model/database.class.php';
-
 
 if ( !isset($_GET['id']) ) {
 	die("Id inválido");
 }
 
-$db = new Database();
 
 $condicoes = array(
 	'id' => $_GET['id']
@@ -20,9 +17,7 @@ $user = $user[0];
 $token = uniqid();
 
 $assunto = "Confirmação de email";
-// $servidor = "http://localhost/roh/";
 $servidor = "http://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
-// $servidor = "http://localhost/PROJETOS/roh/";
 $endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
 
