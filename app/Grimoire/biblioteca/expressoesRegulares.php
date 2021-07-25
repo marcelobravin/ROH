@@ -12,6 +12,9 @@
  *
  * @param	string	Padrão
  * @return	string	Expressão regular OU string vazia
+ *
+ * @todo pegar exemplos das expressões em onde sao chamadas como: validaCoresHexadecimais()
+ *
  */
 function padrao ($padrao)
 {
@@ -50,6 +53,12 @@ function padrao ($padrao)
 		case "comentários multi-linha":
 			return '/^[(/*)+.+(*/)]$/';
 
+		case "codigo_postal":
+			return '/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/';
+
+		case "cor_hexadecimal":
+			return '/^#(?:(?:[a-f\d]{3}){1,2})$/i';
+
 		case "cpf":
 			return "/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2,2}$/";
 			//$re = preg_match("^([0-9]){3}\.([0-9]){3}\.([0-9]){3}-([0-9]){2}$^", $cpf);
@@ -58,11 +67,13 @@ function padrao ($padrao)
 			return '/^[0-9+\/.-]{18}$/i';
 
 		case "data":
+			//'/^\d{1,2}\/\d{1,2}\/\d{4}$/'
 			return "^[0-9]{2}/[0-9]{2}/[0-9]{4}$^";
 
 		case "email":
 			return "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
-			// return "/^(([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}){0,1}$/";
+			// '/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/'
+			// "/^(([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}){0,1}$/";
 
 		case "endereco": # alfanumerico_simbolos_e_espacos
 			return "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9,.]+$/";
@@ -96,7 +107,6 @@ function padrao ($padrao)
 			return '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 			// return "|^http(s)?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
 			// return '(https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ "]*[^ ,;\.:">)])?
-
 	}
 
 	return false;

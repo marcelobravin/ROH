@@ -360,35 +360,6 @@ function validaIE ($ie, $uf="SP")
 }
 
 /**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Endereços IP
- * Não é necessário efetuar PING ou qualquer coisa do tipo, essa regra é válida para verificar se os IPs foram escritos corretamente, como esse exemplo 255.255.255.0:
- */
-function validaEnderecosIP ()
-{
-	$string = "255.255.255.0";
-	if (preg_match(	'^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$',	$string))
-		echo "example 5 successful.";
-}
-
-/**
  * Verifica se o valor se encaixa no padrão
  * @package	grimoire/bibliotecas/validacao.php
  * @version	05-07-2015
@@ -435,9 +406,9 @@ function validarIp ($ip)
 */
 function validate_ip ($ip)
 {
-	if (strtolower($ip) === 'unknown')
+	if (strtolower($ip) === 'unknown') {
 		return false;
-
+	}
 	// generate ipv4 network address
 	$ip = ip2long($ip);
 
@@ -502,11 +473,9 @@ function validarSenha ($user_input, $password)
  * Validar nome de usuário
  * Essa regra é para permitir usuários com nome de 4 a 28 caracteres, alfanuméricos e acentuados:
  */
-function validaUserName ()
+function validaUserName ($string = "userNaME4234432_")
 {
-	$string = "userNaME4234432_";
-	if (preg_match('/^[a-z\d_]{4,28}$/i', $string))
-		echo "example 1 successful.";
+	return preg_match('/^[a-z\d_]{4,28}$/i', $string);
 }
 
 /**
@@ -531,40 +500,9 @@ function validaUserName ()
  * Números telefônicos
  * Essa regra é para validar números de telefone, e os números devem ser escritos da seguinte maneira (###)###-####:
  */
-function validaNumeroTelefonicos ()
+function validaNumeroTelefonicos ($string = "(032)555-5555")
 {
-	$string = "(032)555-5555";
-	if (preg_match('/^(\(?[2-9]{1}[0-9]{2}\)?|[0-9]{3,3}[-. ]?)[ ][0-9]{3,3}[-. ]?[0-9]{4,4}$/', $string))
-		echo "example 2 successful.";
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/**
- *
- * Endereços de e-mail
- * A regra para validar e-mails é a seguinte:
- */
-function validaEnderecoEmail ()
-{
-	$string = "first.last@domain.co.uk";
-	if (preg_match('/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/', $string))
-		echo "example 3 successful.";
+	return preg_match('/^(\(?[2-9]{1}[0-9]{2}\)?|[0-9]{3,3}[-. ]?)[ ][0-9]{3,3}[-. ]?[0-9]{4,4}$/', $string);
 }
 
 /**
@@ -587,13 +525,11 @@ function validaEnderecoEmail ()
 /**
  *
  * Códigos Postais
- * Permie utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
+ * Permite utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
  */
-function validaCodigoPostal ()
+function validaCodigoPostal ($string = "55324-4324")
 {
-	$string = "55324-4324";
-	if (preg_match('/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/', $string))
-		echo "example 4 successful.";
+	return validar("CodigoPostal", $string);
 }
 
 /**
@@ -618,11 +554,9 @@ function validaCodigoPostal ()
  * Cores Hexadecimais
  * Você também pode verificar valores hexadecimais em suas 2 formas, a normal e a abreviada: (#333, 333, #333333 o 333333) com o símbolo # opcional
  */
-function validaCoresHexadecimais ()
+function validaCoresHexadecimais ($string = "#666666")
 {
-	$string = "#666666";
-	if (preg_match('/^#(?:(?:[a-f\d]{3}){1,2})$/i', $string))
-		echo "example 6 successful.";
+	return validar("hexadecimal", $string);
 }
 
 /**
@@ -647,46 +581,11 @@ function validaCoresHexadecimais ()
  * Datas
  * Um formato de data típico MM/DD/YYYY e sua validação é a seguinte:
 */
-function validaData ()
+function validaData ($string = "10/15/2007")
 {
-	$string = "10/15/2007";
-	if (preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $string))
-		echo "example 8 successful.";
+	return validar("data", $string);
 }
 
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function validaPrimitivos ($parametro)
-{
-	if (
-		is_array($parametro)	||
-		is_numeric($parametro)	||
-		is_bool($parametro)		||
-		is_float($parametro)	||
-		is_file($parametro)		||
-		is_dir($parametro)		||
-		is_int($parametro)		||
-		is_null($parametro)
-	)
-		return true;
-
-	return false;
-}
 
 /**
  * Escreve o conteúdo em um arquivo

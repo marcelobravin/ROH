@@ -45,6 +45,8 @@ function CheckIE($ie, $uf){
 		$uf = strtoupper($uf);
 		$ie = preg_replace("[()-./,:]", "", $ie);
 
+		$resultado = false;
+
 		if ($uf == 'AC') { $resultado = CheckIEAC($ie); }
 		if ($uf == 'AL') { $resultado = CheckIEAL($ie); }
 		if ($uf == 'AM') { $resultado = CheckIEAM($ie); }
@@ -75,8 +77,6 @@ function CheckIE($ie, $uf){
 
 		return $resultado;
 	}
-
-	return false;
 }
 
 // INSCRIÇÂO ESTADUAL ==========================================================
