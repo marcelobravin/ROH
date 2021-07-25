@@ -29,10 +29,11 @@ function enviarEmail  ($to, $subject="Assunto", $message="Conteúdo do email", $
 	// In case any of our lines are larger than 70 characters, we should use wordwrap()
 	$body = wordwrap($body, 70);
 
-	if ( mail($to, $subject, $body, $header) )
+	if ( mail($to, $subject, $body, $header) ) {
 		return true;
-	else
+	} else {
 		return error_get_last();
+	}
 }
 
 /**

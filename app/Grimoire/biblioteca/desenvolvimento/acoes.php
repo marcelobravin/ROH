@@ -8,10 +8,11 @@ if ( isset($_REQUEST['action']) ) {
 	switch ( $_REQUEST['action'] ) {
 
 		case 'popularTabela' :
-			if ( isset($_REQUEST['tabela']) )
+			if ( isset($_REQUEST['tabela']) ) {
 				$tabela = $_REQUEST['tabela'];
-			else
+			} else {
 				die("Forneça o nome da tabela desejada");
+			}
 
 			$quantidade = isset($_REQUEST['tabela']) ? $_REQUEST['quantidade'] : 30;
 			popularTabela($tabela, $quantidade);
@@ -22,10 +23,11 @@ if ( isset($_REQUEST['action']) ) {
 			break;
 
 		case 'criacaoTabela' :
-			if ( isset($_REQUEST['tabela']) )
+			if ( isset($_REQUEST['tabela']) ) {
 				$tabela = $_REQUEST['tabela'];
-			else
+			} else {
 				$tabela = "NOVA_TABELA";
+			}
 
 			$sql = criacaoTemplateTabela($tabela);
 
@@ -61,17 +63,19 @@ if ( isset($_REQUEST['action']) ) {
 			break;
 
 		case 'dbImport' :
-			if ( importarBD() )
+			if ( importarBD() ) {
 				echo "Importação de BD realizada com sucesso!";
-			else
+			} else {
 				echo "Erro ao importar BD";
+			}
 			break;
 
 		case 'dbExport' :
-			if ( exportarBD() )
+			if ( exportarBD() ) {
 				echo "Exportação de BD realizada com sucesso!";
-			else
+			} else {
 				echo "Erro ao exportar BD";
+			}
 			break;
 
 		case 'gerar-formulario' :

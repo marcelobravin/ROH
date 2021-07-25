@@ -634,14 +634,17 @@ function importarBD ()
 {
 	criarBanco();
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/tabelas/*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/tabelas/*.sql") ) {
 		throw new Exception( 'Erro: importarTabelas()');
+	}
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/constraints_*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/constraints_*.sql") ) {
 		throw new Exception( 'Erro: importarConstraints()');
+	}
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/dml/registros/*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/dml/registros/*.sql") ) {
 		throw new Exception( 'Erro: importarRegistros()');
+	}
 
 	return true;
 }

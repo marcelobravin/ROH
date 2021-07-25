@@ -172,7 +172,7 @@ function gerarBackground ($arquivo, $block=true)
  * @param	 bool
  * @return	string
  */
-function gerarImagemVideoYoutube ($url="http://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
+function gerarImagemVideoYoutube ($url="https://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
 {
 	$imagem = str_replace("watch?v=", "vi/", $url);
 	$imagem = str_replace("www.youtube", "img.youtube", $imagem);
@@ -413,7 +413,7 @@ function retornarImagem ($imagem, $x=100, $y=100)
 {
 	if (empty($imagem)) {
 	//|| !file_exists($imagem)) {
-		return "http://placehold.it/{$x}x{$y}";
+		return "https://placehold.it/{$x}x{$y}";
 	}
 
 	return $imagem;
@@ -435,7 +435,7 @@ function retornarImagem2 ($imagem, $x=100, $y=100, $fundo="F9F9F9", $letra="CCCC
 {
 	if (empty($imagem)) {
 	//|| !file_exists($imagem)) {
-		return "http://placehold.it/{$x}x{$y}/{$fundo}/{$letra}";
+		return "https://placehold.it/{$x}x{$y}/{$fundo}/{$letra}";
 	}
 
 	return $imagem;
@@ -444,17 +444,13 @@ function retornarImagem2 ($imagem, $x=100, $y=100, $fundo="F9F9F9", $letra="CCCC
 /**
  * Escreve o conteúdo em um arquivo
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
- *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
  * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
  *
- * @return	bool
+ * @return	object
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -482,15 +478,12 @@ function imageClassifier ($images)
 /**
  * Escreve o conteúdo em um arquivo
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
- *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
  *
@@ -500,16 +493,14 @@ function imageClassifier ($images)
 */
 function imageGrouper ($images)
 {
-		$imagesSorted = imageClassifier($images);
-		foreach ($imagesSorted as $key => $value) {
-				imageCollation($value, $key);
-		}
+	$imagesSorted = imageClassifier($images);
+	foreach ($imagesSorted as $key => $value) {
+		imageCollation($value, $key);
+	}
 }
 
 /**
  * Escreve o conteúdo em um arquivo
- *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
@@ -517,7 +508,6 @@ function imageGrouper ($images)
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
  *
@@ -575,15 +565,12 @@ function imageCollation ($images, $fileName)
 /**
  * Escreve o conteúdo em um arquivo
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
- *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
  *
@@ -609,15 +596,12 @@ function createTransparentImage ($sum_width, $sum_height)
 /**
  * Escreve o conteúdo em um arquivo
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
- *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
  *
@@ -674,15 +658,12 @@ function processImages ($tmp, $images, $dimensions, $sqRt)
 /**
  * Escreve o conteúdo em um arquivo
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
- *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
  *
@@ -694,13 +675,11 @@ function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP"
 {
 	$path = $dir . $filename . ".png";
 	#chmod($filename,0755);
-	imagepng($tmp, $path, 0, null);
+	imagepng($tmp, $path, 0, 0);
 }
 
 /**
  * Escreve o conteúdo em um arquivo
- *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
@@ -708,7 +687,6 @@ function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP"
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
  *

@@ -174,17 +174,20 @@ function identificarNavegador ()
 	if ($i != 1) {
 		//we will have two since we are not using 'other' argument yet
 		//see if version is before or after the name
-		if (strripos($u_agent,"Version") < strripos($u_agent,$ub))
+		if (strripos($u_agent,"Version") < strripos($u_agent,$ub)) {
 			$version= $matches['version'][0];
-		else
+		} else {
 			$version= $matches['version'][1];
+		}
 
 	} else {
 		$version= $matches['version'][0];
 	}
 
 	// check if we have a number
-	if ($version==null || $version=="") {$version="?";}
+	if ($version==null || $version=="") {
+		$version="?";
+	}
 
 	return array(
 		'userAgent'	=> $u_agent,

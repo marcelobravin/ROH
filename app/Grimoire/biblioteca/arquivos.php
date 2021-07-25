@@ -211,7 +211,7 @@ function download ($arquivo)
 		header("Content-Transfer-Encoding: binary");
 		// Read the file from disk
 		$tipo = strtolower(substr(strrchr(basename($arquivo),"."),1));
-		switch($tipo){ // verifica a extensão do arquivo para pegar o tipo
+		switch ($tipo) { // verifica a extensão do arquivo para pegar o tipo
 			case "pdf": $tipo="application/pdf"; break;
 			case "exe": $tipo="application/octet-stream"; break;
 			case "zip": $tipo="application/zip"; break;
@@ -555,15 +555,17 @@ function incluir ($caminho = "frames/metas.php")
 function identificarTipo ($arquivo)
 {
 	$extensao = retornarExtensao($arquivo);
-	if ( !strpos($arquivo, "/") ) // Se tiver barra identifica por tipo
+	if ( !strpos($arquivo, "/") ) {// Se tiver barra identifica por tipo
 		$extensao = substr(strrchr($extensao, "/"), 1); // GAMB ???
+	}
 
 	$extensao = strtolower($extensao);
 	// Corrige extensoes no IE
-	if ($extensao == 'x-png')
+	if ($extensao == 'x-png') {
 		$extensao = "png";
-	else if ($extensao == 'pjpeg')
+	} else if ($extensao == 'pjpeg') {
 		$extensao = "jpg";
+	}
 
 	// 'asp' 'doc' 'htm' 'html' 'mdb' 'mov' 'ppt''vbs' 'xls' 'zip' 'jso' 'php'
 	// Tipos de arquivo
@@ -582,8 +584,9 @@ function identificarTipo ($arquivo)
 
 	// Se encontrar altera a resposta
 	foreach ($matriz as $indice => $valor) {
-		if (in_array($extensao, $valor))
+		if (in_array($extensao, $valor)) {
 			$resposta = $indice;
+		}
 	}
 	return $resposta;
 }

@@ -1,15 +1,15 @@
 <?php
 // limitador();
 session_start();
-define( "LOGADO", !empty($_SESSION['user']) ); #logado($indice='usuario');
+define( "LOGADO", !empty($_SESSION['user']) );
 
-if ( MANUTENCAO )
+if ( MANUTENCAO ) {
 	die("Página em manutenção! Volte novamente mais tarde");
+}
 
-
-if ( LOGADO )
+if ( LOGADO ) {
 	condenarSessao(SESSAO_TTL);
-
+}
 
 $MODULOS = array('hospital', 'usuario');
 
@@ -40,7 +40,6 @@ $PAGINA = array(
 	'endereco'	=> paginaAtual()
 	// 'separador'	=> SEPARADOR_TITULO
 );
-
 
 /* ob_start(); */
 // $page = ob_get_contents();

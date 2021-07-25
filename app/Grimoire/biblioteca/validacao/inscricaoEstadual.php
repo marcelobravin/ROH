@@ -45,34 +45,38 @@ function CheckIE($ie, $uf){
 		$uf = strtoupper($uf);
 		$ie = preg_replace("[()-./,:]", "", $ie);
 
-		if ($uf == 'AC') return CheckIEAC($ie);
-		if ($uf == 'AL') return CheckIEAL($ie);
-		if ($uf == 'AM') return CheckIEAM($ie);
-		if ($uf == 'AP') return CheckIEAP($ie);
-		if ($uf == 'BA') return CheckIEBA($ie);
-		if ($uf == 'CE') return CheckIECE($ie);
-		if ($uf == 'DF') return CheckIEDF($ie);
-		if ($uf == 'ES') return CheckIEES($ie);
-		if ($uf == 'GO') return CheckIEGO($ie);
-		if ($uf == 'MA') return CheckIEMA($ie);
-		if ($uf == 'MT') return CheckIEMT($ie);
-		if ($uf == 'MS') return CheckIEMS($ie);
-		if ($uf == 'MG') return CheckIEMG($ie);
-		if ($uf == 'PA') return CheckIEPA($ie);
-		if ($uf == 'PB') return CheckIEPB($ie);
-		if ($uf == 'PR') return CheckIEPR($ie);
-		if ($uf == 'PE') return CheckIEPE($ie);
-		if ($uf == 'PI') return CheckIEPI($ie);
-		if ($uf == 'RJ') return CheckIERJ($ie);
-		if ($uf == 'RN') return CheckIERN($ie);
-		if ($uf == 'RS') return CheckIERS($ie);
-		if ($uf == 'RO') return CheckIERO($ie);
-		if ($uf == 'RR') return CheckIERR($ie);
-		if ($uf == 'SC') return CheckIESC($ie);
-		if ($uf == 'SP') return CheckIESP($ie);
-		if ($uf == 'SE') return CheckIESE($ie);
-		if ($uf == 'TO') return CheckIETO($ie);
+		if ($uf == 'AC') { $resultado = CheckIEAC($ie); }
+		if ($uf == 'AL') { $resultado = CheckIEAL($ie); }
+		if ($uf == 'AM') { $resultado = CheckIEAM($ie); }
+		if ($uf == 'AP') { $resultado = CheckIEAP($ie); }
+		if ($uf == 'BA') { $resultado = CheckIEBA($ie); }
+		if ($uf == 'CE') { $resultado = CheckIECE($ie); }
+		if ($uf == 'DF') { $resultado = CheckIEDF($ie); }
+		if ($uf == 'ES') { $resultado = CheckIEES($ie); }
+		if ($uf == 'GO') { $resultado = CheckIEGO($ie); }
+		if ($uf == 'MA') { $resultado = CheckIEMA($ie); }
+		if ($uf == 'MT') { $resultado = CheckIEMT($ie); }
+		if ($uf == 'MS') { $resultado = CheckIEMS($ie); }
+		if ($uf == 'MG') { $resultado = CheckIEMG($ie); }
+		if ($uf == 'PA') { $resultado = CheckIEPA($ie); }
+		if ($uf == 'PB') { $resultado = CheckIEPB($ie); }
+		if ($uf == 'PR') { $resultado = CheckIEPR($ie); }
+		if ($uf == 'PE') { $resultado = CheckIEPE($ie); }
+		if ($uf == 'PI') { $resultado = CheckIEPI($ie); }
+		if ($uf == 'RJ') { $resultado = CheckIERJ($ie); }
+		if ($uf == 'RN') { $resultado = CheckIERN($ie); }
+		if ($uf == 'RS') { $resultado = CheckIERS($ie); }
+		if ($uf == 'RO') { $resultado = CheckIERO($ie); }
+		if ($uf == 'RR') { $resultado = CheckIERR($ie); }
+		if ($uf == 'SC') { $resultado = CheckIESC($ie); }
+		if ($uf == 'SP') { $resultado = CheckIESP($ie); }
+		if ($uf == 'SE') { $resultado = CheckIESE($ie); }
+		if ($uf == 'TO') { $resultado = CheckIETO($ie); }
+
+		return $resultado;
 	}
+
+	return false;
 }
 
 // INSCRIÇÂO ESTADUAL ==========================================================

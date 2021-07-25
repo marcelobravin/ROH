@@ -88,10 +88,11 @@ function calcularPorcentagem ($quantidade, $total)
  */
 function calcularPorcentagem2 ($porcentagem, $total)
 {
-	if ($porcentagem > 0 && $total > 0)
+	if ($porcentagem > 0 && $total > 0) {
 		return floatval($porcentagem * ($total / 100));
-	else
+	} else {
 		return -1;
+	}
 }
 
 /**
@@ -125,11 +126,13 @@ function entre ($numero, $piso=0, $teto=0)
  */
 function converterDinheiro ($numero, $pt=true)
 {
-	if ( is_numeric($numero) )
-		if ($pt)
+	if ( is_numeric($numero) ){
+		if ($pt) {
 			$numero = number_format($numero, 2, ",", ".");
-		else
+		} else {
 			$numero = number_format($numero, 2, ".", ",");
+		}
+	}
 
 	return $numero;
 }
@@ -225,9 +228,10 @@ function limitarNumero ($numero, $valorMinimo=null, $valorMaximo=null)
  */
 function regraDeTres ($valorParcial, $valorTotal)
 {
-	if ($valorTotal == 0) $valorTotal = 1;
-	$x = ($valorParcial * 100) / $valorTotal;
-	return $x;
+	if ($valorTotal == 0) {
+		$valorTotal = 1;
+	}
+	return ($valorParcial * 100) / $valorTotal;
 }
 
 /**
