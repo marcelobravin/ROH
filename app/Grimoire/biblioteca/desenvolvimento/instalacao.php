@@ -878,7 +878,7 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 	$identacao = "	";
 	$sql = "";
 
-	if ($drop == true)
+	if ($drop)
 		$sql .= "DROP TABLE IF EXISTS $tabela;\n";
 
 	$sql .= "CREATE TABLE IF NOT EXISTS $tabela (\n";

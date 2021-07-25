@@ -403,7 +403,7 @@ function validaEnderecosIP ()
 */
 function validarIp ($ip)
 {
-	if (validar("ip", $ip) == true) {
+	if ( validar("ip", $ip) ) {
 
 		$quaternion = explode(".", $ip);
 		foreach ($quaternion as $vetor) {

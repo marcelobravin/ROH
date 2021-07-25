@@ -422,7 +422,7 @@ function excluirArquivos ($criterio)
 function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAceitados=null, $sobrescrever=false)
 {
 	// Se nome for true utiliza timestamp como nome
-	if ($nome === true)
+	if ( $nome )
 		$nome = Date('Y-m-d_H-i-s');
 	else if (empty($nome))
 		$nome = "upload"; // Se nome for nulo utiliza nome padrão
@@ -447,7 +447,7 @@ function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAc
 				$fileName = $nome . "." . $extensao;
 				$novoArquivo = $caminho . "" . $fileName;
 				// Verifica se arquivo existe
-				if (file_exists($novoArquivo) && $sobrescrever==false) {
+				if (file_exists($novoArquivo) && !$sobrescrever) {
 					$resposta = "O arquivo '$novoArquivo' já existe!";
 				} else {
 					// Realiza upload

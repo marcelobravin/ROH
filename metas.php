@@ -68,9 +68,9 @@
 
 							<thead>
 								<tr>
-									<th>Especialidade dos Leitos</th>
-									<th title="Essa instituição realiza esse tipo de atendimento?">Aplicável?</th>
-									<th>Leitos</th>
+									<th scope="Especialidades">Especialidade dos Leitos</th>
+									<th scope="Aplicável" title="Essa instituição realiza esse tipo de atendimento?">Aplicável?</th>
+									<th scope="Leitos">Leitos</th>
 								</tr>
 							</thead>
 

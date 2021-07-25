@@ -398,13 +398,13 @@ function login ($login, $senha)
  *
  * @uses	$_SESSION
  */
-function logoff ($caminho=ROOT."/index.php")
+function logoff ($caminho=PAGINA_INICIAL)
 {
 	session_start();
 	unset($_SESSION);
 	session_unset();
 	session_destroy();
-	session_start();
+	// session_start();
 	// header("Location: $caminho");
 	redirecionar($caminho);
 	// exit;
@@ -452,7 +452,7 @@ function recarregar ($descartarParametros=false)
  *
  * @param	string
  */
-function redirecionar ($url = ROOT."/index.php")
+function redirecionar ($url = PAGINA_INICIAL)
 {
 	if ( !headers_sent() ) {
 		header('Location: ' . $url);
@@ -506,13 +506,13 @@ function getBrowser ()
 	$version	= "";
 
 	//First get the platform?
-	if (preg_match('/linux/i', $u_agent))
+	if (preg_match('/linux/i', $u_agent)) {
 		$platform = 'linux';
-	elseif (preg_match('/macintosh|mac os x/i', $u_agent))
+	} elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
 		$platform = 'mac';
-	elseif (preg_match('/windows|win32/i', $u_agent))
+	} elseif (preg_match('/windows|win32/i', $u_agent)) {
 		$platform = 'windows';
-
+	}
 	// Next get the name of the useragent yes seperately and for good reason
 	if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
 		$bname = 'Internet Explorer';

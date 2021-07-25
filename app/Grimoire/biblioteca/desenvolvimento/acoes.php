@@ -102,9 +102,9 @@ if ( isset($_REQUEST['action']) ) {
 				echo "Criação da tabela {$tabela} executada!";
 			}
 
-			echo('<pre>');
+			echo '<pre>';
 			print_r( $sql );
-			echo('</pre>');
+			echo '</pre>';
 			break;
 
 		case 'criacaoFk' :
@@ -120,9 +120,9 @@ if ( isset($_REQUEST['action']) ) {
 				echo "Alteração de tabela {$tabela} executada!";
 			}
 
-			echo('<pre>');
+			echo '<pre>';
 			print_r( $sql );
-			echo('</pre>');
+			echo '</pre>';
 
 			if ( isset($_REQUEST['tabela']) ) {
 
@@ -136,9 +136,9 @@ if ( isset($_REQUEST['action']) ) {
 					}
 				}
 
-				echo('<pre>');
+				echo '<pre>';
 				print_r( $sql2 );
-				echo('</pre>');
+				echo '</pre>';
 			}
 
 			break;
@@ -197,9 +197,9 @@ if ( isset($_REQUEST['action']) ) {
 				$x = criarFormularioInsercao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $conversoes, $descricaoLabels, $padroes);
 				if ( $x ) {
 					echo "Gerado formulário de inserção: {$value}!";
-					echo('<pre>');
+					echo '<pre>';
 					print_r($x);
-					echo('</pre>');
+					echo '</pre>';
 				} else {
 					echo "Erro...";
 				}
@@ -256,9 +256,9 @@ if ( isset($_REQUEST['action']) ) {
 				$x = criarFormularioAtualizacao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $conversoes, $descricaoLabels, $padroes);
 				if ( $x ) {
 					echo "Gerado formulário de atualização: {$value}!";
-					echo('<pre>');
+					echo '<pre>';
 					print_r( htmlspecialchars($x));
-					echo('</pre>');
+					echo '</pre>';
 				} else {
 					echo "Erro...";
 				}
@@ -267,9 +267,9 @@ if ( isset($_REQUEST['action']) ) {
 			break;
 
 		case 'generateSiteMap':
-			echo('<pre>');
+			echo '<pre>';
 			print_r( generateSiteMap() );
-			echo('</pre>');
+			echo '</pre>';
 			break;
 
 		case 'registerProjectFiles':
@@ -294,9 +294,9 @@ if ( isset($_REQUEST['action']) ) {
 
 		case 'exportConstraints':
 			$c =  exportarConstaints();
-			echo('<pre>');
+			echo '<pre>';
 			print_r($c);
-			echo('</pre>');
+			echo '</pre>';
 			break;
 
 		// case 'gerarBuildProducao		: die(gerarHtaccess ('$SITE')); //break;

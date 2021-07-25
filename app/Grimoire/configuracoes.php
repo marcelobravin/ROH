@@ -56,6 +56,8 @@ else
 	define( 'GRIMOIRE'			, ROOT .'app/Grimoire' );
 	define( 'ARQUIVOS'			, '' );
 	define( 'IMAGENS'			, '' );
+	define( 'PAGINA_INICIAL'	, ROOT.'/index.php' );
+
 
 /**
  * Configurações de idioma e localização

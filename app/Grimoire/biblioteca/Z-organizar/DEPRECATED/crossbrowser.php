@@ -13,7 +13,7 @@
  */
 function ie($versao="5.5000", $operador="") {
 
-  if ($operador==true) {
+  if ($operador) {
     $operador = "gte";
   } else {
     $operador = "lte";
