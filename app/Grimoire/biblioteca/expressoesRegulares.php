@@ -71,7 +71,8 @@ function padrao ($padrao)
 			return '/^[\-+]?[0-9]+$/';
 
 		case "ip": # v4
-			return "^([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}$^";
+			return '^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$';
+			// return "^([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}$^";
 
 		case "letras": # Valida se a string é composta apenas de letras maiúsculas e minúsculas
 			return "/^[a-zA-Z]+$/";

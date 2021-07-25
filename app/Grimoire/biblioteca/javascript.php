@@ -40,7 +40,7 @@ function adicionarListaScripts ($LISTA_SCRIPTS)
  * @example
 		echo appendScripts(array("http://code.jquery.com/jquery-latest.js", "http://code.jquery.com/jquery-latest2.js"));
  */
-function appendScripts ($filaScripts=array("http://code.jquery.com/jquery-latest.js"))
+function appendScripts ($filaScripts=array("https://code.jquery.com/jquery-latest.js"))
 {
 	$arquivo = "";
 	if (is_array($filaScripts)) {
@@ -88,9 +88,8 @@ function appendScripts ($filaScripts=array("http://code.jquery.com/jquery-latest
 		echo script("http://code.jquery.com/jquery-latest.js");
 		echo script("jquery-1.4.3.min.js");
  */
-function script ($arquivo="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js", $fallback=NULL)
+function script ($arquivo="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js", $fallback=NULL)
 {
-
 	$script = "<script async src='$arquivo' type='text/javascript'></script>";
 
 	if (!empty($fallback)) {

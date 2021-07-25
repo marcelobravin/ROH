@@ -166,7 +166,7 @@ function div ($atributos=array())
  * @param	string
  * @return	string
  */
-function embed ($url="http://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
+function embed ($url="https://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
 {
 	return "<embed src='{$url}' pluginspage='http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='100%' height='100%'></embed>";
 }
@@ -452,7 +452,7 @@ function html ($atributos=array())
  * @uses	html.php->gerarAtributos()
  * @example
  */
-function iframe ($iframe="http://hastaluego1.tempsite.ws/luego_labs/ace-of-space/WebPlayer/WebPlayer.html", $atributos="")
+function iframe ($iframe="https://hastaluego1.tempsite.ws/luego_labs/ace-of-space/WebPlayer/WebPlayer.html", $atributos="")
 {
 	$atributos = gerarAtributos($atributos);
 	return "<iframe src='$iframe' $atributos></iframe>";
