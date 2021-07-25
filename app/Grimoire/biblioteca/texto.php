@@ -99,7 +99,7 @@ function contem ($agulha, $palheiro)
  *
  * @todo	Inverter parametros
  */
-function comecaCom ($haystack, $needle)
+function comecaCom ($needle, $haystack)
 {
 	return $needle === "" || strpos($haystack, $needle) === 0;
 }
@@ -139,6 +139,11 @@ function concatenar ($array=array(), $abertura="<p>", $fechamento="</p>")
 		$string .= $abertura . $array . $fechamento;
 	}
 	return $string;
+}
+
+function concatenar2 ($array, $cola=QUEBRA_LINHA)
+{
+	return implode($cola, $array);
 }
 
 /**

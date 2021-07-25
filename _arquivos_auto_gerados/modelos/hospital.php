@@ -2,7 +2,7 @@
 		/**
 		 * hospital
 		 * @package	grimoire/modelos
-		 * @version	25-07-2021 11:20:16
+		 * @version	25-07-2021 13:31:58
 		*/
 		
 			$campos[0] = array(
@@ -11,7 +11,8 @@
 				"Null"		=> "NO",
 				"Key"		=> "PRI",
 				"Default"	=> "",
-				"Extra"		=> "auto_increment"
+				"Extra"		=> "auto_increment",
+				"Comment"	=> ""
 			);
 		
 			$campos[1] = array(
@@ -20,7 +21,8 @@
 				"Null"		=> "NO",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 			$campos[2] = array(
@@ -29,7 +31,8 @@
 				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 			$campos[3] = array(
@@ -38,7 +41,8 @@
 				"Null"		=> "NO",
 				"Key"		=> "",
 				"Default"	=> "current_timestamp()",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 			$campos[4] = array(
@@ -47,7 +51,8 @@
 				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> "on update current_timestamp()"
+				"Extra"		=> "on update current_timestamp()",
+				"Comment"	=> ""
 			);
 		
 			$campos[5] = array(
@@ -56,7 +61,8 @@
 				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 			$campos[6] = array(
@@ -65,7 +71,8 @@
 				"Null"		=> "NO",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 			$campos[7] = array(
@@ -74,7 +81,8 @@
 				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 			$campos[8] = array(
@@ -83,7 +91,8 @@
 				"Null"		=> "YES",
 				"Key"		=> "",
 				"Default"	=> "",
-				"Extra"		=> ""
+				"Extra"		=> "",
+				"Comment"	=> ""
 			);
 		
 	

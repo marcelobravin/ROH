@@ -67,6 +67,7 @@ else
 	define( 'IDIOMA'	, 'pt-BR' );
 	define( 'CARACTERES', 'utf-8' );
 	define( 'CHARSET'	, 'utf8' );
+	define( 'QUEBRA_LINHA'	, "\n\r" );
 
 	header( 'Content-Type: text/html; charset='. CARACTERES );
 	setlocale( LC_TIME, 'pt_BR.'. CHARSET );

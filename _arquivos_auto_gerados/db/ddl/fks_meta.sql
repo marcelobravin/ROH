@@ -1,0 +1,12 @@
+ALTER TABLE `meta` ENGINE = InnoDB;
+
+ALTER TABLE `meta`
+		ADD CONSTRAINT `fk_hospital`
+		FOREIGN KEY (id_hospital)
+		REFERENCES hospital(id)
+			ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE `meta`
+		ADD CONSTRAINT `fk_elemento`
+		FOREIGN KEY (id_elemento)
+		REFERENCES elemento(id)
+			ON UPDATE CASCADE ON DELETE RESTRICT;

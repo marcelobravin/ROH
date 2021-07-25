@@ -22,15 +22,16 @@
  */
 function descreverTabela ($tabela, $full=false, $banco=null)
 {
-	if ( $full )
+	if ( $full ) {
 		$sql = "SHOW FULL COLUMNS FROM $tabela";
-	else
+	} else {
 		$sql = "SHOW COLUMNS FROM $tabela";
+	}
 
-	if ( !is_null($banco) )
+	if ( !is_null($banco) ) {
 		$sql .= " FROM $banco";
+	}
 
-	#$result = executarStmt($sql, array(), 'S');
 	$result = executar($sql);
 
 	return $result;
@@ -49,22 +50,31 @@ function descreverTabela ($tabela, $full=false, $banco=null)
 function exportarBD ()
 {
 	$sql = "SHOW FULL TABLES FROM ". DBNAME;
+	$tabelas = executar($sql);
 
-	# substituir por
-	$tabs = executar($sql);
+	foreach ($tabelas as $t) {
+		$d = descreverTabela($t['Tables_in_'. DBNAME], true);
+		$sql = montarCriacao($t['Tables_in_'. DBNAME], $d);
 
-	foreach ($tabs as $value) {
-		$d = descreverTabela($value['Tables_in_'. DBNAME]);
-		$sql = montarCriacao($value['Tables_in_'. DBNAME], $d);
+		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t['Tables_in_'. DBNAME]}.sql", $sql, true);
 
-		escrever(ARQUIVOS_EFEMEROS."/tabelas/tb_{$value['Tables_in_'. DBNAME]}.sql", $sql, true);
+		gerarModelo($t['Tables_in_'. DBNAME], $d);
+		gerarInserts($t['Tables_in_'. DBNAME]);
 
-		gerarModelo($value['Tables_in_'. DBNAME], $d);
-		gerarInserts($value['Tables_in_'. DBNAME]);
+		$sqls = gerarFKs($t['Tables_in_'. DBNAME]);
+
+		if ( !empty($sqls['INSERT']) ) {
+			$content = $sqls['ALTER TABLE'];
+
+			$content .= "\n\n";
+			$content .= concatenar2($sqls['INSERT']);
+			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['Tables_in_'. DBNAME]}.sql", $content, true);
+		}
 	}
 
-	$constraints = exportarConstaints();
-	escrever(ARQUIVOS_EFEMEROS."/constraints_". DBNAME .".sql", $constraints, true);
+	$c = exportarConstraints();
+	registrartUQs($c['uqs']);
+	// escrever(ARQUIVOS_EFEMEROS."/constraints_". DBNAME .".sql", $constraints, true);
 
 	return true;
 }
@@ -260,7 +270,8 @@ function gerarModelo ($nome, $descricao)
 				"Null"		=> "'. $value['Null'] .'",
 				"Key"		=> "'. $value['Key'] .'",
 				"Default"	=> "'. $value['Default'] .'",
-				"Extra"		=> "'. $value['Extra'] .'"
+				"Extra"		=> "'. $value['Extra'] .'",
+				"Comment"	=> "'. $value['Comment'] .'"
 			);
 		';
 	}
@@ -623,13 +634,13 @@ function importarBD ()
 {
 	criarBanco();
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/tabelas/*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/tabelas/*.sql") )
 		throw new Exception( 'Erro: importarTabelas()');
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/constraints_*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/constraints_*.sql") )
 		throw new Exception( 'Erro: importarConstraints()');
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/registros/*.sql") )
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/dml/registros/*.sql") )
 		throw new Exception( 'Erro: importarRegistros()');
 
 	return true;
@@ -721,7 +732,7 @@ function gerarInserts ($tabela)
 		$inserts .= ";\n";
 	}
 
-	escrever(ARQUIVOS_EFEMEROS."/registros/{$tabela}.sql", $inserts, true);
+	escrever(ARQUIVOS_EFEMEROS."/db/dml/registros/{$tabela}.sql", $inserts, true);
 }
 
 /**
@@ -820,41 +831,54 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 }
 
 /* @todo verificar se precisa do foreach ao inves de um where */
-function exportarConstaints ($db=DBNAME)
+function exportarConstraints ($db=DBNAME)
 {
-	# Use the information_schema.table_constraints table to get the names of the constraints defined on each table:
-	// $sqlConstraints = "SELECT *
-	//	FROM information_schema.table_constraints
-	//	WHERE constraint_schema = '{$db}'";
+	$fks = exportarFKs($db); # fks existentes no BD
+	$uqs = exportarUQs($db);
 
-	# Use the information_schema.key_column_usage table to get the fields in each one of those constraints:
-	$sqlKeyColumns = "SELECT *
-		FROM information_schema.key_column_usage
-		WHERE constraint_schema = '{$db}'";
+	return array(
+		'fks' => $fks,
+		'uqs' => $uqs
+	);
+}
 
-	#$constraints = executarStmt($sqlConstraints, array(), "S");
-	$keycolumns = executarStmt($sqlKeyColumns, array(), "S");
-
+function converterUQs ($uqs)
+{
 	$tabelas = array();
-	foreach ($keycolumns as $i => $v) {
-		if ( $v['CONSTRAINT_NAME'] == "PRIMARY" )
-			unset($keycolumns[$i]);
-		else
-			$tabelas[$v['TABLE_NAME']][] = $v['COLUMN_NAME'];
+	foreach ($uqs as $i => $v) {
+		$tabelas[$v['TABLE_NAME']][] = $v['COLUMN_NAME'];
 	}
 
 	$t = array_keys( $tabelas );
-	$sql = "";
+	$alters = "";
 	if ( !empty($t) ) {
-		$sql = "-- ".agora(true)."\n";
+		$alters = "-- ".agora(true)."\n";
 		foreach ($t as $i => $v) {
-			$sql .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
-			$sql .= implode(", ", $tabelas[$v]);
-			$sql .= ");\n";
+			$alters .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
+			$alters .= implode(", ", $tabelas[$v]);
+			$alters .= ");\n";
 		}
 	}
 
-	return $sql;
+	return $alters;
+}
+
+function registrartUQs ($uqs, $db=DBNAME)
+{
+	$alters = converterUQs($uqs);
+	escrever(ARQUIVOS_EFEMEROS."/db/ddl/uniques-{$db}.sql", $alters, true);
+}
+
+function exportarUQs ($db=DBNAME)
+{
+	# Use the information_schema.key_column_usage table to get the fields in each one of those constraints:
+	$sqlKeyColumns = "SELECT *
+		FROM information_schema.key_column_usage
+		WHERE constraint_schema = '{$db}'
+			AND constraint_name != 'PRIMARY'";
+
+	$keycolumns = executar($sqlKeyColumns);
+	return $keycolumns;
 }
 
 function exportarFKs ($db=DBNAME)
@@ -863,21 +887,29 @@ function exportarFKs ($db=DBNAME)
 	$sqlConstraints = "SELECT *
 		FROM information_schema.table_constraints
 		WHERE constraint_schema = '{$db}'
-			AND constraint_type = 'FOREIGN KEY'
-		";
+			AND constraint_type = 'FOREIGN KEY'";
 
-	$keycolumns = executarStmt($sqlConstraints, array(), "S");
+	$keycolumns = executar($sqlConstraints);
 	return $keycolumns;
+}
 
+function gerarFKs ($tabela)
+{
+	$sql = "ALTER TABLE `{$tabela}` ENGINE = InnoDB;";
 
-	// $sql = "";
-	// if ( !empty($t) ) {
-	// 	$sql = "-- ".agora(true)."\n";
-	// 	foreach ($t as $i => $v) {
-	// 		$sql .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
-	// 		$sql .= implode(", ", $tabelas[$v]);
-	// 		$sql .= ");\n";
-	// 	}
-	// }
-	// return $sql;
+	$t = descreverTabela($tabela);
+
+	$sql2 = array();
+	foreach ($t as $v) {
+
+		if ( comecaCom("id_", $v['Field']) ) {
+			$tab = explode('_', $v['Field']);
+			$sql2[] = criacaoFK($tabela, $tab[1]);
+		}
+	}
+
+	return array(
+		'ALTER TABLE'	=> $sql,
+		'INSERT'		=> $sql2
+	);
 }

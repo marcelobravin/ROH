@@ -39,39 +39,24 @@ if ( isset($_REQUEST['action']) ) {
 			echo '</pre>';
 			break;
 
-		case 'criacaoFk' :
-			if ( isset($_REQUEST['tabela']) )
+		case 'gerarFk' :
+			if ( isset($_REQUEST['tabela']) ) {
 				$tabela = $_REQUEST['tabela'];
-			else
+				$sql = gerarFKs($tabela);
+			} else {
 				$tabela = "NOVA_TABELA";
-
-			$sql = "ALTER TABLE `{$tabela}` ENGINE = InnoDB;";
+				$sql = criacaoFK ($tabela, "TABELA_REFERENCIADA");
+			}
 
 			if ( isset($_REQUEST['executar']) ) {
-				executar($sql);
+				$r = executarSequencia($sql['ALTER TABLE']);
 				echo "Alteração de tabela {$tabela} executada!";
+				exibir($r);
 			}
 
 			echo '<pre>';
-			print_r( $sql );
+			print_r($sql);
 			echo '</pre>';
-
-			if ( isset($_REQUEST['tabela']) ) {
-
-				$sql2 = array();
-				$t = descreverTabela($tabela);
-				foreach ($t as $v) {
-
-					if ( comecaCom('id_', $v['Field']) ) {
-						$tab = explode('_', $v['Field']);
-						$sql2[] = criacaoFK($tabela, $tab[0]);
-					}
-				}
-
-				echo '<pre>';
-				print_r( $sql2 );
-				echo '</pre>';
-			}
 
 			break;
 
@@ -224,10 +209,9 @@ if ( isset($_REQUEST['action']) ) {
 		case 'gerarEnv'			: die( gerarEnv () ); break;
 
 		case 'exportConstraints':
-			$c = exportarConstaints();
-			echo '<pre>';
-			print_r($c);
-			echo '</pre>';
+			$c = exportarConstraints();
+			registrartUQs($c['uqs']);
+
 			break;
 
 		default:
@@ -246,7 +230,7 @@ if ( isset($_REQUEST['action']) ) {
 			echo '<li><a href="index.php?action=exportConstraints">exportConstraints</a></li>';
 			echo '<li><a href="index.php?action=gerarHtaccess">gerarHtaccess</a></li>';
 			echo '<li><a href="index.php?action=gerarEnv">gerarEnv</a></li>';
-			echo '<li><a href="index.php?action=criacaoFk">criacaoFk</a></li>';
+			echo '<li><a href="index.php?action=gerarFk">gerarFk</a></li>';
 			echo '</ul>';
 	}
 

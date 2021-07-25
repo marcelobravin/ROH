@@ -181,9 +181,6 @@ function insercao ($tabela, $campos)
  */
 function selecao ($tabela, $criterios="", $diretrizes=null, $campos="*")
 {
-	// if ( is_array($campos) )
-		// $campos = implode(", ", $campos);
-
 	$sql = "SELECT $campos FROM $tabela";
 
 	if ( !empty($criterios) ) {
@@ -191,15 +188,17 @@ function selecao ($tabela, $criterios="", $diretrizes=null, $campos="*")
 		if (is_array($criterios)) {
 			$sql .= implode(" AND ", $criterios);
 		} else {
-			if (is_numeric($criterios))
+			if (is_numeric($criterios)) {
 				$sql .= "id='$criterios'";
-			else
+			} else {
 				$sql .= "$criterios";
+			}
 		}
 	}
 
-	if (strlen($diretrizes) > 0)
+	if (strlen($diretrizes) > 0) {
 		$sql .= " $diretrizes";
+	}
 
 	return $sql;
 }
@@ -273,7 +272,7 @@ function criacaoFK ($tabelaAlterada, $tabelaReferenciada)
 {
 	$sql = "ALTER TABLE `{$tabelaAlterada}`
 		ADD CONSTRAINT `fk_{$tabelaReferenciada}`
-		FOREIGN KEY ({$tabelaReferenciada}_id)
+		FOREIGN KEY (id_{$tabelaReferenciada})
 		REFERENCES {$tabelaReferenciada}(id)
 			ON UPDATE CASCADE ON DELETE RESTRICT;";
 	return $sql;

@@ -228,6 +228,15 @@ function executar ($sql)
 	return executarStmt($sql, array(), $processo);
 }
 
+function executarSequencia ($sqls)
+{
+	$resultado = array();
+	foreach ($sqls as $s) {
+		$resultado[] = executar($s);
+	}
+	return $resultado;
+}
+
 /**
  * Executa statement via PDO
  * @package	grimoire/bibliotecas/persistencia.php
