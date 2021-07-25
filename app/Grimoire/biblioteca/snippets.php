@@ -20,15 +20,17 @@
  */
 function a ($conteudo="", $href="#", $atributos=array())
 {
-	if (is_null($href))
+	if (is_null($href)) {
 		$href = "javascript:void(0)";
+	}
 
 	$atributos = gerarAtributos($atributos);
 
-	if (startsWith($href, "http") || startsWith($href, "www"))
+	if (startsWith($href, "http") || startsWith($href, "www")) {
 		return "<a href='$href' $atributos target='_blank'>$conteudo</a>";
-	else
+	} else {
 		return "<a href='$href' $atributos>$conteudo</a>";
+	}
 }
 
 /**
@@ -75,8 +77,9 @@ function br ()
  */
 function checkbox ($nome, $valor="", $selecionado=false, $atributos=array(), $rotulo="")
 {
-	if ( empty($rotulo) )
+	if ( empty($rotulo) ) {
 		return box("checkbox", $nome, $valor, $selecionado, $atributos);
+	}
 
 	$inputs = "<label>";
 	$inputs .= is_numeric($valor) ? $rotulo : ucfirst($valor);
@@ -166,7 +169,7 @@ function div ($atributos=array())
  * @param	string
  * @return	string
  */
-function embed ($url="https://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
+function embed ($url="https://www.youtube.com/watch?v=jo1PvY5pr1A")
 {
 	return "<embed src='{$url}' pluginspage='http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash' type='application/x-shockwave-flash' width='100%' height='100%'></embed>";
 }
@@ -227,10 +230,11 @@ function file2 ($nome, $atributos=array(), $formato="*", $multiplo=false)
 {
 	$atributos = gerarAtributos($atributos);
 
-	if ($multiplo)
+	if ($multiplo) {
 		$input = "<input type='file' name='$nome' id='$nome' $atributos accept='$formato' multiple='multiple' />";
-	else
+	} else {
 		$input = "<input type='file' name='$nome' id='$nome' $atributos accept='$formato' />";
+	}
 
 	return $input;
 }
@@ -254,16 +258,20 @@ function form ($acao="", $metodo="", $enctype=false, $atributos=array())
 			$atributos = array();
 			$atributos[] = $aux;
 	}
-	if (!empty($acao))
+	if (!empty($acao)) {
 		$atributos["action"] = $acao;
+	}
 
-	if (empty($metodo))
+	if (empty($metodo)) {
 		$atributos["method"] = "post";
-	else
+	}
+	else {
 		$atributos["method"] = $metodo;
+	}
 
-	if ($enctype)
+	if ($enctype) {
 		$atributos["enctype"] = "multipart/form-data";
+	}
 
 	return gerarBloco("form", $atributos);
 }
@@ -430,12 +438,12 @@ function html ($atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
 	$elemento[0] = "<!DOCTYPE html>\n";
-	// $elemento[0] .= "<html xmlns='http://www.w3.org/1999/xhtml' lang='". IDIOMA ."' xml:lang='". IDIOMA ."' dir='ltr' $atributos>";
 
-	if ( PRODUCAO )
+	if ( PRODUCAO ) {
 		$elemento[0] .= '<html lang="'. IDIOMA .'">';
-	else
+	} else {
 		$elemento[0] .= '<html lang="'. IDIOMA .'" class="ambiente_desenvolvimento">';
+	}
 
 	$elemento[1] = "</html>";
 	return $elemento;
@@ -497,8 +505,9 @@ function label ($texto, $campo=null, $atributos=array(), $obrigatorio=false)
 	} else {
 		$atributos = gerarAtributos($atributos);
 		$marcador = "";
-		if ( $obrigatorio )
+		if ( $obrigatorio ) {
 			$marcador .= " *";
+		}
 
 		return '<label for="'.$campo.'"'.$atributos.'>'.$texto.''.$marcador.'</label>';
 	}
@@ -590,10 +599,11 @@ function ol ($atributos=array())
 function option ($valor="", $indice="", $selecionado=false, $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
-	if ($selecionado)
+	if ($selecionado) {
 		return "<option value='$indice' selected='selected' $atributos>$valor</option>";
-	else
+	} else {
 		return "<option value='$indice' $atributos>$valor</option>";
+	}
 }
 
 /**
@@ -696,8 +706,9 @@ function pre ($atributos=array())
  */
 function radio ($nome, $valor="", $selecionado=false, $atributos=array(), $rotulo="")
 {
-	if ( empty($rotulo) )
+	if ( empty($rotulo) ) {
 		return box("radio", $nome, $valor, $selecionado, $atributos);
+	}
 
 	$inputs = "<label>";
 	$inputs .= is_numeric($valor) ? $rotulo : ucfirst($valor);
@@ -742,10 +753,11 @@ function select ($nome, $atributos=array(), $multiplo=false)
 	$input		= array();
 	$atributos = gerarAtributos($atributos);
 
-	if ($multiplo)
+	if ($multiplo) {
 		$input[] = "<select name='$nome' id='$nome' $atributos multiple='multiple'>";
-	else
+	} else {
 		$input[] = "<select name='$nome' id='$nome' $atributos>";
+	}
 
 	$input[] = "</select>";
 	return $input;
@@ -756,13 +768,9 @@ function select ($nome, $atributos=array(), $multiplo=false)
  * @package	grimoire/bibliotecas/snippets.php
  * @version	05-07-2015
  *
- * @param	string
  * @return	string
- *
- * @uses	html.php->gerarAtributos()
- * @example
  */
-function skype ($conteudo="", $href="#", $atributos=array())
+function skype ()
 {
 	return "
 		<a href='callto://+***********'>Link will initiate Skype to call my number!</a>
@@ -820,13 +828,15 @@ function table ($atributos=array(), $titulo="", $descricao="")
 {
 	$atributos = gerarAtributos($atributos);
 	$tabela = array();
-	if (!empty($descricao))
+	if (!empty($descricao)) {
 		$tabela[] = "<table border='1' $atributos summary='$descricao'>"; // OBSOLETO summary
-	else
+	} else {
 		$tabela[] = "<table border='1' $atributos>";
+	}
 
-	if (!empty($titulo))
+	if (!empty($titulo)) {
 		$tabela[0] .= "<caption>$titulo</caption>";
+	}
 
 	$tabela[] = "</table>";
 	return $tabela;

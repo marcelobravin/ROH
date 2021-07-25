@@ -54,7 +54,6 @@ function verifyHashCost($timeTargetInMiliseconds=0.05) {
 */
 function criptografar ($senha) {
 	$options = ['cost' => 12];
-	// return password_hash($senha, PASSWORD_BCRYPT, $options);
 	return password_hash($senha, PASSWORD_DEFAULT, $options);
 }
 

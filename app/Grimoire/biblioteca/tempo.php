@@ -32,10 +32,11 @@ function defineTempo ()
  */
 function agora ($padraoBrasileiro=false)
 {
-	if ($padraoBrasileiro == FALSE)
+	if ( !$padraoBrasileiro ) {
 		return date("Y-m-d H:i:s");
-	else
+	} else {
 		return date("d-m-Y H:i:s");
+	}
 }
 
 /**
@@ -48,10 +49,11 @@ function agora ($padraoBrasileiro=false)
  */
 function agoraLimpo ($timestamp=false)
 {
-	if ( $timestamp )
+	if ( $timestamp ) {
 		return date("YmdHis");
-	else
+	} else {
 		return date("Ymd");
+	}
 }
 
 /**
@@ -68,15 +70,17 @@ function agoraLimpo ($timestamp=false)
  * @return	bool
  *
  * @example
- 	echo apos(20151104, 20151130);
+	echo apos(20151104, 20151130);
 */
 function apos ( $dataInicial, $dataAlvo="" )
 {
-	if ( empty($dataAlvo) )
+	if ( empty($dataAlvo) ) {
 		$dataAlvo = hoje();
+	}
 
-	if ( $dataAlvo >= $dataInicial)
+	if ( $dataAlvo >= $dataInicial) {
 		return true;
+	}
 
 	return false;
 }
@@ -96,19 +100,17 @@ function apos ( $dataInicial, $dataAlvo="" )
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/*
-echo antes(20151130, 20151130);
+	echo antes(20151130, 20151130);
 */
 function antes ( $dataFinal, $dataAlvo="" )
 {
-	if ( empty($dataAlvo) )
+	if ( empty($dataAlvo) ) {
 		$dataAlvo = hoje();
+	}
 
-	if ( $dataAlvo <= $dataFinal )
+	if ( $dataAlvo <= $dataFinal ) {
 		return true;
+	}
 
 	return false;
 }
@@ -191,8 +193,9 @@ function dateDifference ($startDate, $endDate)
 {
 	$startDate = strtotime($startDate);
 	$endDate	 = strtotime($endDate);
-	if ($startDate === false || $startDate < 0 || $endDate === false || $endDate < 0 || $startDate > $endDate)
+	if ($startDate === false || $startDate < 0 || $endDate === false || $endDate < 0 || $startDate > $endDate) {
 		return false;
+	}
 	$years		= date('Y', $endDate) - date('Y', $startDate);
 	$endMonth	= date('m', $endDate);
 	$startMonth = date('m', $startDate);
@@ -202,15 +205,18 @@ function dateDifference ($startDate, $endDate)
 		$months += 12;
 		$years--;
 	}
-	if ($years < 0) // acho q dá pra tirar isso! =D
+	if ($years < 0) {
 		return false;
+	} // acho q dá pra tirar isso! =D
 	// Calculate the days
 	$offsets = array();
-	if ($years > 0)
+	if ($years > 0) {
 		$offsets[] = $years . (($years == 1) ? ' year' : ' years');
-	if ($months > 0)
+	}
+	if ($months > 0) {
 		$offsets[] = $months . (($months == 1) ? ' month' : ' months');
-	$offsets = count($offsets) > 0 ? '+' . implode(' ', $offsets) : 'now';
+	}
+	$offsets = empty($offsets) ? '+' . implode(' ', $offsets) : 'now';
 	$days	= $endDate - strtotime($offsets, $startDate);
 	$days	= date('z', $days);
 
@@ -237,15 +243,19 @@ function dateDifference ($startDate, $endDate)
 function days_diff ($date_ini=null, $date_end=null, $round=true)
 {
 // Se vazios seta datas como a data de agora
-	if (empty($date_ini))
+	if (empty($date_ini)) {
 		$date_ini = time();
-	else
+	}
+	else {
 		$date_ini = strtotime($date_ini);
+	}
 
-	if (empty($date_end))
+	if (empty($date_end)) {
 		$date_end = date("d-m-Y");
-	else
+	}
+	else {
 		$date_end = strtotime($date_end);
+	}
 
 	$date_diff = ($date_end - $date_ini) / 86400;
 
@@ -271,10 +281,12 @@ function days_diff ($date_ini=null, $date_end=null, $round=true)
 function descartarHorario ($timestamp, $ptBr=true)
 {
 	$fragmentos = explode(' ', $timestamp);
-	if ($ptBr)
+	if ($ptBr) {
 		return $fragmentos[0];
-	else
+	}
+	else {
 		return $fragmentos[1];
+	}
 }
 
 /**
@@ -301,8 +313,6 @@ function diferenca ($data1, $data2)
 	$nSegundos = (($unix_data2 - $unix_data1) % 3600) % 60;
 
 	# Ás vezes arredonda errado
-	//$nHoras = round($nHoras);
-	//$nMinutos = round($nMinutos);
 
 	$nHoras = explode(".", $nHoras);
 	$nHoras = $nHoras[0];
@@ -310,11 +320,13 @@ function diferenca ($data1, $data2)
 	$nMinutos = explode(".", $nMinutos);
 	$nMinutos = $nMinutos[0];
 
-	if ($nMinutos < 10)
+	if ($nMinutos < 10) {
 		$nMinutos = "0". $nMinutos;
+	}
 
-	if ($nSegundos < 10)
+	if ($nSegundos < 10) {
 		$nSegundos = "0". $nSegundos;
+	}
 
 	return "$nHoras:$nMinutos:$nSegundos";
 }
@@ -341,8 +353,9 @@ function diferenca ($data1, $data2)
 /*echo diferenca( $c['data'] )->format('%d days')*/
 function diferenca3 ($dataInicial, $dataFinal="")
 {
-	if (empty($dataFinal))
+	if (empty($dataFinal)) {
 		$dataFinal=hoje();
+	}
 
 	$data1 = new DateTime( $dataInicial );
 	$data2 = new DateTime( $dataFinal );
@@ -404,10 +417,11 @@ function diferencaTempo ($dataInicial, $dataFinal)
  */
 function hoje ($padraoBrasileiro=FALSE)
 {
-	if ($padraoBrasileiro == FALSE)
+	if (!$padraoBrasileiro) {
 		return date("Y-m-d");
-	else
+	} else {
 		return date("d-m-Y");
+	}
 }
 
 /**
@@ -472,8 +486,9 @@ function minutosEmHoras ($minutos)
 	$horas	= intval($minutos / 60);
 	$minutos = $minutos % 60;
 
-	if ( $minutos < 10 )
+	if ( $minutos < 10 ) {
 		$minutos = '0'. $minutos;
+	}
 
 	return $horas .':'. $minutos;
 }
@@ -517,8 +532,9 @@ function nicetime ($date)
 	$now			 = time();
 	$unix_date = strtotime($date);
 	// check validity of date
-	if (empty($unix_date))
+	if (empty($unix_date)) {
 		return "Bad date";
+	}
 
 	// is it future date or past date
 	if ($now > $unix_date) {
@@ -532,8 +548,9 @@ function nicetime ($date)
 		$difference /= $lengths[$j];
 	}
 	$difference = round($difference);
-	if ($difference != 1)
+	if ($difference != 1) {
 		$periods[$j] .= "s";
+	}
 
 	return "$difference $periods[$j] {$tense}";
 }
@@ -559,10 +576,11 @@ function retornaSemestre ()
 {
 	$sem = date('m');
 	$sem = substr($sem / 7,0,1);
-	if ($sem == 0)
+	if ($sem == 0) {
 		$sem = 1;
-	else
+	} else {
 		$sem = 2;
+	}
 
 	return($sem);
 }
@@ -585,8 +603,7 @@ function trataData ($data)
 	$dia		= $data[0];
 	$mes		= trataMes($mes);
 	$separador	= " de ";
-	$data		= $dia . $separador . $mes . $separador . $ano;
-	return $data;
+	return $dia . $separador . $mes . $separador . $ano;
 }
 
 /**
@@ -597,7 +614,7 @@ function trataData ($data)
  * @param	string
  * @return	bool
  */
-function trataDiaSemana ($dia, $limiteCaracteres=0, $idioma="pt-BR")
+function trataDiaSemana ($dia, $limiteCaracteres=0)
 {
 	$array = array(
 		"Segunda-Feira",
@@ -610,8 +627,9 @@ function trataDiaSemana ($dia, $limiteCaracteres=0, $idioma="pt-BR")
 		);
 	$dia = $array[$dia - 1];
 // Limita quantidade de caracteres conforme parametro recebido
-	if ($limiteCaracteres > 0)
+	if ($limiteCaracteres > 0) {
 		$dia = substr($dia, 0, $limiteCaracteres);
+	}
 
 	return $dia;
 }
@@ -643,8 +661,9 @@ function trataMes ($numeroMes, $limiteCaracteres=0)
 	);
 	$mes = $array[intval($numeroMes)];
 	// Limita quantidade de caracteres conforme parametro recebido
-	if ($limiteCaracteres > 0)
+	if ($limiteCaracteres > 0) {
 		$mes = substr($mes, 0, $limiteCaracteres);
+	}
 
 	return $mes;
 }
@@ -685,9 +704,6 @@ function diferencaDatas ($data1, $data2)
 	return $hojeReordenado - $dataXReordenado;
 }
 
-/*
-echo entre(20151104, 20151130, 20151130);
-*/
 /**
  * Escreve o conteúdo em um arquivo
  *
@@ -707,11 +723,13 @@ echo entre(20151104, 20151130, 20151130);
 */
 function intervaloDatas ( $dataInicial, $dataFinal, $dataAlvo="" )
 {
-	if ( empty($dataAlvo) )
+	if ( empty($dataAlvo) ) {
 		$dataAlvo = hoje();
+	}
 
-	if ( $dataAlvo >= $dataInicial && $dataAlvo <= $dataFinal )
+	if ( $dataAlvo >= $dataInicial && $dataAlvo <= $dataFinal ) {
 		return true;
+	}
 
 	return false;
 }

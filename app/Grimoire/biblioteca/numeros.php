@@ -40,16 +40,20 @@ function calcularPesoCubico ($comprimento, $largura, $altura, $peso=0)
 {
 	// peso cúbico (C x L x A)/6.000.
 	$pesoCubico = ($comprimento * $largura * $altura) / 6000;
-	if ($peso <= 0)
+	if ($peso <= 0) {
 		return $pesoCubico;
-				//Se o peso cúbico da encomenda for menor ou igual a 5 kg, será atribuído o peso físico (ou real).
-	if ($pesoCubico <= 5)
+	}
+	//Se o peso cúbico da encomenda for menor ou igual a 5 kg, será atribuído o peso físico (ou real).
+	if ($pesoCubico <= 5) {
 		return $peso;
-				//Para encomendas com peso cúbico maior que 5 kg, valerá o maior resultado após a comparação dos resultados entre o peso físico e o peso cúbico
-	if ($pesoCubico > $peso)
+	}
+	//Para encomendas com peso cúbico maior que 5 kg, valerá o maior resultado após a comparação dos resultados entre o peso físico e o peso cúbico
+	if ($pesoCubico > $peso) {
 		return $pesoCubico;
-	else
+	}
+	else {
 		return $peso;
+	}
 }
 
 /**
@@ -66,12 +70,12 @@ function calcularPesoCubico ($comprimento, $largura, $altura, $peso=0)
  */
 function calcularPorcentagem ($quantidade, $total)
 {
-	if ($total > 0 && $quantidade > 0)
+	if ($total > 0 && $quantidade > 0) {
 		return ($quantidade * 100) / $total;
-	else
+	}
+	else {
 		return -1;
-		// return 0;
-
+	}
 }
 
 /**
@@ -149,10 +153,11 @@ function converterDinheiro ($numero, $pt=true)
 		$var = 10000;
 		echo formatarNumero($var);
  */
-function formatarNumero ($numero/*, $pt=true*/)
+function formatarNumero ($numero)
 {
-	if ( is_numeric($numero) )
+	if ( is_numeric($numero) ) {
 		$numero = number_format($numero, 0, ",", ".");
+	}
 
 	return $numero;
 }
@@ -189,8 +194,7 @@ function jurosSimples ($valor, $taxa, $parcelas)
 {
 	$taxa	= $taxa / 100;
 	$m		= $valor * (1 + $taxa * $parcelas);
-	$valParcela = number_format($m / $parcelas, 2, ",", ".");
-	return $valParcela;
+	return number_format($m / $parcelas, 2, ",", ".");
 }
 
 /**
@@ -206,14 +210,12 @@ function jurosSimples ($valor, $taxa, $parcelas)
 function limitarNumero ($numero, $valorMinimo=null, $valorMaximo=null)
 {
 // Piso
-	if (is_numeric($valorMinimo)) {
-		if ($numero < $valorMinimo)
-			$numero = $valorMinimo;
+	if ( is_numeric($valorMinimo) && $numero < $valorMinimo ) {
+		$numero = $valorMinimo;
 	}
 // Teto
-	if (is_numeric($valorMaximo)) {
-		if ($numero > $valorMaximo)
-			$numero = $valorMaximo;
+	if ( is_numeric($valorMaximo) && $numero > $valorMaximo ) {
+		$numero = $valorMaximo;
 	}
 	return $numero;
 }

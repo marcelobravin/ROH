@@ -11,10 +11,12 @@
  *
  * @var string
  */
-if ( $_SERVER['SERVER_NAME'] == 'localhost' )
+if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 	define( 'PRODUCAO', false );
-else
+}
+else {
 	define( 'PRODUCAO', true );
+}
 
 /**
  * Dados do site

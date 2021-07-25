@@ -23,7 +23,7 @@ function curl_info ( $url )
 	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1 );
 	curl_setopt( $ch, CURLOPT_NOBODY		, true); // make sure you only check the header
 
-	$content = curl_exec( $ch );
+	curl_exec( $ch );
 	return curl_getinfo($ch, CURLINFO_HTTP_CODE);
 }
 
@@ -40,8 +40,9 @@ function testarSite ( $url )
 	$headers = @get_headers($url);
 	$cod = substr($headers[0], 9, 3);
 
-	if ($cod>=200 && $cod<400)
+	if ($cod>=200 && $cod<400) {
 		return true;
+	}
 	#################################
 		#mto lento...
 		// $http_code = curl_info( $url );

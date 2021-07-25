@@ -17,13 +17,11 @@ function adicionarHifenCep ($cep)
 */
 function expandEntities ($val)
 {
-	// if ($this->charencoding) {
-		$val = str_replace('&', '&amp;', $val);
-		$val = str_replace("'", '&apos;', $val);
-		$val = str_replace('"', '&quot;', $val);
-		$val = str_replace('<', '&lt;', $val);
-		$val = str_replace('>', '&gt;', $val);
-	// }
+	$val = str_replace('&', '&amp;', $val);
+	$val = str_replace("'", '&apos;', $val);
+	$val = str_replace('"', '&quot;', $val);
+	$val = str_replace('<', '&lt;', $val);
+	$val = str_replace('>', '&gt;', $val);
 	return $val;
 }
 
@@ -84,8 +82,9 @@ function contem ($agulha, $palheiro)
 {
 	// return str_contains($agulha, $palheiro); # php 8
 
-	if ( strpos($agulha, $palheiro) !== false )
+	if ( !strpos($agulha, $palheiro) ) {
 		return true;
+	}
 }
 
 /**
@@ -155,25 +154,12 @@ function concatenar2 ($array, $cola=QUEBRA_LINHA)
  */
 function converterCaixa ($string, $caixaAlta=false)
 {
-	if ($caixaAlta)
+	if ($caixaAlta) {
 		$string = strtr(strtoupper($string), "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ", "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß");
-	else
+	} else {
 		$string = strtr(strtolower($string), "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß", "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ");
+	}
 	return $string;
-}
-
-/**
- * Verifica se a string contém o trecho solicitado no final
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
- *
- * @param	string
- * @param	string
- * @return	bool
- */
-function endsWith ($haystack, $needle)
-{
-	return $needle === "" || substr($haystack, -strlen($needle)) === $needle;
 }
 
 /**
@@ -188,7 +174,9 @@ function endsWith ($haystack, $needle)
 function formatarString ($string, $tratar=false)
 {
 	$string = ucfirst(strtolower($string));
-	if ($tratar) $string = reescrever($string);
+	if ($tratar) {
+		$string = reescrever($string);
+	}
 	return $string;
 }
 
@@ -205,9 +193,9 @@ function formatarString ($string, $tratar=false)
 function limparUrl ( $url )
 {
 	$short_url = str_replace( array( 'https://', 'http://', 'www.' ), '', $url );
-	#$short_url = untrailingslashit( $short_url );
-	if ( strlen( $short_url ) > 35 )
+	if ( strlen( $short_url ) > 35 ) {
 		$short_url = substr( $short_url, 0, 32 ) . '&hellip;';
+	}
 	return $short_url;
 }
 
@@ -279,8 +267,9 @@ function retirarCaracterEspecial ($string, $retiraEspacos=false)
 {
 	$especial	= array("'", '"', "!", "@", "#", "$", "%", "¨", "&","*", "(", ")", "-", "=", "+", "´", "`", "[", "]", "{", "}", "~", "^", ",", "<", ".", ">", ";", ":", "/", "?", "\\", "|", "¹", "²", "³","£", "¢", "¬", "§", "ª", "º", "°","_",'"', "–");
 	$troca		= str_replace($especial, "", $string);
-	if ($retiraEspacos)
+	if ($retiraEspacos) {
 		$troca	= str_replace(" ", "", $troca);
+	}
 	return $troca;
 }
 
@@ -299,8 +288,7 @@ function retirarAcento ($string)
 {
 	$acentos	= array('à','á','â','ã','ä','å','ç','è','é','ê','ë','ì','í','î','ï','ñ','ò','ó','ô','õ','ö','ù','ü','ú','ÿ','À','Á','Â','Ã','Ä','Å','Ç','È','É','Ê','Ë','Ì','Í','Î','Ï','Ñ','Ò','Ó','Ô','Õ','Ö','O','Ù','Ü','Ú','Ÿ');
 	$semAcento	= array('a','a','a','a','a','a','c','e','e','e','e','i','i','i','i','n','o','o','o','o','o','u','u','u','y','A','A','A','A','A','A','C','E','E','E','E','I','I','I','I','N','O','O','O','O','O','O','U','U','U','Y');
-	$troca = str_replace($acentos, $semAcento, $string);
-	return $troca;
+	return str_replace($acentos, $semAcento, $string);
 }
 
 /**
@@ -318,14 +306,16 @@ function retirarAcento ($string)
 function retornarEndereco ()
 {
 	$pageURL = 'http';
-	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on")
+	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
 		$pageURL .= "s";
+	}
 
 	$pageURL .= "://";
-	if ($_SERVER["SERVER_PORT"] != "80")
+	if ($_SERVER["SERVER_PORT"] != "80") {
 		$pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
-	else
+	} else {
 		$pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+	}
 
 	return $pageURL;
 }
@@ -343,27 +333,11 @@ function retornarEndereco ()
 function retornarEndereco3 ()
 {
 	$s = "";
-	#$s = empty($_SERVER["HTTPS"]) ? '' : ($_SERVER["HTTPS"] == "on") ? "s" : "";
 	$protocol = substr(strtolower($_SERVER["SERVER_PROTOCOL"]), 0, strpos(strtolower($_SERVER["SERVER_PROTOCOL"]), "/")) . $s;
 	$port		= ($_SERVER["SERVER_PORT"] == "80") ? "" : (":" . $_SERVER["SERVER_PORT"]);
 	$uri		= $protocol . "://" . $_SERVER['SERVER_NAME'] . $port . $_SERVER['REQUEST_URI'];
 	$segments	= explode('?', $uri, 2);
-	$url		= $segments[0];
-	return $url;
-}
-
-/**
- * Verifica se a string contém o trecho solicitado no começo
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
- *
- * @param	string
- * @param	string
- * @return	bool
- */
-function startsWith ($haystack, $needle)
-{
-	return $needle === "" || strpos($haystack, $needle) === 0;
+	return $segments[0];
 }
 
 /**
@@ -378,15 +352,16 @@ function saudacao ()
 {
 	$hora = date("H");
 	switch (true) {
-		case ($hora >= 0 and $hora <= 11):
+		case ($hora >= 0 && $hora <= 11):
 			$saudacao = "Bom dia";
 			break;
-		case ($hora >= 12 and $hora <= 17):
+		case ($hora >= 12 && $hora <= 17):
 			$saudacao = "Boa tarde";
 			break;
-		case ($hora >= 18 and $hora <= 23):
+		case ($hora >= 18 && $hora <= 23):
 			$saudacao = "Boa noite";
 			break;
+		default:
 	}
 	return $saudacao;
 }
@@ -404,10 +379,12 @@ function saudacao ()
 function truncate ($string, $len, $etc='...')
 {
 	$end = array(' ', '.', ',', ';', ':', '!', '?' );
-	if (strlen($string) <= $len)
+	if (strlen($string) <= $len) {
 		return $string;
-	if (!in_array($string[$len - 1], $end) && !in_array($string[$len], $end))
+	}
+	if (!in_array($string[$len - 1], $end) && !in_array($string[$len], $end)) {
 		while (--$len && !in_array($string[$len - 1], $end));
+	}
 	return rtrim(substr($string, 0, $len)) . $etc;
 }
 
@@ -476,11 +453,9 @@ function removeJsLineComments ($content = '')
  * @param	string
  * @return	string
  */
-function removeLineBreaks ($str
-)
+function removeLineBreaks ($str)
 {
 	return preg_replace( "/\r|\n/", "", $str );
-	// return preg_replace( "/\r|\n|\t/", "", $str );
 }
 
 /**
@@ -491,8 +466,7 @@ function removeLineBreaks ($str
  * @param	string
  * @return	string
  */
-function removeDoubleSpaces ($str
-)
+function removeDoubleSpaces ($str)
 {
 	return preg_replace( "/  /", "", $str );
 }
@@ -508,19 +482,17 @@ function removeDoubleSpaces ($str
 function removeEspacoEsimbolo ($contents)
 {
 	//switch, case, break, function,  typeof
-	;
+
 	//não tirar
 		//case
 		//typeof
 	//adicionar exclusivo js
 		// ;
-		/*;}*/
 		// console.log
 	//adicionar exclusivo php
 		//else_ & _if
 		// html comments
 
-	/* }*/ ## bug
 
 	# testar
 	/* -*/
@@ -529,7 +501,6 @@ function removeEspacoEsimbolo ($contents)
 	/*& */
 	/*> */
 	/* >*/
-	/*;;*/
 	/*console.log("baixo")*/ # remover
 	/*console.log( funcao() */ # remover
 

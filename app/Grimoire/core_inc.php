@@ -44,16 +44,20 @@ require("biblioteca/vetores.php");				// manipulação de arrays
 require("biblioteca/ws.php");					// acesso a sites externos
 
 # ------------------------------------------------------------------------------ FUNÇÕES OPCIONAIS
-if ( ORACLE )
+if ( ORACLE ) {
 	require("biblioteca/persistencia/persistencia-oracle.php");	// conexão com BD e execução de instruções SQL no Oracle
-else
+}
+else {
 	require("biblioteca/persistencia/persistencia-pdo.php");	// conexão com BD e execução de instruções SQL no MySql via PDO
+}
 
-if ( INTERNACIONALIZACAO )
+if ( INTERNACIONALIZACAO ) {
 	require("biblioteca/opcionais/internacionalizacao.php");	// funções para tradução e seleção de idiomas
+}
 
-if ( E_COMMERCE )
+if ( E_COMMERCE ) {
 	require("biblioteca/opcionais/eCommerce.php");				// funções para lojas virtuais
+}
 
 if ( !PRODUCAO ) {
 	require("biblioteca/desenvolvimento/debug.php");					// Funções para debugging
@@ -69,7 +73,6 @@ if ( PRODUCAO ) {
 	ini_set('display_errors'		, TRUE);
 	ini_set('error_reporting'		, E_ALL);
 	error_reporting(E_ALL);
-	// error_reporting( E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING | E_RECOVERABLE_ERROR );
 }
 
 require("processosIniciais.php");

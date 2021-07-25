@@ -63,16 +63,19 @@ function atualizacao ($tabela, $objeto, $condicao="")
 		foreach ($a as $indice => $valor) {
 			$condicao .= "$indice='$valor'";
 			// Adiciona separador após cada atributo que não seja o último
-			if ($i < $tamanho)
+			if ($i < $tamanho) {
 				$condicao .= " AND \n";
+			}
 			$i++;
 		}
 	}
 
-	if (!empty($condicao))
+	if (!empty($condicao)) {
 		$sql[] = "UPDATE $tabela SET\n $campos \nWHERE\n $condicao";
-	else
+	}
+	else {
 		$sql[] = "UPDATE $tabela SET\n $campos";
+	}
 
 	$sql = converterString($sql);
 	return $sql;
@@ -113,10 +116,11 @@ function exclusao ($tabela, $criterios="")
 				$i++;
 			}
 		} else {
-			if (is_numeric($criterios))
+			if (is_numeric($criterios)) {
 				$sql .= "id='$criterios'";
-			else
+			} else {
 				$sql .= "$criterios";
+			}
 		}
 	}
 

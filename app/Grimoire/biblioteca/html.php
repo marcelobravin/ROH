@@ -32,10 +32,11 @@ function gerarBreadCrumb ($paginas)
 {
 	$total = count($paginas) -1;
 	foreach ($paginas as $key => $v) {
-		if ($key < $total)
+		if ($key < $total) {
 			$resposta[] = "<a href='{$v['endereco']}'>{$v['titulo']}</a>";
-		else
+		} else {
 			$resposta[] = "<span>{$v['titulo']}</span>";
+		}
 	}
 
 	return $resposta;
@@ -57,13 +58,13 @@ function gerarBreadCrumb ($paginas)
  */
 function box ($tipo="checkbox", $nome="", $valor="", $selecionado=false, $atributos=array())
 {
-	if ( $selecionado )
+	if ( $selecionado ) {
 		$atributos['checked'] = 'checked';
+	}
 
 	$atributos = gerarAtributos($atributos);
 
-	$inputs = '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'"'.$atributos.' />';
-	return $inputs;
+	return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'"'.$atributos.' />';
 }
 
 /**
@@ -133,11 +134,13 @@ function gerarCss ()
  */
 function gerarAtributos ($atributos=array())
 {
-	if ( empty($atributos) )
+	if ( empty($atributos) ) {
 		return "";
+	}
 
-	if ( !is_array($atributos) )
+	if ( !is_array($atributos) ) {
 		return ' class="'.$atributos.'"';
+	}
 
 	$array = array();
 	foreach ($atributos as $indice => $valor) {
@@ -187,10 +190,11 @@ function gerarBloco ($elemento, $atributos=array())
  */
 function gerarElemento ($elemento, $conteudo="", $atributos=array())
 {
-	if (empty($conteudo)) return gerarBloco($elemento, $atributos);
+	if (empty($conteudo)) {
+		return gerarBloco($elemento, $atributos);
+	}
 	$atributo = gerarAtributos($atributos);
-	$input = "<$elemento $atributo>$conteudo</$elemento>";
-	return $input;
+	return "<$elemento $atributo>$conteudo</$elemento>";
 }
 
 /**
@@ -231,10 +235,8 @@ function incluirCss ($arquivo=array(), $midia="all")
 
 	if (is_array($arquivo)) {
 		foreach ($arquivo as $valor) {
-			if (file_exists($valor)) {
-				if (identificarTipo($valor) == "css") {
-					$links[] = '<link href="' . $valor . '" rel="stylesheet" type="text/css" media="' . $midia . '" />';
-				}
+			if (file_exists($valor) && identificarTipo($valor) == "css") {
+				$links[] = '<link href="' . $valor . '" rel="stylesheet" type="text/css" media="' . $midia . '" />';
 			}
 		}
 	} else {
@@ -287,13 +289,14 @@ function incluirJs ($arquivo=array())
 	$script = array();
 	if (is_array($arquivo)) {
 		foreach ($arquivo as $valor) {
-			if (file_exists($valor))
-				if (identificarTipo($valor) == "script")
-					$script[] = '<script href="' . $valor . '" type="text/javascript"></script>';
+			if (file_exists($valor) && identificarTipo($valor) == "script") {
+				$script[] = '<script href="' . $valor . '" type="text/javascript"></script>';
+			}
 		}
 	} else {
-		if (identificarTipo($arquivo) == "script")
+		if (identificarTipo($arquivo) == "script") {
 			$script[] = '<script href="' . $arquivo . '" type="text/javascript"></script>';
+		}
 	}
 	return $script;
 }
@@ -383,7 +386,6 @@ function gerarPagina ($conteudoHead=array(), $conteudoBody=array(), $folhaEstilo
 	$html = html();
 	$head = head();
 	$body = body();
-	// $body				 = gerarBloco('body');
 
 	# TODO: retornar conteudo em array para alteração antes de exibição
 	// Exibe conteúdo
@@ -444,10 +446,11 @@ function gerarOptionsAA ($valores=array(), $indiceSelecionado=null, $atributos=a
 
 		$atributos = gerarAtributos($atributos);
 		foreach ($valores as $valor) {
-			if ($valor[$indiceDoValue] == $indiceSelecionado)
+			if ($valor[$indiceDoValue] == $indiceSelecionado) {
 				$options .= option($valor[$indiceDoTexto], $valor[$indiceDoValue], true, $atributos);
-			else
+			} else {
 				$options .= option($valor[$indiceDoTexto], $valor[$indiceDoValue], false, $atributos);
+			}
 		}
 	}
 
@@ -474,10 +477,11 @@ function gerarOptions ($valores=array(), $indiceSelecionado=null, $atributos=arr
 
 		$atributos = gerarAtributos($atributos);
 		foreach ($valores as $indice => $valor) {
-			if ($indice == $indiceSelecionado || $valor == $indiceSelecionado)
+			if ($indice == $indiceSelecionado || $valor == $indiceSelecionado) {
 				$options .= option($valor, $indice, true, $atributos);
-			else
+			} else {
 				$options .= option($valor, $indice, false, $atributos);
+			}
 		}
 	}
 
@@ -504,11 +508,11 @@ function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=a
 	if (is_array($valores)) {
 		foreach ($valores as $indice => $valor) {
 			$selecionado = "";
-			if ($valor == $valorSelecionado)
+			if ($valor == $valorSelecionado) {
 				$selecionado = 'checked="checked"';
+			}
 
 			$input = "<label>";
-			#$input .= "<input type='radio' name='$nome' id='$nome' value='$valor' $atributos $selecionado />";
 			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
 
 			if (is_numeric($indice)) {
@@ -543,10 +547,11 @@ function gerarCheckbox ($nome, $valores=array(), $valoresSelecionados=array(), $
 		$inputs = array();
 		foreach ($valores as $indice => $valor) {
 			if (is_array($valoresSelecionados)) {
-				if (in_array($indice, $valoresSelecionados))
+				if (in_array($indice, $valoresSelecionados)) {
 					$inputs[] = checkbox($valor, $indice, true);
-				else
+				} else {
 					$inputs[] = checkbox($valor, $indice);
+				}
 
 			} else if ($valoresSelecionados == $indice) {
 				$inputs[] = checkbox($valor, $indice, true);
@@ -555,10 +560,11 @@ function gerarCheckbox ($nome, $valores=array(), $valoresSelecionados=array(), $
 			}
 		}
 	} else {
-		if ($valoresSelecionados)
+		if ($valoresSelecionados) {
 			$inputs = checkbox($nome, $valores, true);
-		else
+		} else {
 			$inputs = checkbox($nome, $valores);
+		}
 	}
 	return $inputs;
 }
@@ -578,11 +584,14 @@ function gerarCheckbox ($nome, $valores=array(), $valoresSelecionados=array(), $
  */
 function marcado ($parametro, $alvo, $check=true)
 {
-	if ($parametro == $alvo)
-		if ($check)
+	if ($parametro == $alvo) {
+
+		if ($check) {
 			return 'checked="checked"';
-		else
+		} else {
 			return 'selected="selected"';
+		}
+	}
 }
 
 /**
@@ -613,8 +622,9 @@ function montarTabela ($headers=array(), $matriz=array(array()), $atributos=arra
 		$tabela = "<table border='1' $atributos>";
 	}
 
-	if (!empty($titulo))
+	if (!empty($titulo)) {
 		$tabela .= "<caption>$titulo</caption>";
+	}
 
 	if (!empty($headers)) {
 		$tabela .= "<thead>";
@@ -625,11 +635,7 @@ function montarTabela ($headers=array(), $matriz=array(array()), $atributos=arra
 		$tabela .= "</tr>";
 		$tabela .= "</thead>";
 	}
-	//$tabela .= "<tfoot>";
-	//$tabela .= "<tr>";
-	//$tabela .= "<td>Junho</td>";
-	//$tabela .= "</tr>";
-	//$tabela .= "</tfoot>";
+
 	$i = 0;
 	$tabela .= "<tbody>";
 	// Itera pelos vetores da matriz
@@ -664,10 +670,11 @@ function montarTabela ($headers=array(), $matriz=array(array()), $atributos=arra
  */
 function refresh ($url="", $tempo="0")
 {
-	if ( empty($url) )
+	if ( empty($url) ) {
 		return "<meta http-equiv='refresh' content='$tempo'>";
-	else
+	} else {
 		return "<meta http-equiv='refresh' content='$tempo; url=$url'>";
+	}
 }
 
 /**
@@ -694,8 +701,9 @@ function refresh ($url="", $tempo="0")
 /* <option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option> */
 function selecionado ($indice, $valor, $atributo='selected')
 {
-	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor )
+	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor ) {
 		return $atributo.'="'. $atributo .'"';
+	}
 }
 
 /**
@@ -722,8 +730,9 @@ function selecionado ($indice, $valor, $atributo='selected')
 /* <option value="Ativas" <?php echo selecionado2("status", "Ativas") ?>>Ativas</option> */
 function selecionado2 ($valor1, $valor2, $atributo='selected')
 {
-	if ( isset($valor1) && isset($valor2) && $valor1==$valor2 )
+	if ( isset($valor1) && isset($valor2) && $valor1==$valor2 ) {
 		return $atributo.'="'. $atributo .'"';
+	}
 }
 
 /**

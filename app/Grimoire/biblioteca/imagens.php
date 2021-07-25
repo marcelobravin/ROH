@@ -12,17 +12,17 @@
  * @param	string
  * @return	void
  */
-function criarThumb ($nome_img, $caminho, $lar_maxima, $alt_maxima, $qualidade=100)
+function criarThumb ($nome_img, $caminho, $lar_maxima, $alt_maxima)
 {
 	$size = getimagesize($caminho.$nome_img);
 	$tipo = $size[2];
 
-	if($tipo == 2) { // 2 é o JPG
+	if ($tipo == 2) { // 2 é o JPG
 		$extensao = '.jpg'; # VERIFICAR ERROS
 		$img = imagecreatefromjpeg($caminho . $nome_img);
-	} if($tipo == 1) { // 1 é o GIF
+	} elseif ($tipo == 1) { // 1 é o GIF
 		$img = imagecreatefromgif($caminho . $nome_img);
-	} if($tipo == 3) { // 3 é PNG
+	} elseif ($tipo == 3) { // 3 é PNG
 		$img = imagecreatefrompng($caminho . $nome_img);
 	}
 
@@ -45,7 +45,6 @@ function criarThumb ($nome_img, $caminho, $lar_maxima, $alt_maxima, $qualidade=1
 			$nome_img = $nome_img[0];
 			$fname = $nome_img .'_'. $lar_maxima .'x'. $alt_maxima . $extensao; # corrigir nome da imagem
 			imagejpeg( $tmp_img, $caminho . $fname ); # colocar switch
-			// return $img;
 		}
 	}
 }
@@ -69,8 +68,6 @@ function descartarCores ($imagem="mod_centro/PB.png")
 		if ($img && imagefilter($img, IMG_FILTER_GRAYSCALE)) {
 			$novoNome = "mod_centro/PB2.png"; // Novo nome que a imagem terá após convertida
 			imagepng($img, $novoNome);
-		} else {
-			$novaImagem = "Erro";
 		}
 		imagedestroy($img);
 		$novaImagem = "<img src='$novoNome'>";
@@ -84,9 +81,9 @@ function descartarCores ($imagem="mod_centro/PB.png")
  * @version 05-07-2015
  *
  * @param	string
- * @param	 array/string
+ * @param	array/string
  * @param	string
- * @param	 boolean
+ * @param	boolean
  * @return	string
  *
  * @uses		html.php->gerarAtributos()
@@ -118,7 +115,9 @@ function exibirImagem ($arquivo, $atributos=array(), $elemento="img", $proteger=
 			break;
 	}
 
-	if ($proteger) $img		.= "</div>";
+	if ($proteger) {
+		$img		.= "</div>";
+	}
 
 	return $img;
 }
@@ -133,8 +132,9 @@ function exibirImagem ($arquivo, $atributos=array(), $elemento="img", $proteger=
  */
 function foto ($foto, $fotoAlternativa="arquivos/imagens/semImagem.gif")
 {
-	if (!empty($foto) && file_exists($foto))
+	if (!empty($foto) && file_exists($foto)) {
 		return $foto;
+	}
 
 	return $fotoAlternativa;
 }
@@ -145,7 +145,7 @@ function foto ($foto, $fotoAlternativa="arquivos/imagens/semImagem.gif")
  * @version 05-07-2015
  *
  * @param	string
- * @param	 bool
+ * @param	bool
  * @return	string
  *
  * @example
@@ -157,10 +157,11 @@ function gerarBackground ($arquivo, $block=true)
 	$largura	= $dimensoes[0] . $unidade;
 	$altura		= $dimensoes[1] . $unidade;
 
-	if ($block)
+	if ($block) {
 		return "style='background: url($arquivo); width: $largura; height: $altura; display: block;'";
-	else
+	} else {
 		return "style='width: $largura; height: $altura;'";
+	}
 }
 
 /**
@@ -169,7 +170,7 @@ function gerarBackground ($arquivo, $block=true)
  * @version 05-07-2015
  *
  * @param	string: url do video
- * @param	 bool
+ * @param	bool
  * @return	string
  */
 function gerarImagemVideoYoutube ($url="https://www.youtube.com/watch?v=jo1PvY5pr1A", $grande=true)
@@ -180,10 +181,11 @@ function gerarImagemVideoYoutube ($url="https://www.youtube.com/watch?v=jo1PvY5p
 	// link do video gerado por embed
 	$imagem = str_replace("youtu.be", "img.youtube.com/vi", $imagem);
 
-	if ($grande)
+	if ($grande) {
 		$tamanho = "/0.jpg";
-	else
+	} else {
 		$tamanho = "/2.jpg";
+	}
 
 	return $imagem .= $tamanho;
 }
@@ -254,12 +256,12 @@ function gerarSpritemap ($diretorio="")
 	$alturaTotal = 0;
 	$larguraMaxima = 0;
 	foreach ($files as $arquivo) {
-		if ($arquivo != $spritemap) # não inclui o próprio spritemap
-		if (file_exists($arquivo)) {
+		if ( $arquivo != $spritemap && file_exists($arquivo) ) {
 			$dimensoes = getimagesize($arquivo);
 			$alturaTotal = (int) $alturaTotal + $dimensoes[1];
-			if ($larguraMaxima < $dimensoes[0])
+			if ($larguraMaxima < $dimensoes[0]) {
 				$larguraMaxima = $dimensoes[0];
+			}
 		}
 	}
 
@@ -282,7 +284,7 @@ function gerarSpritemap ($diretorio="")
 				$imgX = imagecreatefrompng($arquivo);
 				break;
 				default:
-				echo('Invalid image type '. $arquivo);
+				echo 'Invalid image type '. $arquivo;
 			}
 			$w = imagesx($imgX); // armazenar em array durante o foreach anterior
 			$h = imagesy($imgX);
@@ -313,11 +315,11 @@ function gera_thumb ($nome_img, $lar_maxima, $alt_maxima, $qualidade=100)
 		$size = getimagesize($nome_img);
 		$tipo = $size[2];
 	# Pega onde está a imagem e carrega
-	if ($tipo == 2){ // 2 é o JPG
+	if ($tipo == 2) { // 2 é o JPG
 		$img = imagecreatefromjpeg($nome_img);
-	} if ($tipo == 1){ // 1 é o GIF
+	} elseif ($tipo == 1) { // 1 é o GIF
 		$img = imagecreatefromgif($nome_img);
-	} if ($tipo == 3){ // 3 é PNG
+	} elseif ($tipo == 3) { // 3 é PNG
 		$img = imagecreatefrompng($nome_img);
 	}
 
@@ -405,8 +407,8 @@ function imagemStub ($altura=300, $largura=400)
  * @version 05-07-2015
  *
  * @param	string
- * @param	 int
- * @param	 int
+ * @param	int
+ * @param	int
  * @return	string
  */
 function retornarImagem ($imagem, $x=100, $y=100)
@@ -425,8 +427,8 @@ function retornarImagem ($imagem, $x=100, $y=100)
  * @version 05-07-2015
  *
  * @param	string
- * @param	 int
- * @param	 int
+ * @param	int
+ * @param	int
  * @param	string
  * @param	string
  * @return	string
@@ -530,10 +532,9 @@ function imageCollation ($images, $fileName)
 
 	# create image with transparent BG
 	$sumWidth	= $width	* $sqRt;
-	/* $sumHeight = $height * $sqRt; */ // deixa uma linha em branco no final de matrizes retangulares
 	$sumHeight = 0;
 	$i = 0;
-	foreach ($images as $key => $value) {
+	foreach ($images as $value) {
 		if ($i % $sqRt == 0) {
 				$sumHeight += $height;
 		}
@@ -551,15 +552,15 @@ function imageCollation ($images, $fileName)
 	saveImage($tmp, '../assets/images/auto-generated/', $fileName);
 
 	# clean resources
-	foreach ($images as $key => $value) {
+	foreach ($images as $value) {
 		imagedestroy( $value['resource'] );
 	}
 
 	# exibir no browser
-	// echo "<hr><img src='../assets/images/auto-generated/". $fileName .".png'>";
-	// header('Content-Type: image/png');
-	// imagepng($tmp);
-	// die();
+	echo "<hr><img src='../assets/images/auto-generated/". $fileName .".png'>";
+	header('Content-Type: image/png');
+	imagepng($tmp);
+	die();
 }
 
 /**
@@ -572,7 +573,7 @@ function imageCollation ($images, $fileName)
  * @param	string
  * @param	string
  *
- * @return	bool
+ * @return	GDImage
  *
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
@@ -650,8 +651,6 @@ function processImages ($tmp, $images, $dimensions, $sqRt)
 		$a[$key]['positionY'] = $positionY;
 	}
 
-	// echo "<pre>";
-		// print_r($a);
 	$fileName = $dimensions['width'] .'x'. $dimensions['height'];
 	generateSpriteAtlas($fileName, $a);
 }
@@ -674,7 +673,6 @@ function processImages ($tmp, $images, $dimensions, $sqRt)
 function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP")
 {
 	$path = $dir . $filename . ".png";
-	#chmod($filename,0755);
 	imagepng($tmp, $path, 0, 0);
 }
 

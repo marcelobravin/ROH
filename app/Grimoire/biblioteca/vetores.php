@@ -87,19 +87,22 @@ function adicionarIndice ($matriz, $indice, $valor=null)
 function codificarArray ($array, $codificar=true)
 {
 	if (is_array($array)) {
-		//$file_ary = array();
 		foreach ($array as $key => $value) {
-			if ($codificar)
+			if ($codificar) {
 				$array[$key] = utf8_encode($value);
-			else
+			}
+			else {
 				$array[$key] = utf8_decode($value);
+			}
 		}
 		return $array;
 	} else {
-			if ($codificar)
+			if ($codificar) {
 				return utf8_encode($array);
-			else
+			}
+			else {
 				return utf8_decode($array);
+			}
 	}
 }
 
@@ -113,8 +116,9 @@ function codificarArray ($array, $codificar=true)
  */
 function converterString ($array)
 {
-	if (is_array($array) && sizeof($array) == 1)
+	if (is_array($array) && sizeof($array) == 1) {
 		$array = $array[0];
+	}
 
 	return $array;
 }
@@ -132,10 +136,12 @@ function converterString ($array)
  */
 function envolver ($elemento=array(), $conteudo="")
 {
-	if (!is_array($conteudo))
+	if (!is_array($conteudo)) {
 		$string = "$elemento[0]\n$conteudo\n$elemento[1]\n"; // AMBTST
-	else
+	}
+	else {
 		$string = "$elemento[0]\n" . concatenar($conteudo, "", "\n") . "\n$elemento[1]\n"; // AMBTST
+	}
 
 	return $string;
 }
@@ -151,8 +157,9 @@ function envolver ($elemento=array(), $conteudo="")
  */
 function esvaziarMensagem ($indice="mensagem")
 {
-	if (session_status() === PHP_SESSION_NONE)
+	if (session_status() === PHP_SESSION_NONE) {
 		session_start();
+	}
 
 	$retorno = "";
 	if (isset($_SESSION[$indice])) {
@@ -174,8 +181,9 @@ function esvaziarMensagem ($indice="mensagem")
  */
 function exibirIndice ($indice)
 {
-	if ( isset($_GET[$indice]) )
+	if ( isset($_GET[$indice]) ) {
 		return $_GET[$indice];
+	}
 
 	return "";
 }
@@ -191,11 +199,13 @@ function exibirIndice ($indice)
  */
 function existeIndice ($valor, $array)
 {
-	if ( is_array($array) )
+	if ( is_array($array) ) {
 		foreach ($array as $indice=>$v) {
-			if ($valor === $indice)
+			if ($valor === $indice) {
 				return true;
+			}
 		}
+	}
 
 	return -1;
 	// * return false; # causa erro em http://localhost/roh/index.php?action=gerar-formulario
@@ -211,8 +221,9 @@ function existeIndice ($valor, $array)
  */
 function igual ($array, $indice, $string)
 {
-	if (isset($array[$indice]) && $array[$indice] == $string)
+	if (isset($array[$indice]) && $array[$indice] == $string) {
 		return TRUE;
+	}
 
 	return false;
 }
@@ -228,8 +239,9 @@ function isArraySimpleOrStruct ($val)
 {
 	$keyList = array_keys($val);
 	foreach ($keyList as $keyListValue) {
-		if (!is_int($keyListValue))
+		if (!is_int($keyListValue)) {
 			return 'arrayStruct';
+		}
 	}
 	return 'arraySimple';
 }
@@ -285,13 +297,16 @@ function rearrange ( $file_post )
 */
 function removerEspacos ($array)
 {
-	if ( is_array($array) )
+	if ( is_array($array) ) {
 		foreach ($array as $index => $value) {
-			if ( is_array($value) )
+			if ( is_array($value) ) {
 				$array[$index] = removerEspacos($value);
-			else
+			}
+			else {
 				$array[$index] = trim($value);
+			}
 		}
+	}
 
 	return $array;
 }
@@ -306,10 +321,12 @@ function removerEspacos ($array)
  */
 function removerNulos ($array, $opcao=false)
 {
-	if (!$opcao)
+	if (!$opcao) {
 		$arrayLimpa = array_filter($array, 'strlen'); // Remove nulls
-	else
+	}
+	else {
 		$arrayLimpa = array_filter($array); // Remove falses
+	}
 
 	return $arrayLimpa;
 }

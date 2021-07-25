@@ -78,15 +78,17 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 	foreach ($mapaFormatos as $i => $v) {
 		if ($v == "cpf") {
 			# switch ip etc, ver validacoes
-			if ( !validarCPF($post[$i]) )
+			if ( !validarCPF($post[$i]) ) {
 				$erros[] = "CPF inválido";
+			}
 
 			unset($camposObrigatorios[$v]);
 			unset($mapaFormatos[$v]);
 			unset($post[$v]);
 		} else if ($v == "cnpj") {
-			if ( !validarCNPJ($post[$i]) )
+			if ( !validarCNPJ($post[$i]) ) {
 				$erros[] = "CNPJ inválido";
+			}
 
 			unset($camposObrigatorios[$v]);
 			unset($mapaFormatos[$v]);
@@ -96,13 +98,15 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 
 	# validação de formato e caracteres
 	$camposEmFormatoInvalidos = validarFormatos($post, $mapaFormatos);
-	if ( !empty($camposEmFormatoInvalidos) )
+	if ( !empty($camposEmFormatoInvalidos) ) {
 		$erros["violacoes_de_formato"] = $camposEmFormatoInvalidos;
+	}
 
 	# validação de campos vazios que escaparam das validações anteriores
 	$camposVazios = validarCamposObrigatorios($camposObrigatorios);
-	if ( !empty($camposVazios) )
+	if ( !empty($camposVazios) ) {
 		$erros["campos_obrigatorios_nao_preenchidos"] = $camposVazios;
+	}
 
 	# validação de tamanhos
 	foreach ( $mapaTamanhos as $i => $v) {
@@ -124,13 +128,6 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 			}
 		}
 	}
-/*
-	echo('<pre>');
-	print_r($erros);
-	echo('</pre>');
-
-	exit;
- */
 	return $erros;
 }
 
@@ -151,8 +148,9 @@ function validar ($padrao, $valor)
 {
 	$expressaoRegular = padrao($padrao);
 
-	if ( empty($expressaoRegular) )
+	if ( empty($expressaoRegular) ) {
 		die("Expressão regular não encontrada para:<br>{$valor} => {$padrao}");
+	}
 
 	return preg_match($expressaoRegular, $valor);
 }
@@ -175,8 +173,9 @@ function validarCamposObrigatorios ($campos)
 {
 	$erros = array();
 	foreach ($campos as $i=> $v) {
-		if ( strlen($v) == 0 )
+		if ( strlen($v) == 0 ) {
 			$erros[] = $i;
+		}
 	}
 
 	return $erros;
@@ -201,12 +200,13 @@ function validarFormatos ($campos, $formatos)
 		if ( !empty($campos[$i]) ) {
 
 			$validado = validar($v, $campos[$i]);
-			if ( !$validado )
+			if ( !$validado ) {
 				$erros[] = [
 					'campo'		=> $i,
 					'padrao'	=> $v,
 					'valor'		=> $campos[$i]
 				];
+			}
 		}
 	}
 
@@ -233,8 +233,9 @@ function validarCnpj ($cnpj)
 		$sinais = array("/"," ",".","-",",");
 		$cnpj = str_replace($sinais,"",$cnpj);
 
-		if (strlen($cnpj) <> 14)
+		if (strlen($cnpj) <> 14) {
 			return false;
+		}
 		$soma1 = ($cnpj[0] * 5) +
 			($cnpj[1] * 4) +
 			($cnpj[2] * 3) +
@@ -307,8 +308,9 @@ function validarCpf ($cpf)
 			}
 
 			$d = ((10 * $d) % 11) % 10;
-			if ($cpf[$c] != $d)
+			if ($cpf[$c] != $d) {
 				return false;
+			}
 		}
 
 		return true;
@@ -334,11 +336,13 @@ function validarData ($data, $dataMinima=null, $dataMaxima=null)
 	if (!validar("data", $data)) {
 		return false;
 	} else {
-		if (!empty($dataMinima))
-			if (days_diff($data, $dataMinima) > 0) return false;
+		if ( !empty($dataMinima) && days_diff($data, $dataMinima) > 0 ) {
+			return false;
+		}
 
-		if (!empty($dataMaxima))
-			if (days_diff($data, $dataMaxima) < 0) return false;
+		if ( !empty($dataMaxima) && days_diff($data, $dataMaxima) < 0 ) {
+			return false;
+		}
 	}
 	return true;
 }
@@ -378,8 +382,9 @@ function validarIp ($ip)
 
 		$quaternion = explode(".", $ip);
 		foreach ($quaternion as $vetor) {
-			if ($vetor > 255 || $vetor < 0)
+			if ($vetor > 255 || $vetor < 0) {
 				return 0;
+			}
 		}
 	} else {
 		return false;
@@ -419,14 +424,14 @@ function validate_ip ($ip)
 		// signed numbers (ints default to signed in PHP)
 		$ip = sprintf('%u', $ip);
 		// do private network range checking
-		if ($ip >= 0 && $ip <= 50331647) return false;
-		if ($ip >= 167772160 && $ip <= 184549375) return false;
-		if ($ip >= 2130706432 && $ip <= 2147483647) return false;
-		if ($ip >= 2851995648 && $ip <= 2852061183) return false;
-		if ($ip >= 2886729728 && $ip <= 2887778303) return false;
-		if ($ip >= 3221225984 && $ip <= 3221226239) return false;
-		if ($ip >= 3232235520 && $ip <= 3232301055) return false;
-		if ($ip >= 4294967040) return false;
+		if ($ip >= 0 && $ip <= 50331647) {				return false; }
+		if ($ip >= 167772160 && $ip <= 184549375) {		return false; }
+		if ($ip >= 2130706432 && $ip <= 2147483647) {	return false; }
+		if ($ip >= 2851995648 && $ip <= 2852061183) {	return false; }
+		if ($ip >= 2886729728 && $ip <= 2887778303) {	return false; }
+		if ($ip >= 3221225984 && $ip <= 3221226239) {	return false; }
+		if ($ip >= 3232235520 && $ip <= 3232301055) {	return false; }
+		if ($ip >= 4294967040) {						return false; }
 	}
 	return true;
 }
@@ -788,8 +793,9 @@ function isEmail ($param)
 */
 function positivo ($param)
 {
-	if ( !is_numeric($param) )
+	if ( !is_numeric($param) ) {
 		return false;
+	}
 
 	return $param > 0;
 }

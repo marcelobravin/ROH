@@ -47,8 +47,9 @@ function criacaoTemplateTabela ($nomeTabela="nova_tabela", $recriarTabela=false)
 		COMMIT;
 	";
 
-	if ($recriarTabela)
+	if ($recriarTabela) {
 		return "DROP TABLE IF EXISTS `{$nomeTabela}` " . $sql;
+	}
 
 	return $sql;
 }
