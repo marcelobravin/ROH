@@ -17,7 +17,7 @@ $user = $user[0];
 $token = uniqid();
 
 $assunto = "Confirmação de email";
-$servidor = "http://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
+$servidor = "https://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
 $endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
 

@@ -16,7 +16,7 @@
 <html lang="<?php echo IDIOMA ?>">
 <head>
 	<?php include "public/views/frames/metas.php" ?>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+	<script src="public/vendors/jquery.mask.min.js"></script>
 	<style>
 		.obrigatorio:before { content: "*"; display: block }
 		label {

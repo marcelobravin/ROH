@@ -43,7 +43,7 @@ echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 $assunto = "Redefinição de senha";
-$servidor = "http://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
+$servidor = "https://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
 $endereco = "reset-senha.php?email=". $user['login'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senha</a>';
 

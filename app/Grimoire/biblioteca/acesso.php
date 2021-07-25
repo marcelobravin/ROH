@@ -14,18 +14,16 @@
  *
  * @uses	acesso.php->logado()
  */
-function bloquear ($criterio=FALSE, $destino="index.php")
+function bloquear ($criterio=FALSE, $destino=PAGINA_INICIAL)
 {
 	$logado = logado();
-	if ( $criterio==FALSE ) {
+	if ( !$criterio ) {
 		if ( !$logado ) { # Bloqueia acesso de usuários deslogados
-			header("Location: {$destino}");
-			die();
+			redirecionar($destino);
 		}
 	} else {
-		if	( $logado ) { # Bloqueia acesso de usuários logados
-			header("Location: {$destino}");
-			die();
+		if ( $logado ) { # Bloqueia acesso de usuários logados
+			redirecionar($destino);
 		}
 	}
 }
@@ -43,9 +41,11 @@ function bloquear ($criterio=FALSE, $destino="index.php")
  */
 function bloquearAcesso ($paginasExternas)
 {
-	if ( !in_array(paginaAtual(), $paginasExternas) )
-		if ( !LOGADO )
-			redirecionar("index.php");
+	if ( !in_array(paginaAtual(), $paginasExternas) ) {
+		if ( !LOGADO ) {
+			redirecionar();
+		}
+	}
 }
 
 /**
@@ -60,9 +60,9 @@ function bloquearAcesso ($paginasExternas)
 function checarSessao ()
 {
 	if ( function_exists ('session_status') ) {
-		if (@session_status() == PHP_SESSION_NONE) // For versions of PHP >= 5.4.0
+		if (@session_status() == PHP_SESSION_NONE) {// For versions of PHP >= 5.4.0
 			session_start();
-
+		}
 	} elseif (session_id() == '') { // For versions of PHP < 5.4.0
 		session_start();
 	}
@@ -90,9 +90,9 @@ function condenarSessao ($tempo=SESSAO_TTL)
 	// $samesite = 'lax';
 	$samesite = 'roh';
 
-	if (PHP_VERSION_ID < 70300)
+	if (PHP_VERSION_ID < 70300) {
 		session_set_cookie_params($tempo, '/; samesite='.$samesite, $_SERVER['HTTP_HOST'], $secure, $httponly);
-	else
+	} else {
 		session_set_cookie_params([
 			'lifetime' => $tempo,
 			'path' => '/',
@@ -101,7 +101,7 @@ function condenarSessao ($tempo=SESSAO_TTL)
 			'httponly' => $httponly,
 			'samesite' => $samesite
 		]);
-
+	}
 	session_start();
 
 	$now = time();
@@ -134,13 +134,13 @@ function identificarNavegador ()
 	$version= "";
 
 	//First get the platform?
-	if (preg_match('/linux/i', $u_agent))
+	if (preg_match('/linux/i', $u_agent)) {
 		$platform = 'linux';
-	elseif (preg_match('/macintosh|mac os x/i', $u_agent))
+	} elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
 		$platform = 'mac';
-	elseif (preg_match('/windows|win32/i', $u_agent))
+	} elseif (preg_match('/windows|win32/i', $u_agent)) {
 		$platform = 'windows';
-
+	}
 	// Next get the name of the useragent yes seperately and for good reason
 	if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
 		$bname = 'Internet Explorer';
@@ -252,31 +252,37 @@ function identificarNavegador2 ()
 function get_ip_address()
 {
 	// check for shared internet/ISP IP
-	if (!empty($_SERVER['HTTP_CLIENT_IP']) && validate_ip($_SERVER['HTTP_CLIENT_IP']))
+	if (!empty($_SERVER['HTTP_CLIENT_IP']) && validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
 		return $_SERVER['HTTP_CLIENT_IP'];
-
+	}
 	// check for IPs passing through proxies
 	if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 		// check if multiple ips exist in var
 		if ( !strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') ) {
 			$iplist = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
 			foreach ($iplist as $ip) {
-				if (validate_ip($ip))
+				if (validate_ip($ip)) {
 					return $ip;
+				}
 			}
 		} else {
-			if (validate_ip($_SERVER['HTTP_X_FORWARDED_FOR']))
+			if (validate_ip($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 				return $_SERVER['HTTP_X_FORWARDED_FOR'];
+			}
 		}
 	}
-	if (!empty($_SERVER['HTTP_X_FORWARDED']) && validate_ip($_SERVER['HTTP_X_FORWARDED']))
+	if (!empty($_SERVER['HTTP_X_FORWARDED']) && validate_ip($_SERVER['HTTP_X_FORWARDED'])) {
 		return $_SERVER['HTTP_X_FORWARDED'];
-	if (!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) && validate_ip($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
+	}
+	if (!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) && validate_ip($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
 		return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-	if (!empty($_SERVER['HTTP_FORWARDED_FOR']) && validate_ip($_SERVER['HTTP_FORWARDED_FOR']))
+	}
+	if (!empty($_SERVER['HTTP_FORWARDED_FOR']) && validate_ip($_SERVER['HTTP_FORWARDED_FOR'])) {
 		return $_SERVER['HTTP_FORWARDED_FOR'];
-	if (!empty($_SERVER['HTTP_FORWARDED']) && validate_ip($_SERVER['HTTP_FORWARDED']))
+	}
+	if (!empty($_SERVER['HTTP_FORWARDED']) && validate_ip($_SERVER['HTTP_FORWARDED'])) {
 		return $_SERVER['HTTP_FORWARDED'];
+	}
 
 	// return unreliable ip since all else failed
 	return $_SERVER['REMOTE_ADDR'];
@@ -294,13 +300,13 @@ function get_ip_address()
  */
 function identificarIP ()
 {
-	if ( isset($_SERVER['HTTP_CLIENT_IP']) )			return $_SERVER['HTTP_CLIENT_IP'];
-	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	return $_SERVER['HTTP_CF_CONNECTING_IP']; # when behind cloudflare
-	else if( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )	return $_SERVER['HTTP_X_FORWARDED_FOR'];
-	else if( isset($_SERVER['HTTP_X_FORWARDED']) )		return $_SERVER['HTTP_X_FORWARDED'];
-	else if( isset($_SERVER['HTTP_FORWARDED_FOR']) )	return $_SERVER['HTTP_FORWARDED_FOR'];
-	else if( isset($_SERVER['HTTP_FORWARDED']) )		return $_SERVER['HTTP_FORWARDED'];
-	else if( isset($_SERVER['REMOTE_ADDR']) )			return $_SERVER['REMOTE_ADDR'];
+	if ( isset($_SERVER['HTTP_CLIENT_IP']) )			{ return $_SERVER['HTTP_CLIENT_IP']; }
+	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	{ return $_SERVER['HTTP_CF_CONNECTING_IP']; } # when behind cloudflare
+	else if( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )	{ return $_SERVER['HTTP_X_FORWARDED_FOR']; }
+	else if( isset($_SERVER['HTTP_X_FORWARDED']) )		{ return $_SERVER['HTTP_X_FORWARDED']; }
+	else if( isset($_SERVER['HTTP_FORWARDED_FOR']) )	{ return $_SERVER['HTTP_FORWARDED_FOR']; }
+	else if( isset($_SERVER['HTTP_FORWARDED']) )		{ return $_SERVER['HTTP_FORWARDED']; }
+	else if( isset($_SERVER['REMOTE_ADDR']) )			{ return $_SERVER['REMOTE_ADDR']; }
 	else return '0.0.0.0';
 }
 
@@ -337,11 +343,7 @@ function limitador ()
 function logado ($indice='usuario_logado')
 {
 	checarSessao();
-	if ( isset($_SESSION[$indice]) )
-		return true;
-
-	// return 0;
-	return false;
+	return isset($_SESSION[$indice]);
 }
 
 /**
@@ -455,7 +457,7 @@ function recarregar ($descartarParametros=false)
  *
  * @param	string
  */
-function redirecionar ($url = PAGINA_INICIAL)
+function redirecionar ($url=PAGINA_INICIAL)
 {
 	if ( !headers_sent() ) {
 		header('Location: ' . $url);
@@ -627,9 +629,11 @@ function getOS ()
 		'/webos/i'				=> 'Mobile'
 	);
 
-	foreach ($os_array as $regex => $value)
-		if (preg_match($regex, $user_agent))
+	foreach ($os_array as $regex => $value) {
+		if (preg_match($regex, $user_agent)) {
 			$os_platform = $value;
+		}
+	}
 
 	return $os_platform;
 }
@@ -663,7 +667,7 @@ function logOut ($destino='index.php')
  *
  * @uses	acesso.php->logado()
  */
-function urlExists ($file = 'http://www.domain.com/somefile.jpg')
+function urlExists ($file = 'https://www.domain.com/somefile.jpg')
 {
 	$file_headers = @get_headers($file);
 	if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
@@ -706,6 +710,7 @@ function temDependencias ($modulo, $id)
  * Retorna o nome do arquivo atual
  * @package	grimoire/bibliotecas/vetores.php
  * @since	15/07/2021 15:49:52
+ * WARNING talvez sea necessário usar DIRECTORY_SEPARATOR -> DS
  */
 function paginaAtual ()
 {
