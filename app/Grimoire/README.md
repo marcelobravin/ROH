@@ -2,6 +2,11 @@ senha SQ
 cj-xfaYum4CR#rb
 
 
+Exportar dB não deve gerar fk e sim importar as que estão em uso
+Gerar fks pode ter parâmetro pra auto gerar todas
+
+
+
 verificar validação ip
     duplicata
 

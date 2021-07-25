@@ -36,9 +36,7 @@ if ( isset($_REQUEST['action']) ) {
 				echo "Criação da tabela {$tabela} executada!";
 			}
 
-			echo '<pre>';
-			print_r( $sql );
-			echo '</pre>';
+			exibir( $sql );
 			break;
 
 		case 'gerarFk' :
@@ -56,9 +54,7 @@ if ( isset($_REQUEST['action']) ) {
 				exibir($r);
 			}
 
-			echo '<pre>';
-			print_r($sql);
-			echo '</pre>';
+			exibir($sql);
 
 			break;
 
@@ -117,9 +113,7 @@ if ( isset($_REQUEST['action']) ) {
 				$x = criarFormularioInsercao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $conversoes, $descricaoLabels, $padroes);
 				if ( $x ) {
 					echo "Gerado formulário de inserção: {$value}!";
-					echo '<pre>';
-					print_r($x);
-					echo '</pre>';
+					exibir($x);
 				} else {
 					echo "Erro...";
 				}
@@ -171,6 +165,7 @@ if ( isset($_REQUEST['action']) ) {
 						$remover[] = 'senha';
 
 						break;
+					default:
 				}
 
 				$x = criarFormularioAtualizacao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $conversoes, $descricaoLabels, $padroes);

@@ -47,8 +47,9 @@ function anexarArquivo ($vetor, $caminho)
 */
 function array_para_csv (array &$array)
 {
-	if ( empty($array) )
+	if ( empty($array) ) {
 		return null;
+	}
 
 	ob_start();
 	$df = fopen("php://output", 'w');
@@ -163,13 +164,15 @@ function corrigirEnderecoVideoYoutube ($url)
 		$url = str_replace("watch?v=", "embed/", $url);
 		$posicao = strpos($url, '&feature');
 
-		if ($posicao > 0)
+		if ($posicao > 0) {
 			$url = substr($url, 0, $posicao);
+		}
 
 			// Correção Odorite
 		$pos1 = stripos($url, "&");
-		if ($pos1 > 0)
+		if ($pos1 > 0) {
 			$url = substr($url, 0, $pos1);
+		}
 	}
 
 	return $url;
@@ -343,8 +346,9 @@ function escrever ($arquivo, $conteudo, $sobreescrever=false)
  */
 function excell ($titulo, $matriz, $campos=array())
 {
-	if ( empty($campos) )
+	if ( empty($campos) ) {
 		$campos = array_keys($matriz[0]);
+	}
 
 	headersExcell($titulo);
 	$out = fopen("php://output", 'w');
@@ -354,9 +358,6 @@ function excell ($titulo, $matriz, $campos=array())
 
 	# Monta dados das colunas
 	foreach ($matriz as $data) {
-		// foreach ($data as $key => $value) {
-			// $data[$key] = utf8_decode($data[$key]);
-		// }
 		fputcsv($out, $data,"\t");
 	}
 
@@ -376,8 +377,9 @@ function excell ($titulo, $matriz, $campos=array())
 function excluirArquivo ($arquivo)
 {
 	$retorno = false;
-	if (file_exists($arquivo))
+	if (file_exists($arquivo)) {
 		$retorno = unlink($arquivo);
+	}
 
 	return $retorno;
 }
@@ -420,10 +422,11 @@ function excluirArquivos ($criterio)
 function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAceitados=null, $sobrescrever=false)
 {
 	// Se nome for true utiliza timestamp como nome
-	if ( $nome )
+	if ( $nome ) {
 		$nome = Date('Y-m-d_H-i-s');
-	else if (empty($nome))
+	} else if (empty($nome)) {
 		$nome = "upload"; // Se nome for nulo utiliza nome padrão
+	}
 
 	// Verifica se há erros no arquivo
 	if (!$arquivo['error'] == UPLOAD_ERR_OK) {
@@ -449,10 +452,11 @@ function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAc
 					$resposta = "O arquivo '$novoArquivo' já existe!";
 				} else {
 					// Realiza upload
-					if (move_uploaded_file($arquivo["tmp_name"], $novoArquivo))
+					if (move_uploaded_file($arquivo["tmp_name"], $novoArquivo)) {
 						$resposta = $fileName;
-					else
+					} else {
 						$resposta = "Erro ao enviar arquivo..."; // Permissão de acesso
+					}
 				}
 			}
 		}
@@ -496,10 +500,8 @@ function get_include_contents ($filename)
 function headersExcell ($arquivo)
 {
 	header("Expires: 0");
-	// header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 
 	header("Content-type: application/x-msexcel");
-	// header("Content-Type: application/vnd.ms-excel;");
 
 	header("Last-Modified: " . gmdate("D,d M YH:i(worry)") . " GMT");
 	header("Pragma: no-cache");
@@ -508,7 +510,6 @@ function headersExcell ($arquivo)
 	header("Pragma: public");
 	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 	header("Content-type: application/vnd.ms-excel");
-	// header("Content-Disposition: attachment; filename=\"{$arquivo}\"");
 	header("Content-Disposition: attachment; filename=".$arquivo.".xls");
 	header("Content-Transfer-Encoding: binary ");
 	header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
@@ -655,8 +656,9 @@ function retornarExtensao ($arquivo)
 function retornarJson ($mapaTermos="termos/character_map.json")
 {
 	$termos = converterJson($mapaTermos);
-	if ( $termos == "Arquivo não existe" )
+	if ( $termos == "Arquivo não existe" ) {
 		return $termos;
+	}
 
 	$resposta = array();
 	foreach ($termos['registros'] as $index => $value) {
@@ -688,9 +690,9 @@ function retornarJson ($mapaTermos="termos/character_map.json")
 */
 function converterJson ($json)
 {
-	/*$termos=preg_replace('/.+?({.+}).+/','$1',$termos);*/
-	if ( !file_exists($json) )
+	if ( !file_exists($json) ) {
 		return "Arquivo não existe";
+	}
 
 	$contents = file_get_contents($json);
 	$contents = utf8_encode($contents);
@@ -698,8 +700,9 @@ function converterJson ($json)
 	$termos = json_decode($contents, true);
 
 	//do something with $json. It's ready to use
-	if (json_last_error() === JSON_ERROR_NONE)
+	if (json_last_error() === JSON_ERROR_NONE) {
 		return $termos;
+	}
 
 	return "Arquivo não é um json válido". json_last_error();
 }

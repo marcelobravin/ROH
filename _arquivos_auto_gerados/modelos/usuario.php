@@ -2,7 +2,7 @@
 		/**
 		 * usuario
 		 * @package	grimoire/modelos
-		 * @version	25-07-2021 13:31:59
+		 * @version	25-07-2021 18:11:18
 		*/
 		
 			$campos[0] = array(

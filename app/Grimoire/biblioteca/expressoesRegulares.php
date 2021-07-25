@@ -21,19 +21,24 @@ function padrao ($padrao)
 	switch ($padrao) {
 
 		case "alfa": # letras minúsculas
-			return "/^([a-z])+$/i";
+			$r = "/^([a-z])+$/i";
+			break;
 
 		case "alfanumerico":
-			return "/^([a-z0-9])+$/i";
+			$r = "/^([a-z0-9])+$/i";
+			break;
 
 		case "alfanumerico_e_espacos":
-			return "/^([a-zA-Z0-9 ])+$/i";
+			$r = "/^([a-zA-Z0-9 ])+$/i";
+			break;
 
 		case "alpha_dash": # Alpha-numeric with underscores and dashes
-			return "^([-a-z0-9_-])+$/i";
+			$r = "^([-a-z0-9_-])+$/i";
+			break;
 
 		case "alpha_space":
-			return "/^([a-z ])+$/i";
+			$r = "/^([a-z ])+$/i";
+			break;
 
 		/**
 		 * Valid Base64
@@ -42,72 +47,94 @@ function padrao ($padrao)
 		 * as defined by RFC 2045 {@link http://www.faqs.org/rfcs/rfc2045}
 		 */
 		case "base64":
-			return '/[^a-zA-Z0-9\/\+=]/';
+			$r = '/[^a-zA-Z0-9\/\+=]/';
+			break;
 
 		case "cep":
-			return "^[0-9]{5}-[0-9]{3}$^";
+			$r = "^[0-9]{5}-[0-9]{3}$^";
+			break;
 
 		case "celular":
-			return '/^(\(11\) (9\d{4})-\d{4})|((\(1[2-9]{1}\)|\([2-9]{1}\d{1}\)) [5-9]\d{3}-\d{4})$/';
+			$r = '/^(\(11\) (9\d{4})-\d{4})|((\(1[2-9]{1}\)|\([2-9]{1}\d{1}\)) [5-9]\d{3}-\d{4})$/';
+			break;
 
 		case "comentários multi-linha":
-			return '/^[(/*)+.+(*/)]$/';
+			$r = '/^[(/*)+.+(*/)]$/';
+				break;
 
 		case "codigo_postal":
-			return '/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/';
+			$r = '/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/';
+			break;
 
 		case "cor_hexadecimal":
-			return '/^#(?:(?:[a-f\d]{3}){1,2})$/i';
+			$r = '/^#(?:(?:[a-f\d]{3}){1,2})$/i';
+			break;
 
 		case "cpf":
-			return "/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2,2}$/";
+			$r = "/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2,2}$/";
+			break;
 			//$re = preg_match("^([0-9]){3}\.([0-9]){3}\.([0-9]){3}-([0-9]){2}$^", $cpf);
 
 		case "cnpj":
-			return '/^[0-9+\/.-]{18}$/i';
+			$r = '/^[0-9+\/.-]{18}$/i';
+			break;
 
 		case "data":
 			//'/^\d{1,2}\/\d{1,2}\/\d{4}$/'
-			return "^[0-9]{2}/[0-9]{2}/[0-9]{4}$^";
+			$r = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$^";
+			break;
 
 		case "email":
-			return "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
+			$r = "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
+			break;
 			// '/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/'
 			// "/^(([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}){0,1}$/";
 
 		case "endereco": # alfanumerico_simbolos_e_espacos
-			return "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9,.]+$/";
+			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9,.]+$/";
+			break;
 
 		case "integer":
-			return '/^[\-+]?[0-9]+$/';
+			$r = '/^[\-+]?[0-9]+$/';
+			break;
 
 		case "ip": # v4
-			return '^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$';
-			// return "^([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}$^";
+			$r = '^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$';
+			break;
+			// $r = "^([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}$^";
+			break;
 
 		case "letras": # Valida se a string é composta apenas de letras maiúsculas e minúsculas
-			return "/^[a-zA-Z]+$/";
+			$r = "/^[a-zA-Z]+$/";
+			break;
 
 		case "letras_e_espaco":
-			return "/^[a-zA-Z ]+$/";
+			$r = "/^[a-zA-Z ]+$/";
+			break;
 
 		case "letras_espacos_acentos_apostrofe":
-			return "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' ]+$/";
+			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' ]+$/";
+			break;
 
 		case "mac":
-			return "/[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}/";
+			$r = "/[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}/";
+			break;
 
 		case "natural": # Is a Natural number	(0,1,2,3, etc.)
-			return '/^[0-9]+$/';
+			$r = '/^[0-9]+$/';
+			break;
 
 		case "numeric":
-			return '/^[\-+]?[0-9]*\.?[0-9]+$/';
+			$r = '/^[\-+]?[0-9]*\.?[0-9]+$/';
+			break;
 
 		case "url":
-			return '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
+			$r = '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
+			break;
 			// return "|^http(s)?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
 			// return '(https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ "]*[^ ,;\.:">)])?
+		default:
 	}
 
-	return false;
+	return $r;
 }

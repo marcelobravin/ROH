@@ -12,9 +12,9 @@
  * @param	string
  * @return	bool
  *
- * @uses	$_SERVER
+ * @example
+	@enviarEmail("marcelo.bravin@gmail.com", "Assunto", "Conteúdo do email", "Nome Remetente", "email@falso.com");
  */
-// @enviarEmail("marcelo.bravin@gmail.com", "Assunto", "Conteúdo do email", "Nome Remetente", "email@falso.com");
 function enviarEmail  ($to, $subject="Assunto", $message="Conteúdo do email", $fromNome="Nome Remetente", $from="Automatico")
 {
 	$header = gerarMailHeader($subject, $fromNome, $from);

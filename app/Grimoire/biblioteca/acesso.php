@@ -83,7 +83,7 @@ function condenarSessao ($tempo=SESSAO_TTL)
 	ini_set('session.gc_maxlifetime', $tempo);
 
 	// each client should remember their session id for EXACTLY 1 hour
-	# session_set_cookie_params($tempo);
+	session_set_cookie_params($tempo);
 
 	$secure = true; // if you only want to receive the cookie over HTTPS
 	$httponly = true; // prevent JavaScript access to session cookie
@@ -221,8 +221,9 @@ function identificarNavegador2 ()
 	);
 	foreach ($bots as $bot) {
 		// if bot, returns OTHER
-		if ( !strpos(strtoupper($var), $bot) )
+		if ( !strpos(strtoupper($var), $bot) ) {
 			return $info;
+		}
 	}
 	// loop the valid browsers
 	foreach ($browser as $parent) {
@@ -300,14 +301,16 @@ function get_ip_address()
  */
 function identificarIP ()
 {
-	if ( isset($_SERVER['HTTP_CLIENT_IP']) )			{ return $_SERVER['HTTP_CLIENT_IP']; }
-	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	{ return $_SERVER['HTTP_CF_CONNECTING_IP']; } # when behind cloudflare
-	else if( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )	{ return $_SERVER['HTTP_X_FORWARDED_FOR']; }
-	else if( isset($_SERVER['HTTP_X_FORWARDED']) )		{ return $_SERVER['HTTP_X_FORWARDED']; }
-	else if( isset($_SERVER['HTTP_FORWARDED_FOR']) )	{ return $_SERVER['HTTP_FORWARDED_FOR']; }
-	else if( isset($_SERVER['HTTP_FORWARDED']) )		{ return $_SERVER['HTTP_FORWARDED']; }
-	else if( isset($_SERVER['REMOTE_ADDR']) )			{ return $_SERVER['REMOTE_ADDR']; }
-	else return '0.0.0.0';
+	if ( isset($_SERVER['HTTP_CLIENT_IP']) )			{ $ip = $_SERVER['HTTP_CLIENT_IP']; }
+	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	{ $ip = $_SERVER['HTTP_CF_CONNECTING_IP']; } # when behind cloudflare
+	else if( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )	{ $ip = $_SERVER['HTTP_X_FORWARDED_FOR']; }
+	else if( isset($_SERVER['HTTP_X_FORWARDED']) )		{ $ip = $_SERVER['HTTP_X_FORWARDED']; }
+	else if( isset($_SERVER['HTTP_FORWARDED_FOR']) )	{ $ip = $_SERVER['HTTP_FORWARDED_FOR']; }
+	else if( isset($_SERVER['HTTP_FORWARDED']) )		{ $ip = $_SERVER['HTTP_FORWARDED']; }
+	else if( isset($_SERVER['REMOTE_ADDR']) )			{ $ip = $_SERVER['REMOTE_ADDR']; }
+	else $ip = '0.0.0.0';
+
+	return $ip;
 }
 
 /**
@@ -326,9 +329,9 @@ function limitador ()
 	$cache_expire = session_cache_expire();
 
 	/* Inicia a sessão */
-	// session_start();
-	// echo "O limitador de cache esta definido agora como $cache_limiter<br />";
-	// echo "As sessões em cache irão expirar em $cache_expire minutos";
+	session_start();
+	echo "O limitador de cache esta definido agora como $cache_limiter<br />";
+	echo "As sessões em cache irão expirar em $cache_expire minutos";
 }
 
 /**
@@ -409,10 +412,7 @@ function logoff ($caminho=PAGINA_INICIAL)
 	unset($_SESSION);
 	session_unset();
 	session_destroy();
-	// session_start();
-	// header("Location: $caminho");
 	redirecionar($caminho);
-	// exit;
 }
 
 /**
@@ -552,10 +552,11 @@ function getBrowser ()
 	if ($i != 1) {
 		//we will have two since we are not using 'other' argument yet
 		//see if version is before or after the name
-		if (strripos($u_agent,"Version") < strripos($u_agent,$ub))
+		if (strripos($u_agent,"Version") < strripos($u_agent,$ub)) {
 			$version= $matches['version'][0];
-		else
+		} else {
 			$version= $matches['version'][1];
+		}
 
 	} else {
 		$version= $matches['version'][0];

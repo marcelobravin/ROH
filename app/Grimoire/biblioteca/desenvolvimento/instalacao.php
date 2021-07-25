@@ -74,7 +74,6 @@ function exportarBD ()
 
 	$c = exportarConstraints();
 	registrartUQs($c['uqs']);
-	// escrever(ARQUIVOS_EFEMEROS."/constraints_". DBNAME .".sql", $constraints, true);
 
 	return true;
 }
@@ -137,8 +136,9 @@ function comprimir ($listaArquivos, $tipo="js", $minimizar=true)
 		$conteudo .= file_get_contents(ARQUIVOS."/".$value);
 	}
 
-	if ($minimizar)
+	if ($minimizar) {
 		$conteudo = minimizarArquivo($conteudo);
+	}
 
 	$pagina = limparNomeArquivo($_SERVER['PHP_SELF']);
 	$arquivoGerado = "arquivos/{$tipo}/minimizados/{$pagina}.{$tipo}";
@@ -285,9 +285,6 @@ function gerarModelo ($nome, $descricao)
 		'. $campos .'
 	';
 
-	# $conteudo = str_replace("			", "", $conteudo);
-	# $conteudo = str_replace("		", "", $conteudo);
-
 	escrever(ARQUIVOS_EFEMEROS."/modelos/{$nome}.php", $conteudo, true);
 }
 
@@ -336,10 +333,6 @@ function registerProjectFiles ()
 {
 	$allFiles = registerMapDirectory(ROOT, 'ALL');
 
-	# $soundFiles = registerMapDirectory('..\assets\audio\SE'	, 'SE');
-	# $musicFiles = registerMapDirectory('..\assets\audio\BGM'   , 'BGM');
-	# $iconFiles  = registerMapDirectory('..\assets\images\icons', 'icons');
-
 	$total_lines = 0;
 	$total_chars = 0;
 	foreach ($allFiles as $i => $v) {
@@ -357,15 +350,13 @@ function registerProjectFiles ()
 
 function registerCharNumber ($total_lines, $total_chars)
 {
-	$jsonDir  = ARQUIVOS_EFEMEROS.'/listas/_';
-	$fileName = 'projectSize';
-	$path	 = $jsonDir. $fileName.'.json';
+	$jsonDir	= ARQUIVOS_EFEMEROS.'/listas/_projectSize.json';
 
 	$content = array(
 		'total_lines' => $total_lines,
 		'total_chars' => $total_chars
 	);
-	file_put_contents($path, json_encode($content) );
+	file_put_contents($jsonDir, json_encode($content) );
 }
 
 // segmentar com getJson
@@ -377,15 +368,9 @@ function getProjectFiles ()
 	$content	= json_decode($content);
 
 	$allFiles	= getMapDirectory('assets\lists\temp\_' , 'ALL');
-	$soundFiles	= getMapDirectory('assets\lists\temp\_' , 'SE');
-	$musicFiles	= getMapDirectory('assets\lists\temp\_' , 'BGM');
-	$iconFiles	= getMapDirectory('assets\lists\temp\_' , 'icons');
 
 	return array(
-		'allFiles'	  => $allFiles
-		, 'soundFiles'  => $soundFiles
-		, 'musicFiles'  => $musicFiles
-		, 'iconFiles'   => $iconFiles
+		'allFiles'		=> $allFiles
 		, 'total_lines' => $content->total_lines
 		, 'total_chars' => $content->total_chars
 	);
@@ -396,16 +381,18 @@ function assetPipeline ($js=true, $css=true, $imgs=true)
 	if ( $css ) {
 		$cssFiles = getDirectoryFiles(ROOT.'public/css');
 		foreach ($cssFiles as $v) {
-			if ( preg_match('/\.css$/', $v) )
+			if ( preg_match('/\.css$/', $v) ) {
 				generateMinified($v, ARQUIVOS_EFEMEROS.'/minified/css/');
+			}
 		}
 	}
 
 	if ( $js ) {
 		$jsFiles  = getDirectoryFiles(ROOT.'public/scripts');
 		foreach ($jsFiles as $v) {
-			if ( preg_match('/\.js$/', $v) )
+			if ( preg_match('/\.js$/', $v) ) {
 				generateMinified($v, ARQUIVOS_EFEMEROS.'/minified/js/');
+			}
 		}
 	}
 
@@ -489,10 +476,11 @@ function getDirectoryTree ($dir = '.')
 
 		if ( !in_array($value, $criteriosExclusao) ) {
 			$pathToFile = $dir . DIRECTORY_SEPARATOR . $value;
-			if ( is_dir($pathToFile) )
+			if ( is_dir($pathToFile) ) {
 				$filesReturn[$value] = getDirectoryTree($pathToFile);
-			else
+			} else {
 				$filesReturn[$key] = $value;
+			}
 		}
 	}
 	return $filesReturn;
@@ -524,8 +512,9 @@ function buildTree ($DT, $lv=0)
 				// $resposta .= ' Irmãos: ['.count($DT).']';
 				$resposta .= buildTree($value, $lv+1);
 			} else {
-				if ($key-1 == count($DT) )
+				if ($key-1 == count($DT) ) {
 					$dirSymbol = '└── '; # last
+				}
 
 				$resposta .= $indentacao . $dirSymbol . $value;
 				$resposta .= PHP_EOL;
@@ -538,7 +527,6 @@ function buildTree ($DT, $lv=0)
 
 function generateSiteMap ($dir=ARQUIVOS_EFEMEROS.'/listas/_', $fileName='siteMap')
 {
-	// $DT = getDirectoryTree('../');
 	$DT = getDirectoryTree(ROOT);
 	$fileTree = buildTree($DT);
 	file_put_contents($dir. $fileName.'.txt', $fileTree);
@@ -550,7 +538,6 @@ function countLines ($file)
 	$linecount = 0;
 	$handle = fopen($file, "r");
 	while ( !feof($handle) ) {
-		$line = fgets($handle); // ! //////////////////////////////////////////////
 		$linecount++;
 	}
 
@@ -616,8 +603,9 @@ function chmod_r($path, $permission=0777) {
 	$dir = new DirectoryIterator($path);
 	foreach ($dir as $item) {
 		chmod($item->getPathname(), $permission);
-		if ($item->isDir() && !$item->isDot())
+		if ($item->isDir() && !$item->isDot()) {
 			chmod_r($item->getPathname());
+		}
 	}
 }
 
@@ -804,8 +792,9 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 	$identacao = "	";
 	$sql = "";
 
-	if ($drop)
+	if ($drop) {
 		$sql .= "DROP TABLE IF EXISTS $tabela;\n";
+	}
 
 	$sql .= "CREATE TABLE IF NOT EXISTS $tabela (\n";
 	$sql .= $identacao;
@@ -815,14 +804,22 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 		if ($valor['Field'] != 'id') {
 			$sql .= $identacao;
 			$sql .= $valor['Field'] . " " . strtoupper($valor['Type']);
-			if ($valor['Null'] == "NO")
+			if ($valor['Null'] == "NO") {
 				$sql .= " NOT NULL";
+			}
 
-			if ($valor['Default'] != "")
+			if ($valor['Default'] != "") {
 				$sql .= " DEFAULT ".$valor['Default'];
+			}
 
-			if ($valor['Extra'] != "")
+			if ($valor['Extra'] != "") {
 				$sql .= " ".$valor['Extra'];
+			}
+
+			if ($valor['Comment'] != "") {
+				$sql .= " COMMENT '".$valor['Comment']."'";
+			}
+
 
 			$sql .= ",\n";
 		}
@@ -880,8 +877,7 @@ function exportarUQs ($db=DBNAME)
 		WHERE constraint_schema = '{$db}'
 			AND constraint_name != 'PRIMARY'";
 
-	$keycolumns = executar($sqlKeyColumns);
-	return $keycolumns;
+	return executar($sqlKeyColumns);
 }
 
 function exportarFKs ($db=DBNAME)
@@ -892,8 +888,7 @@ function exportarFKs ($db=DBNAME)
 		WHERE constraint_schema = '{$db}'
 			AND constraint_type = 'FOREIGN KEY'";
 
-	$keycolumns = executar($sqlConstraints);
-	return $keycolumns;
+	return executar($sqlConstraints);
 }
 
 function gerarFKs ($tabela)

@@ -46,10 +46,11 @@ function montarTemplate ($campos, $labels, $esconder=array())
 function gerarInputs ($descricao, $registro=null, $sobreEscreverCampos=array(), $conversoes=array(), $padroes=array())
 {
 	# Adiciona os valores á matriz em caso de atualização
-	if ( isset($registro) )
+	if ( isset($registro) ) {
 		foreach ($descricao as $vetor => $array) {
 			$descricao[$vetor]['valor'] = $registro[$descricao[$vetor]['Field']];
 		}
+	}
 
 	return transformarEmInputs($descricao, $sobreEscreverCampos, $conversoes, $padroes);
 }
@@ -107,26 +108,30 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 
 		$registro = selecionar($MODULO, array('id'=> $_GET['codigo']) );
 
-		if ( count($registro) > 0 )
+		if ( empty($registro) ) {
 			$registro = $registro[0];
-		else
+		} else {
 			throw new Exception("Código inválido", 1);
+		}
 	}
 
 	$descricao = descreverTabela($MODULO);
 
 	# REMOVE CAMPOS & LABELS
-	if ( !isset($_GET['codigo']) )
+	if ( !isset($_GET['codigo']) ) {
 		$remover[] = 'id';
+	}
 
-	if ( isset($remover) )
+	if ( isset($remover) ) {
 		foreach ($remover as $valor) {
 
 			foreach ($descricao as $i => $v) {
-				if ($valor == $v['Field'])
+				if ($valor == $v['Field']) {
 					unset($descricao[$i]);
+				}
 			}
 		}
+	}
 
 	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
@@ -182,28 +187,32 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 
 	$descricao = descreverTabela($MODULO);
 
-	if ( isset($remover) )
+	if ( isset($remover) ) {
 		foreach ($remover as $valor) {
 
 			foreach ($descricao as $i => $v) {
-				if ($valor == $v['Field'])
+				if ($valor == $v['Field']) {
 					unset($descricao[$i]);
+				}
 			}
 		}
+	}
 
-	foreach ($descricao as $key => $value) {
-		if ( $value['Type'] == "tinyint(1)" )
+	foreach ($descricao as $value) {
+		if ( $value['Type'] == "tinyint(1)" ) {
 			$registro[ $value['Field'] ] = 1;
-		else
+		} else {
 			$registro[ $value['Field'] ] = '<?php echo $obj[&quot;'. $value['Field'] .'&quot;] ?&gt;';
+		}
 	}
 
 	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	foreach ($campos as $i => $v) {
-		if ( contem($v, '<input type="checkbox"') )
+		if ( contem($v, '<input type="checkbox"') ) {
 			$campos[$i] = str_replace('checked="checked"', '<?php echo checked($obj["'.$i.'"]) ?&gt;', $v);
+		}
 	}
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -230,7 +239,6 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 */
 function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
 {
-	// $esconder[] = 'id';
 	$form = gerarFormularioAtualizacao($MODULO,
 		$sobreEscreverLabels,
 		$sobreEscreverCampos,
@@ -307,7 +315,7 @@ function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels
 	$labels = array();
 	$atributos = array();
 
-	foreach ($descricao as $vetor => $array) {
+	foreach ($descricao as $array) {
 		$rotulo = ucwords($array['Field']); # Usa nome do campo capitalizado como label
 
 		# Sobreescreve labels
@@ -327,8 +335,9 @@ function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels
 		}
 
 		# adiciona span
-		if ( $array['Null'] == 'NO' )
+		if ( $array['Null'] == 'NO' ) {
 			$rotulo .= ' <span class="simbolo-obrigatorio">*</span>';
+		}
 
 		# Cria as labels
 		$labels[$array['Field']] = label($rotulo, $array['Field'], $atributos);
@@ -400,12 +409,14 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 			$atributos['maxlength'] = $maxlength;
 
 			// PRIMARY KEY
-			if ($campo['Key'] == "PRI")
+			if ($campo['Key'] == "PRI") {
 				$tipo = "hidden";
+			}
 
 			# Se campo for chave estrangeira
-			if (comecaCom("id_", $campo['Field']))
+			if (comecaCom("id_", $campo['Field'])) {
 				$tipo = "foreignKey";
+			}
 		}
 
 		foreach ($sobreEscreverCampos as $key => $value) {
@@ -428,6 +439,7 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 					case "data":
 						$valor = converterData($valor);
 						break;
+					default:
 				}
 				unset($conversoes[$indice]); // remove campo
 			}
@@ -457,16 +469,18 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 			case "span":
 				unset($atributos['maxlength']);
 				unset($atributos[0]);
-				if ($valor == 0)
+				if ($valor == 0) {
 					$valor = (string) " 0"; // corrige spans com valor 0
+				}
 				$resposta[$campo['Field']] = span($valor, $atributos);
 				break;
 
 			case "text":
 				# aqui adiciona padrões
 				$indice = existeIndice($campo['Field'], $padroes);
-				if ( $indice != -1)
+				if ( $indice != -1) {
 					$atributos[0] .= ' padrao'. ucwords($padroes[$indice]);
+				}
 
 				# aqui adiciona padrões
 				$resposta[$campo['Field']] = text($campo['Field'], $valor, $atributos);
@@ -500,7 +514,6 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 				} else {
 					$x = gerarRadio($campo['Field'], $valores, $valor);
 					$resposta[$campo['Field']] = implode ("\n", $x);
-					// $resposta[$campo['Field']] = implode ($x, "\n");
 					break;
 				}
 
@@ -520,10 +533,9 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 				break;
 
 			case "textEditor":
-				#$atributos[0] .= " span12 ckeditor m-wrap";
-				#$atributos["rows"] = 6;
 				$resposta[$campo['Field']] = textarea($campo['Field'], $valor, $atributos);
 				break;
+			default;
 		}
 	}
 	return $resposta;

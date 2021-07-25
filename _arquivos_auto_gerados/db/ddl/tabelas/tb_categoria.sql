@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS categoria (
 	titulo CHAR(255) NOT NULL,
 	legenda VARCHAR(255),
 	observacoes VARCHAR(255),
-	ativo TINYINT(1) NOT NULL,
+	ativo TINYINT(1) NOT NULL COMMENT '0 desativado, * ativo',
 	criado_em DATETIME NOT NULL DEFAULT current_timestamp(),
 	atualizado_em DATETIME on update current_timestamp(),
 	excluido_em DATETIME,
