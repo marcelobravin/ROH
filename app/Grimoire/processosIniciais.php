@@ -1,37 +1,25 @@
 <?php
-// limitador();
-session_start();
+verificarManutencao();
+
+// server should keep session data for AT LEAST 1 hour
+ini_set('session.gc_maxlifetime', SESSAO_TTL);
+// each client should remember their session id for EXACTLY 1 hour
+
+configurarExibicaoErros(PRODUCAO); # TODO verificar
+#configurarCookies();
+limitarCache();
+
+# ------------------------------------------------------------------------------ inicio
 define( "LOGADO", !empty($_SESSION['user']) );
 
-if ( MANUTENCAO ) {
-	die("Página em manutenção! Volte novamente mais tarde");
-}
-
 if ( LOGADO ) {
-	condenarSessao(SESSAO_TTL);
+	verificarTempoAtividadeSessao();
 }
 
 $MODULOS = array('hospital', 'usuario');
 
-# ------------------------------------------------------------------------------ actions
-if ( !PRODUCAO ) {
-
-	/* $c1 = new Clock(); */ // inicia cronometro
-
-	include "app\Grimoire\biblioteca\desenvolvimento\acoes.php";
-	/* $c1->mark(); */ // retorna tempo
-}
-
-
 # bloqueia usuários não logados nas páginas internas
-$paginasExternas = [ # blacklist
-	"index.php",
-	"LoginController.php",
-	"PasswordResetController.php",
-	"PasswordUpdateController.php"
-];
-
-bloquearAcesso($paginasExternas);
+bloquearAcesso($PAGINAS_EXTERNAS);
 
 # inicialização dos dados da página para serem sobrescritos conforme necessário
 $PAGINA = array(
@@ -43,3 +31,11 @@ $PAGINA = array(
 
 /* ob_start(); */
 // $page = ob_get_contents();
+
+
+
+if ( !PRODUCAO ) {
+	/* $c1 = new Clock(); */ // inicia cronometro
+	include BASE."app/Grimoire/biblioteca/desenvolvimento/acoes.php";
+	/* $c1->mark(); */ // retorna tempo
+}

@@ -95,7 +95,7 @@ function CheckIEAC($ie){
 			}
 			$dig = 11 - ($soma % 11);
 			if($dig >= 10){$dig = 0;}
-			if( !($dig == $ie[11]) ){return 0;}
+			if( $dig != $ie[11] ){return 0;}
 			else{
 				$b = 5;
 				$soma = 0;
@@ -207,7 +207,7 @@ function CheckIEBA($ie){
 		}else{
 			if ($i <= 1) { $dig = 0; } else { $dig = $modulo - $i; }
 		}
-		if( !($dig == $ie[7]) ){return 0;}
+		if( ($dig != $ie[7]) ){return 0;}
 		else{
 			$b = 8;
 			$soma = 0;
@@ -262,7 +262,7 @@ function CheckIEDF($ie){
 			$dig = 11 - ($soma % 11);
 			if($dig >= 10){$dig = 0;}
 
-			if( !($dig == $ie[11]) ){return 0;}
+			if( $dig != $ie[11] ){return 0;}
 			else{
 				$b = 5;
 				$soma = 0;
@@ -418,7 +418,7 @@ function CheckIEMG($ie){
 		}
 		$i = substr($ie2, 9, 2);
 		$dig = $i - $s;
-		if($dig != $ie[11]){return 0;}
+		if$dig != $ie[11])return 0;}
 		else{
 			$b = 3;
 			$soma = 0;
@@ -492,7 +492,7 @@ function CheckIEPR($ie){
 		if ($i <= 1){$dig = 0;}
 		else{$dig = 11 - $i;}
 
-		if ( !($dig == $ie[8]) ){return 0;}
+		if ( ($dig != $ie[8]) ){return 0;}
 		else{
 			$b = 4;
 			$soma = 0;
@@ -523,7 +523,7 @@ function CheckIEPE($ie){
 		if ($i <= 1){$dig = 0;}
 		else{$dig = 11 - $i;}
 
-		if ( !($dig == $ie[7]) ){return 0;}
+		if ( ($dig != $ie[7]) ){return 0;}
 		else{
 			$b = 9;
 			$soma = 0;

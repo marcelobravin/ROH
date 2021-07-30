@@ -66,7 +66,6 @@ if ( isset($_GET['hospital']) ) {
 		// if ( isset($especialidades[$e['categoria_nome']]) )
 			$especialidades[$e['categoria_nome']][] = $e;
 	}
-	// exit;
 }
 ?>
 <!DOCTYPE html>
@@ -175,7 +174,7 @@ if ( isset($_GET['hospital']) ) {
 								<tr>
 									<th scope="Especialidade dos Leitos">Especialidade<br>dos Leitos</th>
 									<th scope="Volume de saída">Volume<br>de saída</th>
-									<th scope="sido atingida">Justificativa" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
+									<th scope="sido atingida" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
 									<th scope="Justificativa Aceita?" title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
 								</tr>
 							</thead>

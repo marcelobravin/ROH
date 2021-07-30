@@ -1,0 +1,6 @@
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('143', '339', '8', '7', '2021', '8', '0', '2021-07-26 11:00:43', '1');
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('144', '340', '8', '7', '2021', '', '0', '2021-07-26 11:00:43', '1');
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('145', '341', '8', '7', '2021', '', '0', '2021-07-26 11:00:43', '1');
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('146', '342', '8', '7', '2021', '', '0', '2021-07-26 11:00:43', '1');
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('147', '343', '8', '7', '2021', '888', '1', '2021-07-26 11:00:43', '1');
+INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('148', '456', '9', '7', '2021', 'teste', '1', '2021-07-26 13:59:22', '1');

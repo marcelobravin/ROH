@@ -2,7 +2,7 @@
 		/**
 		 * categoria
 		 * @package	grimoire/modelos
-		 * @version	25-07-2021 18:11:18
+		 * @version	30-07-2021 09:21:09
 		*/
 		
 			$campos[0] = array(
@@ -52,7 +52,7 @@
 				"Key"		=> "",
 				"Default"	=> "",
 				"Extra"		=> "",
-				"Comment"	=> "0 desativado, * ativo"
+				"Comment"	=> ""
 			);
 		
 			$campos[5] = array(

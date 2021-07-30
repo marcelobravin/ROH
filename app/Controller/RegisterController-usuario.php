@@ -1,7 +1,7 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-require '../../app/Model/Validation-user.php';
+require '../../app/Model/Validacao-usuario.php';
 
 # ------------------------------------------------------------------------------ validacao
 $errosFormulario = validarFormulario($_POST);
@@ -12,11 +12,14 @@ if ( !empty($errosFormulario) ) {
 
 # ------------------------------------------------------------------------------ operacao
 $values = array(
-	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
 	'login'			=> $_POST['login'],
 	'senha'			=> criptografar($_POST['cpf']),
-	'cpf'			=> $_POST['cpf'],
-	'criado_por'	=> $_SESSION['user']['id']
+	'criado_por'	=> $_SESSION['user']['id'],
+	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
+	'telefone'		=> $_POST['telefone'],
+	'nome'			=> $_POST['nome'],
+	'endereco'		=> $_POST['endereco'],
+	'cpf'			=> $_POST['cpf']
 );
 $id = inserir('usuario', $values);
 

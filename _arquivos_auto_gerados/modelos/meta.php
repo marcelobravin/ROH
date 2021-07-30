@@ -2,7 +2,7 @@
 		/**
 		 * meta
 		 * @package	grimoire/modelos
-		 * @version	25-07-2021 18:11:18
+		 * @version	30-07-2021 09:21:09
 		*/
 		
 			$campos[0] = array(
@@ -16,7 +16,7 @@
 			);
 		
 			$campos[1] = array(
-				"Field"		=> "id_hospital",
+				"Field"		=> "hospital_id",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",
 				"Key"		=> "MUL",
@@ -26,7 +26,7 @@
 			);
 		
 			$campos[2] = array(
-				"Field"		=> "id_elemento",
+				"Field"		=> "elemento_id",
 				"Type"		=> "int(11)",
 				"Null"		=> "NO",
 				"Key"		=> "MUL",

@@ -53,7 +53,6 @@ function testarSite ( $url )
 		//	 return true;
 		// }
 
-		// return false;
 	#################################
 }
 

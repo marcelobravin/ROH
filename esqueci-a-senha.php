@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
 		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="public/css/esqueci-senha.css">
-		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+		<script src="public/vendors/jquery-3.6.0.slim.min.js"></script>
 	</head>
 <body>
 	<div class="container-login">
@@ -16,7 +16,7 @@
 			<form action="app/Controller/PasswordResetController.php" method="post">
 				<h1>Trocar Senha</h1>
 				<div class="inputs">
-					<input type="text" name="email" id="email" value="usuario@email.com" placeholder=" " />
+					<input type="text" name="email" id="email" placeholder=" " />
 					<label>E-mail</label>
 				</div>
 				<div class="inputs botao">

@@ -1,6 +1,5 @@
 <?php
-	session_start();
-	session_unset();
-	session_destroy();
+	die("======ds==========");
+	include '../../app/Grimoire/core_inc.php';
 
-	header("Location: ../../index.php");
+	logOut();

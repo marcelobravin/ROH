@@ -1,7 +1,6 @@
 <?php
 /**
  * http://localhost/roh/index.php?action=dbExport
- * @todo proteger esse endpoint
  */
 if ( isset($_REQUEST['action']) ) {
 
@@ -100,9 +99,9 @@ if ( isset($_REQUEST['action']) ) {
 					$sobreEscreverLabels = array(
 						'login'		=> 'Email',
 						'endereco'	=> 'Endereço',
-						'cpf'		=> 'CPF'
+						'cpf'		=> 'CPF',
+						'cargo'		=> 'CBO'
 					);
-					$descricaoLabels = array('titulo'=> 'Descrição do Título');
 
 					$remover[] = 'reset';
 					$remover[] = 'token';
@@ -153,11 +152,11 @@ if ( isset($_REQUEST['action']) ) {
 							'login'		=> 'Email',
 							'endereco'	=> 'Endereço',
 							'cpf'		=> 'CPF',
+							'cargo'		=> 'CBO'
 						);
 						$sobreEscreverCampos = array(
 							'login'		=> 'span'
 						);
-						$descricaoLabels = array('titulo'=> 'Descrição do Título');
 
 						$remover[] = 'token';
 						$remover[] = 'reset';

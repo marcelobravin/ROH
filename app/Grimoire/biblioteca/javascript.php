@@ -24,10 +24,37 @@
 */
 function adicionarListaScripts ($LISTA_SCRIPTS)
 {
-	$LISTA_SCRIPTS = array_unique($LISTA_SCRIPTS); /* Remove scripts repetidos */
+	$LISTA_SCRIPTS = array_unique($LISTA_SCRIPTS);
 	foreach ($LISTA_SCRIPTS as $value) {
 		echo script($value);
 	}
+}
+
+/**
+ * Cria script do Google Analytics
+ * @package grimoire/bibliotecas/javascript.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	string
+ */
+function analytics($id="UA-47877077-1") {
+	return "
+		<script type='text/javascript'>
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', '$id']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script');
+			ga.type = 'text/javascript';
+			ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0];
+			s.parentNode.insertBefore(ga, s);
+		})();
+		</script>
+	";
 }
 
 /**
@@ -43,7 +70,7 @@ function adicionarListaScripts ($LISTA_SCRIPTS)
 function appendScripts ($filaScripts=array("https://code.jquery.com/jquery-latest.js"))
 {
 	$arquivo = "";
-	if (is_array($filaScripts)) {
+	if ( is_array($filaScripts) ) {
 		foreach ($filaScripts as $script) {
 			$arquivo .= "
 				var script = document.createElement('script');
@@ -101,29 +128,19 @@ function script ($arquivo="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jque
 	return $script;
 }
 
-/**
- * Cria script do Google Analytics
- * @package grimoire/bibliotecas/javascript.php
- * @version 05-07-2015
- *
- * @param	string
- * @return	string
- */
-function analytics($id="UA-47877077-1") {
-	return "
-		<script type='text/javascript'>
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', '$id']);
-		_gaq.push(['_trackPageview']);
+function contagem ($tempo=5, $id="c")
+{
+	echo "
+		<script>
+			var numero = {$tempo};
+			var myVar = setInterval(contagem, 1000);
 
-		(function() {
-			var ga = document.createElement('script');
-			ga.type = 'text/javascript';
-			ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0];
-			s.parentNode.insertBefore(ga, s);
-		})();
+			function contagem() {
+				if (numero > 0) {
+					numero--;
+					document.getElementById('{$id}').innerHTML = numero;
+				}
+			}
 		</script>
 	";
 }

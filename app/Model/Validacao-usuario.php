@@ -21,10 +21,11 @@ function validarFormulario ( $post, $update=false )
 		'endereco'	=> ['minimo'=>5, 'maximo'=>255]
 	);
 
-	if ( $update )
+	if ( $update ) {
 		$camposObrigatorios['id'] = $post['id'];
-	else
+	} else {
 		$camposObrigatorios['login'] = $post['login'];
+	}
 
 	# valida tudo!
 	return validacao($post, $camposObrigatorios, $mapaFormatos, $mapaTamanhos);
@@ -37,14 +38,13 @@ function montarMensagemErro ( $erro )
 	# tentou atualizar o login para um repetido
 	if ( contem("Duplicate entry", $erro) ) {
 
-		if ( contem("for key 'cpf'", $erro) )
+		if ( contem("for key 'cpf'", $erro) ) {
 			$_SESSION['mensagem'] = "CPF já existe!";
-		else if ( contem("for key 'login'", $erro) )
+		} else if ( contem("for key 'login'", $erro) ) {
 			$_SESSION['mensagem'] = "Email já existe!";
+		}
 
 	} else {
-		echo('<pre>');
-		print_r($erro);
-		echo('</pre>');
+		exibir($erro);
 	}
 }

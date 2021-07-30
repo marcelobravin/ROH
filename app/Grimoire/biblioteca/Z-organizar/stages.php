@@ -8,8 +8,7 @@ function getStage ($number)
 function getSessionStage ()
 {
     $stageNumber = $_SESSION['stageNumber'];
-    $stage = getStage( $stageNumber );
-    return $stage;
+    return getStage( $stageNumber );
 }
 /*pode ser boss */
 function setSessionStage ($number)

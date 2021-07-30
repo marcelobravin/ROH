@@ -5,27 +5,108 @@
 */
 
 /**
- * Retorna o índice de paginação atual
- * @package grimoire/bibliotecas/paginacao.php
- * @version 05-07-2015
+ * Cria links com parametros para definir ordenação via GET
  *
- * @return	int
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
+ * @version	24-06-2021
  *
- * @uses	$_GET
- */
-function definirPaginaAtual ()
-{
-	if (isset($_GET['pagina']) && $_GET['pagina'] > 0) {
-		return $_GET['pagina'];
-	}
-
-	return 1;
+ * @param	string
+ * @param	string
+*/
+function criarLinkOrdenacao ($atributo, $nomeCampo)
+{ ?>
+	<a class="ordenacao" href="<?php echo ordenarPor($atributo) ?>" title="Clique aqui para ordenar os registros dessa tabela por <?php echo $nomeCampo ?>">
+		<?php echo ucwords($nomeCampo) ?>
+		<?php echo ordenado($atributo) ?>
+	</a>
+<?php
 }
 
 /**
- * Define o início e fim do resultado
+ * Monta where para query de paginação
+ *
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
+ * @version	27/07/2021 15:56:49
+ *
+ * @param	array
+ *
+ * @return	string
+*/
+function defineCriteriosBusca ($get)
+{
+	# parametros fixos
+	$criterios_busca = array();
+
+	if ( isset($get['paginacao']['filtroPaginacao']) ) {
+		$c = $get['paginacao']['campo'];
+		$o = $get['paginacao']['operador'];
+		$f = $get['paginacao']['filtroPaginacao'];
+
+		switch ( $o ) {
+			case 'contem':
+				$criterios_busca[] = $c ." LIKE '%{$f}%'";
+				break;
+			case 'comeca':
+				$criterios_busca[] = $c ." LIKE '{$f}%'";
+				break;
+			case 'termina':
+				$criterios_busca[] = $c ." LIKE '%{$f}'";
+				break;
+			case 'igual':
+				$criterios_busca[] = $c ." = '{$f}'";
+				break;
+			case 'diferente':
+				$criterios_busca[] = $c ." != '{$f}'";
+				break;
+			default:
+				break;
+		}
+	}
+
+	if ( isset($get['ativado']) && $get['ativado']!="" ) {
+		$criterios_busca[] = "ativo = '{$get['ativado']}'";
+	}
+
+	if ( isset($get['id']) && $get['id']!="" ) {
+		$criterios_busca[] = "id = '{$get['id']}'";
+	}
+
+	# parametros flexíveis
+	if ( EXCLUSAO_LOGICA ) {
+		$criterios_busca[] = "`excluido_em` IS NULL";
+	}
+
+	if ( empty($criterios_busca) ) {
+		return '';
+	} else {
+		return implode(" AND ", $criterios_busca);
+	}
+}
+
+/**
+ * Define quantos registros serão exibidos por página
+ *
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
+ * @version	24-06-2021
+ *
+ * @return	int
+*/
+function definirExibicao ()
+{
+	if ( isset($_GET['exibir']) && $_GET['exibir'] > 0 ) {
+		return $_GET['exibir'];
+	}
+
+	return PAGINACAO_RPP;
+}
+
+/**
+ * Define o	início e fim do resultado
  * @package grimoire/bibliotecas/paginacao.php
- * @version 05-07-2015
+ * @version	05-10-2016
  *
  * @param	int
  * @return	array
@@ -43,8 +124,162 @@ function definirLimites ($resultadosPorPagina)
 }
 
 /**
- * Monta links de paginação
- * @version 05/08/2016 10:50:28
+ * Retorna	o número da página atual ou a primeira
+ * @package grimoire/bibliotecas/paginacao.php
+ * @version	05-10-2016
+ *
+ * @return	int
+ *
+ * @uses	$_GET
+ */
+function definirPaginaAtual ()
+{
+	if (isset($_GET['pagina']) && $_GET['pagina'] > 0) {
+		return $_GET['pagina'];
+	}
+
+	return 1;
+}
+
+/**
+ * Define ordenação
+ *
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
+ * @version	24-06-2021
+ *
+ * @param	string
+
+ * @param	string	ordem
+*/
+function defineOrdemPaginacao ($ordenacaoDefault='id')
+{
+	if ( isset($_GET['chave_ordenacao']) ) {
+		$ordenacao = $_GET['chave_ordenacao'];
+	} else {
+		$ordenacao = $ordenacaoDefault;
+	}
+
+	if ( isset($_GET['ordem']) && $_GET['ordem']=="desc" ) {
+		$ordenacao .= " DESC";
+	}
+
+	return "ORDER BY {$ordenacao}";
+}
+
+function filtrarArray ($array, $filtro='char')
+{
+	$novaArray = array();
+	foreach ($array as $v) {
+		if ( contem($filtro, $v['Type']) ) {
+			$novaArray[$v['Field']] = $v['Field'];
+		}
+	}
+	return $novaArray;
+}
+
+/**
+ * @since	28/07/2021 11:12:15
+*/
+function filtroPaginacao ()
+{
+	include_once "app/Model/Paginacao-". $_GET['modulo'] .".php";
+	$campos = retornarCampos();
+	?>
+	<p>
+		<select name="paginacao[campo]">
+			<?php foreach ($campos as $v) : ?>
+				<option value="<?php echo $v ?>" <?php echo selecionadoSubindice("paginacao", "campo", $v) ?>><?php echo $v ?></option>
+			<?php endforeach ?>
+
+		</select>
+		<select name="paginacao[operador]" id="">
+			<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>contém</option>
+			<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>é igual a</option>
+			<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>é diferente de</option>
+			<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>começa com</option>
+			<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>termina com</option>
+		</select>
+
+		<input type="text" name="paginacao[filtroPaginacao]" id="filtroPaginacao" value="<?php echo exibirSubIndice("paginacao", "filtroPaginacao") ?>" placeholder="Digite algo" />
+	</p>
+	<?php
+}
+
+/**
+ * Cria elemento para visualização de campo de ordenação atual
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
+ * @version	08/09/2016 12:04:17
+ *
+ * @param	string campo: campo que será checada se está sendo usado como chave de ordenação
+ * @param	string símbolo que será utilizado para "chave de ordenação não é esse campo"
+ * @param	string simbolo que será utilizado para diretriz ASC
+ * @param	string símbolo que será utilizado para diretriz DESC
+ * @return	string símbolo indicando se chave de ordenação é esse campo e qual ordem
+ *
+ * @example
+		<a href="<?php echo ordenarPor("data") ? >">Data</a>
+		echo ordenado("nome", "<i class='icon-sort'>b</i>", "<i class='icon-sort-up'>u</i>", "<i class='icon-sort-down'>d</i>");
+ */
+function ordenado ($campo="", $both="&#8597;", $asc="&#8595;", $desc="&#8593;")
+{
+	if (isset($_GET['chave_ordenacao']) && $_GET['chave_ordenacao'] == $campo) {
+
+		if ( isset($_GET['ordem']) && $_GET['ordem'] == "desc") {
+			return $desc;
+		} else {
+			return $asc;
+		}
+
+	} else {
+		return $both;
+	}
+}
+
+/**
+ * Cria URL	para seleção de chave de ordenação em itens paginados
+ * @package grimoire/bibliotecas/paginacao.php
+ * @version	05-10-2016
+ *
+ * @param	string campo: qual campo será usado na diretriz ORDER BY
+ * @return	string
+ *
+ * @example
+		<a href="<?php echo ordenarPor("modulo") ?>">
+			Módulo <?php echo ordenado("modulo") ?>
+		</a>
+ */
+function ordenarPor ($chave_ordenacao="data")
+{
+	if ( empty($_GET) ) {
+		return "{$_SERVER['REQUEST_URI']}?chave_ordenacao={$chave_ordenacao}"; // Se não houver parametros de busca
+	} else {
+
+		// Conserva parametros
+		foreach ($_GET as $key => $value) {
+			if ( !is_array($value) && $key != "ordem" && $key != "chave_ordenacao") {
+				$parametros[] = "$key=$value";
+			}
+		}
+
+		// Substitui "chave_ordenacao"
+		$parametros[] = "chave_ordenacao=$chave_ordenacao";
+
+		// Substitui "ordem"
+		if (isset($_GET['ordem']) && $_GET['ordem'] != "asc") {
+			$parametros[] = "ordem=asc";
+		} else {
+			$parametros[] = "ordem=desc";
+		}
+
+		$parametros = implode("&", $parametros);
+		return "{$_SERVER['PHP_SELF']}?{$parametros}"; // Se tiver critérios de busca
+	}
+}
+
+/**	 * Monta links de paginação
+ * @version	05/08/2016 10:50:28
  *
  * @param	int		quantos links a serem criados
  * @param	int		qual link será marcado como selecionado
@@ -73,9 +308,17 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 	}
 
 	$parametros = "";
-	foreach($_GET as $key => $value){
-		if ($key != "pagina") {
-			$parametros .= "$key=$value&"; // substituir conforme ordenarPor())
+	foreach ($_GET as $key => $value) {
+
+		if ( is_array($value)) {
+			foreach ($value as $k => $v) {
+				$parametros .= "$k=$v&";
+			}
+
+		} else {
+			if ( $key != "pagina" ) {
+				$parametros .= "$key=$value&"; // substituir conforme ordenarPor())
+			}
 		}
 	}
 
@@ -86,8 +329,7 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 
 		if (empty($parametros)) {
 			$link = "{$_SERVER['PHP_SELF']}?pagina="; // Se não tiver critérios de busca
-		}
-		else {
+		} else {
 			$link = "{$_SERVER['PHP_SELF']}?{$parametros}pagina="; // Se tiver critérios de busca
 		}
 	}
@@ -137,9 +379,8 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 }
 
 /**
- * Cria paginação
- * @package grimoire/bibliotecas/paginacao.php
- * @version 05-07-2015
+ * Cria paginação	 * @package grimoire/bibliotecas/paginacao.php
+ * @version	05-10-2016
  *
  * @param	int
  * @param	int
@@ -157,99 +398,21 @@ function paginar ($numeroRegistros, $numeroRegistrosPorPagina=10, $limite=3)
 }
 
 /**
- * Cria elemento para visualização de campo de ordenação atual
- * @package grimoire/bibliotecas/paginacao.php
- * @since 05-07-2015
- * @version 08/09/2016 12:04:17
  *
- * @param	string campo: campo que será checada se está sendo usado como chave de ordenação
- * @param	string símbolo que será utilizado para "chave de ordenação não é esse campo"
- * @param	string simbolo que será utilizado para diretriz ASC
- * @param	string símbolo que será utilizado para diretriz DESC
- * @return	string símbolo indicando se chave de ordenação é esse campo e qual ordem
- *
- * @example
-		<a href="<?php echo ordenarPor("data") ? >">Data</a>
-		echo ordenado("nome", "<i class='icon-sort'>b</i>", "<i class='icon-sort-up'>u</i>", "<i class='icon-sort-down'>d</i>");
- */
-function ordenado ($campo="", $both="&#8597;", $asc="&#8595;", $desc="&#8593;")
-{
-	if (isset($_GET['chave_ordenacao']) && $_GET['chave_ordenacao'] == $campo) {
-
-		if ( isset($_GET['ordem']) && $_GET['ordem'] == "desc") {
-			return $desc;
-		} else {
-			return $asc;
-		}
-
-	} else {
-		return $both;
-	}
-}
-
-/**
- * Cria URL para seleção de chave de ordenação em itens paginados
- * @package grimoire/bibliotecas/paginacao.php
- * @version 05-07-2015
- *
- * @param	string campo: qual campo será usado na diretriz ORDER BY
- * @return	string
- *
- * @example
-		<a href="<?php echo ordenarPor("modulo") ?>">
-			Módulo <?php echo ordenado("modulo") ?>
-		</a>
- */
-function ordenarPor ($chave_ordenacao="data")
-{
-	if ( empty($_GET) ) {
-		return "{$_SERVER['REQUEST_URI']}?chave_ordenacao={$chave_ordenacao}"; // Se não houver parametros de busca
-	} else {
-
-		// Conserva parametros
-		foreach($_GET as $key => $value){
-			if ($key != "ordem" && $key != "chave_ordenacao") {
-				$parametros[] = "$key=$value";
-			}
-		}
-
-		// Substitui "chave_ordenacao"
-		$parametros[] = "chave_ordenacao=$chave_ordenacao";
-
-		// Substitui "ordem"
-		if (isset($_GET['ordem']) && $_GET['ordem'] != "asc") {
-			$parametros[] = "ordem=asc";
-		} else {
-			$parametros[] = "ordem=desc";
-		}
-
-		$parametros = implode("&", $parametros);
-		return "{$_SERVER['PHP_SELF']}?{$parametros}"; // Se tiver critérios de busca
-	}
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
  * @version	24-06-2021
  *
  * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
+ * @param	int
  *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+ * @return	array
 */
 function paginationCore ($tabela, $linksPaginasExibir=PAGINACAO_PAE)
 {
 	$numeroRegistrosPorPagina = definirExibicao();
 
-	$where = defineCriteriosBusca();
+	$where = defineCriteriosBusca($_GET);
 
 	$list = selecionar($tabela, $where, '', 'count(*)');
 
@@ -275,21 +438,12 @@ function paginationCore ($tabela, $linksPaginasExibir=PAGINACAO_PAE)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
  * @version	24-06-2021
  *
  * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function paginacaoHeader ($n)
 {
@@ -304,6 +458,9 @@ function paginacaoHeader ($n)
 	echo'</p>';
 }
 
+/**
+ *
+*/
 function selecaoResultadosPorPagina ($vetorPaginacao)
 {
 	$ultimoRegistroExibido = $vetorPaginacao['limites']['inicio'] + count($vetorPaginacao['listaPaginada']);
@@ -312,7 +469,7 @@ function selecaoResultadosPorPagina ($vetorPaginacao)
 			<form style="text-align: right" method="get">
 				<?php
 					foreach ($_GET as $key => $value) {
-						if ( $key != 'exibir' ) {
+						if ( !is_array($value) && $key != 'exibir' ) {
 							$key = htmlspecialchars($key);
 							$value = htmlspecialchars($value);
 							echo "<input type='hidden' name='{$key}' value='{$value}' />";
@@ -326,160 +483,15 @@ function selecaoResultadosPorPagina ($vetorPaginacao)
 					<option <?php echo selecionado("exibir", 100) ?> value="100">100 resultados por página</option>
 					<option <?php echo selecionado("exibir", 500) ?> value="500">500 resultados por página</option>
 				</select>
-				<input type="submit" class="btn btn-success" value="Exibir" title="Filtrar Treinandos"/>
+				<input type="submit" class="btn btn-success" value="Exibir" title="Alterar quantidade de resultados a exibir a cada página"/>
 				<p>
 					Exibindo de <?php echo $vetorPaginacao['limites']['inicio']+1 ?>
 					a <?php echo $ultimoRegistroExibido ?>
 				</p>
+
+				<?php filtroPaginacao() ?>
+
 			</form>
 		</p>
 	<?php
-}
-
-/**
- * Define quantos registros serão exibidos por página
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function definirExibicao ()
-{
-	if ( isset($_GET['exibir']) && $_GET['exibir'] > 0 ) {
-		return $_GET['exibir'];
-	}
-
-	return PAGINACAO_RPP;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function criarLinkOrdenacao ($atributo, $nomeCampo)
-{ ?>
-	<a class="ordenacao" href="<?php echo ordenarPor($atributo) ?>" title="Clique aqui para ordenar os registros dessa tabela por <?php echo $nomeCampo ?>">
-		<?php echo ucwords($nomeCampo) ?>
-		<?php echo ordenado($atributo) ?>
-	</a>
-<?php
-}
-
-/**
- Define ordenação
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function defineOrdemPaginacao ($ordenacaoDefault='id')
-{
-	if ( isset($_GET['chave_ordenacao']) ) {
-		$ordenacao = $_GET['chave_ordenacao'];
-	} else {
-		$ordenacao = $ordenacaoDefault;
-	}
-
-	if ( isset($_GET['ordem']) && $_GET['ordem']=="desc" ) {
-		$ordenacao .= " DESC";
-	}
-
-	return "ORDER BY {$ordenacao}";
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function defineCriteriosBusca ()
-{
-	$get = $_GET; # atalho para não prejudicar mecanismos que utilizam $_GET
-
-	if ( isset($get['exibir']) ) {
-		unset($get['exibir']);
-	}
-
-	# parametros fixos
-	$criterios_busca = array();
-	if ( isset($get['nome']) ) {
-		$criterios_busca[] = "c.nome LIKE '{$get['nome']}%'";
-		unset($get['nome']);
-	}
-
-	if ( isset($get['ativado']) && $get['ativado']!="" ) {
-		$criterios_busca[] = "ativo = '{$get['ativado']}'";
-		unset($get['ativado']);
-	}
-
-	if ( isset($get['id']) && $get['id']!="" ) {
-		$criterios_busca[] = "id = '{$get['id']}'";
-		unset($get['id']);
-	}
-
-	# parametros flexíveis
-	if ( EXCLUSAO_LOGICA ) {
-		$criterios_busca[] = "`excluido_em` IS NULL";
-	}
-
-	if ( MODULAR ) {
-		unset($get['modulo']);
-	}
-
-	foreach ($get as $key => $value) {
-		$criterios_busca[] = $key . "='{$value}'";
-	}
-
-	if ( empty($criterios_busca) ) {
-		return '';
-	}
-	else {
-		return implode(" AND ", $criterios_busca);
-	}
 }

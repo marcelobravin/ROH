@@ -12,5 +12,9 @@
 	</head>
 <body>
 	<?php require_once 'frames/header.php' ?>
+
+	<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
+		<?php echo esvaziarMensagem() ?>
+	</div>
 </body>
 </html>

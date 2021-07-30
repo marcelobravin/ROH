@@ -30,11 +30,12 @@ require("biblioteca/expressoesRegulares.php");	// repositório de expressões re
 require("biblioteca/formularios.php");			// geração automatica de formularios do CMS
 require("biblioteca/html.php");					// criação de elementos html
 require("biblioteca/imagens.php");				// manipulação de imagens
-//require("biblioteca/javascript.php");			// criação de javascripts
+require("biblioteca/javascript.php");			// criação de javascripts
 require("biblioteca/numeros.php");				// funções matemáticas
 require("biblioteca/paginacao.php");			// construção de paginação e gerenciamento de parametros get
 require("biblioteca/seguranca.php");			// segurança e controle de acesso
 require("biblioteca/snippets.php");				// atalhos para criação de elementos html
+require("biblioteca/sessao.php");				// manipulação de sessões
 require("biblioteca/sql.php");					// criação de instruções SQL
 require("biblioteca/tempo.php");				// manipulação de tempo e datas
 require("biblioteca/templates.php");			// templates para cricao
@@ -62,17 +63,6 @@ if ( E_COMMERCE ) {
 if ( !PRODUCAO ) {
 	require("biblioteca/desenvolvimento/debug.php");					// Funções para debugging
 	require("biblioteca/desenvolvimento/instalacao.php");				// Funções para criação de tabelas e exportação/importação de registros
-}
-
-# ------------------------------------------------------------------------------ exibição de erros
-if ( PRODUCAO ) {
-	ini_set('display_errors'		, 0);
-	ini_set('display_startup_errors', 0);
-} else {
-	ini_set('display_startup_errors', 1);
-	ini_set('display_errors'		, TRUE);
-	ini_set('error_reporting'		, E_ALL);
-	error_reporting(E_ALL);
 }
 
 require("processosIniciais.php");

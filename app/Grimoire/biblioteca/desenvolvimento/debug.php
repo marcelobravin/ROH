@@ -1,7 +1,7 @@
 <?php
 /**
  * Funções para debugging
- * @package grimoire/bliblioteca/opcionais
+ * @package	grimoire/biblioteca/desenvolvimento
 */
 
 /**
@@ -37,7 +37,7 @@ class Clock {
 
 /**
  * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
+ * @package	grimoire/biblioteca/desenvolvimento.php
  * @version	17-07-2015
  *
  * @param	bool	bloquear usuários logados ou deslogados
@@ -77,23 +77,12 @@ function mdie ($msg='', $errorcode=1)
 	exit($errorcode);
 }
 
-/*
-Exibe mensagem no log de erro informando linha e local
-EX.:
-	erro( __FILE__ . __LINE__." - Parâmetro não enviado");
-	// erro("Erro desconhecido");
-*/
 /**
- * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
+ * Exibe mensagem no log de erro informando linha e local
+ * @package	grimoire/biblioteca/desenvolvimento.php
  * @version	17-07-2015
- *
- * @param	bool	bloquear usuários logados ou deslogados
- * @param	string
- *
- * @uses	acesso.php->logado()
  */
-function erro ($mensagem = "")
+function erro ()
 {
 	$erro = debug_backtrace();
 	$erro = $erro[0];
@@ -116,11 +105,14 @@ function erro ($mensagem = "")
 	$obj = criarObjeto(array('foo' => 'bar', 'property' => 'value', 'endereco' => array('pan' => 'pum')));
 	exibir($obj);
  */
-function exibir ($var)
+function exibir ($var, $parar=false)
 {
 	echo "<pre>";
 	print_r($var);
 	echo "</pre>";
+	if ($parar) {
+		exit;
+	}
 }
 
 /**
@@ -163,7 +155,7 @@ function erro2 ($mensagem='Erro: Alguma coisa não está certa', $pararSistema=f
 
 /**
  * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
+ * @package	grimoire/biblioteca/desenvolvimento.php
  * @version	17-07-2015
  *
  * @param	bool	bloquear usuários logados ou deslogados
@@ -189,8 +181,6 @@ function reportError ($error, $code='0000', $stop=false)
 /**
  * Realiza multiplas inserções de dummy data
  * @since 28/06/2021 11:52:15
- * @todo
- * 		inserir matriz
  * @example
 	popularTabela('hospital', 3);
 */

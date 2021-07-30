@@ -156,18 +156,14 @@ function validar ($padrao, $valor)
 }
 
 /**
- * Valida array de campos conforme array de padrões
+ * Valida se os campos solicitados foram preenchidos
  * @package	grimoire/bibliotecas/validacao.php
  * @version	05-07-2015
  *
  * @param	array
  * @param	array
- * @return	int
  *
- * @uses	validacao.php->validaEmail()
- * @uses	validacao.php->validaCpf()
- * @todo
-		retornar nome dos campos incorretos e qual tipo de erro (vazio/invalido[motivo])
+ * @return	array
  */
 function validarCamposObrigatorios ($campos)
 {
@@ -332,8 +328,7 @@ function validarCpf ($cpf)
 */
 function validarData ($data, $dataMinima=null, $dataMaxima=null)
 {
-	// if (!preg_match("^[0-9]{2}/[0-9]{2}/[0-9]{4}$^", $data)) {
-	if (!validar("data", $data)) {
+	if ( !validar("data", $data) ) {
 		return false;
 	} else {
 		if ( !empty($dataMinima) && days_diff($data, $dataMinima) > 0 ) {
@@ -378,42 +373,19 @@ function validaIE ($ie, $uf="SP")
 */
 function validarIp ($ip)
 {
-	if ( validar("ip", $ip) ) {
-
-		$quaternion = explode(".", $ip);
-		foreach ($quaternion as $vetor) {
-			if ($vetor > 255 || $vetor < 0) {
-				return 0;
-			}
-		}
-	} else {
-		return false;
-	}
-	return true;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function validate_ip ($ip)
-{
 	if (strtolower($ip) === 'unknown') {
 		return false;
 	}
+/*
+	if ( validar("ip", $ip) ) {
+		$quaternion = explode(".", $ip);
+		foreach ($quaternion as $vetor) {
+			if ($vetor > 255 || $vetor < 0) {
+				return false;
+			}
+		}
+	}
+ */
 	// generate ipv4 network address
 	$ip = ip2long($ip);
 
@@ -424,15 +396,20 @@ function validate_ip ($ip)
 		// signed numbers (ints default to signed in PHP)
 		$ip = sprintf('%u', $ip);
 		// do private network range checking
-		if ($ip >= 0 && $ip <= 50331647) {				return false; }
-		if ($ip >= 167772160 && $ip <= 184549375) {		return false; }
-		if ($ip >= 2130706432 && $ip <= 2147483647) {	return false; }
-		if ($ip >= 2851995648 && $ip <= 2852061183) {	return false; }
-		if ($ip >= 2886729728 && $ip <= 2887778303) {	return false; }
-		if ($ip >= 3221225984 && $ip <= 3221226239) {	return false; }
-		if ($ip >= 3232235520 && $ip <= 3232301055) {	return false; }
-		if ($ip >= 4294967040) {						return false; }
+		if (
+			$ip >= 0 && $ip <= 50331647
+			|| $ip >= 167772160 && $ip <= 184549375
+			|| $ip >= 2130706432 && $ip <= 2147483647
+			|| $ip >= 2851995648 && $ip <= 2852061183
+			|| $ip >= 2886729728 && $ip <= 2887778303
+			|| $ip >= 3221225984 && $ip <= 3221226239
+			|| $ip >= 3232235520 && $ip <= 3232301055
+			|| $ip >= 4294967040)
+		{
+			return false;
+		}
 	}
+
 	return true;
 }
 
@@ -454,7 +431,6 @@ function validarSenha ($user_input, $password)
 {
 	return crypt($user_input, $password) === $password;
 }
-
 
 /**
  * Escreve o conteúdo em um arquivo
@@ -511,7 +487,7 @@ function validaNumeroTelefonicos ($string = "(032)555-5555")
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Permite utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
@@ -527,11 +503,6 @@ function validaNumeroTelefonicos ($string = "(032)555-5555")
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
 */
-/**
- *
- * Códigos Postais
- * Permite utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
- */
 function validaCodigoPostal ($string = "55324-4324")
 {
 	return validar("CodigoPostal", $string);

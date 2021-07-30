@@ -62,15 +62,13 @@ thead, tbody{
 }
 tfoot{
     text-align: center;
+	height: 6%;
 }
 thead tr{
     height: 55px;
 }
 tbody tr{
     height: 100px;
-}
-tfoot{
-    height: 6%;
 }
 tbody tr td{
     text-align: center;

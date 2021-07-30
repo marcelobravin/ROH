@@ -1,14 +1,103 @@
-senha SQ
+senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
+
+
+
+regexp //
+    sem httpS:antes
+
+
+paginacao de select
+checkbox
+
+paginação com filtros dinamicos
+    select campos[] modulo
+    operador[]
+        contém
+        igual
+        diferente
+        começa com
+        termina com
+    filtro[]
+
+
+
+
+
+Isso é só mexer no bd e usar modelo para personalizar módulos
+Gerar automaticamente menu, lista e formulário i/u
+Gerar módulo administração
+Workflow geral tabela Template, personalizar tabela, gerar itens acima exibir no menu incluído na Index
+
+* @todo puxar do módulo
+
+
+
+Check list relatório para observação humana
+Pronto para produção?
+Verifica tabelas
+Usuário 1
+Tabela logs
+Configuração de exibir erros php.ini
+Funções de debug
+Permissões de acesso
+Arquivos de configuração
+
+
+Programação funcional aplicar constante conforme tipo de variável no bind
+Testes
+Resultado esperado e resultado recebido de funções chave
+Ex cadastrar usuário com ok unity3d
+
+
+
+
+
+resolver inconsistencias SQ
+arrumar phpdoc
+27/07/2021 15:56:49
+
+na função paginar deixar aberto para parametros é altamente suscetivel a erro
+[R.: solução só aceitar determinados parametros conforme definido pelo módulo]
+    # remove indices que podem dar erro
+    unset($get['pagina']);
+    unset($get['chave_ordenacao']);
+    unset($get['ordem']);
+    foreach ($get as $key => $value) {
+        $criterios_busca[] = $key . "='{$value}'";
+    }
+
+
+30/07/2021 11:50:37
+
+
+verificar comments table e column
 
 
 Exportar dB não deve gerar fk e sim importar as que estão em uso
 Gerar fks pode ter parâmetro pra auto gerar todas
 
 
+testar
+	transacao ( $sqls=array() )
 
-verificar validação ip
-    duplicata
+
+How can I reset $PATH to its default value in Ubuntu?
+    PATH=$(getconf PATH)
+
+    echo $PATH
+
+
+
+Reset your path right now (i.e. before any sort of logout) with:
+    export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    It doesn't get your full PATH restored but basic utilities will be available again.
+
+
+corrige permissões de acesso conforme normas da hostagator
+    sudo find roh -type d -print0 | xargs -0 chmod 0755;
+    sudo find roh -type f -print0 | xargs -0 chmod 0644;
+
 
 
     Clock -> desenvolvimento
@@ -35,9 +124,6 @@ snipetts
 table
 aria-label="Lista de hospitais"
 
-
-header( "refresh:5;url=wherever.php" );
- echo 'You\'ll be redirected in about 5 secs. If not, click <a href="wherever.php">here</a>.';
 
 header("HTTP/1.1 404 Not Found");
 
@@ -191,7 +277,8 @@ permissões do htdocs recursivo
 update & delete sem where colocar uma restrição no queryBuilder
     if  PRODUCAO
 
-ALTER TABLE t1 COMMENT = 'New table comment';
+https://federico-razzoli.com/mysql-danger-comments-and-alter-table
+	ALTER TABLE t1 COMMENT = 'New table comment';
 
 
 db export perde constraints
@@ -1726,7 +1813,6 @@ duble
 SIMULA RESULTADDOS do bd
 
 php unit
-sonar qube
 testes
 
 
@@ -1743,7 +1829,7 @@ tzinho nos php docs
 
 
 get,post,metodos
-feitos de maneira universal, funciona pra qqer objeto
+    feitos de maneira universal, funciona pra qqer objeto
 
 
 criar readme com instruções de instalação
@@ -1761,15 +1847,6 @@ criar readme com instruções de instalação
 
 
 
-
-
-
-
-
-
-
-OO?
-NS namespace?
 
 
 
@@ -1832,42 +1909,70 @@ final class Security {
 
 
 
-// /**
-//  * Retorna o endereço mac do servidor
-//  * @package grimoire/bibliotecas/acesso.php
-//  * @version 20-07-2015
-//  *
-//  * @return	string/bool
-//  *
-//  * @uses		$_SERVER
-//  */
-// function returnMacAddress ()
-// {
-// 	$location = `which arp`;
-// 	$arpTable = `$location`;
-// 	$arpSplitted = split("\n",$arpTable);
-// 	$remoteIp = $GLOBALS['REMOTE_ADDR'];
-// 	foreach ($arpSplitted as $value){
-// 		$valueSplitted = split(" ",$value);
-// 			foreach ($valueSplitted as $spLine) {
-// 				if (preg_match("/$remoteIp/",$spLine)) {
-// 					$ipFound = true;
-// 				}
-// 				if ($ipFound) {
-// 					reset($valueSplitted);
-// 					foreach ($valueSplitted as $spLine) {
-// 						if (preg_match("/[0-9a-f][0-9a-f][:-]".
-// 							"[0-9a-f][0-9a-f][:-]".
-// 							"[0-9a-f][0-9a-f][:-]".
-// 							"[0-9a-f][0-9a-f][:-]".
-// 							"[0-9a-f][0-9a-f][:-]".
-// 							"[0-9a-f][0-9a-f]/i",$spLine)) {
-// 							return $spLine;
-// 						}
-// 					}
-// 				}
-// 			$ipFound = false;
-// 		}
-// 	}
-// 	return false;
-// }
+echo returnMacAddress ();
+/**
+ * Retorna o endereço mac do servidor
+ * @package grimoire/bibliotecas/acesso.php
+ * @version 20-07-2015
+ *
+ * @return  string/bool
+ *
+ * @uses        $_SERVER
+ */
+function returnMacAddress ()
+{
+    $location = `which arp`;
+    $arpTable = `$location`;
+    $arpSplitted = explode("\n",$arpTable);
+    echo '<pre>';
+    print_r($arpSplitted);
+    echo '</pre>';
+    $remoteIp = $GLOBALS['REMOTE_ADDR'];
+    foreach ($arpSplitted as $value){
+        $valueSplitted = explode(" ",$value);
+            foreach ($valueSplitted as $spLine) {
+                if (preg_match("/$remoteIp/",$spLine)) {
+                    $ipFound = true;
+                }
+                if ($ipFound) {
+                    reset($valueSplitted);
+                    foreach ($valueSplitted as $spLine) {
+                        if (preg_match("/[0-9a-f][0-9a-f][:-]".
+                            "[0-9a-f][0-9a-f][:-]".
+                            "[0-9a-f][0-9a-f][:-]".
+                            "[0-9a-f][0-9a-f][:-]".
+                            "[0-9a-f][0-9a-f][:-]".
+                            "[0-9a-f][0-9a-f]/i",$spLine)) {
+                            return $spLine;
+                        }
+                    }
+                }
+            $ipFound = false;
+        }
+    }
+    return false;
+}
+
+
+
+/**
+ * Pega o conteúdo de um arquivo dá eval e retorna
+ * @package grimoire/bibliotecas/arquivos.php
+ * @version 05-07-2015
+ *
+ * @param   string
+ * @return  bool
+ *
+ * @uses    $_SERVER
+ */
+function get_include_contents ($filename)
+{
+    if ( is_file($filename) ) {
+        ob_start();
+        include $filename;
+        $contents = ob_get_contents();
+        ob_end_clean();
+        return $contents;
+    }
+    return false;
+}

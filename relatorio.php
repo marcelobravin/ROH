@@ -8,7 +8,6 @@ $categorias	= selecionar("categoria", array(), "ORDER BY titulo");
 $hospitais	= selecionar("hospital", array(), "ORDER BY titulo");
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
-// $st_mesAtual = $meses[date('n')];
 $in_mesAtual = date('n');
 $in_anoAtual = date('Y');
 
@@ -18,12 +17,14 @@ for ($i=2021; $i<= $in_anoAtual; $i++) {
 }
 
 $mesSelecionado = $in_mesAtual;
-if ( isset($_GET['mes']) )
+if ( isset($_GET['mes']) ) {
 	$mesSelecionado = $_GET['mes'];
+}
 
 $anoSelecionado = $in_anoAtual;
-if ( isset($_GET['ano']) )
+if ( isset($_GET['ano']) ) {
 	$anoSelecionado = $_GET['ano'];
+}
 
 $hospitalValido = false;
 if ( isset($_GET['hospital']) ) {

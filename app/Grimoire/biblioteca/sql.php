@@ -34,8 +34,9 @@ function atualizacao ($tabela, $objeto, $condicao="")
 			if (!is_array($valor)) {
 				$campos .= "$indice='$valor'";
 				// Adiciona separador após cada atributo que não seja o último
-				if ($i < $tamanho)
+				if ($i < $tamanho) {
 					$campos .= ", \n";
+				}
 			} else {
 				$chavePrimaria = "id='{$valor['id']}'";
 				$temp = atualizacao($valor, $indice, $chavePrimaria);
@@ -161,9 +162,8 @@ function insercao ($tabela, $campos)
 
 	$atributos	= implode(", ", $atributos);
 	$valores	= implode(", ", $valores);
-	$sql		= "INSERT INTO `$tabela` ($atributos) VALUES ($valores)";
 
-	return $sql;
+	return "INSERT INTO `$tabela` ($atributos) VALUES ($valores)";
 }
 
 /**
@@ -273,10 +273,9 @@ function exclusaoLogica ($modulo, $id)
  */
 function criacaoFK ($tabelaAlterada, $tabelaReferenciada)
 {
-	$sql = "ALTER TABLE `{$tabelaAlterada}`
+	return "ALTER TABLE `{$tabelaAlterada}`
 		ADD CONSTRAINT `fk_{$tabelaReferenciada}`
 		FOREIGN KEY (id_{$tabelaReferenciada})
 		REFERENCES {$tabelaReferenciada}(id)
 			ON UPDATE CASCADE ON DELETE RESTRICT;";
-	return $sql;
 }

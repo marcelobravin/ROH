@@ -5,10 +5,10 @@
 
 	$PAGINA['titulo']		= "Cadastro";
 	$PAGINA['subtitulo']	= "Usuário";
-	// $PAGINA['endereco']		= "home.php";
 
-	if ( empty($_GET['modulo']) )
+	if ( empty($_GET['modulo']) ) {
 		redirecionar("index.php");
+	}
 
 	define('MODULO', $_GET['modulo']);
 
@@ -21,8 +21,18 @@
 		.obrigatorio:before { content: "*"; display: block }
 		label {
 			display: block;
+		}
+		label[for] {
 			margin-top: 15px;
 		}
+
+		form {
+			display: block;
+			margin: 0 auto;
+		}
+		h2 { text-align: center;}
+		[type="checkbox"],
+		[type="radio"] { margin-left: 10px; }
 	</style>
 </head>
 <body>

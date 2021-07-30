@@ -695,7 +695,7 @@ function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP"
 function generateSpriteAtlas ($fileName, $array)
 {
 	$jsonArray = array();
-	foreach ($array as $key => $value) {
+	foreach ($array as $value) {
 
 		# sanitize filename
 		$source = explode('\\', $value['source']);

@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
 		<link rel="stylesheet" type="text/css" href="public/css/reset-senha.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" ></script>
+		<script src="public/vendors/jquery-3.6.0.slim.min.js"></script>
 	</head>
 <body>
 
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 <script src="public/scripts/reset-senha.js"></script>
-<script src="public/scripts/sweet-alert.js"></script>
+<script src="public/vendors/sweet-alert.js"></script>
 
 </body>
 </html>

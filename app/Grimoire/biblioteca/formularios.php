@@ -11,7 +11,7 @@
  *
  * @param	string
  */
-function montarTemplate ($campos, $labels, $esconder=array())
+function montarTemplate ( $campos, $labels, $esconder=array() )
 {
 	$x = array();
 	foreach ($campos as $indice => $c) {
@@ -41,7 +41,6 @@ function montarTemplate ($campos, $labels, $esconder=array())
  * @return	array
  *
  * @uses	formularios.php->transformarEmInputs()
- * @todo	opção html5
  */
 function gerarInputs ($descricao, $registro=null, $sobreEscreverCampos=array(), $conversoes=array(), $padroes=array())
 {
@@ -111,7 +110,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		if ( empty($registro) ) {
 			$registro = $registro[0];
 		} else {
-			throw new Exception("Código inválido", 1);
+			return array("Código inválido", 1);
 		}
 	}
 
@@ -159,7 +158,6 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
  * @uses	formularios.php->gerarLabels()
  * @uses	textos.php->comecaCom()
  * @uses	formularios.php->montarTemplate()
- * @todo
 		$sobreescreverLabels = array('titulo'=> 'Título');
 		$sobreEscreverCampos = array();
 		$remover = array();
@@ -209,10 +207,28 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
+	$d = array_values($descricao);
+	$y = 0;
+
 	foreach ($campos as $i => $v) {
-		if ( contem($v, '<input type="checkbox"') ) {
+
+		if ( contem('<input type="checkbox"', $v) ) {
 			$campos[$i] = str_replace('checked="checked"', '<?php echo checked($obj["'.$i.'"]) ?&gt;', $v);
+		} else
+		if ( contem('<input type="radio"', $v) ) {
+
+			$z = str_replace('set(', '', $d[$y]['Type']);
+			$z = str_replace(')', '', $z);
+			$z = str_replace("'", '', $z);
+			$x = explode(",", $z);
+
+			$campos[$i] = str_replace('   />', ' <?php echo checked($obj["'.$i.'"], "xxx") ?&gt; />', $v);
+
+			foreach ($x as $p) {
+				$campos[$i] = substituirOcorrencia ('xxx', $p, $campos[$i]);
+			}
 		}
+		$y++;
 	}
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -388,7 +404,7 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 		} else if ($campo['Type'] == "datetime" || $campo['Type'] == "timestamp") {
 			$atributos['maxlength'] = 19;
 		# enum
-		} else if ( comecaCom("enum", $campo['Type']) ) {
+		} else if ( comecaCom("enum", $campo['Type']) || comecaCom("set", $campo['Type']) ) {
 			$tipo = 'radio';
 		# bit
 		} else if ( comecaCom("bit", $campo['Type']) || comecaCom("tinyint(1)", $campo['Type']) ) {
@@ -509,13 +525,15 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 				$valores = explode(",", $lista);
 
 				// Se tiver mais que 4 valores converte para select
-				if (count($valores) > 4) {
-					$tipo = "select";
+				if ( count($valores) > 4 ) {
+					// ! não testado
+					$resposta[$campo['Field']] = gerarSelect($campo['Field'], $valores, $valor);
+
 				} else {
 					$x = gerarRadio($campo['Field'], $valores, $valor);
 					$resposta[$campo['Field']] = implode ("\n", $x);
-					break;
 				}
+				break;
 
 			case "select":
 				$pos1 = stripos($campo['Type'], "(");

@@ -57,21 +57,14 @@ function agoraLimpo ($timestamp=false)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	echo apos(20151104, 20151130);
-*/
 function apos ( $dataInicial, $dataAlvo="" )
 {
 	if ( empty($dataAlvo) ) {
@@ -87,21 +80,14 @@ function apos ( $dataInicial, $dataAlvo="" )
 
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	echo antes(20151130, 20151130);
-*/
 function antes ( $dataFinal, $dataAlvo="" )
 {
 	if ( empty($dataAlvo) ) {
@@ -259,8 +245,9 @@ function days_diff ($date_ini=null, $date_end=null, $round=true)
 
 	$date_diff = ($date_end - $date_ini) / 86400;
 
-	if ($round)
+	if ($round) {
 		$date_diff = floor($date_diff);// arredonda pra dias
+	}
 
 	return $date_diff;
 }
@@ -333,21 +320,14 @@ function diferenca ($data1, $data2)
 
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 #http://php.net/manual/en/dateinterval.format.php
 /*echo diferenca( $c['data'] )->format('%d days')*/
@@ -364,21 +344,14 @@ function diferenca3 ($dataInicial, $dataFinal="")
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function diferenca2 ($dataInicial, $dataFinal="")
 {
@@ -438,21 +411,14 @@ function hora ()
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 /* MSB 25/11/2015 */
 function horasEmMinutos ($horas)
@@ -465,21 +431,14 @@ function horasEmMinutos ($horas)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function minutosEmHoras ($minutos)
 {
@@ -556,21 +515,14 @@ function nicetime ($date)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function retornaSemestre ()
 {
@@ -669,29 +621,14 @@ function trataMes ($numeroMes, $limiteCaracteres=0)
 }
 
 /**
-   format::(Y-m-d)
-	negativo = $data1 > $data2
-	positivo = $data1 < $data2
-	zero = $data1 == $data2
-	return numerico
-*/
-
-/**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function diferencaDatas ($data1, $data2)
 {
@@ -705,21 +642,14 @@ function diferencaDatas ($data1, $data2)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
- * @param	string
- * @param	string
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function intervaloDatas ( $dataInicial, $dataFinal, $dataAlvo="" )
 {

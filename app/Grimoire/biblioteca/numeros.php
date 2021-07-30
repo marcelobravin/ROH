@@ -260,3 +260,15 @@ function formatBytes ($size, $precision = 2)
 
 	return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 }
+
+// retorna se o inteiro informado é impar
+function impar($var)
+{
+	return($var & 1);
+}
+
+// retorna se o inteiro informado é par
+function par($var)
+{
+	return(!($var & 1));
+}

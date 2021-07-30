@@ -1,7 +1,7 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-require '../../app/Model/Validation-hospital.php';
+require '../../app/Model/Validacao-hospital.php';
 
 # ------------------------------------------------------------------------------ validacao
 $errosFormulario = validarFormulario($_POST);

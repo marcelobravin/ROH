@@ -74,15 +74,11 @@ function adicionarProtocolo ($url, $protocolo="http")
  * @param	string
  * @param	string
  * @return	bool
- *
- * @todo
-		Corrigir - atualmente mostra coisas q começam
  */
 function contem ($agulha, $palheiro)
 {
 	// return str_contains($agulha, $palheiro); # php 8
-
-	if ( !strpos($agulha, $palheiro) ) {
+	if ( strpos($palheiro, $agulha) !== false ) {
 		return true;
 	}
 }
@@ -548,4 +544,13 @@ function removeEspacoEsimbolo ($contents)
 	$response = preg_replace('/\;\;/'  , ';'   , $response);
 
 	return $response;
+}
+
+function substituirOcorrencia ($needle, $replace, $haystack)
+{
+	$pos = strpos($haystack, $needle);
+
+	if ($pos !== false) {
+		return substr_replace($haystack, $replace, $pos, strlen($needle));
+	}
 }

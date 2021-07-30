@@ -134,11 +134,11 @@ function arquivo ($arquivo = "imagens/logo.png")
  * @example
 	createDir("ZZZX");
  */
-function createDir ($dir)
+function createDir ($dir, $octal=0777)
 {
-	if (! is_dir($dir) && ! mkdir($dir, 0777, true)) {
+	if ( !is_dir($dir) && !mkdir($dir, $octal, true) ) {
 		$mssg = "The follow directory could not be made, please create it: {$dir}";
-		throw new ErrorException($mssg);
+		die($mssg);
 	}
 
 	return true;
@@ -419,17 +419,15 @@ function excluirArquivos ($criterio)
 	}
 */
 //echo fazerUpload($_FILES['arquivo'], true, "../../img/fotos/"); // IMPORTANTE ADICIONAR BARRA NO FINAL
-function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAceitados=null, $sobrescrever=false)
+function fazerUpload ($arquivo, $nome="upload", $caminho="", $tamanhoMax=0, $tiposAceitados=null, $sobrescrever=false)
 {
 	// Se nome for true utiliza timestamp como nome
 	if ( $nome ) {
 		$nome = Date('Y-m-d_H-i-s');
-	} else if (empty($nome)) {
-		$nome = "upload"; // Se nome for nulo utiliza nome padrão
 	}
 
 	// Verifica se há erros no arquivo
-	if (!$arquivo['error'] == UPLOAD_ERR_OK) {
+	if ( !$arquivo['error'] == UPLOAD_ERR_OK ) {
 		$resposta = "Erro no arquivo!";
 	} else {
 		// Verifica extensao e tipo do arquivo
@@ -466,28 +464,6 @@ function fazerUpload ($arquivo, $nome=null, $caminho="", $tamanhoMax=0, $tiposAc
 }
 
 /**
- * Pega o conteúdo de um arquivo dá eval e retorna
- * @package	grimoire/bibliotecas/arquivos.php
- * @version	05-07-2015
- *
- * @param	string
- * @return	bool
- *
- * @uses	$_SERVER
- */
-function get_include_contents ($filename)
-{
-	if ( is_file($filename) ) {
-		ob_start();
-		include $filename;
-		$contents = ob_get_contents();
-		ob_end_clean();
-		return $contents;
-	}
-	return false;
-}
-
-/**
  * Monta headers para exibição de planilhas,
  *
  * @package	grimoire/bibliotecas/arquivos.php
@@ -516,7 +492,7 @@ function headersExcell ($arquivo)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Realiza a inclusão de um arquivo concatenando a raiz do projeto
  *
  * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
  *
@@ -525,18 +501,14 @@ function headersExcell ($arquivo)
  * @version	24-06-2021
  *
  * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function incluir ($caminho = "frames/metas.php")
 {
-	include ROOT . $caminho;
+	if ( file_exists(ROOT . $caminho) ) {
+		include ROOT . $caminho;
+		return true;
+	}
+	return false;
 }
 
 /**

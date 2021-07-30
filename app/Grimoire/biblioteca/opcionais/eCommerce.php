@@ -21,9 +21,8 @@ function busca_frete($cd, $peso_total, $tipo_entrega=0) {
 	$auth = "eb85c81828685d38095962de4fb459fd";
 	$resultado = @file_get_contents("http://www.e-assishost.com.br/frete.php?tipo_entrega=$tipo_entrega&auth=$auth&co=$co&cd=$cd&peso_total=$peso_total");
 	parse_str($resultado, $retorno);
-	$resultadofrete = $retorno['valorfrete'];
 
-	return $resultadofrete;
+	return $retorno['valorfrete'];
 }
 
 /**
@@ -42,9 +41,8 @@ function busca_prazo($cd, $peso_total, $tipo_entrega) {
 	$auth="84d4f1ba60d4dbb0f69a7d56f39fea5a";
 	$resultado = @file_get_contents("http://www.e-assishost.com.br/prazo.php?tipo_entrega=$tipo_entrega&auth=$auth&co=$co&cd=$cd&peso_total=$peso_total");
 	parse_str($resultado, $retorno);
-	$resultadoprazo = $retorno['prazoentrega'];
 
-	return $resultadoprazo;
+	return $retorno['prazoentrega'];
 }
 
 function calcula_frete($servico,$cep_origem,$cep_destino,$peso,$mao_propria,$valor_declarado,$aviso_recebimento, $comprimento, $altura, $largura, $diametro){
@@ -57,32 +55,22 @@ function calcula_frete($servico,$cep_origem,$cep_destino,$peso,$mao_propria,$val
 	$conteudo = file_get_contents($url);
 	$frete_calcula = simplexml_load_string($conteudo);
 
-	/*
-	CASO QUEIRA VER TUDO QUE VEM DO SITE DOS CORREIOS, DESCOMENTE A LINHA ABAIXO.
-	echo print_r($frete_calcula);
-	*/
 	$frete = $frete_calcula->cServico;
 
 	# SUCESSO==========================================
 	if($frete->Erro == '0'){
 
-			switch($frete->Codigo){
-					case 41106: $servico = 'PAC'; break;
-					case 40045: $servico = 'SEDEX a Cobrar'; break;
-					case 40215: $servico = 'SEDEX 10'; break;
-					case 40290: $servico = 'SEDEX Hoje'; break;
-					default: $servico = 'SEDEX';
-			}
-/*
-			$retorno = array(
-				'servico'				 => $servico,
-				'valor'					 => $frete->Valor,
-				'prazoDeEntrega'	=> $frete->PrazoEntrega
-			);
-*/
-			$retorno = $servico.'//';
-			$retorno .= $frete->Valor.'//';
-			$retorno .= $frete->PrazoEntrega.'_||_';
+		switch($frete->Codigo){
+				case 41106: $servico = 'PAC'; break;
+				case 40045: $servico = 'SEDEX a Cobrar'; break;
+				case 40215: $servico = 'SEDEX 10'; break;
+				case 40290: $servico = 'SEDEX Hoje'; break;
+				default: $servico = 'SEDEX';
+		}
+
+		$retorno = $servico.'//';
+		$retorno .= $frete->Valor.'//';
+		$retorno .= $frete->PrazoEntrega.'_||_';
 
 	# FALHAS============================================
 	} elseif ($frete->Erro == '7') {

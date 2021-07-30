@@ -5,80 +5,6 @@
 */
 
 /**
- * Retorna os campos de uma tabela
- *
- * @since	05-07-2015
- * @version	23/07/2021 11:48:16
- *
- * @param	string
- * @param	bool
- * @param	null/string
- * @return	array
- *
- * @uses	persistencia.php->executar()
- *
- * @example
-		$descricao = descreverTabela("tabela");
- */
-function descreverTabela ($tabela, $full=false, $banco=null)
-{
-	if ( $full ) {
-		$sql = "SHOW FULL COLUMNS FROM $tabela";
-	} else {
-		$sql = "SHOW COLUMNS FROM $tabela";
-	}
-
-	if ( !is_null($banco) ) {
-		$sql .= " FROM $banco";
-	}
-
-	$result = executar($sql);
-
-	return $result;
-}
-
-/**
- * Gera arquivos para recriação do BD
- * @since	05-07-2015
- * @version	20/07/2021 11:57:50
- *
- * @uses	persistencia-pdo.php->conectarPdo()
- * @uses	persistencia.php->descreverTabela()
- * @uses	acesso.php->gerarModelo()
- * @uses	acesso.php->gerarInserts()
- */
-function exportarBD ()
-{
-	$sql = "SHOW FULL TABLES FROM ". DBNAME;
-	$tabelas = executar($sql);
-
-	foreach ($tabelas as $t) {
-		$d = descreverTabela($t['Tables_in_'. DBNAME], true);
-		$sql = montarCriacao($t['Tables_in_'. DBNAME], $d);
-
-		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t['Tables_in_'. DBNAME]}.sql", $sql, true);
-
-		gerarModelo($t['Tables_in_'. DBNAME], $d);
-		gerarInserts($t['Tables_in_'. DBNAME]);
-
-		$sqls = gerarFKs($t['Tables_in_'. DBNAME]);
-
-		if ( !empty($sqls['INSERT']) ) {
-			$content = $sqls['ALTER TABLE'];
-
-			$content .= "\n\n";
-			$content .= concatenar2($sqls['INSERT']);
-			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['Tables_in_'. DBNAME]}.sql", $content, true);
-		}
-	}
-
-	$c = exportarConstraints();
-	registrartUQs($c['uqs']);
-
-	return true;
-}
-
-/**
  * Cria um BD com o nome definido nas configurações
  * @package	grimoire/bibliotecas/persistencia.php
  * @since	05-07-2015
@@ -103,6 +29,27 @@ function criarBanco ()
 	} catch (PDOException $e) {
 		die("DB ERROR: " . $e->getMessage());
 	}
+}
+
+/**
+ * Registra acesso ao banco
+ * @package	grimoire/bibliotecas/acesso.php
+ * @since	05-07-2015
+ * @version	07/07/2021 12:37:48
+ *
+ * @param	string
+ * @return	bool
+ *
+ * @uses	acesso.php->identificarIP()
+ * @uses	persistencia.php->executar()
+ * @example
+		gravarLog(1, "U", "produto", 15);
+		gravaLog("15", "C/R/U/D", "produto", "29");
+ */
+function criarTabelaLog ()
+{
+	$sql = templateTabelaLog();
+	executar($sql);
 }
 
 /**
@@ -153,6 +100,122 @@ function comprimir ($listaArquivos, $tipo="js", $minimizar=true)
 	return $arquivoGerado;
 }
 
+
+/**
+ * Retorna os campos de uma tabela
+ *
+ * @since	05-07-2015
+ * @version	23/07/2021 11:48:16
+ *
+ * @param	string
+ * @param	bool
+ * @param	null/string
+ * @return	array
+ *
+ * @uses	persistencia.php->executar()
+ *
+ * @example
+		$descricao = descreverTabela("tabela");
+ */
+function descreverTabela ($tabela, $full=false, $banco=null)
+{
+	if ( $full ) {
+		$sql = "SHOW FULL COLUMNS FROM $tabela";
+	} else {
+		$sql = "SHOW COLUMNS FROM $tabela";
+	}
+
+	if ( !is_null($banco) ) {
+		$sql .= " FROM $banco";
+	}
+
+	return executar($sql);
+}
+
+/**
+ * Gera arquivos para recriação do BD
+ * @since	05-07-2015
+ * @version	20/07/2021 11:57:50
+ *
+ * @uses	persistencia-pdo.php->conectarPdo()
+ * @uses	persistencia.php->descreverTabela()
+ * @uses	acesso.php->gerarModelo()
+ * @uses	acesso.php->gerarInserts()
+ */
+function exportarBD ()
+{
+	$sql = "SHOW FULL TABLES FROM ". DBNAME;
+	$tabelas = executar($sql);
+
+	foreach ($tabelas as $t) {
+		$d = descreverTabela($t['Tables_in_'. DBNAME], true);
+		$sql = montarCriacao($t['Tables_in_'. DBNAME], $d);
+
+		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t['Tables_in_'. DBNAME]}.sql", $sql, true);
+
+		gerarModelo($t['Tables_in_'. DBNAME], $d);
+		gerarInserts($t['Tables_in_'. DBNAME]);
+
+		$sqls = gerarFKs($t['Tables_in_'. DBNAME]);
+
+		if ( !empty($sqls['INSERT']) ) {
+			$content = $sqls['ALTER TABLE'];
+
+			$content .= "\n\n";
+			$content .= concatenar2($sqls['INSERT']);
+			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['Tables_in_'. DBNAME]}.sql", $content, true);
+		}
+	}
+
+	$c = exportarConstraints();
+	registrartUQs($c['uqs']);
+
+	return true;
+}
+
+function exportarUQs ($db=DBNAME)
+{
+	# Use the information_schema.key_column_usage table to get the fields in each one of those constraints:
+	$sqlKeyColumns = "SELECT *
+		FROM information_schema.key_column_usage
+		WHERE constraint_schema = '{$db}'
+			AND constraint_name != 'PRIMARY'";
+
+	return executar($sqlKeyColumns);
+}
+
+function exportarFKs ($db=DBNAME)
+{
+	# Use the information_schema.table_constraints table to get the names of the constraints defined on each table:
+	$sqlConstraints = "SELECT *
+		FROM information_schema.table_constraints
+		WHERE constraint_schema = '{$db}'
+			AND constraint_type = 'FOREIGN KEY'";
+
+	return executar($sqlConstraints);
+}
+
+function gerarFKs ($tabela)
+{
+	$sql = "ALTER TABLE `{$tabela}` ENGINE = InnoDB;";
+
+	$t = descreverTabela($tabela);
+
+	$sql2 = array();
+	foreach ($t as $v) {
+
+		if ( comecaCom("id_", $v['Field']) ) {
+			$tab = explode('_', $v['Field']);
+			$sql2[] = criacaoFK($tabela, $tab[1]);
+		}
+	}
+
+	return array(
+		'ALTER TABLE'	=> $sql,
+		'INSERT'		=> $sql2
+	);
+}
+
 /**
  * Gera arquivo .htaccess
  *
@@ -160,7 +223,6 @@ function comprimir ($listaArquivos, $tipo="js", $minimizar=true)
  * @version	05-07-2015
  *
  * @return	bool
- * @todo	corrigir link do site
  */
 function gerarHtaccess ()
 {
@@ -239,7 +301,6 @@ function gerarHtaccess ()
  * @version	05-07-2015
  *
  * @return	bool
- * @todo	corrigir link do site
  */
 function gerarEnv ()
 {
@@ -367,7 +428,7 @@ function getProjectFiles ()
 	$content	= file_get_contents($jsonDir);
 	$content	= json_decode($content);
 
-	$allFiles	= getMapDirectory('assets\lists\temp\_' , 'ALL');
+	$allFiles	= getMapDirectory('ALL', 'assets\lists\temp\_');
 
 	return array(
 		'allFiles'		=> $allFiles
@@ -404,9 +465,6 @@ function assetPipeline ($js=true, $css=true, $imgs=true)
 	return true;
 }
 
-/*
-	Functions used  in the manual.php page
-*/
 function getDirectorySize ($path)
 {
 	$bytestotal = 0;
@@ -419,14 +477,9 @@ function getDirectorySize ($path)
 	return $bytestotal;
 }
 
-/*
+/**
  *
- * @Throws RuntimeException
- https://stackoverflow.com/questions/1846882/open-basedir-restriction-in-effect-file-is-not-within-the-allowed-paths
- https://forum.infinityfree.net/t/plz-allow-home-directory-in-php-open-basedir/8328
- Admin - Dec '17
- Not really. We set the open_basedir restrictions for security reasons and we cannot change it for individual accounts.
-*/
+ */
 function registerMapDirectory ($path, $fileName)
 {
 	$jsonDir = ARQUIVOS_EFEMEROS.'/listas/_';
@@ -447,7 +500,7 @@ function registerMapDirectory ($path, $fileName)
 	}
 }
 
-function getMapDirectory ($jsonDir=ARQUIVOS_EFEMEROS.'/listas/_', $fileName)
+function getMapDirectory ($fileName, $jsonDir=ARQUIVOS_EFEMEROS.'/listas/_')
 {
 	try {
 		$path = $jsonDir. $fileName.'.json';
@@ -504,12 +557,6 @@ function buildTree ($DT, $lv=0)
 				$resposta .= $indentacao . $dirSymbol . $key;
 				$resposta .= ' ('.count($value).')';
 				$resposta .= PHP_EOL;
-
-				// if ($k == count($DT) ) {
-				//	 $dirSymbol = '└── '; # last
-				// }
-				// $resposta .= ' Meu indice: ['.$k.']';
-				// $resposta .= ' Irmãos: ['.count($DT).']';
 				$resposta .= buildTree($value, $lv+1);
 			} else {
 				if ($key-1 == count($DT) ) {
@@ -610,6 +657,64 @@ function chmod_r($path, $permission=0777) {
 }
 
 /**
+ * Gera arquivo com os registros da tabela
+ *
+ * @param	string
+ *
+ * @uses	persistencia.php->executar()
+ * @uses	sql.php->insercao()
+ * @uses	GRIMOIRE."modelos/registros/"
+ */
+function gerarInserts ($tabela)
+{
+	$sql = selecao($tabela);
+	$con = conectarPdo();
+	$qry = $con->prepare($sql);
+	$qry -> execute();
+
+	$registros = $qry->fetchAll(PDO::FETCH_ASSOC);
+	$con = null;
+
+	$inserts = "";
+	foreach ($registros as $value) {
+		$value = str_replace(array("\r\n", "\r", "\n", "\t", '	', '		', '		'), '', $value);
+		$inserts .= insercao($tabela, $value);
+		$inserts .= ";\n";
+	}
+
+	escrever(ARQUIVOS_EFEMEROS."/db/dml/registros/{$tabela}.sql", $inserts, true);
+}
+
+/**
+ * Realiza multiplas inserções
+ * @package	grimoire/bibliotecas/instalacao.php
+ * @since	28/06/2021 11:52:15
+ *
+ * @param	string
+ * @param	array
+ *
+ * @example
+	$matriz = array(
+		array ("criado_por"=> 1, "titulo" => "Equipe"),
+		array ("criado_por"=> 1, "titulo" => "Internação"),
+		array ("criado_por"=> 1, "titulo" => "Ambulatório"),
+		array ("criado_por"=> 1, "titulo" => "Consultas ambulatoriais"),
+		array ("criado_por"=> 1, "titulo" => "Procedimentos e cirurgias ambulatoriais"),
+		array ("criado_por"=> 1, "titulo" => "SADT"),
+		array ("criado_por"=> 1, "titulo" => "Atenção domiciliar")
+	);
+
+	insercaoMatricial('categoria', $matriz);
+*/
+function insercaoMatricial ($tabela, $matriz)
+{
+	foreach ($matriz as $obj) {
+		echo inserir($tabela, $obj);
+		br();
+	}
+}
+
+/**
  * Prepara o ambiente para execução do projeto
  * @package	grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
@@ -623,39 +728,18 @@ function importarBD ()
 	criarBanco();
 
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/tabelas/*.sql") ) {
-		throw new Exception( 'Erro: importarTabelas()');
+		die( 'Erro: importarTabelas()');
 	}
 
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/constraints_*.sql") ) {
-		throw new Exception( 'Erro: importarConstraints()');
+		die( 'Erro: importarConstraints()');
 	}
 
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/dml/registros/*.sql") ) {
-		throw new Exception( 'Erro: importarRegistros()');
+		die( 'Erro: importarRegistros()');
 	}
 
 	return true;
-}
-
-/**
- * Registra acesso ao banco
- * @package	grimoire/bibliotecas/acesso.php
- * @since	05-07-2015
- * @version	07/07/2021 12:37:48
- *
- * @param	string
- * @return	bool
- *
- * @uses	acesso.php->identificarIP()
- * @uses	persistencia.php->executar()
- * @example
-		gravarLog(1, "U", "produto", 15);
-		gravaLog("15", "C/R/U/D", "produto", "29");
- */
-function criarTabelaLog ()
-{
-	$sql = templateTabelaLog();
-	executar($sql);
 }
 
 /**
@@ -696,66 +780,6 @@ function importarRegistros ($diretorio)
 }
 
 /**
- * Gera arquivo com os registros da tabela
- *
- * @param	string
- *
- * @uses	persistencia.php->executar()
- * @uses	sql.php->insercao()
- * @uses	GRIMOIRE."modelos/registros/"
- *
- * @todo	substituir por selecionar()
- */
-function gerarInserts ($tabela)
-{
-	$sql = selecao($tabela);
-	$con = conectarPdo();
-	$qry = $con->prepare($sql);
-	$qry -> execute();
-
-	$registros = $qry->fetchAll(PDO::FETCH_ASSOC);
-	$con = null;
-
-	$inserts = "";
-	foreach ($registros as $key => $value) {
-		$value = str_replace(array("\r\n", "\r", "\n", "\t", '	', '		', '		'), '', $value);
-		$inserts .= insercao($tabela, $value);
-		$inserts .= ";\n";
-	}
-
-	escrever(ARQUIVOS_EFEMEROS."/db/dml/registros/{$tabela}.sql", $inserts, true);
-}
-
-/**
- * Realiza multiplas inserções
- * @package	grimoire/bibliotecas/instalacao.php
- * @since	28/06/2021 11:52:15
- *
- * @param	string
- * @param	array
- *
- * @example
-	$matriz = array(
-		array ("criado_por"=> 1, "titulo" => "Equipe"),
-		array ("criado_por"=> 1, "titulo" => "Internação"),
-		array ("criado_por"=> 1, "titulo" => "Ambulatório"),
-		array ("criado_por"=> 1, "titulo" => "Consultas ambulatoriais"),
-		array ("criado_por"=> 1, "titulo" => "Procedimentos e cirurgias ambulatoriais"),
-		array ("criado_por"=> 1, "titulo" => "SADT"),
-		array ("criado_por"=> 1, "titulo" => "Atenção domiciliar")
-	);
-
-	insercaoMatricial('categoria', $matriz);
-*/
-function insercaoMatricial ($tabela, $matriz)
-{
-	foreach ($matriz as $obj) {
-		echo inserir($tabela, $obj);
-		br();
-	}
-}
-
-/**
  * Monta o sql de criação de uma tabela conforme descricao em array
  * @package	grimoire/bibliotecas/sql.php
  * @since	05-07-2015
@@ -784,8 +808,6 @@ function insercaoMatricial ($tabela, $matriz)
 		$campos[] = array('nome'=> 'datahora', 'tipo' => 'datetime');
 		$sql = montarCriacao("log", $campos);
 		exibir($sql);
- * @todo
-		corrigir nome dos indices conforme padrão mysql
  */
 function montarCriacao ($tabela, $atributos, $drop=false)
 {
@@ -830,7 +852,6 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 	return $sql;
 }
 
-/* @todo verificar se precisa do foreach ao inves de um where */
 function exportarConstraints ($db=DBNAME)
 {
 	$fks = exportarFKs($db); # fks existentes no BD
@@ -845,7 +866,7 @@ function exportarConstraints ($db=DBNAME)
 function converterUQs ($uqs)
 {
 	$tabelas = array();
-	foreach ($uqs as $i => $v) {
+	foreach ($uqs as $v) {
 		$tabelas[$v['TABLE_NAME']][] = $v['COLUMN_NAME'];
 	}
 
@@ -853,7 +874,7 @@ function converterUQs ($uqs)
 	$alters = "";
 	if ( !empty($t) ) {
 		$alters = "-- ".agora(true)."\n";
-		foreach ($t as $i => $v) {
+		foreach ($t as $v) {
 			$alters .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
 			$alters .= implode(", ", $tabelas[$v]);
 			$alters .= ");\n";
@@ -867,47 +888,4 @@ function registrartUQs ($uqs, $db=DBNAME)
 {
 	$alters = converterUQs($uqs);
 	escrever(ARQUIVOS_EFEMEROS."/db/ddl/uniques-{$db}.sql", $alters, true);
-}
-
-function exportarUQs ($db=DBNAME)
-{
-	# Use the information_schema.key_column_usage table to get the fields in each one of those constraints:
-	$sqlKeyColumns = "SELECT *
-		FROM information_schema.key_column_usage
-		WHERE constraint_schema = '{$db}'
-			AND constraint_name != 'PRIMARY'";
-
-	return executar($sqlKeyColumns);
-}
-
-function exportarFKs ($db=DBNAME)
-{
-	# Use the information_schema.table_constraints table to get the names of the constraints defined on each table:
-	$sqlConstraints = "SELECT *
-		FROM information_schema.table_constraints
-		WHERE constraint_schema = '{$db}'
-			AND constraint_type = 'FOREIGN KEY'";
-
-	return executar($sqlConstraints);
-}
-
-function gerarFKs ($tabela)
-{
-	$sql = "ALTER TABLE `{$tabela}` ENGINE = InnoDB;";
-
-	$t = descreverTabela($tabela);
-
-	$sql2 = array();
-	foreach ($t as $v) {
-
-		if ( comecaCom("id_", $v['Field']) ) {
-			$tab = explode('_', $v['Field']);
-			$sql2[] = criacaoFK($tabela, $tab[1]);
-		}
-	}
-
-	return array(
-		'ALTER TABLE'	=> $sql,
-		'INSERT'		=> $sql2
-	);
 }

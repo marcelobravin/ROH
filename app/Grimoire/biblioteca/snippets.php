@@ -20,16 +20,16 @@
  */
 function a ($conteudo="", $href="#", $atributos=array())
 {
-	if (is_null($href)) {
+	if ( is_null($href) ) {
 		$href = "javascript:void(0)";
 	}
 
 	$atributos = gerarAtributos($atributos);
 
-	if (startsWith($href, "http") || startsWith($href, "www")) {
-		return "<a href='$href' $atributos target='_blank'>$conteudo</a>";
+	if (comecaCom("http", $href) || comecaCom("www", $href)) {
+		return '<a href="'.$href.'" '.$atributos.' target="_blank">'.$conteudo.'</a>';
 	} else {
-		return "<a href='$href' $atributos>$conteudo</a>";
+		return '<a href="'.$href.'" $atributos>'.$conteudo.'</a>';
 	}
 }
 
@@ -81,11 +81,9 @@ function checkbox ($nome, $valor="", $selecionado=false, $atributos=array(), $ro
 		return box("checkbox", $nome, $valor, $selecionado, $atributos);
 	}
 
-	$inputs = "<label>";
-	$inputs .= is_numeric($valor) ? $rotulo : ucfirst($valor);
-	$inputs .= box("checkbox", $nome, $valor, $selecionado, $atributos);
-	$inputs .= "</label>";
-	return $inputs;
+	$input = is_numeric($valor) ? $rotulo : ucfirst($valor);
+	$input .= box("checkbox", $nome, $valor, $selecionado, $atributos);
+	return label($input);
 
 }
 
@@ -710,11 +708,9 @@ function radio ($nome, $valor="", $selecionado=false, $atributos=array(), $rotul
 		return box("radio", $nome, $valor, $selecionado, $atributos);
 	}
 
-	$inputs = "<label>";
-	$inputs .= is_numeric($valor) ? $rotulo : ucfirst($valor);
-	$inputs .= box("radio", $nome, $valor, $selecionado, $atributos);
-	$inputs .= "</label>";
-	return $inputs;
+	$input = is_numeric($valor) ? $rotulo : ucfirst($valor);
+	$input .= box("radio", $nome, $valor, $selecionado, $atributos);
+	return label($input);
 
 }
 

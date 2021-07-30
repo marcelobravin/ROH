@@ -1,8 +1,9 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
-	if ( empty($_GET['modulo']) )
+	if ( empty($_GET['modulo']) ) {
 		redirecionar("index.php");
+	}
 
 	define('MODULO', $_GET['modulo']);
 	$PAGINA['titulo']		= "Lista";
@@ -14,6 +15,9 @@
 	<head>
 		<?php include "public/views/frames/metas.php" ?>
 		<link rel="stylesheet" type="text/css" href="public/css/usuarios.css">
+		<style>
+			span.numero { text-decoration: underline; }
+		</style>
 	</head>
 <body>
 	<?php require_once 'public/views/frames/header.php' ?>

@@ -56,7 +56,7 @@ function enviarEmail  ($to, $subject="Assunto", $message="Conteúdo do email", $
 	$h = gerarMailHeader($subject, $fromNome, $from);
 	$h2 = gerarMailHeader($subject2, $fromNome, $from);
  */
-function gerarMailHeader ($subject, $fromNome, $from)
+function gerarMailHeader ($subject, $fromNome, $from, $cc="birthdayarchive@example.com",$bcc="JJ Chong <bcc@domain2.com>",$reply="Recipient Name <receiver@domain3.com>")
 {
 	// Correções para utf8
 	$fromNome = "=?UTF-8?B?". base64_encode($fromNome) ."?=";
@@ -71,9 +71,17 @@ function gerarMailHeader ($subject, $fromNome, $from)
 	$headers[] = "Message-ID: <" . $_SERVER['REQUEST_TIME'] . password_hash($_SERVER['REQUEST_TIME'], PASSWORD_BCRYPT) . '@' . $_SERVER['SERVER_NAME'] . ">";
 
 	$headers[] = "From: {$fromNome} <{$from}>";
-	// $headers[] = "Cc: birthdayarchive@example.com";
-	// $headers[] = "Bcc: JJ Chong <bcc@domain2.com>";
-	// $headers[] = "Reply-To: Recipient Name <receiver@domain3.com>";
+
+	if ( !empty($cc) ) {
+		$headers[] = "Cc: {$cc}";
+	}
+	if ( !empty($bcc) ) {
+		$headers[] = "Bcc: {$bcc}";
+	}
+	if ( !empty($reply) ) {
+		$headers[] = "Reply-To: {$reply}";
+	}
+
 	$headers[] = "Subject: {$subject}";
 	$headers[] = "Return-Path: " . $from;
 	$headers[] = "X-Mailer: PHP/" . phpversion();

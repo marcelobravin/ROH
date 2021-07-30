@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS resultado (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
-	id_meta INT(11) NOT NULL,
+	meta_id INT(11) NOT NULL,
 	resultado INT(3) NOT NULL,
 	mes TINYINT(2) NOT NULL,
 	ano INT(4) NOT NULL,

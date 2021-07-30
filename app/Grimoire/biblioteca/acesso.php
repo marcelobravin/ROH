@@ -41,79 +41,39 @@ function bloquear ($criterio=FALSE, $destino=PAGINA_INICIAL)
  */
 function bloquearAcesso ($paginasExternas)
 {
-	if ( !in_array(paginaAtual(), $paginasExternas) ) {
-		if ( !LOGADO ) {
-			redirecionar();
-		}
+	if ( !in_array(paginaAtual(), $paginasExternas) && !LOGADO ) {
+		redirecionar();
 	}
 }
 
-/**
- * Inicia uma sessão de forma segura
- * @package	grimoire/bibliotecas/acesso.php
- * @version	17-07-2015
- *
- * @uses	session_status()
- * {@link http://www.php.net/manual/en/function.session-status.php}
- * }
- */
-function checarSessao ()
+function configurarCookies ()
 {
-	if ( function_exists ('session_status') ) {
-		if (@session_status() == PHP_SESSION_NONE) {// For versions of PHP >= 5.4.0
-			session_start();
-		}
-	} elseif (session_id() == '') { // For versions of PHP < 5.4.0
-		session_start();
-	}
-}
-
-/**
- * Define tempo de expiração de sessão
- * @package	grimoire/bibliotecas/acesso.php
- * @version	20-07-2015
- *
- * @uses	$_SESSION
- *
- * {@link http://stackoverflow.com/questions/8311320/how-to-change-the-session-timeout-in-php}
- */
-function condenarSessao ($tempo=SESSAO_TTL)
-{
-	// server should keep session data for AT LEAST 1 hour
-	ini_set('session.gc_maxlifetime', $tempo);
-
-	// each client should remember their session id for EXACTLY 1 hour
-	session_set_cookie_params($tempo);
-
-	$secure = true; // if you only want to receive the cookie over HTTPS
-	$httponly = true; // prevent JavaScript access to session cookie
-	// $samesite = 'lax';
-	$samesite = 'roh';
-
 	if (PHP_VERSION_ID < 70300) {
-		session_set_cookie_params($tempo, '/; samesite='.$samesite, $_SERVER['HTTP_HOST'], $secure, $httponly);
+		// ! Deve obedecer as regras abaixo
+		session_set_cookie_params(SESSAO_TTL, '/; samesite='.PROJECT_NAME, $_SERVER['HTTP_HOST'], true, true);
 	} else {
 		session_set_cookie_params([
-			'lifetime' => $tempo,
-			'path' => '/',
-			'domain' => $_SERVER['HTTP_HOST'],
-			'secure' => $secure,
-			'httponly' => $httponly,
-			'samesite' => $samesite
+			'lifetime'	=> SESSAO_TTL,
+			'path'		=> '/',
+			'domain'	=> $_SERVER['HTTP_HOST'],
+			'secure'	=> true, // if you only want to receive the cookie over HTTPS
+			'httponly'	=> true, // prevent JavaScript access to session cookie
+			'samesite'	=> PROJECT_NAME
 		]);
 	}
-	session_start();
+}
 
-	$now = time();
-	// this session has worn out its welcome; kill it and start a brand new one
-	if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
-		session_unset();
-		session_destroy();
-		session_start();
+function configurarExibicaoErros ($conf=PRODUCAO)
+{
+	if ( $conf ) {
+		ini_set('display_errors'		, 0);
+		ini_set('display_startup_errors', 0);
+	} else {
+		ini_set('display_startup_errors', 1);
+		ini_set('display_errors'		, TRUE);
+		ini_set('error_reporting'		, E_ALL);
+		error_reporting(E_ALL);
 	}
-
-	// either new or old, it should live at most for another hour
-	$_SESSION['discard_after'] = $now + $tempo;
 }
 
 /**
@@ -241,55 +201,6 @@ function identificarNavegador2 ()
 }
 
 /**
- * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
- * @version	17-07-2015
- *
- * @param	bool	bloquear usuários logados ou deslogados
- * @param	string
- *
- * @uses	acesso.php->logado()
- */
-function get_ip_address()
-{
-	// check for shared internet/ISP IP
-	if (!empty($_SERVER['HTTP_CLIENT_IP']) && validate_ip($_SERVER['HTTP_CLIENT_IP'])) {
-		return $_SERVER['HTTP_CLIENT_IP'];
-	}
-	// check for IPs passing through proxies
-	if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		// check if multiple ips exist in var
-		if ( !strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') ) {
-			$iplist = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-			foreach ($iplist as $ip) {
-				if (validate_ip($ip)) {
-					return $ip;
-				}
-			}
-		} else {
-			if (validate_ip($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-				return $_SERVER['HTTP_X_FORWARDED_FOR'];
-			}
-		}
-	}
-	if (!empty($_SERVER['HTTP_X_FORWARDED']) && validate_ip($_SERVER['HTTP_X_FORWARDED'])) {
-		return $_SERVER['HTTP_X_FORWARDED'];
-	}
-	if (!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) && validate_ip($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
-		return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-	}
-	if (!empty($_SERVER['HTTP_FORWARDED_FOR']) && validate_ip($_SERVER['HTTP_FORWARDED_FOR'])) {
-		return $_SERVER['HTTP_FORWARDED_FOR'];
-	}
-	if (!empty($_SERVER['HTTP_FORWARDED']) && validate_ip($_SERVER['HTTP_FORWARDED'])) {
-		return $_SERVER['HTTP_FORWARDED'];
-	}
-
-	// return unreliable ip since all else failed
-	return $_SERVER['REMOTE_ADDR'];
-}
-
-/**
  * Pega o endereço de IP do usuário
  * @package	grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
@@ -301,37 +212,44 @@ function get_ip_address()
  */
 function identificarIP ()
 {
-	if ( isset($_SERVER['HTTP_CLIENT_IP']) )			{ $ip = $_SERVER['HTTP_CLIENT_IP']; }
-	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	{ $ip = $_SERVER['HTTP_CF_CONNECTING_IP']; } # when behind cloudflare
-	else if( isset($_SERVER['HTTP_X_FORWARDED_FOR']) )	{ $ip = $_SERVER['HTTP_X_FORWARDED_FOR']; }
-	else if( isset($_SERVER['HTTP_X_FORWARDED']) )		{ $ip = $_SERVER['HTTP_X_FORWARDED']; }
-	else if( isset($_SERVER['HTTP_FORWARDED_FOR']) )	{ $ip = $_SERVER['HTTP_FORWARDED_FOR']; }
-	else if( isset($_SERVER['HTTP_FORWARDED']) )		{ $ip = $_SERVER['HTTP_FORWARDED']; }
-	else if( isset($_SERVER['REMOTE_ADDR']) )			{ $ip = $_SERVER['REMOTE_ADDR']; }
-	else $ip = '0.0.0.0';
+	// default unreliable ip
+	$ip = $_SERVER['REMOTE_ADDR'];
+
+	// check for shared internet/ISP IP
+	if (!empty($_SERVER['HTTP_CLIENT_IP']) && validarIp($_SERVER['HTTP_CLIENT_IP'])) {
+		$ip = $_SERVER['HTTP_CLIENT_IP'];
+	}
+	# when behind cloudflare
+	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	{
+		$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+	}
+	# check for IPs passing through proxies
+	elseif ( !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ) {
+		# check if multiple ips exist in var
+		if ( !strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') ) {
+			$iplist = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+
+			foreach ($iplist as $ipCurrent) {
+				if ( validarIp($ipCurrent) ) {
+					$ip = $ipCurrent;
+				}
+			}
+		} else {
+			if (validarIp($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+				$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			}
+		}
+	} elseif (!empty($_SERVER['HTTP_X_FORWARDED']) && validarIp($_SERVER['HTTP_X_FORWARDED'])) {
+		$ip = $_SERVER['HTTP_X_FORWARDED'];
+	} elseif (!empty($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']) && validarIp($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
+		$ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+	} elseif (!empty($_SERVER['HTTP_FORWARDED_FOR']) && validarIp($_SERVER['HTTP_FORWARDED_FOR'])) {
+		$ip = $_SERVER['HTTP_FORWARDED_FOR'];
+	} elseif (!empty($_SERVER['HTTP_FORWARDED']) && validarIp($_SERVER['HTTP_FORWARDED'])) {
+		$ip = $_SERVER['HTTP_FORWARDED'];
+	}
 
 	return $ip;
-}
-
-/**
- * Define tempo de validade para o cache da sessão
- * @package	grimoire/bibliotecas/acesso.php
- * @version	20-07-2015
- */
-/* Define o limitador de cache para 'private' */
-function limitador ()
-{
-	session_cache_limiter('private');
-	$cache_limiter = session_cache_limiter();
-
-	/* Define o limite de tempo do cache em 30 minutos */
-	session_cache_expire(SESSAO_TTL / 60);
-	$cache_expire = session_cache_expire();
-
-	/* Inicia a sessão */
-	session_start();
-	echo "O limitador de cache esta definido agora como $cache_limiter<br />";
-	echo "As sessões em cache irão expirar em $cache_expire minutos";
 }
 
 /**
@@ -341,11 +259,11 @@ function limitador ()
  *
  * @return	bool
  *
- * @uses	acesso.php->checarSessao()
+ * @uses	acesso.php->iniciarSessao()
  */
 function logado ($indice='usuario_logado')
 {
-	checarSessao();
+	iniciarSessao();
 	return isset($_SESSION[$indice]);
 }
 
@@ -364,7 +282,20 @@ function login ($login, $senha)
 	$condicoes = array(
 		'login' => $login
 	);
-	$user = selecionar('usuario', $condicoes);
+	$campos = array(
+		'id',
+		'login',
+		'senha',
+		'email_confirmado',
+		'token',
+		'ativo',
+		'reset',
+		'telefone',
+		'nome',
+		'endereco',
+		'cpf'
+	);
+	$user = selecionar('usuario', $condicoes, "", $campos);
 
 	if ( empty($user) ) {
 		password_verify('senha', 'senhaStub'); # operacao custosa para não sinalizar retorno muito rápido
@@ -384,21 +315,22 @@ function login ($login, $senha)
 			$stm = $conn->prepare($acesso);
 			$stm->execute();
 
-			verificarTempoAtividadeSessao();
-			unset($senha);
+			criarSessao();
+			unset($user['senha']);
 			$_SESSION['user'] = $user;
 			return true;
 		} else {
 			$falhaAcesso = registroDeAcesso($user['id'], $ip, $browser, 0);
 			$stm = $conn->prepare($falhaAcesso);
 			$stm->execute();
-			return false;
 		}
 	}
+
+	return false;
 }
 
 /**
- * Realiza logoff do usuário no sistema
+ * Realiza log out do usuário no sistema
  * @package	grimoire/bibliotecas/acesso.php
  * @version	05-07-2015
  *
@@ -406,13 +338,10 @@ function login ($login, $senha)
  *
  * @uses	$_SESSION
  */
-function logoff ($caminho=PAGINA_INICIAL)
+function logOut ($url="index.php")
 {
-	session_start();
-	unset($_SESSION);
-	session_unset();
-	session_destroy();
-	redirecionar($caminho);
+	encerrarSessao();
+	redirecionar($url);
 }
 
 /**
@@ -449,6 +378,13 @@ function recarregar ($descartarParametros=false)
 	redirecionar($url);
 }
 
+function redirecionamentoTemporal ($destino="index.php", $tempo=5)
+{
+	header( "refresh:{$tempo};url={$destino}" );
+	echo 'Você será redirecionado em <span id="c">'.$tempo.'</span> segundos.<br>Caso contrário, clique <a href="'. $destino .'">aqui</a>.';
+	contagem($tempo, 'c');
+}
+
 /**
  * Redireciona para página solicitada via php (se possível) ou javascript e html
  * @package	grimoire/bibliotecas/acesso.php
@@ -459,11 +395,18 @@ function recarregar ($descartarParametros=false)
  */
 function redirecionar ($url=PAGINA_INICIAL)
 {
-	if ( !headers_sent() ) {
-		header('Location: ' . $url);
-	} else {
+	if ( !file_exists( BASE.$url ) ) {
+		pp("Página inexistente");
+		die($url);
+	}
+
+	$url = PROTOCOLO.BASE_HTTP.$url;
+
+	if ( headers_sent() ) {
 		echo '<script type="text/javascript">window.location=\'' . $url . '\';</script>';
 		echo "<META HTTP-EQUIV='REFRESH' CONTENT=\"0; URL='". $url ."'\">";
+	} else {
+		header('Location: ' . $url);
 	}
 	exit;
 }
@@ -478,19 +421,31 @@ function redirecionar ($url=PAGINA_INICIAL)
 function verificarTempoAtividadeSessao ()
 {
 	// Registra atividade da sessão
-	if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > SESSAO_TTL)) { // last request was more than 30 minutes ago
-		session_unset(); // unset $_SESSION variable for the run-time
-		session_destroy(); // destroy session data in storage
+	if (isset($_SESSION['LAST_ACTIVITY']) && time() - $_SESSION['LAST_ACTIVITY'] > SESSAO_TTL ) { // last request was more than 30 minutes ago
+		encerrarSessao();
+		redirecionamentoTemporal();
+		exit;
 	}
+
 	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 
-	// Recria Sessão a cada 30 min evitando ataques de sequestro de sessão
-	if (!isset($_SESSION['CREATED'])) {
+	// Recria sessão a cada solicitação evitando ataques de sequestro de sessão
+	if ( !isset($_SESSION['CREATED']) ) {
 		$_SESSION['CREATED'] = time();
-	} else if (time() - $_SESSION['CREATED'] > SESSAO_TTL) { // session started more than 30 minutes ago
-		session_regenerate_id(true); // change session ID for the current session an invalidate old session ID
-		$_SESSION['CREATED'] = time(); // update creation time
 	}
+}
+
+/**
+ * Verifica o tempo de inatividade da sessão
+ * @package	grimoire/bibliotecas/acesso.php
+ * @since	05-07-2015
+ * @version	08/07/2021 10:57:15
+ * @uses	$_SESSION
+ */
+function criarSessao ()
+{
+	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+	$_SESSION['CREATED'] = time();
 }
 
 /**
@@ -649,33 +604,10 @@ function getOS ()
  *
  * @uses	acesso.php->logado()
  */
-function logOut ($destino='index.php')
-{
-	session_start();
-	session_unset();
-	session_destroy();
-
-	header("Location: ". $destino);
-}
-
-/**
- * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
- * @version	17-07-2015
- *
- * @param	bool	bloquear usuários logados ou deslogados
- * @param	string
- *
- * @uses	acesso.php->logado()
- */
 function urlExists ($file = 'https://www.domain.com/somefile.jpg')
 {
 	$file_headers = @get_headers($file);
-	if ($file_headers[0] == 'HTTP/1.1 404 Not Found') {
-		return false;
-	} else {
-		return true;
-	}
+	return ($file_headers[0] == 'HTTP/1.1 404 Not Found');
 }
 
 /**
@@ -687,6 +619,7 @@ function urlExists ($file = 'https://www.domain.com/somefile.jpg')
  * @param	string
  *
  * @uses	acesso.php->logado()
+ * @todo	puxar do módulo
  */
 function temDependencias ($modulo, $id)
 {
@@ -717,4 +650,15 @@ function paginaAtual ()
 {
 	$frags = explode("/", $_SERVER['SCRIPT_FILENAME']);
 	return $frags[ sizeof($frags)-1 ];
+}
+
+function verificarManutencao ()
+{
+	if ( MANUTENCAO ) {
+		if ( incluir("404.php") ) {
+			exit;
+		} else {
+			die("Página em manutenção! Volte novamente mais tarde!");
+		}
+	}
 }

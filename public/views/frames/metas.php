@@ -31,9 +31,8 @@
 
 <!-- tem que baixar as webfonts -->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<!-- <link rel="stylesheet" href="public/vendors/all.css" /> -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+<script src="public/vendors/jquery-3.6.0.slim.min.js"></script>
 <script type="text/javascript">
 	if (typeof jQuery == 'undefined') {
 		document.write(unescape("%3Cscript src='public/vendors/jquery-3.6.0.slim.min.js' %3E%3C/script%3E"));

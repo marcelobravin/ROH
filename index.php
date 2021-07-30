@@ -8,7 +8,6 @@
 
 		include "public/views/frames/base.php";
 	} else {
-		// $PAGINA['titulo']		= TITULO_SITE;
 		$PAGINA['subtitulo']	= "Login";
 		$PAGINA['endereco']		= "login.php";
 

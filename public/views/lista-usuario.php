@@ -1,8 +1,12 @@
 <table id="usuarios" class="display" style="width:100%" aria-label="Lista de usuários do sistema">
 	<thead>
 		<tr>
-			<th scope="Coluna usuário">Usuário</th>
-			<th scope="Coluna id">ID</th>
+			<th scope="Coluna id">
+				<?php criarLinkOrdenacao("id", "id") ?>
+			</th>
+			<th scope="Coluna login do usuário">
+				<?php criarLinkOrdenacao("login", "login") ?>
+			</th>
 			<th scope="Coluna opções">Opções</th>
 		</tr>
 	</thead>
@@ -13,7 +17,6 @@
 			<td><?php echo $obj['login'] ?></td>
 			<td>
 				<button>
-					<!--a href="user-form.php?id=<?php echo $obj['id'] ?>">Editar</a-->
 					<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $obj['id'] ?>">Editar</a>
 				</button>
 				<button <?php if ($obj['id'] == $_SESSION['user']['id']) { echo 'disabled'; } ?>>

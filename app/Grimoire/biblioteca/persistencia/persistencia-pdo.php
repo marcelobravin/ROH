@@ -24,10 +24,11 @@ function conectarPdo (/* $transacao=false, */ $hostname=HOST, $dbname=DBNAME, $u
 	try {
 		$dbh = new PDO("mysql:host={$hostname};dbname={$dbname}", $username, $password);
 
-		if ( PRODUCAO )
+		if ( PRODUCAO ) {
 			$dbh->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
-		else
+		} else {
 			$dbh->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
+		}
 
 		// $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== add this line
 		// $dbh->setAttribute(PDO::ATTR_ORACLE_NULLS	, PDO::NULL_EMPTY_STRING);
@@ -69,10 +70,11 @@ function conectar ()
 		)
 	);
 
-	if ( PRODUCAO )
+	if ( PRODUCAO ) {
 		$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
-	else
+	} else {
 		$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
+	}
 
 	#$connection->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
 	// ? $connection->exec("SET CHARACTER SET ". CHARSET); // return all sql requests as UTF-8
@@ -108,10 +110,11 @@ function conexaoPersistente ()
 			)
 		);
 
-		if ( PRODUCAO )
+		if ( PRODUCAO ) {
 			$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
-		else
+		} else {
 			$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
+		}
 
 		return $connection;
 	} catch (Exception $e) {
@@ -126,16 +129,12 @@ function conexaoPersistente ()
  *
  * @param	string query a ser executada
  * @return	int/array/int
- *
- * @todo
- *	 arrumar select single ou usar localizar para single
- *	 arrumar create, drop, alter
  */
 function executarOLD ($qry)
 {
 	$con = conectarPdo();
 	$stmt = $con->prepare($qry);
-	$retorno =	$stmt -> execute();
+	$stmt -> execute();
 
 	$qry = trim($qry);
 	$processo = strtoupper($qry[0]); # Identifica o primeiro caracter da query
@@ -280,7 +279,6 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 		return $retorno;
 	} catch (PDOException $e) {
-		// throw new Exception( $e->getMessage() );
 		return $e;
 	}
 }
@@ -337,7 +335,7 @@ function inserir ($tabela, $campos)
 		$stmt = insercaoStmt($tabela, $campos);
 		return executarStmt($stmt, $campos, 'I');
 	} catch (PDOException $e) {
-		throw new Exception( $e->getMessage() );
+		throw new PDOException( $e->getMessage() );
 	} catch (Exception $e) {
 		return $e->getMessage();
 	}
@@ -388,8 +386,9 @@ function localizar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
 	$stmt = selecaoStmt($tabela, $condicoes, $diretrizes, $colunas);
 	$res = executarStmt($stmt, $condicoes, 'S');
 
-	if ( empty( $res ) )
+	if ( empty( $res ) ) {
 		return array();
+	}
 
 	return $res[0];
 }
@@ -408,27 +407,23 @@ function localizar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/*
-$campos = array(
-	'login' => 'Joel',
-	'senha' => 'senha'
-);
-$condicoes = array(
-	'id'	 => 56
-	// ,
-	// 'login'=> 'joe'
-);
-echo "Registros alterados: ". atualizar('usuarios', $campos, $condicoes);
+	$campos = array(
+		'login' => 'Joel',
+		'senha' => 'senha'
+	);
+	$condicoes = array(
+		'id'	 => 56
+		// ,
+		// 'login'=> 'joe'
+	);
+	echo "Registros alterados: ". atualizar('usuarios', $campos, $condicoes);
 */
 function atualizar ($tabela, $campos, $condicoes=array())
 {
 	$stmt = atualizacaoStmt($tabela, $campos, $condicoes);
 
 	$condicoes = array_values($condicoes);
-	foreach ($condicoes as $indice => $valor) {
+	foreach ($condicoes as $valor) {
 		$campos[] = $valor;
 	}
 
@@ -449,15 +444,11 @@ function atualizar ($tabela, $campos, $condicoes=array())
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-/*
-$condicoes = array(
-	// 'id'	 => 51
-	'login'=> 'joel'
-);
-echo "Registros excluídos: ". excluir('usuarios', $condicoes);
+	$condicoes = array(
+		// 'id'	 => 51
+		'login'=> 'joel'
+	);
+	echo "Registros excluídos: ". excluir('usuarios', $condicoes);
 */
 function excluir ($tabela, $condicoes="")
 {
@@ -481,7 +472,6 @@ function excluir ($tabela, $condicoes="")
 */
 function insercaoStmt ($tabela, $campos)
 {
-	$sql		= "";
 	$valores	= array();
 	$atributos	= array();
 
@@ -494,9 +484,8 @@ function insercaoStmt ($tabela, $campos)
 
 	$atributos	= implode(", ", $atributos);
 	$valores	= implode(", ", $valores);
-	$sql		= "INSERT INTO `$tabela` ($atributos) VALUES ($valores)";
 
-	return $sql;
+	return "INSERT INTO `$tabela` ($atributos) VALUES ($valores)";
 }
 
 /**
@@ -517,19 +506,26 @@ function insercaoStmt ($tabela, $campos)
 */
 function selecaoStmt ($tabela, $criterios="", $diretrizes="", $colunas="*")
 {
-	if ( is_array($colunas) )
+	if ( is_array($colunas) ) {
 		$colunas = implode(", ", $colunas);
+	}
 
 	$sql = "SELECT $colunas FROM $tabela";
 
 	if ( !empty($criterios) ) {
 		$sql .= " WHERE ";
-		if (is_array($criterios))			$sql .= implode("=? AND ", array_keys($criterios)) ."=?";
-		else if (is_numeric($criterios))	$sql .= "id=?"; # -------------- PK da tabela deve chamar id
-		else								$sql .= $criterios;# <<<<<<<<<<< VERIFICAR linha abaixo quanto a binds
+		if (is_array($criterios)) {
+			$sql .= implode("=? AND ", array_keys($criterios)) ."=?";
+		} else if (is_numeric($criterios)) {
+			$sql .= "id=?"; # -------------- PK da tabela deve chamar id
+		} else {
+			$sql .= $criterios;# <<<<<<<<<<< VERIFICAR linha abaixo quanto a binds
+		}
 	}
 
-	if ( strlen($diretrizes) > 0 )			$sql .= " $diretrizes";
+	if ( strlen($diretrizes) > 0 ) {
+		$sql .= " $diretrizes";
+	}
 
 	return $sql;
 }
@@ -577,8 +573,9 @@ function atualizacaoStmt ($tabela, $campos, $condicoes="")
 		$y = $condicoes;
 	}
 
-	if ( !empty($condicoes) )
+	if ( !empty($condicoes) ) {
 		$sql .= "WHERE\n". implode(" AND ", $y);
+	}
 
 	return $sql;
 }
@@ -615,8 +612,9 @@ function exclusaoStmt ($tabela, $condicoes="")
 		$y = $condicoes;
 	}
 
-	if ( !empty($condicoes) )
+	if ( !empty($condicoes) ) {
 		$sql .= "WHERE\n". implode(" AND ", $y);
+	}
 
 	return $sql;
 }
@@ -670,13 +668,11 @@ aplicável apenas a sqls sem interrogações
 function transacao ( $sqls=array() )
 {
 	try {
-		// $con = conectarPdo(false);
 		$con = conexaoPersistente();
 		$con->beginTransaction();
 
 		foreach ( $sqls as $sql) {
 			$stmt = $con->prepare($sql);
-			// $con->exec("insert into staff (id, first, last) values (23, 'Joe', 'Bloggs')");
 			$stmt->execute();
 		}
 
@@ -746,7 +742,6 @@ function transacao ( $sqls=array() )
 */
 function iniciarTransacao ()
 {
-	// $con = conectarPdo(false);
 	$con = conexaoPersistente();
 	$con->beginTransaction();
 	return $con;
@@ -771,10 +766,11 @@ function iniciarTransacao ()
 */
 function encerrarTransacao ( $con, $stmt, $sucesso=true)
 {
-	if ( $sucesso )
+	if ( $sucesso ) {
 		$con->commit();
-	else
+	} else {
 		$con->rollBack();
+	}
 
 	desconectar($con, $stmt);
 }

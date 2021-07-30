@@ -143,7 +143,7 @@ function bloquearForcaBruta ($id, $conexao)
 {
 	$falhasConsecutivas = detectarForcaBruta($id, $conexao);
 
-	if ( $falhasConsecutivas >= 3) {
+	if ( $falhasConsecutivas >= FORCA_BRUTA) {
 		echo "<p>Tentativas de login incorretas: {$falhasConsecutivas}</p>";
 		die("Usuário bloqueado temporariamente!");
 	}

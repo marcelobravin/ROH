@@ -1,96 +1,106 @@
-# ROH - Relatório de Ocupação Hospitalar
+BUGs conhecidos ################################################################
+vazamento de mensagem de erro da sessão
 
+# ############################################################################## reunião com meire ellen
 
-
-# ###################################################reunião com meire ellen
-ADICIONAR CAMPOS
-CBO
-    cargo
-        enfermeiro, médico, etc
-
-opção de salvar como rascunho
-    confirmar registro definitivo
-
-filtro em listas
-
-ambiente homolog
-
+meire ellen vai confirmar necessidade de upload de arquivos
 
 verificar quem aprova justificativas
 
-# ###################################################reunião com meire ellen
+OK - filtro em listas
 
+ambiente homolog
+	meire ellen testar (disponibilizar ip da minha máquina resolve)
 
-retornar em json as respostas
-colocar em ajax os acessos as controles
+opção de salvar como rascunho
+	confirmar registro definitivo
 
+OK ADICIONAR CAMPO
+	CBO	(cargo)
+		enfermeiro, médico, etc
 
-
-vazamento de mensagem de erro da sessão
-
-
-instalação -> /desenvolvimento
-
-
-problema ao atualizar usuário para uma UQ já usada e inativada no BD
-
-testar
-	transacao ( $sqls=array() )
-
-# verifica se usuario tem permissão de editar esse registro
-# verifica se esse registro é editável
-
-
-
-testar em cad&up os Duplicate entry
-	configurações de erro de prod
+# ############################################################################## reunião com meire ellen
 
 
 # TODO
-	validação sessão
-	forçar alteração de senha
-
-	salvar em pdf
-	validar email na tela de esqueci a senha
-	informar alterações não salvas em formulários ao recarregar ou fechar
 	sincronização de dados offline
-	tempo de sessão
-	token de sessão
-	Tempo expiração de token
-	OK - envio de email
-	exclusão if not cascade
-	tempo de hash no caso de usuario incorreto
-	Excluir usuário se e-mail não foi validado
+	Salvar resultado como rascunho & sincronizar
+	verificar SILENT
+	verificar sessão antes de executar operações
+	colocar em ajax os acessos as controles
+		retornar em json as respostas
+			jsonEncode($resultado, JSON_UNESCAPED_UNICODE)
+	problema ao atualizar usuário para uma UQ já usada e inativada no BD
+		vai ser resolvido com ajax
+	testar em cad&up os Duplicate entry
+		configurações de erro de prod
+	forçar alteração de senha
+		if senha == cpf força
+	salvar em pdf
+	validar email js na tela de esqueci a senha
+		não precisa [colocar mensagem "se endereço existe email foi enviado"]
+	informar alterações não salvas em formulários ao recarregar ou fechar
+	Token de sessão com expiração
+	Excluir automaticamente usuário se e-mail não foi validado
+	reset de senha corrigir regxep símbolos [já está?]
+	Criar manual de software
+	Diagrama das controles
+	Responsividade
+	Máscara nos formulários
+	Permissão de acesso para atualizar
+		Separar papéis
+		administração(ver logs, cadastrar usuários e hospitais)
+		auditor (cadastrar metas e resultados)
+		fiscal(aprovar justificativas, emitir relatórios)
+	Retirar admin e colocar start de pk mais alto
+	Alerta de confirmação\erro operações
+	Bloqueio temporário de usuário ou IP ao realizar x erros de login
+	Campos índice
+	Banco comentado
+	Diferenciação de names em inputs HTML e colunas do banco
+	Xss
+	Transação em operações com log para garantir atomicidade de dados
+	Backup de bd
+	certificado Https no ambiente de produção
+	Sanitização de inputs (tem que colocar em tudo que pega de get ou post)
+	Log de operações adicionar SO
 
-	reset de senha
-		corrigir regxep símbolos
 
-
-# Migração
-	Lista de ações:
-		http://localhost/roh/index.php?action=
-
-
-# Features
-	senha inicial cpf
-	senha criptografada
-	auto atendimento para reset de senha
+# Features (descrever para usuários leigos, mesmo as não solicitadas)
+	Exclusão lógica ou permanente conforme possibilidade
+	filtro em listas
+	Minimização de recursos de front end
+	Listagem de registros parametrizável e paginada
+	Validação de formulários
+	Exportar relatórios
+		em excell
+	Sanitização de entradas de dados
+	Log de acesso
+	Log de operações com ip, navegador
+	Tempo de hash no caso de usuario incorreto
+	Reset de senha self service via e-mail
+	Fks para garantir integridade de dados
+	Campos com chave uq para evitar duplicidades
+	Queda de sessãopor tempo de inatividade
+	Senha inicial é o cpf do usuário (com pontos?)
+	Senha armazenada com criptografia one way
+	Reset de senha via auto atendimento
 		atualizar cadastro de usuário no painel de administração não atualiza senha
 		medidor de força de senha
-	botão visualizar senha em login e alterar senha
-	exclusão lógica (desativar usuário)
+	Botão visualizar senha em login e alterar senha
+	Exclusão lógica (desativar usuário)
 		excluir decide e realiza exclusão lógica ou permanente conforme existência de vínculos
-	confirmação de email
+	Confirmação de email
 		colocar em insert de usuário
-	reenviar email de confirmação em atualizar usuário
-	mensagem de confirmação de operações é auto excluída
-	lista de usuários não permite excluir o próprio usuário logado
-		adicionar ao desativar
-	credenciais de DB em arquivo .env
-	bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
+	Reenviar email de confirmação em atualizar usuário
+	Mensagem de confirmação de operações é auto excluída
+	Lista de usuários não permite excluir o próprio usuário logado
+	Credenciais de DB em arquivo .env
+	Bloqueio temporario de usuário após 3 tentativas de login com senha incorreta
 		log acesso
-	log operações
-	paginação real nas listas
-	bloqueio de usuarios não logados em páginas internas
-	não mudar email de usuário na tela de atualizar senha
+	Log operações para garantir rastreabilidade
+		identificar quais eventos ocorreram no ambiente e, dessa forma, entender as causas de eventuais erros ou falhas
+	Paginação real nas listas
+	Bloqueio de usuarios não logados em páginas internas
+	Não mudar email de usuário na tela de atualizar senha
 	Módulo categoria, elemento

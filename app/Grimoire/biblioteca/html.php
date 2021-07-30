@@ -505,7 +505,7 @@ function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=a
 {
 	$inputs = array();
 	$atributos = gerarAtributos($atributos);
-	if (is_array($valores)) {
+	if ( is_array($valores) ) {
 		foreach ($valores as $indice => $valor) {
 			$selecionado = "";
 			if ($valor == $valorSelecionado) {
@@ -513,12 +513,12 @@ function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=a
 			}
 
 			$input = "<label>";
-			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
+			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
 
-			if (is_numeric($indice)) {
-				$input .= ucfirst($valor);
+			if ( is_numeric($indice) ) {
+				$input .= " ".ucfirst($valor);
 			} else {
-				$input .= ucfirst($indice);
+				$input .= " ".ucfirst($indice);
 			}
 			$input .= "</label>";
 			$inputs[] = $input;
@@ -678,27 +678,21 @@ function refresh ($url="", $tempo="0")
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Retorna atributo html se indice GET existir e for igual ao valor
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
- *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/html.php
  * @since	05-07-2015
- * @version	24-06-2021
+ * @version	31-07-2015 16:43
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
+ * @param	string
  *
- * @return	bool
+ * @return	string
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+	<option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option>
 */
-/* 31-07-2015 16:43 */
-/* Retorna atributo html se indice GET existir e for igual ao valor */
-/* <option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option> */
 function selecionado ($indice, $valor, $atributo='selected')
 {
 	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor ) {
@@ -707,13 +701,33 @@ function selecionado ($indice, $valor, $atributo='selected')
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Retorna atributo html se subindice GET existir e for igual ao valor
  *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+ * @package	grimoire/bibliotecas/html.php
+ * @since	28/07/2021 10:50:44
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @param	string
+ * @param	string
+ * @param	string
+ *
+ * @return	string
+ *
+ * @example
+	<option value="Ativas" <?php echo selecionado("status", "Ativas") ?>>Ativas</option>
+*/
+function selecionadoSubindice ($indice, $subindice, $valor, $atributo='selected')
+{
+	if ( isset($_GET) && isset($_GET[$indice])  && isset($_GET[$indice][$subindice]) && $_GET[$indice][$subindice]==$valor ) {
+		return $atributo.'="'. $atributo .'"';
+	}
+}
+
+/**
+ * Retorna atributo html se ambos valores existirem e forem iguais
+ *
+ * @package	grimoire/bibliotecas/html.php
  * @since	05-07-2015
- * @version	24-06-2021
+ * @version	04/08/2016 11:27:05
  *
  * @param	string
  * @param	string
@@ -722,12 +736,8 @@ function selecionado ($indice, $valor, $atributo='selected')
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+	<option value="Ativas" <?php echo selecionado2("status", "Ativas") ?>>Ativas</option>
 */
-/* 04/08/2016 11:27:05 */
-/* Retorna atributo html se ambos valores existirem e forem iguais */
-/* <option value="Ativas" <?php echo selecionado2("status", "Ativas") ?>>Ativas</option> */
 function selecionado2 ($valor1, $valor2, $atributo='selected')
 {
 	if ( isset($valor1) && isset($valor2) && $valor1==$valor2 ) {

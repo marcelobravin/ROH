@@ -8,9 +8,7 @@
  * Reordena uma matriz
  * @package grimoire/bibliotecas/vetores.php
  * @version 31-07-2015
- * {@link http://php.net/manual/pt_BR/function.array -multisort.php
- * }
- * @todo renomear para ordenarMatriz()
+ * {@link http://php.net/manual/pt_BR/function.array -multisort.php}
  *
  * @param	array/string
  * @return	array
@@ -52,10 +50,8 @@ function array_orderby ()
  * @param	array
  * @param	string
  * @param	string
- * @return	array
  *
- * @example
- * @todo adicionar array de indices
+ * @return	array
  */
 function adicionarIndice ($matriz, $indice, $valor=null)
 {
@@ -78,11 +74,7 @@ function adicionarIndice ($matriz, $indice, $valor=null)
  * @param	string
  * @param	bool	Conservar conteúdo, append
  *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+ * @return	array
 */
 function codificarArray ($array, $codificar=true)
 {
@@ -112,7 +104,8 @@ function codificarArray ($array, $codificar=true)
  * @version 05-07-2015
  *
  * @param	array
- * @return	string/array
+ *
+ * @return	string
  */
 function converterString ($array)
 {
@@ -157,10 +150,6 @@ function envolver ($elemento=array(), $conteudo="")
  */
 function esvaziarMensagem ($indice="mensagem")
 {
-	if (session_status() === PHP_SESSION_NONE) {
-		session_start();
-	}
-
 	$retorno = "";
 	if (isset($_SESSION[$indice])) {
 		$retorno = $_SESSION[$indice];
@@ -169,6 +158,23 @@ function esvaziarMensagem ($indice="mensagem")
 	}
 
 	return $retorno;
+}
+
+/**
+ * Exibe o valor de um índice GET se existir
+ * @package grimoire/bibliotecas/vetores.php
+ * @since 05-07-2015
+ *
+ * @param	string
+ * @return	bool
+ */
+function exibirSubIndice ($indice, $subindice)
+{
+	if ( isset($_GET[$indice]) && isset($_GET[$indice][$subindice]) ) {
+		return $_GET[$indice][$subindice];
+	}
+
+	return "";
 }
 
 /**
@@ -208,7 +214,6 @@ function existeIndice ($valor, $array)
 	}
 
 	return -1;
-	// * return false; # causa erro em http://localhost/roh/index.php?action=gerar-formulario
 }
 
 /**
@@ -222,7 +227,7 @@ function existeIndice ($valor, $array)
 function igual ($array, $indice, $string)
 {
 	if (isset($array[$indice]) && $array[$indice] == $string) {
-		return TRUE;
+		return true;
 	}
 
 	return false;
@@ -232,8 +237,8 @@ function igual ($array, $indice, $string)
 * detect if array is a simple array or a struct (associative array)
 *
 * @param	mixed $val	The PHP array
-* @return string	(arraySimple|arrayStruct)
-* @access private
+* @return	string	(arraySimple|arrayStruct)
+* @access	private
 */
 function isArraySimpleOrStruct ($val)
 {
@@ -301,8 +306,7 @@ function removerEspacos ($array)
 		foreach ($array as $index => $value) {
 			if ( is_array($value) ) {
 				$array[$index] = removerEspacos($value);
-			}
-			else {
+			} else {
 				$array[$index] = trim($value);
 			}
 		}
@@ -323,8 +327,7 @@ function removerNulos ($array, $opcao=false)
 {
 	if (!$opcao) {
 		$arrayLimpa = array_filter($array, 'strlen'); // Remove nulls
-	}
-	else {
+	} else {
 		$arrayLimpa = array_filter($array); // Remove falses
 	}
 
@@ -338,8 +341,6 @@ function removerNulos ($array, $opcao=false)
  *
  * @param	string
  * @return	bool
- * @todo
-		retirar array de indices
  */
 function retirarIndice ($matriz, $indice)
 {

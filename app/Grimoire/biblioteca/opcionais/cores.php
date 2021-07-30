@@ -20,34 +20,21 @@
  * @return bool
  */
 function css_is_colour($value) {
-	$value = trim($value);
-
 	$hex	= '/^#([a-fA-F0-9]{1,3}|[a-fA-F0-9]{6})$/';
 	$rgb	= '#^rgb\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$#i';
 	$rgba = '#^rgba\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1}(\.\d+)?)\s*\)$#i';
 	$hsl	= '#^hsl\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\%\s*,\s*(\d{1,3})\%\s*\)$#i';
 	$hsla = '#^hsla\s*\(\s*(\d{1,3})\s*,\s*(\d{1,3})\%\s*,\s*(\d{1,3})\%\s*,\s*(\d{1}(\.\d+)?)\s*\)$#i';
 
-	if (in_array(strtolower($value), array('inherit'))) {
-		return true;
-	} else if (preg_match($hex, $value)) {
-		return true;
-	// } else if (in_array(strtolower($value), array_keys(css_optimiser::$htmlcolours))) {
-		// return true;
-	} else if (preg_match($rgb, $value, $m) && $m[1] < 256 && $m[2] < 256 && $m[3] < 256) {
-		// It is an RGB colour.
-		return true;
-	} else if (preg_match($rgba, $value, $m) && $m[1] < 256 && $m[2] < 256 && $m[3] < 256) {
-		// It is an RGBA colour.
-		return true;
-	} else if (preg_match($hsl, $value, $m) && $m[1] <= 360 && $m[2] <= 100 && $m[3] <= 100) {
-		// It is an HSL colour.
-		return true;
-	} else if (preg_match($hsla, $value, $m) && $m[1] <= 360 && $m[2] <= 100 && $m[3] <= 100) {
-		// It is an HSLA colour.
+	if ( in_array(strtolower($value), array('inherit'))
+	|| preg_match($hex, $value)
+	|| preg_match($rgb, $value, $m) && $m[1] < 256 && $m[2] < 256 && $m[3] < 256
+	|| preg_match($rgba, $value, $m) && $m[1] < 256 && $m[2] < 256 && $m[3] < 256
+	|| preg_match($hsl, $value, $m) && $m[1] <= 360 && $m[2] <= 100 && $m[3] <= 100
+	|| preg_match($hsla, $value, $m) && $m[1] <= 360 && $m[2] <= 100 && $m[3] <= 100) {
 		return true;
 	}
-	// Doesn't look like a colour.
+
 	return false;
 }
 
@@ -82,10 +69,10 @@ function gwsc() {
 function HexToRGB($hex) {
 	$color = array();
 	if ( strlen($hex) == 3 ) {
-		// $color['r'] = hexdec(substr($hex, 0, 1) . $r);
-		// $color['g'] = hexdec(substr($hex, 1, 1) . $g);
-		// $color['b'] = hexdec(substr($hex, 2, 1) . $b);
-	} if ( strlen($hex) == 6) {
+		$color['r'] = hexdec(substr($hex, 0, 1));
+		$color['g'] = hexdec(substr($hex, 1, 1));
+		$color['b'] = hexdec(substr($hex, 2, 1));
+	} elseif ( strlen($hex) == 6) {
 		$color['r'] = hexdec(substr($hex, 0, 2));
 		$color['g'] = hexdec(substr($hex, 2, 2));
 		$color['b'] = hexdec(substr($hex, 4, 2));

@@ -3,13 +3,14 @@
 
 	$PAGINA['titulo']		= "Atualização";
 	$PAGINA['subtitulo']	= "Hospitais";
-	// $PAGINA['endereco']		= "home.php";
 
-	if ( !isset($_GET['modulo']) )
+	if ( !isset($_GET['modulo']) ) {
 		die("modulo invalido");
+	}
 
-	if ( !isset($_GET['codigo']) )
+	if ( !isset($_GET['codigo']) ) {
 		die("codigo invalido");
+	}
 
 
 	define('MODULO', $_GET['modulo']);
@@ -18,8 +19,9 @@
 	);
 	$obj = localizar(MODULO, $condicoes);
 
-	if ( empty($obj) )
+	if ( empty($obj) ) {
 		die("Objeto não encontrado");
+	}
 
 ?><!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>">
@@ -29,8 +31,18 @@
 	<style>
 		label {
 			display: block;
+		}
+		label[for] {
 			margin-top: 15px;
 		}
+
+		form {
+			display: block;
+			margin: 0 auto;
+		}
+		h2 { text-align: center;}
+		[type="checkbox"],
+		[type="radio"] { margin-left: 10px; }
 	</style>
 </head>
 <body>
