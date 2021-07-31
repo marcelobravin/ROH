@@ -205,9 +205,9 @@ function limparUrl ( $url )
  */
 function minimizarArquivo ($buffer)
 {
-	$buffer = preg_replace('![ \t]*//.*[ \t]*[\r\n]!', '', $buffer); //	Removes single line '//' comments, treats blank characters
-	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer); // Remove comments
-	$buffer = str_replace(': ', ':', $buffer); // Remove space after colons
+	$buffer = preg_replace('![ \t]*//.*[ \t]*[\r\n]!', '', $buffer); # Removes single line '//' comments, treats blank characters
+	$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer); # Remove comments
+	$buffer = str_replace(': ', ':', $buffer); # Remove space after colons
 
 	// Remove whitespace
 	$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '	', '		', '		'), '', $buffer);
@@ -298,6 +298,7 @@ function retirarAcento ($string)
  * @uses	expressoesRegulares.php->padrao()
  * @example
 		echo retornarEndereco();
+ * @todo retornar protocol
  */
 function retornarEndereco ()
 {
@@ -385,25 +386,7 @@ function truncate ($string, $len, $etc='...')
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
- *
- * @param	string
- * @return	string
- */
-function utf8_rawurldecode ($raw_url_encoded)
-{
-	$enc = rawurldecode($raw_url_encoded);
-	if (utf8_encode(utf8_decode($enc)) == $enc) {
-		return rawurldecode($raw_url_encoded);
-	} else {
-		return utf8_encode(rawurldecode($raw_url_encoded));
-	}
-}
-
-/**
- * Verifica se o valor se encaixa no padrão
+ * Remove comentários html e seus conteúdos
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015
  *
@@ -416,7 +399,7 @@ function remove_html_comments ($content = '')
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
+ * Remove comentários de bloco
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015
  *
@@ -429,7 +412,7 @@ function removeBlockComments ($content = '')
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
+ * Remove comentários de linha
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015
  *
@@ -442,7 +425,7 @@ function removeJsLineComments ($content = '')
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
+ * Remove quebras de linha
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015
  *
@@ -455,7 +438,7 @@ function removeLineBreaks ($str)
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
+ * Remove dois espaços em branco consecutivos
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015
  *
@@ -468,7 +451,19 @@ function removeDoubleSpaces ($str)
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
+ * Remove tabs
+ * @package grimoire/bibliotecas/texto.php
+ * @version 30/07/2021 22:48:04
+ *
+ * @param	string
+ * @return	string
+ */
+function removeTabs ($str)
+{
+	return preg_replace( "/	/", "", $str );
+}
+
+/**
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015
  *

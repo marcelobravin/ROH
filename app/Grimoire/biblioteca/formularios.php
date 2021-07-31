@@ -266,7 +266,7 @@ function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 	);
 
 	$form = html_entity_decode($form);
-	$conteudo = "<!-- ". agora(true) . "-->\n" .$form;
+	$conteudo = "<!-- ". agora( IDIOMA=='pt-BR' ) . "-->\n" .$form;
 	escrever(ARQUIVOS_EFEMEROS."/views/{$MODULO}-atualizacao.php", $conteudo, true);
 
 	if ( !empty($conteudo) ) {
@@ -306,7 +306,7 @@ function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreE
 		$padroes
 	);
 
-	$conteudo = "<!-- ". agora(true) . "-->\n" .$form;
+	$conteudo = "<!-- ". agora( IDIOMA=='pt-BR' ) . "-->\n" .$form;
 	escrever(ARQUIVOS_EFEMEROS."/views/{$MODULO}-insercao.html", $conteudo, true);
 
 	return $form;

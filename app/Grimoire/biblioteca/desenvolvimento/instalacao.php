@@ -341,7 +341,7 @@ function gerarModelo ($nome, $descricao)
 		/**
 		 * '. $nome .'
 		 * @package	grimoire/modelos
-		 * @version	'. agora(true) .'
+		 * @version	'. agora( IDIOMA=='pt-BR' ) .'
 		*/
 		'. $campos .'
 	';
@@ -364,7 +364,7 @@ function getDirectoryFiles ($path='.')
 	return $files;
 }
 
-function generateMinified ($file, $dir=ARQUIVOS_EFEMEROS.'/styles')
+function generateMinified ($file, $dir=ARQUIVOS_EFEMEROS)
 {
 	$minifiedContent = minify($file);
 	$pieces = explode('/', $file);
@@ -380,19 +380,28 @@ function generateMinified ($file, $dir=ARQUIVOS_EFEMEROS.'/styles')
 function minify ($file)
 {
 	$contents = file_get_contents($file);
+	return minifyContent($contents);
+}
 
+/**
+ * Linha marcada pode remover urls:
+ * https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+*/
+function minifyContent ($contents)
+{
 	$contents = remove_html_comments($contents);
 	$contents = removeDoubleSpaces($contents);
 	$contents = removeBlockComments($contents);
 	$contents = removeJsLineComments($contents); // ! se estiver em uma linha remove tudo
 	$contents = removeLineBreaks($contents);
 	$contents = removeEspacoEsimbolo($contents);
+	$contents = removeTabs($contents);
 	return $contents;
 }
 
 function registerProjectFiles ()
 {
-	$allFiles = registerMapDirectory(ROOT, 'ALL');
+	$allFiles = registerMapDirectory(BASE, 'ALL');
 
 	$total_lines = 0;
 	$total_chars = 0;
@@ -440,25 +449,26 @@ function getProjectFiles ()
 function assetPipeline ($js=true, $css=true, $imgs=true)
 {
 	if ( $css ) {
-		$cssFiles = getDirectoryFiles(ROOT.'public/css');
+		$cssFiles = getDirectoryFiles(BASE.'public/css');
 		foreach ($cssFiles as $v) {
 			if ( preg_match('/\.css$/', $v) ) {
-				generateMinified($v, ARQUIVOS_EFEMEROS.'/minified/css/');
+				generateMinified($v, ARQUIVOS_EFEMEROS.'/minified/');
 			}
 		}
 	}
 
 	if ( $js ) {
-		$jsFiles  = getDirectoryFiles(ROOT.'public/scripts');
+		$jsFiles = getDirectoryFiles(BASE.'public/scripts');
 		foreach ($jsFiles as $v) {
 			if ( preg_match('/\.js$/', $v) ) {
-				generateMinified($v, ARQUIVOS_EFEMEROS.'/minified/js/');
+				generateMinified($v, ARQUIVOS_EFEMEROS.'/minified/');
 			}
 		}
 	}
 
+	# TODO testar
 	if ( $imgs ) {
-		$iconFiles = getDirectoryFiles(ROOT.'public/images/icons');
+		$iconFiles = getDirectoryFiles(BASE.'public/images/icons');
 		imageGrouper( $iconFiles );
 	}
 
@@ -574,7 +584,7 @@ function buildTree ($DT, $lv=0)
 
 function generateSiteMap ($dir=ARQUIVOS_EFEMEROS.'/listas/_', $fileName='siteMap')
 {
-	$DT = getDirectoryTree(ROOT);
+	$DT = getDirectoryTree(BASE);
 	$fileTree = buildTree($DT);
 	file_put_contents($dir. $fileName.'.txt', $fileTree);
 	return $fileTree;
@@ -873,7 +883,7 @@ function converterUQs ($uqs)
 	$t = array_keys( $tabelas );
 	$alters = "";
 	if ( !empty($t) ) {
-		$alters = "-- ".agora(true)."\n";
+		$alters = "-- ".agora( IDIOMA=='pt-BR' )."\n";
 		foreach ($t as $v) {
 			$alters .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
 			$alters .= implode(", ", $tabelas[$v]);

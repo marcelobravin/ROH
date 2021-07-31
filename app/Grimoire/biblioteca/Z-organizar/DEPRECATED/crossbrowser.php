@@ -34,16 +34,3 @@ function ie($versao="5.5000", $operador="") {
 function navegadorVelho() {
   return '<!--[if lt IE 7]><div class="alert">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</div><![endif]-->';
 }
-
-/**
- * Gera noscript
- *
- * @param	string
- * @return  string
- *
- * @example
-    echo noscript("Meu Site");
- */
-function noscript($conteudo="<p class='center'>Esse site necessita que o JavaScript esteja ativado para funcionar corretamente.</p>") {
-  return gerarElemento("noscript", $conteudo);
-}

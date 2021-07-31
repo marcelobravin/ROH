@@ -18,7 +18,7 @@ if ( isset($_REQUEST['action']) ) {
 			break;
 
 		case 'cargaInicial' :
-			importarRegistros(ROOT."app/DB/inserts obrigatorios/*.sql");
+			importarRegistros(BASE."app/DB/inserts obrigatorios/*.sql");
 			break;
 
 		case 'criacaoTabela' :
@@ -191,7 +191,7 @@ if ( isset($_REQUEST['action']) ) {
 			break;
 
 		case 'getDirectorySize':
-			echo formatBytes( getDirectorySize(ROOT), 3 );
+			echo formatBytes( getDirectorySize(BASE), 3 );
 			break;
 
 		case 'minify':

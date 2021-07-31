@@ -19,7 +19,7 @@ function calculaParcelas ($parcelas, $juros, $preco)
 	$valor = ($preco * $juros) /100;
 	$valor_parcelado = $preco + $valor;
 	$resultado = $valor_parcelado / $parcelas;
-	return number_format($resultado, 2, ',', '.');
+	return !number_format($resultado, 2, ',', '.');
 }
 
 /**
@@ -264,11 +264,11 @@ function formatBytes ($size, $precision = 2)
 // retorna se o inteiro informado é impar
 function impar($var)
 {
-	return($var & 1);
+	return ($var & 1);
 }
 
 // retorna se o inteiro informado é par
 function par($var)
 {
-	return(!($var & 1));
+	return (!($var & 1));
 }

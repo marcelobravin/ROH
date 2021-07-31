@@ -144,3 +144,16 @@ function contagem ($tempo=5, $id="c")
 		</script>
 	";
 }
+
+/**
+ * Gera noscript
+ *
+ * @param	string
+ * @return  string
+ *
+ * @example
+    echo noscript("Meu Site");
+ */
+function noscript($conteudo="<p class='center'>Esse site necessita que o JavaScript esteja ativado para funcionar corretamente.</p>") {
+	return gerarElemento("noscript", $conteudo);
+  }

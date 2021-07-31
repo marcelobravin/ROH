@@ -168,7 +168,7 @@ function validar ($padrao, $valor)
 function validarCamposObrigatorios ($campos)
 {
 	$erros = array();
-	foreach ($campos as $i=> $v) {
+	foreach ($campos as $i => $v) {
 		if ( strlen($v) == 0 ) {
 			$erros[] = $i;
 		}

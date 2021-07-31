@@ -60,7 +60,11 @@ function padrao ($padrao)
 
 		case "comentários multi-linha":
 			$r = '/^[(/*)+.+(*/)]$/';
-				break;
+			break;
+
+		case "comentário js":
+			$r = '/((?!:).(\/\/))*$/s';
+			break;
 
 		case "codigo_postal":
 			$r = '/^[0-9]{5,5}([- ]?[0-9]{4,4})?$/';
@@ -133,7 +137,7 @@ function padrao ($padrao)
 			break;
 			// return "|^http(s)?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
 			// return '(https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ "]*[^ ,;\.:">)])?
-		default:
+		default: $r = false;
 	}
 
 	return $r;

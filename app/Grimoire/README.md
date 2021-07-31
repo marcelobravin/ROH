@@ -21,7 +21,7 @@ paginação com filtros dinamicos
     filtro[]
 
 
-
+    retornarEndereco3
 
 
 Isso é só mexer no bd e usar modelo para personalizar módulos
@@ -1975,4 +1975,23 @@ function get_include_contents ($filename)
         return $contents;
     }
     return false;
+}
+
+
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/texto.php
+ * @version 05-07-2015
+ *
+ * @param   string
+ * @return  string
+ */
+function utf8_rawurldecode ($raw_url_encoded)
+{
+    $enc = rawurldecode($raw_url_encoded);
+    if (utf8_encode(utf8_decode($enc)) == $enc) {
+        return rawurldecode($raw_url_encoded);
+    } else {
+        return utf8_encode(rawurldecode($raw_url_encoded));
+    }
 }

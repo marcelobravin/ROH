@@ -1,5 +1,6 @@
 <?php
 	require 'app/Grimoire/core_inc.php';
+
 	if ( LOGADO ) {
 		$PAGINA['titulo']		= "Home";
 		$PAGINA['subtitulo']	= "Página Inicial";
@@ -12,3 +13,9 @@
 
 		include "public/views/login.php";
 	}
+
+	// // /^((?!hede).)*$/s
+	#removeJsLineComments
+	echo removeJsLineComments (":tgfd//pipiu");
+	echo "<BR>";
+	echo removeJsLineComments ("4//pipiu");

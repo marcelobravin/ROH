@@ -116,7 +116,7 @@ function exibirImagem ($arquivo, $atributos=array(), $elemento="img", $proteger=
 	}
 
 	if ($proteger) {
-		$img		.= "</div>";
+		$img .= "</div>";
 	}
 
 	return $img;
