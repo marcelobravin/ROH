@@ -36,7 +36,7 @@ else {
  * @var string/bool
  */
 	# o nome do diretório é case sensitive
-	define( 'PROJECT_NAME'		, 'roh'); #------------------------------------- nome da pasta que contém o projeto
+	define( 'PROJECT_NAME'		, 'ROH'); #------------------------------------- nome da pasta que contém o projeto
 	if ( PRODUCAO ) {
 		define( 'PROJECT_FOLDER'	, 'PROJETOS/'. PROJECT_NAME . '/');
 	} else {
@@ -52,16 +52,15 @@ else {
  * @var string
  */
 	define( 'PROTOCOLO'			, $_SERVER['REQUEST_SCHEME'].'://' );
-	define( 'BASE'				, $_SERVER['DOCUMENT_ROOT'] .'/'. PROJECT_FOLDER );
-	define( 'BASE_HTTP'			, $_SERVER['HTTP_HOST'] .'/'. PROJECT_FOLDER );
+	define( 'BASE'				, $_SERVER['DOCUMENT_ROOT'] .'/'. PROJECT_FOLDER ); # diretório base file system
+	define( 'BASE_HTTP'			, $_SERVER['HTTP_HOST'] .'/'. PROJECT_FOLDER ); # diretório base http
 	define( 'ARQUIVOS_EFEMEROS'	, BASE .'_arquivos_auto_gerados' );
 	define( 'GRIMOIRE'			, BASE .'app/Grimoire' );
 	define( 'ARQUIVOS'			, '' );
 	define( 'IMAGENS'			, '' );
-	// define( 'PAGINA_INICIAL'	, BASE.'index.php' );
-	// define( 'PAGINA_INICIAL'	, PROTOCOLO.BASE_HTTP.'index.php' );
-	// define( 'PAGINA_INICIAL'	, 'index.php' );
 	define( 'PAGINA_INICIAL'	, 'index.php' );
+	define( 'USUARIO_SESSAO'	, 'user' );
+
 
 /**
  * Configurações de idioma e localização

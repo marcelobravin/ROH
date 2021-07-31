@@ -6,11 +6,10 @@ ini_set('session.gc_maxlifetime', SESSAO_TTL);
 // each client should remember their session id for EXACTLY 1 hour
 
 configurarExibicaoErros(PRODUCAO); # TODO verificar
-#configurarCookies();
-limitarCache();
 
 # ------------------------------------------------------------------------------ inicio
-define( "LOGADO", !empty($_SESSION['user']) );
+iniciarSessao();
+define( "LOGADO", !empty($_SESSION[USUARIO_SESSAO]) );
 
 if ( LOGADO ) {
 	verificarTempoAtividadeSessao();
@@ -31,8 +30,6 @@ $PAGINA = array(
 
 /* ob_start(); */
 // $page = ob_get_contents();
-
-
 
 if ( !PRODUCAO ) {
 	/* $c1 = new Clock(); */ // inicia cronometro

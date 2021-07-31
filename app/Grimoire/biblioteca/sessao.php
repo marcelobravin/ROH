@@ -9,11 +9,16 @@
  *
  * @uses	$_SESSION
  */
-function encerrarSessao ()
+function finalizarSessao ()
 {
-	unset($_SESSION);
-	session_unset();
-	session_destroy();
+	if ( iniciarSessao() ) {
+		session_destroy();
+		session_unset();
+		unset($_SESSION);
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -28,12 +33,16 @@ function encerrarSessao ()
 function iniciarSessao ()
 {
 	if ( function_exists ('session_status') ) {
-		if (session_status() == PHP_SESSION_NONE) {// For versions of PHP >= 5.4.0
+		if (session_status() == PHP_SESSION_NONE) { # For versions of PHP >= 5.4.0
 			session_start();
 		}
-	} elseif (session_id() == '') { // For versions of PHP < 5.4.0
+		return true;
+
+	} elseif (session_id() == '') { # For versions of PHP < 5.4.0
 		session_start();
+		return true;
 	}
+	return false;
 }
 
 /**
@@ -53,4 +62,32 @@ function limitarCache ()
 	session_start();
 	$_SESSION['cache_limiter'] = $cache_limiter;
 	$_SESSION['cache_expire'] = $cache_expire;
+}
+
+/**
+ * Unset cookies
+ *
+ * @param	string	$key	Nome do cookie
+ * @param	string	$path	(Opcional) Se definido irá remover o cookie de caminhos especificos
+ * @param	string	$domain	(Opcional) Se definido irá remover o cookie de (sub)dominios especificos
+ * @param	bool	$secure	(Opcional) Se definido irá remover o cookie em conexão segura (isto varia conforme o navegador)
+ *
+ * @return bool
+ *
+ * @example
+	unsetcookie('meucookie'); # Elimina o cookie pro path atual
+	unsetcookie('meucookie', '/'); # Elimina o cookie pro path raiz
+	unsetcookie('meucookie', '/', 'foo.com'); # Elimina o cookie de um domínio quando estiver em um subdomínio por exemplo: bar.foo.com
+ */
+function unsetCookie($key, $path = '', $domain = '', $secure = false)
+{
+	if (array_key_exists($key, $_COOKIE)) {
+		if (false === setcookie($key, null, -1, $path, $domain, $secure)) {
+			return false;
+		}
+
+		unset($_COOKIE[$key]);
+	}
+
+	return true;
 }

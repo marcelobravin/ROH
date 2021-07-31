@@ -56,8 +56,8 @@ function configurarCookies ()
 			'lifetime'	=> SESSAO_TTL,
 			'path'		=> '/',
 			'domain'	=> $_SERVER['HTTP_HOST'],
-			'secure'	=> true, // if you only want to receive the cookie over HTTPS
-			'httponly'	=> true, // prevent JavaScript access to session cookie
+			'secure'	=> true, # if you only want to receive the cookie over HTTPS
+			'httponly'	=> true, # prevent JavaScript access to session cookie
 			'samesite'	=> PROJECT_NAME
 		]);
 	}
@@ -261,10 +261,10 @@ function identificarIP ()
  *
  * @uses	acesso.php->iniciarSessao()
  */
-function logado ($indice='usuario_logado')
+function logado ()
 {
 	iniciarSessao();
-	return isset($_SESSION[$indice]);
+	return isset($_SESSION[USUARIO_SESSAO]);
 }
 
 /**
@@ -317,7 +317,7 @@ function login ($login, $senha)
 
 			criarSessao();
 			unset($user['senha']);
-			$_SESSION['user'] = $user;
+			$_SESSION[USUARIO_SESSAO] = $user;
 			return true;
 		} else {
 			$falhaAcesso = registroDeAcesso($user['id'], $ip, $browser, 0);
@@ -340,8 +340,12 @@ function login ($login, $senha)
  */
 function logOut ($url="index.php")
 {
-	encerrarSessao();
-	redirecionar($url);
+	unsetCookie('PHPSESSID');
+	if ( finalizarSessao() ) {
+		redirecionar($url);
+	} else {
+		die("Erro ao finalizar sessão!");
+	}
 }
 
 /**
@@ -422,7 +426,7 @@ function verificarTempoAtividadeSessao ()
 {
 	// Registra atividade da sessão
 	if (isset($_SESSION['LAST_ACTIVITY']) && time() - $_SESSION['LAST_ACTIVITY'] > SESSAO_TTL ) { // last request was more than 30 minutes ago
-		encerrarSessao();
+		finalizarSessao();
 		redirecionamentoTemporal();
 		exit;
 	}
@@ -444,6 +448,8 @@ function verificarTempoAtividadeSessao ()
  */
 function criarSessao ()
 {
+	configurarCookies();
+	limitarCache();
 	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 	$_SESSION['CREATED'] = time();
 }
@@ -655,7 +661,7 @@ function paginaAtual ()
 function verificarManutencao ()
 {
 	if ( MANUTENCAO ) {
-		if ( incluir("404.php") ) {
+		if ( incluir("manutencao.php") ) {
 			exit;
 		} else {
 			die("Página em manutenção! Volte novamente mais tarde!");

@@ -1,6 +1,5 @@
 <?php
 	require 'app/Grimoire/core_inc.php';
-
 	if ( LOGADO ) {
 		$PAGINA['titulo']		= "Home";
 		$PAGINA['subtitulo']	= "Página Inicial";
