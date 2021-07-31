@@ -2,7 +2,7 @@
 /**
  * Funções matemáticas
  * @package	grimoire/bibliotecas
-*/
+ */
 
 /**
  * Calcula as parcelas
@@ -59,7 +59,7 @@ function calcularPesoCubico ($comprimento, $largura, $altura, $peso=0)
 /**
  * Retorna a porcentagem entre dois valores
  * @package	grimoire/bibliotecas/numeros.php
- * @since 05-07-2015
+ * @since	05-07-2015
  * @version	29/10/2016 15:09:34
  *
  * @param	string
@@ -144,7 +144,7 @@ function converterDinheiro ($numero, $pt=true)
 /**
  * Adiciona um separador a cada três casas em um número
  * @package	grimoire/bibliotecas/numeros.php
- * @since 06/09/2016
+ * @since	06/09/2016
  *
  * @param	numero
  * @return	string

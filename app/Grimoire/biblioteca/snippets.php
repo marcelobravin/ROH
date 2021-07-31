@@ -84,7 +84,6 @@ function checkbox ($nome, $valor="", $selecionado=false, $atributos=array(), $ro
 	$input = is_numeric($valor) ? $rotulo : ucfirst($valor);
 	$input .= box("checkbox", $nome, $valor, $selecionado, $atributos);
 	return label($input);
-
 }
 
 /**

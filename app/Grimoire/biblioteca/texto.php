@@ -150,7 +150,7 @@ function concatenar2 ($array, $cola=QUEBRA_LINHA)
  */
 function converterCaixa ($string, $caixaAlta=false)
 {
-	if ($caixaAlta) {
+	if ( $caixaAlta ) {
 		$string = strtr(strtoupper($string), "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ", "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß");
 	} else {
 		$string = strtr(strtolower($string), "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß", "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ");
