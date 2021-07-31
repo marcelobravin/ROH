@@ -393,9 +393,10 @@ function truncate ($string, $len, $etc='...')
  * @param	string
  * @return	string
  */
-function remove_html_comments ($content = '')
+function removeHtmlComments ($content = '')
 {
-	return preg_replace('/<!--(.|\s)*?-->/', '', $content);
+	return preg_replace( "HtmlComments", "", $content);
+	// return preg_replace('/<!--(.|\s)*?-->/', '', $content);
 }
 
 /**
@@ -408,7 +409,8 @@ function remove_html_comments ($content = '')
  */
 function removeBlockComments ($content = '')
 {
-	return preg_replace('!/\*.*?\*/!s', '', $content);
+	return preg_replace( "BlockComments", "", $content);
+	// return preg_replace('!/\*.*?\*/!s', '', $content);
 }
 
 /**
@@ -421,7 +423,8 @@ function removeBlockComments ($content = '')
  */
 function removeJsLineComments ($content = '')
 {
-	return preg_replace('/\/\/.*\n/', '', $content);
+	return preg_replace( "JsLineComments", "", $content);
+	// return preg_replace('/\b(?!\:)\/\/.*\n/', '', $content);
 }
 
 /**
@@ -434,7 +437,8 @@ function removeJsLineComments ($content = '')
  */
 function removeLineBreaks ($str)
 {
-	return preg_replace( "/\r|\n/", "", $str );
+	return preg_replace( "LineBreaks", "", $str );
+	// return preg_replace( "/\r|\n/", "", $str );
 }
 
 /**
@@ -447,7 +451,8 @@ function removeLineBreaks ($str)
  */
 function removeDoubleSpaces ($str)
 {
-	return preg_replace( "/  /", "", $str );
+	return preg_replace( "DoubleSpaces", "", $str );
+	// return preg_replace( "/  /", "", $str );
 }
 
 /**
@@ -460,7 +465,8 @@ function removeDoubleSpaces ($str)
  */
 function removeTabs ($str)
 {
-	return preg_replace( "/	/", "", $str );
+	return preg_replace( "Tabs", "", $str );
+	// return preg_replace( "/	/", "", $str );
 }
 
 /**
@@ -498,45 +504,45 @@ function removeEspacoEsimbolo ($contents)
 	$response = $contents;
 	$response = preg_replace('!console.log.*?\)!s', '', $response);
 
-	$response = preg_replace('/\s\!/'  , '!'   , $response);
-	$response = preg_replace('/\s\(/'  , '('   , $response);
-	$response = preg_replace('/\s\)/'  , ')'   , $response);
-	$response = preg_replace('/\s\,/'  , ','   , $response);
-	$response = preg_replace('/\s\:/'  , ':'   , $response);
-	$response = preg_replace('/\s\=/'  , '='   , $response);
-	$response = preg_replace('/\s\{/'  , '{'   , $response);
-	$response = preg_replace('/\s\}/'  , '}'   , $response);
-	$response = preg_replace('/\s\|/'  , '|'   , $response);
-	$response = preg_replace('/\s\+/'  , '+'   , $response);
-	$response = preg_replace('/\s\;/'  , ';'   , $response);
-	$response = preg_replace('/\s\</'  , '<'   , $response);
-	$response = preg_replace('/\s\>/'  , '>'   , $response);
-	$response = preg_replace('/\s\-/'  , '-'   , $response);
-	$response = preg_replace('/\s\&/'  , '&'   , $response);
-	$response = preg_replace('/\s\//'  , '/'   , $response);
-	// $response = preg_replace('/\sif/'  , 'if'  , $response); # causam problema em js
+	$response = preg_replace('/\s\!/'	, '!' 	, $response);
+	$response = preg_replace('/\s\(/'	, '(' 	, $response);
+	$response = preg_replace('/\s\)/'	, ')' 	, $response);
+	$response = preg_replace('/\s\,/'	, ',' 	, $response);
+	$response = preg_replace('/\s\:/'	, ':' 	, $response);
+	$response = preg_replace('/\s\=/'	, '=' 	, $response);
+	$response = preg_replace('/\s\{/'	, '{' 	, $response);
+	$response = preg_replace('/\s\}/'	, '}' 	, $response);
+	$response = preg_replace('/\s\|/'	, '|' 	, $response);
+	$response = preg_replace('/\s\+/'	, '+' 	, $response);
+	$response = preg_replace('/\s\;/'	, ';' 	, $response);
+	$response = preg_replace('/\s\</'	, '<' 	, $response);
+	$response = preg_replace('/\s\>/'	, '>' 	, $response);
+	$response = preg_replace('/\s\-/'	, '-' 	, $response);
+	$response = preg_replace('/\s\&/'	, '&' 	, $response);
+	$response = preg_replace('/\s\//'	, '/' 	, $response);
+	// $response = preg_replace('/\sif/'	, 'if'	, $response); # causam problema em js
 	$response = preg_replace('/\selse/', 'else', $response);
 
-	$response = preg_replace('/\!\s/'  , '!'   , $response);
-	$response = preg_replace('/\(\s/'  , '('   , $response);
-	$response = preg_replace('/\)\s/'  , ')'   , $response);
-	$response = preg_replace('/\,\s/'  , ','   , $response);
-	$response = preg_replace('/\:\s/'  , ':'   , $response);
-	$response = preg_replace('/\=\s/'  , '='   , $response);
-	$response = preg_replace('/\{\s/'  , '{'   , $response);
-	$response = preg_replace('/\}\s/'  , '}'   , $response);
-	$response = preg_replace('/\|\s/'  , '|'   , $response);
-	$response = preg_replace('/\+\s/'  , '+'   , $response);
-	$response = preg_replace('/\;\s/'  , ';'   , $response);
-	$response = preg_replace('/\<\s/'  , '<'   , $response);
-	$response = preg_replace('/\>\s/'  , '>'   , $response);
-	$response = preg_replace('/\-\s/'  , '-'   , $response);
-	$response = preg_replace('/\&\s/'  , '&'   , $response);
-	$response = preg_replace('/\/\s/'  , '/'   , $response);
-	$response = preg_replace('/if\s/'  , 'if'  , $response);
+	$response = preg_replace('/\!\s/'	, '!' 	, $response);
+	$response = preg_replace('/\(\s/'	, '(' 	, $response);
+	$response = preg_replace('/\)\s/'	, ')' 	, $response);
+	$response = preg_replace('/\,\s/'	, ',' 	, $response);
+	$response = preg_replace('/\:\s/'	, ':' 	, $response);
+	$response = preg_replace('/\=\s/'	, '=' 	, $response);
+	$response = preg_replace('/\{\s/'	, '{' 	, $response);
+	$response = preg_replace('/\}\s/'	, '}' 	, $response);
+	$response = preg_replace('/\|\s/'	, '|' 	, $response);
+	$response = preg_replace('/\+\s/'	, '+' 	, $response);
+	$response = preg_replace('/\;\s/'	, ';' 	, $response);
+	$response = preg_replace('/\<\s/'	, '<' 	, $response);
+	$response = preg_replace('/\>\s/'	, '>' 	, $response);
+	$response = preg_replace('/\-\s/'	, '-' 	, $response);
+	$response = preg_replace('/\&\s/'	, '&' 	, $response);
+	$response = preg_replace('/\/\s/'	, '/' 	, $response);
+	$response = preg_replace('/if\s/'	, 'if'	, $response);
 	// $response = preg_replace('/else\s/', 'else', $response); # causam problema em js
 
-	$response = preg_replace('/\;\;/'  , ';'   , $response);
+	$response = preg_replace('/\;\;/'	, ';' 	, $response);
 
 	return $response;
 }

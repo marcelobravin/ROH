@@ -389,7 +389,7 @@ function minify ($file)
 */
 function minifyContent ($contents)
 {
-	$contents = remove_html_comments($contents);
+	$contents = removeHtmlComments($contents);
 	$contents = removeDoubleSpaces($contents);
 	$contents = removeBlockComments($contents);
 	$contents = removeJsLineComments($contents); // ! se estiver em uma linha remove tudo

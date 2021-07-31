@@ -137,6 +137,28 @@ function padrao ($padrao)
 			break;
 			// return "|^http(s)?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
 			// return '(https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ "]*[^ ,;\.:">)])?
+
+
+
+		case "htmlComments":
+			$r = '/<!--(.|\s)*?-->/';
+			break;
+		case "BlockComments":
+			$r = '!/\*.*?\*/!s';
+			break;
+		case "JsLineComments":
+			$r = '/\b(?!\:)\/\/.*\n/';
+			break;
+		case "LineBreaks":
+			$r = "/\r|\n/";
+			break;
+		case "DoubleSpaces":
+			$r = "/  /";
+			break;
+		case "Tabs":
+			$r = "/	/";
+			break;
+
 		default: $r = false;
 	}
 
