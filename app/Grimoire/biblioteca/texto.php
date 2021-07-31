@@ -164,7 +164,7 @@ function converterCaixa ($string, $caixaAlta=false)
  * @version 05-07-2015
  *
  * @param	string
- * @param	 bool
+ * @param	bool
  * @return	string
  */
 function formatarString ($string, $tratar=false)
@@ -183,8 +183,8 @@ function formatarString ($string, $tratar=false)
  *
  * @since 1.2.0
  *
- * @param string $url
- * @return string
+ * @param	string $url
+ * @return	string
  */
 function limparUrl ( $url )
 {
@@ -396,7 +396,6 @@ function truncate ($string, $len, $etc='...')
 function removeHtmlComments ($content = '')
 {
 	return preg_replace( "HtmlComments", "", $content);
-	// return preg_replace('/<!--(.|\s)*?-->/', '', $content);
 }
 
 /**
@@ -410,7 +409,6 @@ function removeHtmlComments ($content = '')
 function removeBlockComments ($content = '')
 {
 	return preg_replace( "BlockComments", "", $content);
-	// return preg_replace('!/\*.*?\*/!s', '', $content);
 }
 
 /**
@@ -424,7 +422,6 @@ function removeBlockComments ($content = '')
 function removeJsLineComments ($content = '')
 {
 	return preg_replace( "JsLineComments", "", $content);
-	// return preg_replace('/\b(?!\:)\/\/.*\n/', '', $content);
 }
 
 /**
@@ -438,7 +435,6 @@ function removeJsLineComments ($content = '')
 function removeLineBreaks ($str)
 {
 	return preg_replace( "LineBreaks", "", $str );
-	// return preg_replace( "/\r|\n/", "", $str );
 }
 
 /**
@@ -452,7 +448,6 @@ function removeLineBreaks ($str)
 function removeDoubleSpaces ($str)
 {
 	return preg_replace( "DoubleSpaces", "", $str );
-	// return preg_replace( "/  /", "", $str );
 }
 
 /**
@@ -466,7 +461,6 @@ function removeDoubleSpaces ($str)
 function removeTabs ($str)
 {
 	return preg_replace( "Tabs", "", $str );
-	// return preg_replace( "/	/", "", $str );
 }
 
 /**
