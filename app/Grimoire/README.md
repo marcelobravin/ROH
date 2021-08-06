@@ -6,6 +6,8 @@ cj-xfaYum4CR#rb
 criar atalho alt ;
     está conflitando com comentar linha no windows
 
+    alt + b -> alt baixo // mudar valor
+
 observar comportamento pós mudança
 REMOVER arquivos de modelo
 pra que precisa?

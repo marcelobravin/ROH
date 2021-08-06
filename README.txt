@@ -1,6 +1,10 @@
 BUGs conhecidos ################################################################
 vazamento de mensagem de erro da sessão
 
+delete ou alterar parametros de busca
+	sem voltar uma página
+navegar por
+	página maior que o limite
 
 
 testar novamente ajax com tempo expirado

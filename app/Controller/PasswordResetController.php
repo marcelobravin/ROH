@@ -43,7 +43,7 @@ echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 
 
 $assunto = "Redefinição de senha";
-$servidor = "http://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
+$servidor = "https://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
 $endereco = "reset-senha.php?email=". $user['login'] ."&token=". $token;
 $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senha</a>';
 
@@ -53,7 +53,9 @@ $body = '<a href="'. $servidor . $endereco .'">Clique aqui para resetar sua senh
 
 $enviarEmail = enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "Automatico");
 if ( $enviarEmail == 1 ) {
-	$_SESSION['mensagem'] = "Email enviado para o usuário {$_GET['id']} com sucesso!";
+	$resposta = "Email enviado para o usuário {$_GET['id']} com sucesso!";
+	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
+
 	voltar();
 } else {
 	echo "Erro ao enviar email para o usuário: ". $user['login'];

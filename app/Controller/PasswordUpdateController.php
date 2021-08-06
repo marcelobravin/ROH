@@ -14,14 +14,13 @@ $condicoes = array(
 $rowCount = atualizar('usuario', $campos, $condicoes);
 
 if ( $rowCount == 1 ) {
-	$_SESSION['mensagem'] = "Senha atualizada com sucesso!";
-	$_SESSION['mensagemClasse'] = "sucesso";
-
 	registrarOperacao('U', 'usuario', 0);
 
+	$resposta = "Senha atualizada com sucesso!";
+	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 } else {
-	$_SESSION['mensagem'] = "Erro ao atualizar a senha do usuário!";
-	$_SESSION['mensagemClasse'] = "erro";
+	$resposta = "Erro ao atualizar a senha do usuário!";
+	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 }
 
 header('Location: ../../index.php');

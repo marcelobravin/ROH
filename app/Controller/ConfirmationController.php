@@ -36,7 +36,7 @@ $rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
 $enviarEmail = enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "Automatico");
 if ( $enviarEmail == 1 ) {
 	$_SESSION['mensagem'] = "Email enviado para o usuário {$_GET['id']} com sucesso!";
-	header('Location: '. ROOT .'lista.php?modulo=usuario');
+	header('Location: '. BASE .'lista.php?modulo=usuario');
 	exit;
 } else {
 	echo "Erro ao enviar email para o usuário: ". $_GET['id'];

@@ -24,11 +24,11 @@ if ( empty($user) ) {
 	$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
 
 	if ( $rowCount == 0 ) {
-		$_SESSION['mensagem'] = "Erro ao validar email!";
-		$_SESSION['mensagemClasse'] = "sucesso";
+		$resposta = "Erro ao validar email!";
+		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 	} else {
-		$_SESSION['mensagem'] = "Email validado com sucesso!";
-		$_SESSION['mensagemClasse'] = "erro";
+		$resposta = "Email validado com sucesso!";
+		montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 	}
 }
 

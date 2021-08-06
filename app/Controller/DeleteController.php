@@ -24,14 +24,13 @@ if ( temDependencias($_GET['modulo'], $_GET['id']) ) { # -----------------------
 	$exclusaoLogica = exclusaoLogica($_GET['modulo'], $_GET['id']);
 
 	if ( $exclusaoLogica == 1 ) {
-		$_SESSION['mensagem'] = "Registro de {$_GET['modulo']} número {$_GET['id']} excluído com sucesso!";
-		$_SESSION['mensagemClasse'] = "sucesso";
-
 		registrarOperacao('d', $_GET['modulo'], $_GET['id']);
 
+		$resposta = "Registro de {$_GET['modulo']} número {$_GET['id']} excluído com sucesso!";
+		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 	} else {
-		$_SESSION['mensagem'] = "Erro ao excluir o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
-		$_SESSION['mensagemClasse'] = "erro";
+		$resposta = "Erro ao excluir o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
+		montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 	}
 
 } else { # --------------------------------------------------------------------- exclusão permanente
@@ -39,14 +38,13 @@ if ( temDependencias($_GET['modulo'], $_GET['id']) ) { # -----------------------
 	$exclusao = excluir($_GET['modulo'], ['id'=>$_GET['id']] );
 
 	if ( $exclusao == 1 ) {
-		$_SESSION['mensagem'] = "Registro de {$_GET['modulo']} número {$_GET['id']} apagado com sucesso!";
-		$_SESSION['mensagemClasse'] = "sucesso";
-
 		registrarOperacao('D', $_GET['modulo'], $_GET['id']);
 
+		$resposta = "Registro de {$_GET['modulo']} número {$_GET['id']} apagado com sucesso!";
+		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 	} else {
-		$_SESSION['mensagem'] = "Erro ao apagar o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
-		$_SESSION['mensagemClasse'] = "erro";
+		$resposta = "Erro ao apagar o registro do módulo {$_GET['modulo']} número: ". $_GET['id'];
+		montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 	}
 
 }

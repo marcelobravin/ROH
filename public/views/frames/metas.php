@@ -74,5 +74,23 @@
 		max-width: 90%;
 	}
 
+	.sucesso {
+		color: green;
+		text-align: center;
+		border: 1px solid green;
+		margin-top: 5px;
+		background: #b1f7b1;
+		padding: 5px;
+	}
+	.erro {
+		color: red;
+		text-align: center;
+		border: 1px solid red;
+		margin-top: 5px;
+		background: #f7b1b1;
+		padding: 5px;
+	}
+
+
 	<?php echo sublinharPaginaAtual() ?>
 </style>
