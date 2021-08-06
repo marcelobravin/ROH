@@ -101,6 +101,52 @@ function appendScripts ($filaScripts=array("https://code.jquery.com/jquery-lates
 	";
 }
 
+function exibirScriptContagem ($tempo=5, $id="c")
+{
+	echo "
+		<script>
+			var numero = {$tempo};
+			var myVar = setInterval(contagem, 1000);
+
+			function contagem() {
+				if (numero > 0) {
+					numero--;
+					document.getElementById('{$id}').innerHTML = numero;
+				}
+			}
+		</script>
+	";
+}
+
+function exibirJson ($resposta)
+{
+	if ( !is_array($resposta) ) {
+		$resposta = array($resposta);
+	}
+	echo json_encode( $resposta );
+	exit;
+}
+
+/**
+ *
+ * @link	https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+*/
+function montarRespostaJson ($mensagem, $status=true, $codigo=200)
+{
+	return array(
+		'mensagem'	=> $mensagem,
+		'resultado'	=> $status,
+		'codigo'	=> $codigo
+	);
+}
+
+function responderAjax ($mensagem, $status=true, $codigo=200)
+{
+	exibirJson(
+		montarRespostaJson($mensagem, $status, $codigo)
+	);
+}
+
 /**
  * Gera importação de javascript com fallback opcional
  * @package	grimoire/bibliotecas/javascript.php
@@ -128,32 +174,19 @@ function script ($arquivo="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jque
 	return $script;
 }
 
-function contagem ($tempo=5, $id="c")
-{
-	echo "
-		<script>
-			var numero = {$tempo};
-			var myVar = setInterval(contagem, 1000);
 
-			function contagem() {
-				if (numero > 0) {
-					numero--;
-					document.getElementById('{$id}').innerHTML = numero;
-				}
-			}
-		</script>
+function estiloAjaxLoader ()
+{
+	return "
+		div#ajaxLoader {
+			background-color: rgba(0,0,0,.3);
+			position: absolute;
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url(public/img/ajax-loader.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+		}
 	";
 }
-
-/**
- * Gera noscript
- *
- * @param	string
- * @return  string
- *
- * @example
-    echo noscript("Meu Site");
- */
-function noscript($conteudo="<p class='center'>Esse site necessita que o JavaScript esteja ativado para funcionar corretamente.</p>") {
-	return gerarElemento("noscript", $conteudo);
-  }

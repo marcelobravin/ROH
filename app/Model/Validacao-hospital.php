@@ -28,10 +28,11 @@ function montarMensagemErro ( $erro )
 {
 	$erro = $erro->getMessage();
 
-	# tentou atualizar o login para um repetido
 	if ( contem("Duplicate entry", $erro) ) {
 		die("erro"); ###########################################################
 	} else {
-		exibir($erro);
+		exibir($erro, true); # Erro deconhecido
 	}
+
+	return $erro;
 }

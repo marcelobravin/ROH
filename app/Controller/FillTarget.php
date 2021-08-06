@@ -1,23 +1,39 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-$respostas = array();
-foreach ($_POST['leitos'] as $key => $value) { #renomear para elemento id
+if ( empty($_POST) ) {
+	responderAjax("Dados vazios!", false, $codigo=400); # 400 Bad Request
+}
+
+$idGerado = null;
+foreach ($_POST['form'] as $value) {
+
 	$values = array(
-		'meta_id'				=> $key,
-		'mes'					=> date('n'),
-		'ano'					=> date('Y'),
-		'resultado'				=> $value,
-		'justificativa'			=> isset($_POST['justificativa'][$key])	? $_POST['justificativa'][$key]	: '',
-		'justificativa_aceita'	=> isset($_POST['checkbox-'.$key])		? $_POST['checkbox-'.$key]		: 0,
-		'criado_por'			=> $_SESSION['user']['id'],
+		'id_meta'		=> $value['metaId'],
+		'mes'			=> date('n'),
+		'ano'			=> date('Y'),
+		'resultado'		=> $value['resultado'],
+		'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
+		'criado_por'	=> $_SESSION['user']['id']
 	);
 
-	if ( !empty($value) ) {
-		$respostas[] = inserir('resultado', $values);
+	$idGerado = inserir('resultado', $values);
+
+	if ( !positivo($idGerado) ) {
+		$resposta = "Erro ao registrar resultados do mês atual";
+
+		if ( contem("Integrity constraint violation: 1062 Duplicate entry", $idGerado) ) {
+			$resposta .= "\nRegistro duplicado!";
+		}
+		responderAjax($resposta, false, $codigo=500);
 	}
 }
 
-$_SESSION['mensagem'] = "Registrados os resultados do hospital ". $_POST['hospital'] . " no mês atual";
-$_SESSION['mensagemClasse'] = "sucesso";
-voltar();
+# sucesso
+if ( positivo($idGerado) ) {
+	$resposta = "Registrados os resultados do mês atual";
+	responderAjax($resposta, true, $codigo=201); # 201 Created
+}
+
+# erro
+responderAjax("Parametros inválidos", false, $codigo=406); # 406 Not Acceptable

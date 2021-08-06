@@ -13,8 +13,6 @@
 <body>
 	<?php require_once 'frames/header.php' ?>
 
-	<div class="<?php echo isset($_SESSION['mensagemClasse']) ? $_SESSION['mensagemClasse'] : "" ?>">
-		<?php echo esvaziarMensagem() ?>
-	</div>
+	<?php include "public/views/components/mensagemSaida.php" ?>
 </body>
 </html>

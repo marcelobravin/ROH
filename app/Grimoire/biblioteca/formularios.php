@@ -2,7 +2,7 @@
 /**
  * Geração automática de formulários via descrição de tabela do BD
  * @package	grimoire/bibliotecas
-*/
+ */
 
 /**
  * Cria campos conforme descrição da tabela
@@ -252,7 +252,7 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
 {
 	$form = gerarFormularioAtualizacao($MODULO,
@@ -293,7 +293,7 @@ function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
 {
 	$form = gerarFormulario($MODULO,

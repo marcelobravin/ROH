@@ -364,28 +364,6 @@ function saudacao ()
 }
 
 /**
- * Limita caracteres sem cortar palavras
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
- *
- * @param	string
- * @param	 int
- * @param	string
- * @return	string
- */
-function truncate ($string, $len, $etc='...')
-{
-	$end = array(' ', '.', ',', ';', ':', '!', '?' );
-	if (strlen($string) <= $len) {
-		return $string;
-	}
-	if (!in_array($string[$len - 1], $end) && !in_array($string[$len], $end)) {
-		while (--$len && !in_array($string[$len - 1], $end));
-	}
-	return rtrim(substr($string, 0, $len)) . $etc;
-}
-
-/**
  * Remove comentários html e seus conteúdos
  * @package grimoire/bibliotecas/texto.php
  * @version 05-07-2015

@@ -268,7 +268,7 @@ function incluirFavicons ()
 	$favicon[] = '<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72-precomposed.png">';
 	$favicon[] = '<!-- For iPhone: -->';
 	$favicon[] = '<link rel="apple-touch-icon-precomposed" href="/apple-touch-icon-57x57-precomposed.png">';
-	return $favicon; # TODO: retornar implode QUEBRA
+	return $favicon;
 }
 
 /**
@@ -344,7 +344,7 @@ function gerarMetas ($titulo="Página")
 								<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 							<![endif]-->';
 
-	return $metas; # TODO: retornar implode QUEBRA
+	return $metas;
 }
 
 /**
@@ -382,24 +382,20 @@ function gerarPagina ($conteudoHead=array(), $conteudoBody=array(), $folhaEstilo
 	$scriptsJs		= concatenar($scriptsJs		, $identacao, "\n");
 	$folhaEstilo	= concatenar($folhaEstilo	, $identacao, "\n");
 
-	// Gera elementos base
 	$html = html();
 	$head = head();
 	$body = body();
 
-	# TODO: retornar conteudo em array para alteração antes de exibição
-	// Exibe conteúdo
-	echo $html[0];
-
-	echo $head[0];
-	echo $conteudoHead . $favicon . $folhaEstilo;
-	echo $head[1];
-
-	echo $body[0];
-	echo $conteudoBody . $scriptsJs;
-	echo $body[1];
-
-	echo $html[1];
+	return array(
+		$html[0],
+			$head[0],
+				$conteudoHead . $favicon . $folhaEstilo,
+			$head[1],
+			$body[0],
+				$conteudoBody . $scriptsJs,
+			$body[1],
+		$html[1],
+	);
 }
 
 /**
@@ -747,8 +743,8 @@ function selecionado2 ($valor1, $valor2, $atributo='selected')
 
 /**
  * Cria um link para uma janela popup
- * @package grimoire/bibliotecas/javascript.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/html.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -759,4 +755,46 @@ function popup ($pagina)
 	<a onclick=\"Popup=window.open(this.href,'Popup','toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,width=720,height=600,left=430,top=23'); return false;\" href=\"{$pagina}\">
 		pop up
 	</a>";
+}
+
+
+/**
+ * Cria regra css para sublinhar links que contenham a url da página atual
+ * @package grimoire/bibliotecas/html.php
+ * @since	04/08/2021 11:43:46
+ *
+ * @param	string
+ * @return	string
+ */
+function sublinharPaginaAtual ()
+{
+	return 'a[href*="'. paginaAtual() .'"] { text-decoration: underline }';
+}
+
+/**
+ * Gera noscript
+ *
+ * @param	string
+ * @return  string
+ *
+ * @example
+    echo noscript("Meu Site");
+ */
+function noscript ($conteudo="<p class='center'>Esse site necessita que o JavaScript esteja ativado para funcionar corretamente.</p>")
+{
+	return gerarElemento("noscript", $conteudo);
+}
+
+/**
+ * @since	06/08/2021 10:40:38
+ */
+function montarTituloPagina ($PAGINA)
+{
+	$titulo	= $PAGINA['titulo'];
+	if ( !empty($PAGINA['titulo']) && !empty($PAGINA['subtitulo']) ) {
+		$titulo .=  SEPARADOR_TITULO;
+		$titulo .= $PAGINA['subtitulo'];
+	}
+
+	return $titulo;
 }

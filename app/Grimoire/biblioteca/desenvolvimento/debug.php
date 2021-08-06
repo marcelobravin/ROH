@@ -119,19 +119,6 @@ function exibir ($var, $parar=false)
  * Lança um erro
  *
  * @param	string
- *
- * @example
-	erro ("aaa", __FILE__, __LINE__);
- */
-function lancarErro ($mensagem="Algo deu errado!", $arquivo="", $linha="")
-{
-	throw new ErrorException($mensagem . $arquivo . $linha);
-}
-
-/**
- * Lança um erro
- *
- * @param	string
  * @param	bool
  */
 function erro2 ($mensagem='Erro: Alguma coisa não está certa', $pararSistema=false)

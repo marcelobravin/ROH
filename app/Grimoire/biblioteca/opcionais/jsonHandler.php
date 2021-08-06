@@ -1,6 +1,4 @@
 <?php
-# TODO: testar com .json e .js
-
 /**
  * @example
 	$termos = retornarTermoNOVO("sigla", "sp", "secretaria/map.json");

@@ -27,22 +27,34 @@ function finalizarSessao ()
  * @version	17-07-2015
  *
  * @uses	session_status()
- * {@link http://www.php.net/manual/en/function.session-status.php}
- * }
  */
 function iniciarSessao ()
 {
-	if ( function_exists ('session_status') ) {
-		if (session_status() == PHP_SESSION_NONE) { # For versions of PHP >= 5.4.0
-			session_start();
-		}
-		return true;
-
-	} elseif (session_id() == '') { # For versions of PHP < 5.4.0
+	if ( !sessaoIniciada() ) {
 		session_start();
 		return true;
 	}
+
 	return false;
+}
+
+/**
+ * Verifica se a sessão foi iniciada
+ * @package	grimoire/bibliotecas/acesso.php
+ * @since	06/08/2021 14:17:30
+ *
+ * @return	bool
+ *
+ * @uses	session_status()
+ * {@link http://www.php.net/manual/en/function.session-status.php}
+ */
+function sessaoIniciada ()
+{
+	if ( function_exists ('session_status') ) {
+		return session_status() != PHP_SESSION_NONE; # For versions of PHP >= 5.4.0
+	}
+
+	return session_id() != ''; # For versions of PHP < 5.4.0
 }
 
 /**
@@ -79,10 +91,10 @@ function limitarCache ()
 	unsetcookie('meucookie', '/'); # Elimina o cookie pro path raiz
 	unsetcookie('meucookie', '/', 'foo.com'); # Elimina o cookie de um domínio quando estiver em um subdomínio por exemplo: bar.foo.com
  */
-function unsetCookie($key, $path = '', $domain = '', $secure = false)
+function unsetCookie($key, $path='', $domain='', $secure=false)
 {
 	if (array_key_exists($key, $_COOKIE)) {
-		if (false === setcookie($key, null, -1, $path, $domain, $secure)) {
+		if (setcookie($key, null, -1, $path, $domain, $secure) === false) {
 			return false;
 		}
 
@@ -90,4 +102,23 @@ function unsetCookie($key, $path = '', $domain = '', $secure = false)
 	}
 
 	return true;
+}
+
+/**
+ *
+ * @link	https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+*/
+function montarRespostaPost ($mensagem, $status=true, $codigo=200)
+{
+	if ( is_bool($status) ) {
+		$tipo = $status ? "sucesso" : "erro";
+	} else {
+		$tipo = $status;
+	}
+
+	$_SESSION['operacao'] = array(
+		'mensagem'	=> $mensagem,
+		'status'	=> $tipo,
+		'codigo'	=> $codigo
+	);
 }

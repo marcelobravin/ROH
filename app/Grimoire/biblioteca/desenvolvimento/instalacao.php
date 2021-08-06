@@ -304,7 +304,7 @@ function gerarHtaccess ()
  */
 function gerarEnv ()
 {
-	$conteudo = "HOST=localhost\nDBNAME=db_relatorio_ocupacao_hospitalar\nUSER=root\nPASSWORD=\nPORT=3306";
+	$conteudo = "HOST=localhost\nBD=db_relatorio_ocupacao_hospitalar\nUSUARIO=root\SENHA=\nPORT=3306";
 	return escrever(ARQUIVOS_EFEMEROS ."/.env", $conteudo, true);
 }
 
@@ -319,6 +319,8 @@ function gerarEnv ()
  *
  * @uses	tempo.php->agora()
  * @uses	arquivos.php->escrever()
+ *
+ * @deprecated
  */
 function gerarModelo ($nome, $descricao)
 {
@@ -466,7 +468,6 @@ function assetPipeline ($js=true, $css=true, $imgs=true)
 		}
 	}
 
-	# TODO testar
 	if ( $imgs ) {
 		$iconFiles = getDirectoryFiles(BASE.'public/images/icons');
 		imageGrouper( $iconFiles );
@@ -637,8 +638,6 @@ function alterarPermissao ($arquivo, $permissao=0)
 			break;
 		case 3: $codigo = 0750; # Tudo para o proprietario, leitura e execucao para o grupo do prop
 			break;
-		// case 4: $codigo = 0777; # Tudo para todos
-			// break;
 
 		default: $codigo = 0600; # Escrita e leitura para o proprietario, nada ninguem mais
 	}

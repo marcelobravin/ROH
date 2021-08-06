@@ -47,13 +47,15 @@ function calcularPesoCubico ($comprimento, $largura, $altura, $peso=0)
 	if ($pesoCubico <= 5) {
 		return $peso;
 	}
+
 	//Para encomendas com peso cúbico maior que 5 kg, valerá o maior resultado após a comparação dos resultados entre o peso físico e o peso cúbico
 	if ($pesoCubico > $peso) {
-		return $pesoCubico;
+		$resposta = $pesoCubico;
+	} else {
+		$resposta = $peso;
 	}
-	else {
-		return $peso;
-	}
+
+	return $resposta;
 }
 
 /**
@@ -72,8 +74,7 @@ function calcularPorcentagem ($quantidade, $total)
 {
 	if ($total > 0 && $quantidade > 0) {
 		return ($quantidade * 100) / $total;
-	}
-	else {
+	} else {
 		return -1;
 	}
 }
@@ -252,7 +253,7 @@ function regraDeTres ($valorParcial, $valorTotal)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function formatBytes ($size, $precision = 2)
 {
 	$base = log($size, 1024);

@@ -3,9 +3,8 @@ verificarManutencao();
 
 // server should keep session data for AT LEAST 1 hour
 ini_set('session.gc_maxlifetime', SESSAO_TTL);
-// each client should remember their session id for EXACTLY 1 hour
 
-configurarExibicaoErros(PRODUCAO); # TODO verificar
+configurarExibicaoErros(!PRODUCAO); # TODO verificar
 
 # ------------------------------------------------------------------------------ inicio
 iniciarSessao();

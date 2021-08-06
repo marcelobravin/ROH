@@ -3,29 +3,29 @@ include '../../app/Grimoire/core_inc.php';
 
 $sql = "
 	SELECT
-		c.id					categoria_id,
+		c.id					id_categoria,
 		c.titulo				categoria_nome,
 		c.legenda				categoria_legenda,
 		c.ativo					categoria_ativo,
 
-		e.categoria_id			elemento_categoria_id,
+		e.id_categoria			id_elemento_categoria,
 		e.titulo				elemento_nome,
-		e.id					elemento_id,
+		e.id					id_elemento,
 
-		m.elemento_id			meta_elemento_id,
+		m.id_elemento			id_meta_elemento,
 		m.quantidade			meta_quantidade,
 		m.ativo					meta_ativo,
-		m.hospital_id			meta_hospital_id,
-		m.id					meta_id,
+		m.id_hospital			id_meta_hospital,
+		m.id					id_meta,
 
-		r.meta_id				resultado_meta_id,
+		r.id_meta				id_resultado_meta,
 		r.resultado				resultado,
 		r.mes					mes,
 		r.justificativa			justificativa,
 		r.justificativa_aceita	justificativa_aceita,
-		r.id					resultado_id,
+		r.id					id_resultado,
 		r.criado_em				criacao,
-		r.criado_por			autor_id,
+		r.criado_por			id_autor,
 
 		u.login					autor
 
@@ -34,10 +34,10 @@ $sql = "
 		elemento	e
 
 		LEFT OUTER JOIN (meta m)
-			ON m.elemento_id		= e.id
-			AND m.hospital_id		= ?
+			ON m.id_elemento		= e.id
+			AND m.id_hospital		= ?
 		LEFT OUTER JOIN (resultado r)
-			ON r.meta_id			= m.id
+			ON r.id_meta			= m.id
 			AND r.mes				= ?
 			AND r.ano				= ?
 
@@ -45,7 +45,7 @@ $sql = "
 			ON r.criado_por			= u.id
 
 	WHERE
-		e.categoria_id = c.id
+		e.id_categoria = c.id
 		-- AND m.ativo = 1
 
 	ORDER BY

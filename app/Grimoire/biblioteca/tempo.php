@@ -576,9 +576,10 @@ function trataDiaSemana ($dia, $limiteCaracteres=0)
 		"Sexta-Feira",
 		"Sábado",
 		"Domingo"
-		);
+	);
 	$dia = $array[$dia - 1];
-// Limita quantidade de caracteres conforme parametro recebido
+
+	// Limita quantidade de caracteres conforme parametro recebido
 	if ($limiteCaracteres > 0) {
 		$dia = substr($dia, 0, $limiteCaracteres);
 	}
@@ -650,7 +651,7 @@ function diferencaDatas ($data1, $data2)
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
-*/
+ */
 function intervaloDatas ( $dataInicial, $dataFinal, $dataAlvo="" )
 {
 	if ( empty($dataAlvo) ) {

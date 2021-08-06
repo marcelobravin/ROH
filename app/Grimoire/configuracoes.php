@@ -4,7 +4,7 @@
  * @package grimoire
  * @since 26/07/2015
  * @version 15/07/2021 16:05:15
-*/
+ */
 
 /**
  * Exibição de erros: user friendly ou debug
@@ -13,8 +13,7 @@
  */
 if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 	define( 'PRODUCAO', false );
-}
-else {
+} else {
 	define( 'PRODUCAO', true );
 }
 
@@ -82,10 +81,13 @@ else {
  * @var string/bool
  */
 	$env = parse_ini_file(BASE.'.env'); #--------------------------------------- credenciais de DB
+	if ( !$env ) {
+		die("Arquivo .env não encontrado Verifique o nome do seu diretório do projeto");
+	}
 	define( 'HOST'		, $env['HOST'] );
-	define( 'DBNAME'	, $env['DBNAME'] );
-	define( 'USER'		, $env['USER'] );
-	define( 'PASSWORD'	, $env['PASSWORD'] );
+	define( 'DBNAME'	, $env['BD'] );
+	define( 'USER'		, $env['USUARIO'] );
+	define( 'PASSWORD'	, $env['SENHA'] );
 
 	define( 'DB_CHARSET', 'utf8' ); # ------------------------------------------ Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
 	define( 'DB_COLLATE', 'utf8_general_ci' ); # ------------------------------- Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
@@ -100,7 +102,7 @@ else {
  */
 	define( 'CODIFICAR_SENHAS'	, true ); # ------------------------------------ aplicar hash em senha
 	define( 'CONTROLE_ACESSO'	, false ); # ----------------------------------- se sistema usará permissões para acesso a módulos e operações
-	define( 'FORCA_BRUTA'		, 3 ); # --------------------------------------- numero de senhas incorretas para bloquear temporariamente o acesso do usuário
+	define( 'FORCA_BRUTA'		, 5 ); # --------------------------------------- numero de senhas incorretas para bloquear temporariamente o acesso do usuário
 	define( 'TEMPO_BLOQUEIO'	, 1 ); # --------------------------------------- em minutos
 	define( 'SESSAO_TTL'		, 1800 ); # ------------------------------------ em segundos
 
@@ -117,7 +119,7 @@ else {
 	define( 'E_COMMERCE'			, false ); # ------------------------------- esse projeto tera funcoes envolvendo frete, prazos e preços?
 	define( 'MODULAR'				, true ); # -------------------------------- esse projeto utiliza segmentação dinâmica de objetos em módulos?
 	define( 'EXCLUSAO_LOGICA'		, true ); # -------------------------------- esse projeto tera o campo 'excluido_por' e 'excluido_em' para gerenciar os registros de BD
-	define( 'MANUTENCAO'			, false ); # -------------------------------- exibe uma mensagem em vez do sitemad
+	define( 'MANUTENCAO'			, false ); # ------------------------------- exibe uma mensagem em vez do sitemad
 
 # ------------------------------------------------------------------------------ configs de smtp
 	#definir envio de email em ambtst

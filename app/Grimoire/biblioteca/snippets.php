@@ -137,7 +137,7 @@ function dt ($atributos=array())
  */
 function dd ($atributos=array())
 {
-	return gerarBloco("dt", $atributos);
+	return gerarBloco("dd", $atributos);
 }
 
 /**

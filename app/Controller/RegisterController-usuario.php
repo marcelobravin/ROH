@@ -25,15 +25,18 @@ $id = inserir('usuario', $values);
 
 # ------------------------------------------------------------------------------ resposta
 if ( is_numeric($id) && $id > 0 ) {
-	$_SESSION['mensagem'] = "Inserido registro número: ". $id;
-	$_SESSION['mensagemClasse'] = "sucesso";
-
 	registrarOperacao('I', 'usuario', $id);
-	redirecionar(PROTOCOLO . ROOT_HTTP."formulario-atualizacao.php?modulo=usuario&codigo={$id}");
 
-# ------------------------------------------------------------------------------ erros
+	$resposta = "Inserido registro número: ". $id;
+	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
+
+	redirecionar(PROTOCOLO . BASE_HTTP."formulario-atualizacao.php?modulo=usuario&codigo={$id}");
+
+	# ------------------------------------------------------------------------------ erros
 } else {
-	$_SESSION['mensagemClasse'] = "erro";
-	montarMensagemErro( $id );
+	$resposta = montarMensagemErro( $id );
+
+	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
+
 	voltar();
 }

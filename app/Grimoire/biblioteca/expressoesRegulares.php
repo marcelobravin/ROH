@@ -50,6 +50,10 @@ function padrao ($padrao)
 			$r = '/[^a-zA-Z0-9\/\+=]/';
 			break;
 
+		case "BlockComments":
+			$r = '!/\*.*?\*/!s';
+			break;
+
 		case "cep":
 			$r = "^[0-9]{5}-[0-9]{3}$^";
 			break;
@@ -77,7 +81,6 @@ function padrao ($padrao)
 		case "cpf":
 			$r = "/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2,2}$/";
 			break;
-			//$re = preg_match("^([0-9]){3}\.([0-9]){3}\.([0-9]){3}-([0-9]){2}$^", $cpf);
 
 		case "cnpj":
 			$r = '/^[0-9+\/.-]{18}$/i';
@@ -86,6 +89,10 @@ function padrao ($padrao)
 		case "data":
 			//'/^\d{1,2}\/\d{1,2}\/\d{4}$/'
 			$r = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$^";
+			break;
+
+		case "DoubleSpaces":
+			$r = "/  /";
 			break;
 
 		case "email":
@@ -98,6 +105,10 @@ function padrao ($padrao)
 			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9,.]+$/";
 			break;
 
+		case "htmlComments":
+			$r = '/<!--(.|\s)*?-->/';
+			break;
+
 		case "integer":
 			$r = '/^[\-+]?[0-9]+$/';
 			break;
@@ -105,7 +116,9 @@ function padrao ($padrao)
 		case "ip": # v4
 			$r = '^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:[.](?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$';
 			break;
-			// $r = "^([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}.([0-9]){1,3}$^";
+
+		case "JsLineComments":
+			$r = '/\b(?!\:)\/\/.*\n/';
 			break;
 
 		case "letras": # Valida se a string é composta apenas de letras maiúsculas e minúsculas
@@ -120,6 +133,10 @@ function padrao ($padrao)
 			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' ]+$/";
 			break;
 
+		case "LineBreaks":
+			$r = "/\r|\n/";
+			break;
+
 		case "mac":
 			$r = "/[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}/";
 			break;
@@ -131,32 +148,11 @@ function padrao ($padrao)
 		case "numeric":
 			$r = '/^[\-+]?[0-9]*\.?[0-9]+$/';
 			break;
-
-		case "url":
-			$r = '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
-			break;
-			// return "|^http(s)?://[a-z0-9-]+(\.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i";
-			// return '(https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ "]*[^ ,;\.:">)])?
-
-
-
-		case "htmlComments":
-			$r = '/<!--(.|\s)*?-->/';
-			break;
-		case "BlockComments":
-			$r = '!/\*.*?\*/!s';
-			break;
-		case "JsLineComments":
-			$r = '/\b(?!\:)\/\/.*\n/';
-			break;
-		case "LineBreaks":
-			$r = "/\r|\n/";
-			break;
-		case "DoubleSpaces":
-			$r = "/  /";
-			break;
 		case "Tabs":
 			$r = "/	/";
+			break;
+		case "url":
+			$r = '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 			break;
 
 		default: $r = false;

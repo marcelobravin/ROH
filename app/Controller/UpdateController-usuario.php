@@ -28,18 +28,18 @@ $resultado = atualizar('usuario', $campos, $condicoes);
 # ------------------------------------------------------------------------------ resposta
 if ( is_numeric($resultado) ) {
 	if ( $resultado > 0 ) {
-		$_SESSION['mensagem']		= "Atualizado o registro número: ". $_POST['id'];
-		$_SESSION['mensagemClasse']	= "sucesso";
+		$resposta = "Atualizado o registro número: ". $_POST['id'];
+		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 		registrarOperacao('U', 'usuario', $_POST['id']);
 	} else if ( $resultado == 0 ) {
 		# clicou atualizar sem adicionar nenhuma alteração
-		$_SESSION['mensagem']		= "Nenhuma alteração realizada!";
-		$_SESSION['mensagemClasse']	= "erro";
+		$resposta = "Nenhuma alteração realizada!";
+		montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 	}
 
 } else { # --------------------------------------------------------------------- erros
-	$_SESSION['mensagemClasse'] = "erro";
-	montarMensagemErro( $resultado );
+	$resposta = montarMensagemErro( $resultado );
+	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 }
 
 voltar();

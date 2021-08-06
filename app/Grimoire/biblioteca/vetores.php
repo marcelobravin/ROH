@@ -143,18 +143,16 @@ function envolver ($elemento=array(), $conteudo="")
  * Remove um índice da sessão e retorna o conteúdo
  * @package	grimoire/bibliotecas/vetores.php
  * @since	05-07-2015
- * @version	15-06-2021
+ * @version	06/08/2021 14:34:39
  *
- * @param	string
  * @return	string
  */
-function esvaziarMensagem ($indice="mensagem")
+function esvaziarMensagem ()
 {
 	$retorno = "";
-	if (isset($_SESSION[$indice])) {
-		$retorno = $_SESSION[$indice];
-		unset($_SESSION[$indice]);
-		unset($_SESSION['mensagemClasse']);
+	if ( isset($_SESSION['operacao']['mensagem']) ) {
+		$retorno = $_SESSION['operacao']['mensagem'];
+		unset($_SESSION['operacao']);
 	}
 
 	return $retorno;

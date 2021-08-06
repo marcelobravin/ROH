@@ -69,7 +69,6 @@ function max_length ($str, $val)
 	return (strlen($str) > $val) ? FALSE : TRUE;
 }
 
-/* TODO quando validar remover da lista de prioridades */
 function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTamanhos=array())
 {
 	$erros = array();
@@ -275,49 +274,42 @@ function validarCnpj ($cnpj)
  *
  * @uses	validacao.php->validar()
  * @example
-		echo validarCpf("307.485.238-04");
+		echo validarCpf("307.485.238-04"); # true
+		echo validarCpf("30748523804"); # true
+		echo validarCpf("111.111.111-11"); #false
  */
 function validarCpf ($cpf)
 {
-	// Limpa caracteres especiais
 	$sinais = array("/", " ", ".", "-", ",");
 	$cpf = str_replace($sinais, "", $cpf);
 
-		// Verifica se nenhuma das sequências abaixo foi digitada, caso seja, retorna falso
-	if (strlen($cpf) != 11 ||
-		$cpf == '00000000000' ||
-		$cpf == '11111111111' ||
-		$cpf == '22222222222' ||
-		$cpf == '33333333333' ||
-		$cpf == '44444444444' ||
-		$cpf == '55555555555' ||
-		$cpf == '66666666666' ||
-		$cpf == '77777777777' ||
-		$cpf == '88888888888' ||
-		$cpf == '99999999999' ||
-		$cpf == '01234567890') {
+	if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf) || $cpf == '01234567890') {
 		return false;
-	} else { // Calcula os números para verificar se o CPF é verdadeiro
-		for ($t = 9; $t < 11; $t++) {
-			for ($d = 0, $c = 0; $c < $t; $c++) {
-				$d += $cpf[$c] * (($t + 1) - $c);
-			}
+	}
 
-			$d = ((10 * $d) % 11) % 10;
-			if ($cpf[$c] != $d) {
-				return false;
-			}
+	// Calcula os números para verificar se o CPF é verdadeiro
+	for ($t = 9; $t < 11; $t++) {
+		for ($d = 0, $c = 0; $c < $t; $c++) {
+			$d += $cpf[$c] * (($t + 1) - $c);
 		}
 
-		return true;
+		$d = ((10 * $d) % 11) % 10;
+		if ($cpf[$c] != $d) {
+			return false;
+		}
 	}
+
+	return true;
 }
 
 /**
- * Valida data no formato dd/mm/aaaa
+ * Valida data no formato dd/mm/aaaa e opcionalmente se essa ultrapassa a data mínima ou máxima
  * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
+ * @since	05-07-2015
+ * @version	06/08/2021 08:18:44
  *
+ * @param	string
+ * @param	string
  * @param	string
  * @return	bool
  *
@@ -331,11 +323,11 @@ function validarData ($data, $dataMinima=null, $dataMaxima=null)
 	if ( !validar("data", $data) ) {
 		return false;
 	} else {
-		if ( !empty($dataMinima) && days_diff($data, $dataMinima) > 0 ) {
-			return false;
-		}
-
-		if ( !empty($dataMaxima) && days_diff($data, $dataMaxima) < 0 ) {
+		if (
+			!empty($dataMinima) && days_diff($data, $dataMinima) > 0
+			||
+			!empty($dataMaxima) && days_diff($data, $dataMaxima) < 0 )
+		{
 			return false;
 		}
 	}
@@ -376,16 +368,7 @@ function validarIp ($ip)
 	if (strtolower($ip) === 'unknown') {
 		return false;
 	}
-/*
-	if ( validar("ip", $ip) ) {
-		$quaternion = explode(".", $ip);
-		foreach ($quaternion as $vetor) {
-			if ($vetor > 255 || $vetor < 0) {
-				return false;
-			}
-		}
-	}
- */
+
 	// generate ipv4 network address
 	$ip = ip2long($ip);
 
@@ -764,11 +747,11 @@ function isEmail ($param)
 */
 function positivo ($param)
 {
-	if ( !is_numeric($param) ) {
-		return false;
+	if ( is_numeric($param) ) {
+		return $param > 0;
 	}
 
-	return $param > 0;
+	return false;
 }
 
 /**

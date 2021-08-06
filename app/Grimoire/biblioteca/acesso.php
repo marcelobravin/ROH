@@ -66,8 +66,10 @@ function configurarCookies ()
 function configurarExibicaoErros ($conf=PRODUCAO)
 {
 	if ( $conf ) {
+		ini_set('display_startup_errors', 0);
 		ini_set('display_errors'		, 0);
 		ini_set('display_startup_errors', 0);
+		echo "configurações de erro PRODUCAO";
 	} else {
 		ini_set('display_startup_errors', 1);
 		ini_set('display_errors'		, TRUE);
@@ -357,7 +359,8 @@ function logOut ($url="index.php")
  */
 function voltar ()
 {
-	redirecionar( $_SERVER['HTTP_REFERER'] );
+	$url = explode(PROJECT_FOLDER, $_SERVER['HTTP_REFERER']);
+	redirecionar( $url[1] );
 }
 
 /**
@@ -385,26 +388,29 @@ function recarregar ($descartarParametros=false)
 function redirecionamentoTemporal ($destino="index.php", $tempo=5)
 {
 	header( "refresh:{$tempo};url={$destino}" );
+	echo h1("Sessão expirada!");
 	echo 'Você será redirecionado em <span id="c">'.$tempo.'</span> segundos.<br>Caso contrário, clique <a href="'. $destino .'">aqui</a>.';
-	contagem($tempo, 'c');
+	exibirScriptContagem($tempo, 'c');
 }
 
 /**
  * Redireciona para página solicitada via php (se possível) ou javascript e html
  * @package	grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
- * @version	08/07/2021 10:57:15
+ * @version	06/08/2021 12:06:01
  *
  * @param	string
  */
 function redirecionar ($url=PAGINA_INICIAL)
 {
-	if ( !file_exists( BASE.$url ) ) {
+	$urlSemQueryString = explode("?", $url);
+	$uri = BASE.$urlSemQueryString[0];
+	if ( !file_exists( $uri ) ) {
 		pp("Página inexistente");
-		die($url);
+		die( $uri );
 	}
 
-	$url = PROTOCOLO.BASE_HTTP.$url;
+	$url = PROTOCOLO . BASE_HTTP . $url;
 
 	if ( headers_sent() ) {
 		echo '<script type="text/javascript">window.location=\'' . $url . '\';</script>';
@@ -424,16 +430,15 @@ function redirecionar ($url=PAGINA_INICIAL)
  */
 function verificarTempoAtividadeSessao ()
 {
-	// Registra atividade da sessão
+	# quando sessão ultrapassou o tempo limite
 	if (isset($_SESSION['LAST_ACTIVITY']) && time() - $_SESSION['LAST_ACTIVITY'] > SESSAO_TTL ) { // last request was more than 30 minutes ago
 		finalizarSessao();
 		redirecionamentoTemporal();
 		exit;
 	}
 
-	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
+	$_SESSION['LAST_ACTIVITY'] = time(); # atualiza ultimo acesso da sessão
 
-	// Recria sessão a cada solicitação evitando ataques de sequestro de sessão
 	if ( !isset($_SESSION['CREATED']) ) {
 		$_SESSION['CREATED'] = time();
 	}

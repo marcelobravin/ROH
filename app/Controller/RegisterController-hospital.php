@@ -20,15 +20,18 @@ $id = inserir('hospital', $values);
 
 # ------------------------------------------------------------------------------ resposta
 if ( is_numeric($id) && $id > 0 ) {
-	$_SESSION['mensagem'] = "Inserido registro número: ". $id;
-	$_SESSION['mensagemClasse'] = "sucesso";
-
 	registrarOperacao('I', 'hospital', $id);
-	redirecionar(PROTOCOLO . ROOT_HTTP."formulario-atualizacao.php?modulo=hospital&codigo={$id}");
+
+	$resposta = "Inserido registro número: ". $id;
+	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
+
+	redirecionar("formulario-atualizacao.php?modulo=hospital&codigo={$id}");
 
 # ------------------------------------------------------------------------------ erros
 } else {
-	$_SESSION['mensagemClasse'] = "erro";
-	montarMensagemErro( $id );
+
+	$resposta = montarMensagemErro( $id ); # todo verificar
+	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
+
 	voltar();
 }

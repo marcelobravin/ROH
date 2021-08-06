@@ -2,7 +2,7 @@ $(document).ready(function(){
 	const hospitalId = findGetParameter("hospital")
 
 	$("#categoria").change(function(){
-		$( "form" ).addClass("invisivel")
+		$( ".aba" ).addClass("invisivel") // ------------------------------- arrumar outras telas
 		$( "#bloco-"+ $(this).val() ).removeClass("invisivel")
 
 		if ( hospitalId != null ) {
@@ -20,7 +20,6 @@ $(document).ready(function(){
 
 		fragmentos = fragmentos[0].split('/')
 
-		// achar roh +1
 		/* verificar compatibilidade */
 		var indiceRaiz = fragmentos.findIndex(function buscarIndice (value, idx) {
 			if (value == "ROH")

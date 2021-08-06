@@ -50,7 +50,7 @@ function calcula_frete($servico,$cep_origem,$cep_destino,$peso,$mao_propria,$val
 	$mao_propria = (strtolower($mao_propria) == 's') ? 's' : 'n';
 	$aviso_recebimento = (strtolower($aviso_recebimento) == 's') ? 's' : 'n';
 
-	$url = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=&sDsSenha=&sCepOrigem='. $cep_origem .'&sCepDestino='. $cep_destino .'&nVlPeso='. $peso .'&nCdFormato=1&nVlComprimento='. $comprimento .'&nVlAltura='. $altura .'&nVlLargura='. $largura .'&sCdMaoPropria='. $mao_propria .'&nVlValorDeclarado='. $valor_declarado .'&sCdAvisoRecebimento='. $aviso_recebimento .'&nCdServico='. $servico .'&nVlDiametro='. $diametro .'&StrRetorno=xml';;
+	$url = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=&sDsSenha=&sCepOrigem='. $cep_origem .'&sCepDestino='. $cep_destino .'&nVlPeso='. $peso .'&nCdFormato=1&nVlComprimento='. $comprimento .'&nVlAltura='. $altura .'&nVlLargura='. $largura .'&sCdMaoPropria='. $mao_propria .'&nVlValorDeclarado='. $valor_declarado .'&sCdAvisoRecebimento='. $aviso_recebimento .'&nCdServico='. $servico .'&nVlDiametro='. $diametro .'&StrRetorno=xml';
 
 	$conteudo = file_get_contents($url);
 	$frete_calcula = simplexml_load_string($conteudo);

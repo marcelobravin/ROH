@@ -3,8 +3,111 @@ cj-xfaYum4CR#rb
 
 
 
-regexp //
-    sem httpS:antes
+criar atalho alt ;
+    está conflitando com comentar linha no windows
+
+observar comportamento pós mudança
+REMOVER arquivos de modelo
+pra que precisa?
+	no exportar db da pra ja gerar o sql
+	e no gerar form em dev dá pra pegar na hora do db
+
+
+
+    configurarExibicaoErros(PRODUCAO); # TODO verificar
+
+
+    // Bracket pair colorizer
+        // "bracket-pair-colorizer-2.colors": [
+        //  "#8BE9FD",
+        //  "#50FA7B",
+        //  "#FFB86C",
+        //  "#FF79C6",
+        //  "#BD93F9",
+        //  "#F1FA8C"
+        // ],
+
+        "bracket-pair-colorizer-2.colorMode": "Consecutive",
+        "bracket-pair-colorizer-2.forceUniqueOpeningColor": false,
+        "bracket-pair-colorizer-2.forceIterationColorCycle": false,
+        "bracket-pair-colorizer-2.showBracketsInGutter": true,
+        "bracket-pair-colorizer-2.showBracketsInRuler": true,
+        "bracket-pair-colorizer-2.showVerticalScopeLine": true,
+        "bracket-pair-colorizer-2.showHorizontalScopeLine": true,
+        "bracket-pair-colorizer-2.unmatchedScopeColor": "#FF0000",
+
+    /**
+     * Atalho para incluir um arquivo com endereço absoluto
+     * @package grimoire/bibliotecas/arquivos.php
+     * @version 05-07-2015
+     *
+     * @param   string
+     * @return  bool
+     *
+     * @uses    $_SERVER
+     */
+    function arquivo ($arquivo = "imagens/logo.png")
+    {
+        echo BASE . "assets/" .$arquivo;
+    }
+
+
+
+
+
+    /**
+     * Limita caracteres sem cortar palavras
+     * @package grimoire/bibliotecas/texto.php
+     * @version 05-07-2015
+     *
+     * @param   string
+     * @param    int
+     * @param   string
+     * @return  string
+     */
+    function truncate ($string, $len, $etc='...')
+    {
+        $end = array(' ', '.', ',', ';', ':', '!', '?' );
+        if (strlen($string) <= $len) {
+            return $string;
+        }
+        if (!in_array($string[$len - 1], $end) && !in_array($string[$len], $end)) {
+            while (--$len && !in_array($string[$len - 1], $end));
+        }
+        return rtrim(substr($string, 0, $len)) . $etc;
+    }
+
+
+
+
+
+
+SMTP=smtp.gmail.com
+smtp_port=587
+sendmail_from = YourGmailId@gmail.com
+sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
+
+M4rkn3ss
+06/08/2021 12:06:01
+
+
+alterar case "foreignKey":
+
+Mark@gmail
+Resetar senha para envio de e em local host
+
+
+Agrupar parâmetros gerar formulário()
+Encapsular
+
+Segmentar em identificar tipo
+Segmentar em pegar descrição do bando e armazenar ou o a armazenada
+
+Registrar filosofias aplicadas
+early return
+DRY don't repeat yourself (colocar sub funções se necessário, identificar essas que estiverem fora e encapsular)
+ACID
+Direct if evitar usar not
 
 
 paginacao de select
@@ -967,34 +1070,6 @@ css defaults
     // }
 
 
-    // /**
-    //  * Realiza inserções nas tabelas
-    //  * @package grimoire/bibliotecas/acesso.php
-    //  * @version 05-07-2015
-    //  *
-    //  * @uses     GRIMOIRE."modelos/"
-    //  * @uses     persistencia.php->executar()
-    //  */
-    // //popularTabelas();
-    // function popularTabelas ()
-    //{
-    //  $modelos = glob(GRIMOIRE."/modelos/registros/*.sql");
-
-    //  foreach ($modelos as $modelo) {
-    //      $sqls = file_get_contents($modelo);
-    //      $sqls = explode(";\n", $sqls);
-    //      foreach ($sqls as $key => $sql) {
-    //          echo $sql. "<br>";
-    //          if (!empty($sql)) {
-    //              try {
-    //                  executar($sql);
-    //              } catch (Exception $e) {
-    //                  exibir($e);
-    //              }
-    //          }
-    //      }
-    //  }
-    // }
 
 
     // /**
@@ -1215,35 +1290,6 @@ css defaults
     //  echo "execution took: ". intervalo($inicio). " seconds.";
     // }
 
-
-    // /**
-    //  * Realiza inserções nas tabelas
-    //  * @package grimoire/bibliotecas/acesso.php
-    //  * @version 05-07-2015
-    //  *
-    //  * @uses     GRIMOIRE."modelos/"
-    //  * @uses     persistencia.php->executar()
-    //  */
-    // //popularTabelas();
-    // function popularTabelas ()
-    //{
-    //  $modelos = glob(GRIMOIRE."/modelos/registros/*.sql");
-
-    //  foreach ($modelos as $modelo) {
-    //      $sqls = file_get_contents($modelo);
-    //      $sqls = explode(";\n", $sqls);
-    //      foreach ($sqls as $key => $sql) {
-    //          echo $sql. "<br>";
-    //          if (!empty($sql)) {
-    //              try {
-    //                  executar($sql);
-    //              } catch (Exception $e) {
-    //                  exibir($e);
-    //              }
-    //          }
-    //      }
-    //  }
-    // }
 
     // /**
     //  * Exibe mensagem de erro
@@ -1995,3 +2041,85 @@ function utf8_rawurldecode ($raw_url_encoded)
         return utf8_encode(rawurldecode($raw_url_encoded));
     }
 }
+
+
+
+
+
+
+
+
+<?php
+
+require 'app/Grimoire/core_inc.php';
+require_once 'app/Grimoire/core_inc.php';
+
+//*
+
+exit;
+
+function s() {
+
+}
+
+// folha ponto e planilha hoje
+
+if (true) {
+	br();
+} elseif (false) {
+	pp("texto");
+} elseif (null) {
+	pp("texto2");
+} else {
+	exit;
+}
+
+
+foreach ($matriz as $v) {
+	echo 1;
+}
+die("dfdsf");
+die();
+die(1);
+
+$x = array(1,2,3);
+
+// Teste
+switch ($variable) {
+	case 'value':
+		# code...
+		break;
+
+	default :
+		# code...
+		break;
+}
+
+
+/** dfdsf */
+
+$y = [ "a", "b", "c"];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $a = array (
+// 	'nome' => 'zé'
+// );
+ //*/

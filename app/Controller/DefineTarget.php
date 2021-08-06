@@ -4,8 +4,8 @@ include '../../app/Grimoire/core_inc.php';
 # ------------------------------------------------------------------------------ insercao de novas especialidades
 foreach ($_POST['leitos'] as $key => $value) {
 	$values = array(
-		'hospital_id'	=> $_POST['hospital'],
-		'elemento_id'	=> $key,
+		'id_hospital'	=> $_POST['hospital'],
+		'id_elemento'	=> $key,
 		'quantidade'	=> $value,
 		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0,
 		'criado_por'	=> $_SESSION['user']['id'],
@@ -28,8 +28,8 @@ foreach ($_POST['leitos'] as $key => $value) {
 	);
 
 	$where = array(
-		'hospital_id'	=> $_POST['hospital'],
-		'elemento_id'	=> $key
+		'id_hospital'	=> $_POST['hospital'],
+		'id_elemento'	=> $key
 	);
 
 	$rows = atualizar("meta", $values, $where);
@@ -40,6 +40,8 @@ foreach ($_POST['leitos'] as $key => $value) {
 	}
 }
 
-$_SESSION['mensagem'] = "Atualizadas as metas do hospital ". $_POST['hospital'];
-$_SESSION['mensagemClasse'] = "sucesso";
+# sucesso
+$resposta = "Atualizadas as metas do hospital ". $_POST['hospital'];
+montarRespostaPost($resposta, true, $codigo=201); # 201 Created
+
 voltar();

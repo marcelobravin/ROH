@@ -12,27 +12,24 @@
  * @param	string
  * @return	bool
  */
-// function contemAcesso($conexao, $usuario, $url){
 function contemAcesso($usuario, $url){
 	$conexao = conectar();
 
 	$sql = "select *
-				from usuario_aplicacao	 ua
-					 , aplicacao					 ap
-					 , usuario						 u
-			 where ua.cd_aplicacao		 = ap.cd_aplicacao
-				 and ua.cd_usuario			 = u.cd_usuario
-				 and u.nm_usuario				= :USUARIO
-				 and ap.ds_url_aplicacao = :URL";
+				from usuario_aplicacao	ua
+					, aplicacao					ap
+					, usuario						u
+			where ua.cd_aplicacao		= ap.cd_aplicacao
+				and ua.cd_usuario			= u.cd_usuario
+				and u.nm_usuario				= :USUARIO
+				and ap.ds_url_aplicacao = :URL";
 
 	$stmt = oci_parse($conexao, $sql);
 	oci_bind_by_name($stmt, 'USUARIO', $usuario, 20, SQLT_CHR);
 	oci_bind_by_name($stmt, 'URL', $url, 4000, SQLT_CHR);
 
-	if(oci_execute($stmt)){
-		if(oci_fetch_all($stmt, $result) > 0){
-			return TRUE;
-		}
+	if(oci_execute($stmt) && oci_fetch_all($stmt, $result) > 0){
+		return TRUE;
 	}
 
 	return FALSE;
@@ -72,9 +69,9 @@ function executar($sql) {
  * @return	bool
  *
  * @uses		$_SERVER
+	$x = selecionar("vestibular_ciee", "EMAIL='marcelo.bravin@gmail.com'");
+	exibir($x);
  */
-// $x = selecionar("vestibular_ciee", "EMAIL='marcelo.bravin@gmail.com'");
-// exibir($x);
 function selecionar($tabela, $criterios="", $diretrizes=null, $campos=null) {
 	$sql = selecao(PREFIXO_TABELAS . $tabela, $criterios, $diretrizes, $campos);
 	$cConexao = conectar();
@@ -88,11 +85,9 @@ function selecionar($tabela, $criterios="", $diretrizes=null, $campos=null) {
 
 	oci_close($cConexao);
 
-	if ( count($resposta==1) ) {
+	if ( count($resposta)==1 ) {
 		$resposta = $resposta[0];
 	}
-
-	#$resposta = converterUtf8($resposta);
 
 	return $resposta;
 }
@@ -106,9 +101,9 @@ function selecionar($tabela, $criterios="", $diretrizes=null, $campos=null) {
  * @return	bool
  *
  * @uses		$_SERVER
+	$x = listar("vestibular_ciee");
+	exibir($x);
  */
-// $x = listar("vestibular_ciee");
-// exibir($x);
 function listar($tabela, $criterios="", $diretrizes=null, $campos=null) {
 	$sql = selecao(PREFIXO_TABELAS . $tabela, $criterios, $diretrizes, $campos);
 	$cConexao = conectar();
@@ -121,7 +116,6 @@ function listar($tabela, $criterios="", $diretrizes=null, $campos=null) {
 	}
 
 	oci_close($cConexao);
-	// $resposta = converterUtf8($resposta);
 
 	return $resposta;
 }
@@ -135,8 +129,6 @@ function listar($tabela, $criterios="", $diretrizes=null, $campos=null) {
  * @return	bool
  *
  * @uses		$_SERVER
- */
-/*
 	$x = selecionar("vestibular_ciee", "EMAIL='a@a'");
 	exibir( $x );
 	$x['TREINEIRO'] = 'N';
@@ -144,7 +136,7 @@ function listar($tabela, $criterios="", $diretrizes=null, $campos=null) {
 
 	$resposta = atualizar("vestibular_ciee", $x, "EMAIL='a@a'");
 	exibir( $resposta );
-*/
+ */
 function atualizar($tabela, $objeto, $condicao="") {
 	$sql = atualizacao(PREFIXO_TABELAS . $tabela, $objeto, $condicao);
 	$cConexao = conectar();
@@ -165,7 +157,7 @@ function atualizar($tabela, $objeto, $condicao="") {
 	}
 
 	$json = json_encode($resposta);
-	$con = null;
+	$cConexao = null;
 	return $json;
 }
 
@@ -178,8 +170,6 @@ function atualizar($tabela, $objeto, $condicao="") {
  * @return	bool
  *
  * @uses		$_SERVER
- */
-/*
 	$post = array(
 			'RG' => '1234567890',
 			'EMAIL' => 'marcelo.bravin@gmail.com',
@@ -197,7 +187,7 @@ function atualizar($tabela, $objeto, $condicao="") {
 	);
 	$resposta = inserir('vestibular_ciee', $post);
 	exibir($reposta);
-*/
+ */
 function inserir($tabela, $campos) {
 	$sql = insercao(PREFIXO_TABELAS . $tabela, $campos);
 	$sql = str_replace("`", "", $sql); # Correção para ORACLE
@@ -206,10 +196,6 @@ function inserir($tabela, $campos) {
 
 	if ( oci_execute($statement, OCI_NO_AUTO_COMMIT) ) {
 		oci_commit($cConexao);
-		// $resposta = array(
-		//	 "status" => "OK",
-		//	 "msg" => "Registro inserido com sucesso!"
-		// );
 
 		$resposta = selecionar($tabela, "", "", "MAX(ID)");
 	} else {
@@ -220,8 +206,7 @@ function inserir($tabela, $campos) {
 		);
 	}
 
-	// $json = json_encode($resposta);
-	$con = null;
+	$cConexao = null;
 	return $resposta;
 }
 
@@ -234,9 +219,9 @@ function inserir($tabela, $campos) {
  * @return	bool
  *
  * @uses		$_SERVER
+	excluir("tabela");
+	echo excluir("vestibular_ciee", "EMAIL='marcelo.bravin@gmail.com'");
  */
-// excluir("tabela");
-// echo excluir("vestibular_ciee", "EMAIL='marcelo.bravin@gmail.com'");
 function excluir($tabela, $condicao) {
 
 	echo $sql = exclusao(PREFIXO_TABELAS . $tabela, $condicao);
@@ -258,7 +243,7 @@ function excluir($tabela, $condicao) {
 	}
 
 	$json = json_encode($resposta);
-	$con = null;
+	$cConexao = null;
 	return $json;
 }
 
@@ -271,21 +256,18 @@ function excluir($tabela, $condicao) {
  * @return	bool
  *
  * @uses		$_SERVER
+	$banco = visualizarBanco();
+	exibir($banco);
  */
-/*
-$banco = visualizarBanco();
-exibir($banco);
-*/
 function visualizarBanco() {
 	$tabelas = listarTabelas();
-	foreach ($tabelas as $key => $value) {
+	foreach ($tabelas as $value) {
 		$colunas = listarColunas($value['TABLE_NAME']);
 	}
-	$retorno = array(
+	return array(
 		'tabelas' => $tabelas,
 		'colunas' => $colunas
 	);
-	return $retorno;
 }
 
 /**
@@ -303,7 +285,6 @@ function visualizarBanco() {
 function listarTabelas($campos="*") {
 	$sql = "SELECT {$campos} FROM all_tables";
 	return executar($sql);
-	// return "SELECT {$campos} FROM dba_tables"; // se usuário tiver acesso a dba_tables
 }
 
 /**
@@ -315,11 +296,9 @@ function listarTabelas($campos="*") {
  * @return	bool
  *
  * @uses		$_SERVER
+	$colunas = listarColunas('VESTIBULAR_CIEE');
+	exibir($colunas);
  */
-/*
-$colunas = listarColunas('VESTIBULAR_CIEE');
-exibir($colunas);
-*/
 function listarColunas($tabela, $campos="*") {
 	$sql = "SELECT {$campos} FROM user_tab_cols WHERE table_name = '{$tabela}'";
 	return executar($sql);

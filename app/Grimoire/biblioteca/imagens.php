@@ -2,7 +2,7 @@
 /**
  * Manipulação de imagens
  * @package grimoire/bibliotecas
-*/
+ */
 
 /**
  * Cria thumb de uma imagem
@@ -457,7 +457,7 @@ function retornarImagem2 ($imagem, $x=100, $y=100, $fundo="F9F9F9", $letra="CCCC
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function imageClassifier ($images)
 {
 	$imagesSorted = array();
@@ -492,7 +492,7 @@ function imageClassifier ($images)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function imageGrouper ($images)
 {
 	$imagesSorted = imageClassifier($images);
@@ -516,7 +516,7 @@ function imageGrouper ($images)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function imageCollation ($images, $fileName)
 {
 	$firstKey = array_key_first($images);
@@ -578,7 +578,7 @@ function imageCollation ($images, $fileName)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function createTransparentImage ($sum_width, $sum_height)
 {
 	if ($sum_width == 0) {
@@ -609,7 +609,7 @@ function createTransparentImage ($sum_width, $sum_height)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function processImages ($tmp, $images, $dimensions, $sqRt)
 {
 	$positionX = 0;
@@ -669,7 +669,7 @@ function processImages ($tmp, $images, $dimensions, $sqRt)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP")
 {
 	$path = $dir . $filename . ".png";
@@ -691,7 +691,7 @@ function saveImage ($tmp, $dir='assets/images/auto-generated/', $filename="_MAP"
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
+ */
 function generateSpriteAtlas ($fileName, $array)
 {
 	$jsonArray = array();

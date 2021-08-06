@@ -1,8 +1,6 @@
 <meta charset="<?php echo CARACTERES ?>">
 <title>
-	<?php echo $PAGINA['titulo'] ?>
-	<?php echo !empty($PAGINA['titulo']) && !empty($PAGINA['subtitulo']) ? SEPARADOR_TITULO : "" ?>
-	<?php echo $PAGINA['subtitulo'] ?>
+	<?php echo montarTituloPagina($PAGINA) ?>
 </title>
 <meta name="description" content="<?php echo DESCRICAO_SITE ?>">
 <meta name="keywords" content="<?php echo PALAVRAS_CHAVE ?>">
@@ -29,10 +27,10 @@
 <link rel="stylesheet" type="text/css" href="public/css/resets.css">
 <link rel="stylesheet" type="text/css" href="public/css/topo.css">
 
-<!-- tem que baixar as webfonts -->
+
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-<script src="public/vendors/jquery-3.6.0.slim.min.js"></script>
+<script src="public/vendors/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	if (typeof jQuery == 'undefined') {
 		document.write(unescape("%3Cscript src='public/vendors/jquery-3.6.0.slim.min.js' %3E%3C/script%3E"));
@@ -76,11 +74,5 @@
 		max-width: 90%;
 	}
 
-
-
-
-/*
-	input[type="submit"]:focus {
-		margin-top: 22px;
-	} */
+	<?php echo sublinharPaginaAtual() ?>
 </style>

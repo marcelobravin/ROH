@@ -35,16 +35,17 @@ function montarMensagemErro ( $erro )
 {
 	$erro = $erro->getMessage();
 
-	# tentou atualizar o login para um repetido
 	if ( contem("Duplicate entry", $erro) ) {
 
 		if ( contem("for key 'cpf'", $erro) ) {
-			$_SESSION['mensagem'] = "CPF já existe!";
+			$erro = "CPF já existe!";
 		} else if ( contem("for key 'login'", $erro) ) {
-			$_SESSION['mensagem'] = "Email já existe!";
+			$erro = "Email já existe!";
 		}
 
 	} else {
-		exibir($erro);
+		exibir($erro, true); # Erro deconhecido
 	}
+
+	return $erro;
 }

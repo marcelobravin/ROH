@@ -13,7 +13,7 @@
  * @param	string
  * @return	array
  *
- * @uses		arquivos.php->fazerUpload()
+ * @uses	arquivos.php->fazerUpload()
  */
 function anexarArquivo ($vetor, $caminho)
 {
@@ -81,9 +81,9 @@ function array_para_csv (array &$array)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
+	// http://pt.stackoverflow.com/questions/9596/como-exportar-uma-tabela-para-csv-usando-php
+	// Pra fazer o download do arquivo gerado:
 */
-// http://pt.stackoverflow.com/questions/9596/como-exportar-uma-tabela-para-csv-usando-php
-// Pra fazer o download do arquivo gerado:
 function cabecalho_download_csv ($filename="relatorio")
 {
 	// desabilitar cache
@@ -104,21 +104,6 @@ function cabecalho_download_csv ($filename="relatorio")
 	header("Content-Disposition: attachment;filename={$filename}");
 	header("Content-Transfer-Encoding: binary");
 	// echo "\xEF\xBB\xBF"; // UTF-8 BOM
-}
-
-/**
- * Atalho para incluir um arquivo com endereço absoluto
- * @package	grimoire/bibliotecas/arquivos.php
- * @version	05-07-2015
- *
- * @param	string
- * @return	bool
- *
- * @uses	$_SERVER
- */
-function arquivo ($arquivo = "imagens/logo.png")
-{
-	echo ROOT . "assets/" .$arquivo;
 }
 
 /**
@@ -417,8 +402,8 @@ function excluirArquivos ($criterio)
 		echo fazerUpload($_FILES['foto'], true, "", 1024, array("imagem"));
 		echo fazerUpload($_FILES['foto'], null, "", 1024, array("imagem"));
 	}
+	//echo fazerUpload($_FILES['arquivo'], true, "../../img/fotos/"); // IMPORTANTE ADICIONAR BARRA NO FINAL
 */
-//echo fazerUpload($_FILES['arquivo'], true, "../../img/fotos/"); // IMPORTANTE ADICIONAR BARRA NO FINAL
 function fazerUpload ($arquivo, $nome="upload", $caminho="", $tamanhoMax=0, $tiposAceitados=null, $sobrescrever=false)
 {
 	// Se nome for true utiliza timestamp como nome
@@ -504,8 +489,8 @@ function headersExcell ($arquivo)
 */
 function incluir ($caminho = "frames/metas.php")
 {
-	if ( file_exists(ROOT . $caminho) ) {
-		include ROOT . $caminho;
+	if ( file_exists(BASE . $caminho) ) {
+		include BASE . $caminho;
 		return true;
 	}
 	return false;
@@ -573,9 +558,9 @@ function identificarTipo ($arquivo)
  *
  * @param	string
  * @return	string
+	# function limparNomeArquivo ($arquivo, $separador="/") # linux
+	// function limparNomeArquivo ($arquivo, $separador="\\") # windows
  */
-# function limparNomeArquivo ($arquivo, $separador="/") # linus
-// function limparNomeArquivo ($arquivo, $separador="\\") # windows
 function limparNomeArquivo ($arquivo)
 {
 	$arquivo = explode(DIRECTORY_SEPARATOR, $arquivo);
@@ -602,7 +587,6 @@ function retornarExtensao ($arquivo)
 	$extensao = end($extensao);
 	return $extensao;
 }
-
 
 /**
  * Escreve o conteúdo em um arquivo

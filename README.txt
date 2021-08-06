@@ -1,19 +1,36 @@
 BUGs conhecidos ################################################################
 vazamento de mensagem de erro da sessão
 
+
+
+testar novamente ajax com tempo expirado
+
+
+colocar confirmação de email de volta no form de usuário
+
+
+<!-- tem que baixar as webfonts -->
+
+
+queda de sessão em telas de controles
+	definir metas
+	gerar relatórios
+
+
+
 # ############################################################################## reunião com meire ellen
 
 meire ellen vai confirmar necessidade de upload de arquivos
 
 verificar quem aprova justificativas
 
-OK - filtro em listas
-
 ambiente homolog
 	meire ellen testar (disponibilizar ip da minha máquina resolve)
 
-opção de salvar como rascunho
-	confirmar registro definitivo
+OK - filtro em listas
+
+OK - opção de salvar como rascunho
+	OK - confirmar registro definitivo
 
 OK ADICIONAR CAMPO
 	CBO	(cargo)
