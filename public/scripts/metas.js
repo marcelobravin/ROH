@@ -24,11 +24,7 @@ $(document).ready(function(){
 
 		fragmentos = fragmentos[0].split('/')
 
-		/* TODO verificar compatibilidade */
-		var indiceRaiz = fragmentos.findIndex(function buscarIndice (value, idx) {
-			if (value == "ROH")
-				return idx;
-		})
+		var indiceRaiz = localizarIndiceRaiz(fragmentos)
 
 		window.location.href = fragmentos[indiceRaiz+1] + "?hospital="+h
 	})
@@ -49,4 +45,15 @@ function findGetParameter(parameterName) {
 			if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
 		});
 	return result;
+}
+
+// Encontra diretorio do projeto
+/* TODO verificar compatibilidade */
+function localizarIndiceRaiz (fragmentos)
+{
+	return fragmentos.findIndex(function buscarIndice (value, idx) {
+		if (value == "ROH") {
+			return idx
+		}
+	})
 }

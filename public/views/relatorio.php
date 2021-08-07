@@ -11,21 +11,24 @@
 				<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 			</select>
 
-			<label for="ano">Ano</label>
-			<select name="ano" id="ano">
-				<?php foreach ($anos as $v) : ?>
-					<?php if ( !$hospitalValido ): ?>
-						<option value="<?php echo $v ?>"><?php echo $v ?></option>
-					<?php else: ?>
-						<option selected value="<?php echo $v ?>"><?php echo $v ?></option>
-					<?php endif ?>
-				<?php endforeach ?>
-			</select>
+			<?php if ( $hospitalValido ): ?>
+				<label for="ano">Ano</label>
+				<select name="ano" id="ano">
+					<?php foreach ($anos as $v) : ?>
+						<?php if ( !$hospitalValido ): ?>
+							<option value="<?php echo $v ?>"><?php echo $v ?></option>
+						<?php else: ?>
+							<option selected value="<?php echo $v ?>"><?php echo $v ?></option>
+						<?php endif ?>
+					<?php endforeach ?>
+				</select>
 
-			<label for="mes">Mês</label>
-			<select name="mes" id="mes">
-				<?php echo gerarOptions($meses, $mesSelecionado) ?>
-			</select>
+				<label for="mes">Mês</label>
+				<select name="mes" id="mes">
+					<?php echo gerarOptions($meses, $mesSelecionado) ?>
+				</select>
+			<?php endif ?>
+
 		</div>
 	</div>
 
@@ -167,7 +170,6 @@
 	<?php endif ?>
 </div>
 
-<script src="public/scripts/metas.js"></script>
 <script src="public/scripts/relatorio.js"></script>
 
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">
