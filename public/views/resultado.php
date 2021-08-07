@@ -72,7 +72,7 @@
 												<?php if ( isset($e['resultado']) ): ?>
 													<input type="text" disabled value="<?php echo $e['resultado'] ?>" />
 												<?php else: ?>
-													<input type="text" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
+													<input type="text" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
 												<?php endif ?>
 
 											<?php endif ?>

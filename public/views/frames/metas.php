@@ -38,18 +38,6 @@
 	}
 </script>
 
-<script>
-$(document).ready(function(){
-	if ($("#caixaMensagem").text().length == 0) {
-		$("#caixaMensagem").slideDown()
-	}
-
-	$("#caixaMensagem").click(function(){
-		$(this).slideUp()
-	})
-})
-</script>
-
 <script src="public/vendors/sweet-alert.js"></script>
 
 <style type="text/css">

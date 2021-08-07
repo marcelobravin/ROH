@@ -745,32 +745,6 @@ function isEmail ($param)
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
 */
-function positivo ($param)
-{
-	if ( is_numeric($param) ) {
-		return $param > 0;
-	}
-
-	return false;
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
 function montaRespostaValidacao ($errosFormulario)
 {
 	$_SESSION['mensagem'] = "Erro no preenchimento do formulário!";

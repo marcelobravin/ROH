@@ -273,3 +273,24 @@ function par($var)
 {
 	return (!($var & 1));
 }
+
+/**
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	24-06-2021
+ *
+ * @param	int
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function positivo ($param)
+{
+	if ( is_numeric($param) ) {
+		return $param > 0;
+	}
+
+	return false;
+}

@@ -29,7 +29,6 @@ if ( is_numeric($id) && $id > 0 ) {
 
 # ------------------------------------------------------------------------------ erros
 } else {
-
 	$resposta = montarMensagemErro( $id ); # todo verificar
 	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 

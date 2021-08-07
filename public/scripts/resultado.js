@@ -1,22 +1,12 @@
 $(document).ready(function(){
 	exibirLocalStorage()
 
-	$(".sucesso, .erro").click(function(){
-		$(this).slideToggle('slow')
-	})
+	// $(".sucesso, .erro").click(function(){
+	// 	$(this).slideToggle('slow')
+	// })
 
-	$("[type='text']").on("keyup change", function(){
-		const $this = $(this)
-		const id = $this.data("id")
-
-		if ( $this.val()!="" && $this.val() < $this.data("meta") ) {
-			$("#justificativa-" +id).removeAttr("disabled")
-			$this.parent().parent().addClass("insuficiente")
-
-		} else {
-			$("#justificativa-" +id).attr("disabled", "disabled")
-			$this.parent().parent().removeClass("insuficiente")
-		}
+	$("[type='text']:not(:disabled)").on("keyup change", function(){
+		verificarMeta( $(this) )
 	})
 
 	$(".salvarTemporariamente").click(function(){
@@ -31,7 +21,7 @@ $(document).ready(function(){
 			if ( i["value"] != "" ) {
 				localStorage.setItem( i["id"], i["value"] )
 
-				if ( t["value"] != "" ) {
+				if ( typeof t != 'undefined' && t["value"] != "" ) {
 					localStorage.setItem( t["id"], t["value"] )
 				}
 			}
@@ -63,18 +53,26 @@ $(document).ready(function(){
 
 function exibirLocalStorage ()
 {
+	// for (var i=localStorage.length; i>0; i--) {
+		// console.log(i-1);
 	for (var i=0; i<localStorage.length; i++) {
 		const idLS = localStorage.key(i)
-		const valor = localStorage.getItem(idLS)
 
 		if (idLS != "") {
+			const valor = localStorage.getItem(idLS)
+
+			// console.log(idLS);
+			// console.log(valor);
+			// console.log("ffffff");
 			$( "#"+idLS ).val( valor )
+			$( "#"+idLS ).focus()
+
+			console.log( $("#"+idLS).is( "input" ));
+			if ( $("#"+idLS).is( "input" ) ) {
+				verificarMeta( $("#"+idLS) )
+			}
 		}
 	}
-}
-
-function limparLocalStorage () {
-	localStorage.clear()
 }
 
 function prepararParametros ()
@@ -83,7 +81,7 @@ function prepararParametros ()
 
 	var parametros = []
 	for ( const [index] of inputs.entries() ) {
-
+	// for (let index = 0; index < inputs.length; index++) {
 		const i = inputs[index];
 
 		let metaId = i["id"].split("-")
@@ -111,9 +109,7 @@ function requisicaoAjax(parametros)
 			dataType: 'json',
 			data	: { form: parametros },
 			beforeSend: function(xhr) {
-				alert("dffs");
 				$("body").append('<div id="ajaxLoader"></div>')
-				console.log(parametros);
 			},
 			success: data =>{
 				resolve(true)
@@ -123,7 +119,7 @@ function requisicaoAjax(parametros)
 			error: erro =>{
 				reject(erro)
 
-				const pattern = /^Você será redirecionado/i;
+				const pattern = /^Você será redirecionado/i; // TODO verificar
 				const result = pattern.test( erro.responseText );
 
 				if (result === true) {
@@ -133,4 +129,18 @@ function requisicaoAjax(parametros)
 			}
 		})
 	})
+}
+
+function verificarMeta ($this)
+{
+	const id = $this.data("id")
+
+	if ( $this.val()!="" && $this.val() < $this.data("meta") ) {
+		$("#justificativa-" +id).removeAttr("disabled")
+		$this.parent().parent().addClass("insuficiente")
+
+	} else {
+		$("#justificativa-" +id).attr("disabled", "disabled")
+		$this.parent().parent().removeClass("insuficiente")
+	}
 }
