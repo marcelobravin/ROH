@@ -23,7 +23,6 @@ function i ($termoSolicitado)
 		? $idiomaSelecionado = IDIOMA // pega do navegador ou SO e insere na sessão
 		: $idiomaSelecionado = $_SESSION['idiomaSelecionado'];
 
-	/* if (!file_exists($PAGINA.php)) cria */
 	$pagina_atual = limparNomeArquivo(__FILE__);
 
 	include_once "internacionalizacao/". $pagina_atual .".php";

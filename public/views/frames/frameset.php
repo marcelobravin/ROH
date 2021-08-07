@@ -5,15 +5,13 @@
 	</head>
 	<body>
 		<?php
-		if ( !isset($omitirMenu) ) {
-			include "public/views/frames/header.php";
-		}
+			if ( !isset($omitirMenu) ) {
+				include "public/views/frames/header.php";
+			}
 		?>
 
 		<?php include "public/views/components/mensagemSaida.php" ?>
 
-		<?php include "public/views/{$PAGINA['endereco']}" ?>
-
-		<?php #include "public/views/frames/footer.php" ?>
+		<?php include "public/views/{$PAGINA['endereco']}" #pagina de mesmo nome da pagina atual ou sobrescrita no arquivo pai desse ?>
 	</body>
 </html>

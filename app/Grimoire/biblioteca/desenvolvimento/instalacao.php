@@ -153,10 +153,9 @@ function exportarBD ()
 
 		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t['Tables_in_'. DBNAME]}.sql", $sql, true);
 
-		gerarModelo($t['Tables_in_'. DBNAME], $d);
 		gerarInserts($t['Tables_in_'. DBNAME]);
 
-		$sqls = gerarFKs($t['Tables_in_'. DBNAME]);
+		$sqls = gerarFKs($t['Tables_in_'. DBNAME]); # TODO retirar geração e ao exportar mandar as em uso
 
 		if ( !empty($sqls['INSERT']) ) {
 			$content = $sqls['ALTER TABLE'];
@@ -306,49 +305,6 @@ function gerarEnv ()
 {
 	$conteudo = "HOST=localhost\nBD=db_relatorio_ocupacao_hospitalar\nUSUARIO=root\SENHA=\nPORT=3306";
 	return escrever(ARQUIVOS_EFEMEROS ."/.env", $conteudo, true);
-}
-
-/**
- * Gera arquivo para recriação da tabela
- * @package	grimoire/bibliotecas/arquivos.php
- * @version	05-07-2015
- * @version	12/07/2021 09:08:57
- *
- * @param	string
- * @param	array
- *
- * @uses	tempo.php->agora()
- * @uses	arquivos.php->escrever()
- *
- * @deprecated
- */
-function gerarModelo ($nome, $descricao)
-{
-	$campos = '';
-	foreach ($descricao as $key => $value) {
-		$campos .= '
-			$campos['. $key .'] = array(
-				"Field"		=> "'. $value['Field'] .'",
-				"Type"		=> "'. $value['Type'] .'",
-				"Null"		=> "'. $value['Null'] .'",
-				"Key"		=> "'. $value['Key'] .'",
-				"Default"	=> "'. $value['Default'] .'",
-				"Extra"		=> "'. $value['Extra'] .'",
-				"Comment"	=> "'. $value['Comment'] .'"
-			);
-		';
-	}
-
-	$conteudo = '<?php
-		/**
-		 * '. $nome .'
-		 * @package	grimoire/modelos
-		 * @version	'. agora( IDIOMA=='pt-BR' ) .'
-		*/
-		'. $campos .'
-	';
-
-	escrever(ARQUIVOS_EFEMEROS."/modelos/{$nome}.php", $conteudo, true);
 }
 
 function getDirectoryFiles ($path='.')

@@ -747,33 +747,32 @@ function isEmail ($param)
 */
 function montaRespostaValidacao ($errosFormulario)
 {
-	$_SESSION['mensagem'] = "Erro no preenchimento do formulário!";
-	$_SESSION['mensagemClasse'] = "erro";
+	$resposta = "Erro no preenchimento do formulário!";
 
 	foreach ($errosFormulario as $i => $v) {
 		if ( is_numeric($i)) {
-			$_SESSION['mensagem'] .= "<br>-".$v;
+			$resposta .= "<br>-".$v;
 		} else {
 			switch ( $i ) {
 				case "violacoes_de_formato" :
 					foreach ($v as $v2) {
-						$_SESSION['mensagem'] .= "<br>-".$v2['campo']. " contém caracteres inválidos";
+						$resposta .= "<br>-".$v2['campo']. " contém caracteres inválidos";
 					}
 					break;
 				case "campos_obrigatorios_nao_preenchidos" :
 					foreach ($v as $v2) {
-						$_SESSION['mensagem'] .= "<br>-".$v2. " é obrigatório";
+						$resposta .= "<br>-".$v2. " é obrigatório";
 					}
 					break;
 				case "violacoes_tamanho_minimo" :
 					foreach ($v as $v2) {
-						$_SESSION['mensagem'] .= "<br>-".$v2['campo']. " não pode ter menos de {$v2['numero']} caracteres";
+						$resposta .= "<br>-".$v2['campo']. " não pode ter menos de {$v2['numero']} caracteres";
 					}
 					break;
 
 				case "violacoes_tamanho_maximo" :
 					foreach ($v as $v2) {
-						$_SESSION['mensagem'] .= "<br>-".$v2['campo']. " não pode ter mais de {$v2['numero']} caracteres";
+						$resposta .= "<br>-".$v2['campo']. " não pode ter mais de {$v2['numero']} caracteres";
 					}
 					break;
 
@@ -781,4 +780,6 @@ function montaRespostaValidacao ($errosFormulario)
 			}
 		}
 	}
+
+	montarRespostaPost($resposta, false, 201); # 201 Created
 }

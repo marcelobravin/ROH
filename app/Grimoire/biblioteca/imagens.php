@@ -414,7 +414,6 @@ function imagemStub ($altura=300, $largura=400)
 function retornarImagem ($imagem, $x=100, $y=100)
 {
 	if (empty($imagem)) {
-	//|| !file_exists($imagem)) {
 		return "https://placehold.it/{$x}x{$y}";
 	}
 
@@ -436,7 +435,6 @@ function retornarImagem ($imagem, $x=100, $y=100)
 function retornarImagem2 ($imagem, $x=100, $y=100, $fundo="F9F9F9", $letra="CCCCCC")
 {
 	if (empty($imagem)) {
-	//|| !file_exists($imagem)) {
 		return "https://placehold.it/{$x}x{$y}/{$fundo}/{$letra}";
 	}
 

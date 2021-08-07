@@ -42,7 +42,7 @@ function defineCriteriosBusca ($get)
 	if ( isset($get['paginacao']['filtroPaginacao']) ) {
 		$c = $get['paginacao']['campo'];
 		$o = $get['paginacao']['operador'];
-		$f = $get['paginacao']['filtroPaginacao'];
+		$f = addslashes($get['paginacao']['filtroPaginacao']);
 
 		switch ( $o ) {
 			case 'contem':

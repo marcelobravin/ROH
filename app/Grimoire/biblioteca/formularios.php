@@ -200,7 +200,7 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 		if ( $value['Type'] == "tinyint(1)" ) {
 			$registro[ $value['Field'] ] = 1;
 		} else {
-			$registro[ $value['Field'] ] = '<?php echo $obj[&quot;'. $value['Field'] .'&quot;] ?&gt;';
+			$registro[ $value['Field'] ] = '<?php echo bloquearXSS([&quot;'. $value['Field'] .'&quot;]) ?&gt;';
 		}
 	}
 

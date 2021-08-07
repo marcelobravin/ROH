@@ -491,9 +491,9 @@ function incluir ($caminho = "frames/metas.php")
 {
 	if ( file_exists(BASE . $caminho) ) {
 		include BASE . $caminho;
-		return true;
+	} else {
+		die($caminho ." não encontrado");
 	}
-	return false;
 }
 
 /**

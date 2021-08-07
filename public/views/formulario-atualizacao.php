@@ -2,8 +2,8 @@
 	<h2>Atualização</h2>
 
 	<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
-		<?php #require 'public/views/forms/'.MODULO.'-atualizacao.php'  #--- prod ?>
-		<?php require '_arquivos_auto_gerados/views/'.MODULO.'-atualizacao.php' #  dev ?>
+
+		<?php incluir($PAGINA['submodulo']) ?>
 
 		<input type="submit" value="ATUALIZAR" />
 	</form>

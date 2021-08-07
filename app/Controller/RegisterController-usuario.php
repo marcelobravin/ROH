@@ -24,7 +24,7 @@ $values = array(
 $id = inserir('usuario', $values);
 
 # ------------------------------------------------------------------------------ resposta
-if ( is_numeric($id) && $id > 0 ) {
+if ( positivo($id) ) {
 	registrarOperacao('I', 'usuario', $id);
 
 	$resposta = "Inserido registro número: ". $id;
@@ -35,7 +35,6 @@ if ( is_numeric($id) && $id > 0 ) {
 	# ------------------------------------------------------------------------------ erros
 } else {
 	$resposta = montarMensagemErro( $id );
-
 	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 
 	voltar();

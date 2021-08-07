@@ -14,7 +14,7 @@
 		<?php foreach ($paginacao['listaPaginada'] as $obj) : ?>
 		<tr>
 			<td><?php echo $obj['id'] ?></td>
-			<td><?php echo $obj['login'] ?></td>
+			<td><?php echo bloquearXSS($obj['login']) ?></td>
 			<td>
 				<button>
 					<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $obj['id'] ?>">Editar</a>

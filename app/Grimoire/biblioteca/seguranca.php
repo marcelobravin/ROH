@@ -148,3 +148,11 @@ function bloquearForcaBruta ($id, $conexao)
 		die("Usuário bloqueado temporariamente!");
 	}
 }
+
+/**
+ * 07/08/2021 15:49:38
+*/
+function bloquearXSS ($inputUsuario)
+{
+	return htmlentities($inputUsuario);
+}

@@ -15,7 +15,7 @@
 
 		<tr>
 			<td><?php echo $obj['id'] ?></td>
-			<td><?php echo $obj['titulo'] ?></td>
+			<td><?php echo bloquearXSS($obj['titulo']) ?></td>
 			<td>
 				<button>
 					<a href="formulario-atualizacao.php?modulo=hospital&codigo=<?php echo $obj['id'] ?>">Editar</a>

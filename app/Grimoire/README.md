@@ -2,6 +2,14 @@ senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
 
 
+addslashes
+
+<script>alert("vc sofreu um ataque XSS ")</script>
+
+Testar xss nos meus projetos
+Colocar isso num formulário de i/u
+Script
+Alerta(vulnerável)
 
 criar atalho alt ;
     está conflitando com comentar linha no windows

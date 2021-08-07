@@ -19,7 +19,7 @@ $values = array(
 $id = inserir('hospital', $values);
 
 # ------------------------------------------------------------------------------ resposta
-if ( is_numeric($id) && $id > 0 ) {
+if ( positivo($id) ) {
 	registrarOperacao('I', 'hospital', $id);
 
 	$resposta = "Inserido registro número: ". $id;
