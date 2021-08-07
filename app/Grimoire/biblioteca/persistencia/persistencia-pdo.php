@@ -360,7 +360,7 @@ function inserir ($tabela, $campos)
 		, 'senha' => hashPassword($_POST['senha'])
 	);
 	$user = selecionar('usuarios', $condicoes);
-	p($user);
+	exibir($user);
  */
 function selecionar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
 {

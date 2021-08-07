@@ -12,4 +12,12 @@
 		$hospitalValido = positivo($_GET['hospital']); # inteiro tb
 	}
 
+	# da escape em campos de texto
+	foreach ($hospitais as $i=>$h) {
+		$hospitais[$i]['titulo'] = bloquearXSS($h['titulo']);
+	}
+	foreach ($categorias as $i=>$h) {
+		$categorias[$i]['titulo'] = bloquearXSS($h['titulo']);
+	}
+
 	include "public/views/frames/frameset.php";

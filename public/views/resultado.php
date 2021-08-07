@@ -35,7 +35,7 @@
 
 				<?php foreach ($categorias as $v) : ?>
 					<div id="bloco-<?php echo $v['id'] ?>" class="invisivel aba">
-						<h4><?php echo $v['titulo'] ?></h4>
+						<h4><?php echo $v['tituloSanitizado'] ?></h4>
 
 						<table>
 							<caption><?php echo $v['legenda'] ?></caption>

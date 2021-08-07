@@ -4,6 +4,11 @@ cj-xfaYum4CR#rb
 
 addslashes
 
+
+tratar xss on insert no bd tb
+
+testar xss no usuário e na justificativa
+
 <script>alert("vc sofreu um ataque XSS ")</script>
 
 Testar xss nos meus projetos
@@ -22,7 +27,7 @@ pra que precisa?
 	no exportar db da pra ja gerar o sql
 	e no gerar form em dev dá pra pegar na hora do db
 
-
+07/08/2021 15:49:38
 
     configurarExibicaoErros(PRODUCAO); # TODO verificar
 

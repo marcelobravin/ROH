@@ -4,8 +4,8 @@ include 'app/Grimoire/core_inc.php';
 $PAGINA['titulo']		= "Verificação de Metas";
 $PAGINA['subtitulo']	= DESCRICAO_SITE;
 
-$categorias	= selecionar("categoria", array(), "ORDER BY titulo");
-$hospitais	= selecionar("hospital", array(), "ORDER BY titulo");
+$categorias	= selecionar("categoria", "", "ORDER BY titulo");
+$hospitais	= selecionar("hospital", "", "ORDER BY titulo");
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
 $st_mesAtual = $meses[date('n')];
@@ -65,6 +65,31 @@ if ( isset($_GET['hospital']) ) {
 	foreach ($matriz as $e) {
 		$especialidades[$e['categoria_nome']][] = $e;
 	}
+
+	# da escape em campos de texto
+	foreach ($especialidades as $i=>$h) {
+		foreach ($especialidades[$i] as $j=>$v) {
+			$especialidades[$i][$j]['categoria_nome']		= bloquearXSS($v['categoria_nome']);
+			$especialidades[$i][$j]['categoria_legenda']	= bloquearXSS($v['categoria_legenda']);
+			$especialidades[$i][$j]['elemento_nome']		= bloquearXSS($v['elemento_nome']);
+			$especialidades[$i][$j]['justificativa']		= bloquearXSS($v['justificativa']);
+		}
+	}
+
+	foreach ($matriz as $i=>$h) {
+		$matriz[$i]['categoria_nome']		= bloquearXSS($h['categoria_nome']);
+		$matriz[$i]['categoria_legenda']	= bloquearXSS($h['categoria_legenda']);
+		$matriz[$i]['elemento_nome']		= bloquearXSS($h['elemento_nome']);
+		$matriz[$i]['justificativa']		= bloquearXSS($h['justificativa']);
+	}
+}
+
+# da escape em campos de texto
+foreach ($hospitais as $i=>$h) {
+	$hospitais[$i]['titulo'] = bloquearXSS($h['titulo']);
+}
+foreach ($categorias as $i=>$h) {
+	$categorias[$i]['tituloSanitizado'] = bloquearXSS($h['titulo']);
 }
 
 include "public/views/frames/frameset.php";
