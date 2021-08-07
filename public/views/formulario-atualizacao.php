@@ -5,9 +5,9 @@
 
 		<?php
 			if ( PRODUCAO ) {
-				require 'public/views/forms/'.MODULO.'-insercao.html'; #---------- prod
+				require 'public/views/forms/'.MODULO.'-atualizacao.php';
 			} else {
-				require BASE.'_arquivos_auto_gerados/views/'.MODULO.'-insercao.html'; #  dev
+				require '_arquivos_auto_gerados/views/'.MODULO.'-atualizacao.php';
 			}
 		?>
 
