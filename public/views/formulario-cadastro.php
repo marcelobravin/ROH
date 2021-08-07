@@ -2,8 +2,14 @@
 	<h2>Cadastro</h2>
 
 	<form action="app/Controller/RegisterController-<?php echo MODULO ?>.php" method="post">
-		<?php #require 'public/views/forms/'.MODULO.'-insercao.html' #---------- prod ?>
-		<?php require '_arquivos_auto_gerados/views/'.MODULO.'-insercao.html' #  dev ?>
+
+		<?php
+			if ( PRODUCAO ) {
+				require 'public/views/forms/'.MODULO.'-insercao.html'; #---------- prod
+			} else {
+				require '_arquivos_auto_gerados/views/'.MODULO.'-insercao.html'; #  dev
+			}
+		?>
 
 		<input type="submit" value="CADASTRAR" />
 	</form>

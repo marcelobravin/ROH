@@ -3,7 +3,13 @@
 
 	<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
 
-		<?php incluir($PAGINA['submodulo']) ?>
+		<?php
+			if ( PRODUCAO ) {
+				require 'public/views/forms/'.MODULO.'-insercao.html'; #---------- prod
+			} else {
+				require BASE.'_arquivos_auto_gerados/views/'.MODULO.'-insercao.html'; #  dev
+			}
+		?>
 
 		<input type="submit" value="ATUALIZAR" />
 	</form>

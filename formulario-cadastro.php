@@ -1,13 +1,13 @@
 <?php
 	include 'app/Grimoire/core_inc.php';
 
-	$PAGINA['titulo']		= "Cadastro";
-	$PAGINA['subtitulo']	= "Usuário";
-
 	if ( empty($_GET['modulo']) ) {
 		redirecionar("index.php");
 	}
 
 	define('MODULO', $_GET['modulo']);
+
+	$PAGINA['titulo']		= "Cadastro";
+	$PAGINA['subtitulo']	= MODULO;
 
 	include "public/views/frames/frameset.php";
