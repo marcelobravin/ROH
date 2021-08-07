@@ -10,25 +10,26 @@ $(document).ready(function(){
 	})
 
 	$(".salvarTemporariamente").click(function(){
-		const x = $(this).parent()
-		const inputs = x.find("input:not(:disabled)")
-		const texts = x.find("textarea:not(:disabled)")
+		const tableRow = $(this).parent()
+		const inputs = tableRow.find("input:not(:disabled)")
+		const texts = tableRow.find("textarea:not(:disabled)")
 
-		for (let index=0; index<inputs.length; index++) {
-			const t = texts[index];
-			const i = inputs[index];
-
-			if ( i["value"] != "" ) {
-				localStorage.setItem( i["id"], i["value"] )
-
-				if ( typeof t != 'undefined' && t["value"] != "" ) {
-					localStorage.setItem( t["id"], t["value"] )
-				}
-			}
-		}
+		adicionarLS (inputs)
+		adicionarLS (texts)
 
 		alert("Os dados inseridos foram salvos em caráter temporário!")
 		return false
+
+		function adicionarLS (objs)
+		{
+			for (let index=0; index<objs.length; index++) {
+				const obj = objs[index]
+
+				if ( obj["value"] != "" ) {
+					localStorage.setItem( obj["id"], obj["value"] )
+				}
+			}
+		}
 	})
 
 
@@ -53,22 +54,21 @@ $(document).ready(function(){
 
 function exibirLocalStorage ()
 {
-	// for (var i=localStorage.length; i>0; i--) {
-		// console.log(i-1);
 	for (var i=0; i<localStorage.length; i++) {
 		const idLS = localStorage.key(i)
 
 		if (idLS != "") {
 			const valor = localStorage.getItem(idLS)
 
-			// console.log(idLS);
-			// console.log(valor);
-			// console.log("ffffff");
-			$( "#"+idLS ).val( valor )
-			$( "#"+idLS ).focus()
+			if ( !/^leitos-/.test(idLS) && !/^justificativa-/.test(idLS) ) {
+				localStorage.clear()
+				return false
+			}
 
-			console.log( $("#"+idLS).is( "input" ));
+			$( "#"+idLS ).val( valor )
+
 			if ( $("#"+idLS).is( "input" ) ) {
+				$( "#"+idLS ).focus()
 				verificarMeta( $("#"+idLS) )
 			}
 		}
@@ -80,8 +80,8 @@ function prepararParametros ()
 	const inputs = $("form").find("input:not(:disabled)")
 
 	var parametros = []
-	for ( const [index] of inputs.entries() ) {
-	// for (let index = 0; index < inputs.length; index++) {
+	// for ( const [index] of inputs.entries() ) {
+	for (let index = 0; index < inputs.length; index++) {
 		const i = inputs[index];
 
 		let metaId = i["id"].split("-")

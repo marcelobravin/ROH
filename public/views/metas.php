@@ -12,12 +12,14 @@
 			</select>
 		</div>
 
-		<div class="inputs">
-			<label for="categoria">Categoria</label>
-			<select name="categoria" id="categoria">
-				<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
-			</select>
-		</div>
+		<?php if ( $hospitalValido ): ?>
+			<div class="inputs">
+				<label for="categoria">Categoria</label>
+				<select name="categoria" id="categoria">
+					<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
+				</select>
+			</div>
+		<?php endif ?>
 	</div>
 
 	<div class="container-tabelas">
@@ -42,7 +44,7 @@
 
 						<thead>
 							<tr>
-								<th scope="Especialidades">Especialidade dos Leitos</th>
+								<th scope="Especialidades">Especialidade<br>dos Leitos</th>
 								<th scope="Aplicável" title="Essa instituição realiza esse tipo de atendimento?">Aplicável?</th>
 								<th scope="Leitos">Leitos</th>
 							</tr>

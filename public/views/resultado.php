@@ -12,12 +12,15 @@
 			</select>
 		</div>
 
-		<div class="inputs">
-			<label for="categoria">Categoria</label>
-			<select name="categoria" id="categoria">
-				<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
-			</select>
-		</div>
+
+		<?php if ( $hospitalValido ): ?>
+			<div class="inputs">
+				<label for="categoria">Categoria</label>
+				<select name="categoria" id="categoria">
+					<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
+				</select>
+			</div>
+		<?php endif ?>
 	</div>
 
 	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>

@@ -39,7 +39,7 @@
     text-align: left;
 }
 .invisivel{
-    display: none;
+    display: none !important;
 }
 
 /* TABELAS */

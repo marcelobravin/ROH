@@ -2,8 +2,12 @@ $(document).ready(function(){
 	const hospitalId = findGetParameter("hospital")
 
 	$("#categoria").change(function(){
-		$( ".aba" ).addClass("invisivel") // ------------------------------- arrumar outras telas
+		// $( ".aba" ).addClass("invisivel")
+		$( ".aba" ).addClass("invisivel")
+		// $( "#bloco-"+ $(this).val() ).removeClass("invisivel")
+		$( "#bloco-"+ $(this).val() ).fadeIn()
 		$( "#bloco-"+ $(this).val() ).removeClass("invisivel")
+
 
 		if ( hospitalId != null ) {
 			let fragmentos = location.href.split('?')
@@ -20,7 +24,7 @@ $(document).ready(function(){
 
 		fragmentos = fragmentos[0].split('/')
 
-		/* verificar compatibilidade */
+		/* TODO verificar compatibilidade */
 		var indiceRaiz = fragmentos.findIndex(function buscarIndice (value, idx) {
 			if (value == "ROH")
 				return idx;
