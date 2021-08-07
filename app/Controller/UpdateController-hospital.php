@@ -33,7 +33,7 @@ if ( is_numeric($resultado) ) {
 	} else if ( $resultado == 0 ) {
 		# clicou atualizar sem adicionar nenhuma alteração
 		$resposta = "Nenhuma alteração realizada!";
-		montarRespostaPost($resposta, "", $codigo=201); # 201 Created
+		montarRespostaPost($resposta, "info", $codigo=201); # 201 Created
 	}
 
 } else { # --------------------------------------------------------------------- erros

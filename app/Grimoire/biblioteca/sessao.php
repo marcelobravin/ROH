@@ -11,7 +11,7 @@
  */
 function finalizarSessao ()
 {
-	if ( iniciarSessao() ) {
+	if ( sessaoIniciada() ) {
 		session_destroy();
 		session_unset();
 		unset($_SESSION);

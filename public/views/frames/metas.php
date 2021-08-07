@@ -26,8 +26,9 @@
 <link rel="stylesheet" type="text/css" href="public/css/normalize.css">
 <link rel="stylesheet" type="text/css" href="public/css/resets.css">
 <link rel="stylesheet" type="text/css" href="public/css/topo.css">
+<link rel="stylesheet" type="text/css" href="public/css/universal.css">
 
-
+<!-- TODO baixar arquivo abaixo -->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <script src="public/vendors/jquery-3.6.0.min.js"></script>
@@ -37,60 +38,20 @@
 	}
 </script>
 
+<script>
+$(document).ready(function(){
+	if ($("#caixaMensagem").text().length == 0) {
+		$("#caixaMensagem").slideDown()
+	}
+
+	$("#caixaMensagem").click(function(){
+		$(this).slideUp()
+	})
+})
+</script>
+
 <script src="public/vendors/sweet-alert.js"></script>
 
 <style type="text/css">
-	.obrigatorio:before {
-		content: '*';
-	}
-	a[href='#'] { color:red }
-	.ambiente_desenvolvimento { border: 1px solid red; box-sizing: border-box;}
-	[disabled] textarea,
-	[disabled] input { background-color: silver}
-
-	input[type="submit"] {
-		/* border: 1px solid gray; */
-		background-color: #609bf5;
-		color: white;
-		padding: 10px 30px;
-		border-radius: 6px;
-		margin: 0 auto;
-		display: block;
-		margin-top: 20px;
-	}
-
-	input[type="submit"]:hover {
-		/* border: 1px solid silver; */
-		text-decoration: underline;
-	}
-
-
-	.container {
-		display: flex;
-		flex-flow: column;
-		margin: 0 auto;
-		width: 100%;
-		height: 100%;
-		max-width: 90%;
-	}
-
-	.sucesso {
-		color: green;
-		text-align: center;
-		border: 1px solid green;
-		margin-top: 5px;
-		background: #b1f7b1;
-		padding: 5px;
-	}
-	.erro {
-		color: red;
-		text-align: center;
-		border: 1px solid red;
-		margin-top: 5px;
-		background: #f7b1b1;
-		padding: 5px;
-	}
-
-
 	<?php echo sublinharPaginaAtual() ?>
 </style>

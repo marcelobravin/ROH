@@ -28,13 +28,14 @@ $resultado = atualizar('usuario', $campos, $condicoes);
 # ------------------------------------------------------------------------------ resposta
 if ( is_numeric($resultado) ) {
 	if ( $resultado > 0 ) {
+		registrarOperacao('U', 'usuario', $_POST['id']);
+
 		$resposta = "Atualizado o registro número: ". $_POST['id'];
 		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
-		registrarOperacao('U', 'usuario', $_POST['id']);
 	} else if ( $resultado == 0 ) {
 		# clicou atualizar sem adicionar nenhuma alteração
 		$resposta = "Nenhuma alteração realizada!";
-		montarRespostaPost($resposta, false, $codigo=201); # 201 Created
+		montarRespostaPost($resposta, "info", $codigo=201); # 201 Created
 	}
 
 } else { # --------------------------------------------------------------------- erros

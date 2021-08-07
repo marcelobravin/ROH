@@ -10,6 +10,7 @@ if ( LOGADO ) {
 } else {
 	$PAGINA['subtitulo']	= "Login";
 	$PAGINA['endereco']		= "login.php";
+	$omitirMenu = true;
 
-	include "public/views/login.php";
+	include "public/views/frames/frameset.php";
 }

@@ -4,7 +4,11 @@
 		<?php include "public/views/frames/metas.php" ?>
 	</head>
 	<body>
-		<?php include "public/views/frames/header.php" ?>
+		<?php
+		if ( !isset($omitirMenu) ) {
+			include "public/views/frames/header.php";
+		}
+		?>
 
 		<?php include "public/views/components/mensagemSaida.php" ?>
 
