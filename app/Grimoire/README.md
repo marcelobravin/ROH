@@ -2,7 +2,11 @@ senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
 
 
-addslashes
+Roteiro testes
+Força bruta login
+Todos firmes
+Xss
+Sql injection
 
 
 tratar xss on insert no bd tb
@@ -19,6 +23,11 @@ TESTAR xss nos meus projetos
 
 exportar salva em app/db
 gerar salva em ephemorous
+
+
+adicionar descrição das coisas em acoes
+    e manual quickstart
+    gera env, estrutura de diretorio, pasta db, tabela básica
 
 
 linha 3x em instalacao.php

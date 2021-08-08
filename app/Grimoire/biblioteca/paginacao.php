@@ -186,23 +186,23 @@ function filtroPaginacao ()
 	include_once "app/Model/Paginacao-". $_GET['modulo'] .".php";
 	$campos = retornarCampos();
 	?>
-	<p>
-		<select name="paginacao[campo]">
-			<?php foreach ($campos as $v) : ?>
-				<option value="<?php echo $v ?>" <?php echo selecionadoSubindice("paginacao", "campo", $v) ?>><?php echo $v ?></option>
-			<?php endforeach ?>
+		<p>
+			<select name="paginacao[campo]">
+				<?php foreach ($campos as $v) : ?>
+					<option value="<?php echo $v ?>" <?php echo selecionadoSubindice("paginacao", "campo", $v) ?>><?php echo $v ?></option>
+				<?php endforeach ?>
 
-		</select>
-		<select name="paginacao[operador]" id="">
-			<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>contém</option>
-			<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>é igual a</option>
-			<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>é diferente de</option>
-			<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>começa com</option>
-			<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>termina com</option>
-		</select>
+			</select>
+			<select name="paginacao[operador]" id="">
+				<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>contém</option>
+				<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>é igual a</option>
+				<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>é diferente de</option>
+				<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>começa com</option>
+				<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>termina com</option>
+			</select>
 
-		<input type="text" name="paginacao[filtroPaginacao]" id="filtroPaginacao" value="<?php echo exibirSubIndice("paginacao", "filtroPaginacao") ?>" placeholder="Digite algo" />
-	</p>
+			<input type="text" name="paginacao[filtroPaginacao]" id="filtroPaginacao" value="<?php echo bloquearXSS(exibirSubIndice("paginacao", "filtroPaginacao")) ?>" placeholder="Digite algo" />
+		</p>
 	<?php
 }
 
@@ -216,6 +216,7 @@ function filtroPaginacao ()
  * @param	string símbolo que será utilizado para "chave de ordenação não é esse campo"
  * @param	string simbolo que será utilizado para diretriz ASC
  * @param	string símbolo que será utilizado para diretriz DESC
+ *
  * @return	string símbolo indicando se chave de ordenação é esse campo e qual ordem
  *
  * @example
@@ -278,7 +279,7 @@ function ordenarPor ($chave_ordenacao="data")
 	}
 }
 
-/**	 * Monta links de paginação
+/** Monta links de paginação
  * @version	05/08/2016 10:50:28
  *
  * @param	int		quantos links a serem criados
