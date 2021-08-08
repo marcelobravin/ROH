@@ -52,7 +52,7 @@
 								</tr>
 							<?php else : ?>
 								<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
-									<tr>
+									<tr <?php echo isset($e['resultado']) && isset($e['meta_quantidade']) && $e['resultado'] < $e['meta_quantidade'] ? "class='insuficiente'" : "" ?>>
 										<td>
 											<?php echo $e['elemento_nome'] ?>
 										</td>
