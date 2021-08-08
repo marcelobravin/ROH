@@ -8,6 +8,7 @@
 				<a href="lista.php?modulo=hospital"><li>Hospitais</li></a>
 				<a href="metas.php" title="Definir metas"><li>Metas</li></a>
 				<a href="resultado.php" title="Preencher metas"><li>Preencher</li></a>
+				<a href="justificativa.php" title="Aprovar justificativas"><li>Justificativas</li></a>
 				<a href="relatorio.php" title="Visualizar metas"><li>Relatório</li></a>
 			</ul>
 
@@ -30,6 +31,7 @@
 				<a href="lista.php?modulo=hospital"><li>Hospitais</li></a>
 				<a href="metas.php" title="Definir metas"><li>Metas</li></a>
 				<a href="resultado.php" title="Preencher metas"><li>Preencher</li></a>
+				<a href="justificativa.php" title="Aprovar justificativas"><li>Justificativas</li></a>
 				<a href="relatorio.php" title="Visualizar metas"><li>Relatório</li></a>
 			</ul>
 			<a href="app/Controller/LogoutController.php">

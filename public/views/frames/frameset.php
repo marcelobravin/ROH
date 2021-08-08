@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
-		<?php include "public/views/frames/metas.php" ?>
+		<?php include "public/views/frames/head.php" ?>
 	</head>
 	<body>
 		<?php
