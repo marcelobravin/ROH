@@ -66,7 +66,7 @@ function conectar ()
 	$connection = new PDO(
 		"mysql:host=". HOST .";dbname=". DBNAME .";charset=". CHARSET, USER, PASSWORD,
 		array(
-			PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET ". CHARSET
+			#PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET ". CHARSET
 		)
 	);
 
@@ -76,8 +76,10 @@ function conectar ()
 		$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
 	}
 
-	#$connection->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
-	// ? $connection->exec("SET CHARACTER SET ". CHARSET); // return all sql requests as UTF-8
+	if (ORACLE) {
+		$connection->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
+	}
+	$connection->exec("SET CHARACTER SET ". CHARSET); // return all sql requests as UTF-8
 
 	return $connection;
 }
@@ -639,7 +641,6 @@ function exclusaoStmt ($tabela, $condicoes="")
 function desconectar (&$connection, &$statement)
 {
 	$statement->closeCursor();
-	// $connection->query('KILL CONNECTION_ID()');
 
 	$statement = null;
 	$connection = null;

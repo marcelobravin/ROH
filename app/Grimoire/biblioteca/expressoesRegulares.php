@@ -145,6 +145,16 @@ function padrao ($padrao)
 			$r = '/^[0-9]+$/';
 			break;
 
+		default: $r = padrao2($padrao);
+	}
+
+	return $r;
+}
+
+function padrao2 ($padrao)
+{
+	switch ($padrao) {
+
 		case "numeric":
 			$r = '/^[\-+]?[0-9]*\.?[0-9]+$/';
 			break;

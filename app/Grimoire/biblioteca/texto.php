@@ -297,15 +297,11 @@ function retirarAcento ($string)
  *
  * @uses	expressoesRegulares.php->padrao()
  * @example
-		echo retornarEndereco();
- * @todo retornar protocol
+	echo retornarEndereco();
  */
 function retornarEndereco ()
 {
-	$pageURL = 'http';
-	if (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
-		$pageURL .= "s";
-	}
+	$pageURL = $_SERVER['REQUEST_SCHEME'];
 
 	$pageURL .= "://";
 	if ($_SERVER["SERVER_PORT"] != "80") {

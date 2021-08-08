@@ -378,22 +378,31 @@ function validarIp ($ip)
 		// due to discrepancies between 32 and 64 bit OSes and
 		// signed numbers (ints default to signed in PHP)
 		$ip = sprintf('%u', $ip);
-		// do private network range checking
-		if (
-			$ip >= 0 && $ip <= 50331647
-			|| $ip >= 167772160 && $ip <= 184549375
-			|| $ip >= 2130706432 && $ip <= 2147483647
-			|| $ip >= 2851995648 && $ip <= 2852061183
-			|| $ip >= 2886729728 && $ip <= 2887778303
-			|| $ip >= 3221225984 && $ip <= 3221226239
-			|| $ip >= 3232235520 && $ip <= 3232301055
-			|| $ip >= 4294967040)
-		{
+		if ( rangeIp ($ip) ) {
 			return false;
 		}
 	}
 
 	return true;
+}
+
+// do private network range checking
+function rangeIp ($ip)
+{
+	if (
+		$ip >= 0 && $ip <= 50331647
+		|| $ip >= 167772160 && $ip <= 184549375
+		|| $ip >= 2130706432 && $ip <= 2147483647
+		|| $ip >= 2851995648 && $ip <= 2852061183
+		|| $ip >= 2886729728 && $ip <= 2887778303
+		|| $ip >= 3221225984 && $ip <= 3221226239
+		|| $ip >= 3232235520 && $ip <= 3232301055
+		|| $ip >= 4294967040
+	) {
+		return true;
+	}
+
+	return false;
 }
 
 /**

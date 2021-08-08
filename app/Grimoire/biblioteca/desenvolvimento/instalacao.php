@@ -852,7 +852,7 @@ function registrartFKs ($fks)
 {
 	foreach ($fks as $t) {
 
-		$sqls = gerarFKs($t['TABLE_NAME']); # TODO retirar geração e ao exportar mandar as em uso
+		$sqls = gerarFKs($t['TABLE_NAME']);
 
 		if ( !empty($sqls['INSERT']) ) {
 			$content = "-- ". agora( IDIOMA=='pt-BR' )."\n";

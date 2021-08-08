@@ -38,8 +38,8 @@
 		27123456-3 SE
 		29010227836 TO
  */
-function CheckIE($ie, $uf){
-	if( strtoupper($ie) == 'ISENTO' ){
+function CheckIE($ie, $uf) {
+	if ( strtoupper($ie) == 'ISENTO' ) {
 		return 1;
 	} else {
 		$uf = strtoupper($uf);
@@ -81,31 +81,31 @@ function CheckIE($ie, $uf){
 
 // INSCRIÇÂO ESTADUAL ==========================================================
 //Acre
-function CheckIEAC($ie){
-	if (strlen($ie) != 13){return 0;}
+function CheckIEAC($ie) {
+	if (strlen($ie) != 13) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != '01'){return 0;}
+		if (substr($ie, 0, 2) != '01') {return 0;}
 		else{
 			$b = 4;
 			$soma = 0;
-			for ($i=0;$i<=10;$i++){
+			for ($i=0;$i<=10;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
-				if($b == 1){$b = 9;}
+				if ($b == 1) {$b = 9;}
 			}
 			$dig = 11 - ($soma % 11);
-			if($dig >= 10){$dig = 0;}
-			if( $dig != $ie[11] ){return 0;}
+			if ($dig >= 10) {$dig = 0;}
+			if ( $dig != $ie[11] ) {return 0;}
 			else{
 				$b = 5;
 				$soma = 0;
-				for($i=0;$i<=11;$i++){
+				for($i=0;$i<=11;$i++) {
 					$soma += $ie[$i] * $b;
 					$b--;
-					if($b == 1){$b = 9;}
+					if ($b == 1) {$b = 9;}
 				}
 				$dig = 11 - ($soma % 11);
-				if($dig >= 10){$dig = 0;}
+				if ($dig >= 10) {$dig = 0;}
 
 				return ($dig == $ie[12]);
 			}
@@ -114,20 +114,20 @@ function CheckIEAC($ie){
 }
 
 // Alagoas
-function CheckIEAL($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEAL($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != '24'){return 0;}
+		if (substr($ie, 0, 2) != '24') {return 0;}
 		else{
 			$b = 9;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$soma *= 10;
 			$dig = $soma - ( ( (int)($soma / 11) ) * 11 );
-			if($dig == 10){$dig = 0;}
+			if ($dig == 10) {$dig = 0;}
 
 			return ($dig == $ie[8]);
 		}
@@ -135,19 +135,19 @@ function CheckIEAL($ie){
 }
 
 //Amazonas
-function CheckIEAM($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEAM($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
-		if($soma <= 11){$dig = 11 - $soma;}
+		if ($soma <= 11) {$dig = 11 - $soma;}
 		else{
 			$r = $soma % 11;
-			if($r <= 1){$dig = 0;}
+			if ($r <= 1) {$dig = 0;}
 			else{$dig = 11 - $r;}
 		}
 
@@ -156,25 +156,25 @@ function CheckIEAM($ie){
 }
 
 //Amapá
-function CheckIEAP($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEAP($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != '03'){return 0;}
+		if (substr($ie, 0, 2) != '03') {return 0;}
 		else{
 			$i = substr($ie, 0, -1);
-			if( ($i >= 3000001) && ($i <= 3017000) ){$p = 5; $d = 0;}
-			elseif( ($i >= 3017001) && ($i <= 3019022) ){$p = 9; $d = 1;}
-			elseif ($i >= 3019023){$p = 0; $d = 0;}
+			if ( ($i >= 3000001) && ($i <= 3017000) ) {$p = 5; $d = 0;}
+			elseif ( ($i >= 3017001) && ($i <= 3019022) ) {$p = 9; $d = 1;}
+			elseif ($i >= 3019023) {$p = 0; $d = 0;}
 
 			$b = 9;
 			$soma = $p;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$dig = 11 - ($soma % 11);
-			if($dig == 10){$dig = 0;}
-			elseif($dig == 11){$dig = $d;}
+			if ($dig == 10) {$dig = 0;}
+			elseif ($dig == 11) {$dig = $d;}
 
 			return ($dig == $ie[8]);
 		}
@@ -182,8 +182,8 @@ function CheckIEAP($ie){
 }
 
 //Bahia
-function CheckIEBA($ie){
-	if (strlen($ie) != 8){return 0;}
+function CheckIEBA($ie) {
+	if (strlen($ie) != 8) {return 0;}
 	else{
 
 		$arr1 = array('0','1','2','3','4','5','8');
@@ -191,33 +191,33 @@ function CheckIEBA($ie){
 
 		$i = substr($ie, 0, 1);
 
-		if(in_array($i, $arr1)){$modulo = 10;}
-		elseif(in_array($i, $arr2)){$modulo = 11;}
+		if (in_array($i, $arr1)) {$modulo = 10;}
+		elseif (in_array($i, $arr2)) {$modulo = 11;}
 
 		$b = 7;
 		$soma = 0;
-		for($i=0;$i<=5;$i++){
+		for($i=0;$i<=5;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 
 		$i = $soma % $modulo;
-		if ($modulo == 10){
+		if ($modulo == 10) {
 			if ($i == 0) { $dig = 0; } else { $dig = $modulo - $i; }
 		}else{
 			if ($i <= 1) { $dig = 0; } else { $dig = $modulo - $i; }
 		}
-		if( ($dig != $ie[7]) ){return 0;}
+		if ( $dig != $ie[7] ) {return 0;}
 		else{
 			$b = 8;
 			$soma = 0;
-			for($i=0;$i<=5;$i++){
+			for($i=0;$i<=5;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$soma += $ie[7] * 2;
 			$i = $soma % $modulo;
-			if ($modulo == 10){
+			if ($modulo == 10) {
 				if ($i == 0) { $dig = 0; } else { $dig = $modulo - $i; }
 			}else{
 				if ($i <= 1) { $dig = 0; } else { $dig = $modulo - $i; }
@@ -229,50 +229,50 @@ function CheckIEBA($ie){
 }
 
 //Ceará
-function CheckIECE($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIECE($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$dig = 11 - ($soma % 11);
 
-		if ($dig >= 10){$dig = 0;}
+		if ($dig >= 10) {$dig = 0;}
 
 		return ($dig == $ie[8]);
 	}
 }
 
 // Distrito Federal
-function CheckIEDF($ie){
-	if (strlen($ie) != 13){return 0;}
+function CheckIEDF($ie) {
+	if (strlen($ie) != 13) {return 0;}
 	else{
-		if( substr($ie, 0, 2) != '07' ){return 0;}
+		if ( substr($ie, 0, 2) != '07' ) {return 0;}
 		else{
 			$b = 4;
 			$soma = 0;
-			for ($i=0;$i<=10;$i++){
+			for ($i=0;$i<=10;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
-				if($b == 1){$b = 9;}
+				if ($b == 1) {$b = 9;}
 			}
 			$dig = 11 - ($soma % 11);
-			if($dig >= 10){$dig = 0;}
+			if ($dig >= 10) {$dig = 0;}
 
-			if( $dig != $ie[11] ){return 0;}
+			if ( $dig != $ie[11] ) {return 0;}
 			else{
 				$b = 5;
 				$soma = 0;
-				for($i=0;$i<=11;$i++){
+				for($i=0;$i<=11;$i++) {
 					$soma += $ie[$i] * $b;
 					$b--;
-					if($b == 1){$b = 9;}
+					if ($b == 1) {$b = 9;}
 				}
 				$dig = 11 - ($soma % 11);
-				if($dig >= 10){$dig = 0;}
+				if ($dig >= 10) {$dig = 0;}
 
 				return ($dig == $ie[12]);
 			}
@@ -281,17 +281,17 @@ function CheckIEDF($ie){
 }
 
 //Espirito Santo
-function CheckIEES($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEES($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$i = $soma % 11;
-		if ($i < 2){$dig = 0;}
+		if ($i < 2) {$dig = 0;}
 		else{$dig = 11 - $i;}
 
 		return ($dig == $ie[8]);
@@ -299,33 +299,33 @@ function CheckIEES($ie){
 }
 
 //Goias
-function CheckIEGO($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEGO($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$s = substr($ie, 0, 2);
 
-		if( !( ($s == 10) || ($s == 11) || ($s == 15) ) ){return 0;}
+		if ( !( ($s == 10) || ($s == 11) || ($s == 15) ) ) {return 0;}
 		else{
 			$n = substr($ie, 0, 7);
 
-			if($n == 11094402){
-				if($ie[8] != 0){
-					if($ie[8] != 1){
+			if ($n == 11094402) {
+				if ($ie[8] != 0) {
+					if ($ie[8] != 1) {
 						return 0;
 					}else{return 1;}
 				}else{return 1;}
 			}else{
 				$b = 9;
 				$soma = 0;
-				for($i=0;$i<=7;$i++){
+				for($i=0;$i<=7;$i++) {
 					$soma += $ie[$i] * $b;
 					$b--;
 				}
 				$i = $soma % 11;
-				if ($i == 0){$dig = 0;}
+				if ($i == 0) {$dig = 0;}
 				else{
-					if($i == 1){
-						if(($n >= 10103105) && ($n <= 10119997)){$dig = 1;}
+					if ($i == 1) {
+						if (($n >= 10103105) && ($n <= 10119997)) {$dig = 1;}
 						else{$dig = 0;}
 					}else{$dig = 11 - $i;}
 				}
@@ -337,19 +337,19 @@ function CheckIEGO($ie){
 }
 
 // Maranhão
-function CheckIEMA($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEMA($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != 12){return 0;}
+		if (substr($ie, 0, 2) != 12) {return 0;}
 		else{
 			$b = 9;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$i = $soma % 11;
-			if ($i <= 1){$dig = 0;}
+			if ($i <= 1) {$dig = 0;}
 			else{$dig = 11 - $i;}
 
 			return ($dig == $ie[8]);
@@ -358,18 +358,18 @@ function CheckIEMA($ie){
 }
 
 // Mato Grosso
-function CheckIEMT($ie){
-	if (strlen($ie) != 11){return 0;}
+function CheckIEMT($ie) {
+	if (strlen($ie) != 11) {return 0;}
 	else{
 		$b = 3;
 		$soma = 0;
-		for($i=0;$i<=9;$i++){
+		for($i=0;$i<=9;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
-			if($b == 1){$b = 9;}
+			if ($b == 1) {$b = 9;}
 		}
 		$i = $soma % 11;
-		if ($i <= 1){$dig = 0;}
+		if ($i <= 1) {$dig = 0;}
 		else{$dig = 11 - $i;}
 
 		return ($dig == $ie[10]);
@@ -377,22 +377,22 @@ function CheckIEMT($ie){
 }
 
 // Mato Grosso do Sul
-function CheckIEMS($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEMS($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != 28){return 0;}
+		if (substr($ie, 0, 2) != 28) {return 0;}
 		else{
 			$b = 9;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$i = $soma % 11;
-			if ($i == 0){$dig = 0;}
+			if ($i == 0) {$dig = 0;}
 			else{$dig = 11 - $i;}
 
-			if($dig > 9){$dig = 0;}
+			if ($dig > 9) {$dig = 0;}
 
 			return ($dig == $ie[8]);
 		}
@@ -400,35 +400,35 @@ function CheckIEMS($ie){
 }
 
 //Minas Gerais
-function CheckIEMG($ie){
-	if (strlen($ie) != 13){return 0;}
+function CheckIEMG($ie) {
+	if (strlen($ie) != 13) {return 0;}
 	else{
 		$ie2 = substr($ie, 0, 3) . '0' . substr($ie, 3);
 
 		$b = 1;
 		$soma = "";
-		for($i=0;$i<=11;$i++){
+		for($i=0;$i<=11;$i++) {
 			$soma .= $ie2[$i] * $b;
 			$b++;
-			if($b == 3){$b = 1;}
+			if ($b == 3) {$b = 1;}
 		}
 		$s = 0;
-		for($i=0;$i<strlen($soma);$i++){
+		for($i=0;$i<strlen($soma);$i++) {
 			$s += $soma[$i];
 		}
 		$i = substr($ie2, 9, 2);
 		$dig = $i - $s;
-		if$dig != $ie[11])return 0;}
+		if ($dig != $ie[11]) {return 0;}
 		else{
 			$b = 3;
 			$soma = 0;
-			for($i=0;$i<=11;$i++){
+			for($i=0;$i<=11;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
-				if($b == 1){$b = 11;}
+				if ($b == 1) {$b = 11;}
 			}
 			$i = $soma % 11;
-			if($i < 2){$dig = 0;}
+			if ($i < 2) {$dig = 0;}
 			else{$dig = 11 - $i;};
 
 			return ($dig == $ie[12]);
@@ -437,19 +437,19 @@ function CheckIEMG($ie){
 }
 
 //Pará
-function CheckIEPA($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEPA($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != 15){return 0;}
+		if (substr($ie, 0, 2) != 15) {return 0;}
 		else{
 			$b = 9;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$i = $soma % 11;
-			if ($i <= 1){$dig = 0;}
+			if ($i <= 1) {$dig = 0;}
 			else{$dig = 11 - $i;}
 
 			return ($dig == $ie[8]);
@@ -458,51 +458,51 @@ function CheckIEPA($ie){
 }
 
 //Paraíba
-function CheckIEPB($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEPB($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$i = $soma % 11;
-		if ($i <= 1){$dig = 0;}
+		if ($i <= 1) {$dig = 0;}
 		else{$dig = 11 - $i;}
 
-		if($dig > 9){$dig = 0;}
+		if ($dig > 9) {$dig = 0;}
 
 		return ($dig == $ie[8]);
 	}
 }
 
 //Paraná
-function CheckIEPR($ie){
-	if (strlen($ie) != 10){return 0;}
+function CheckIEPR($ie) {
+	if (strlen($ie) != 10) {return 0;}
 	else{
 		$b = 3;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
-			if($b == 1){$b = 7;}
+			if ($b == 1) {$b = 7;}
 		}
 		$i = $soma % 11;
-		if ($i <= 1){$dig = 0;}
+		if ($i <= 1) {$dig = 0;}
 		else{$dig = 11 - $i;}
 
-		if ( ($dig != $ie[8]) ){return 0;}
+		if ( ($dig != $ie[8]) ) {return 0;}
 		else{
 			$b = 4;
 			$soma = 0;
-			for($i=0;$i<=8;$i++){
+			for($i=0;$i<=8;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
-				if($b == 1){$b = 7;}
+				if ($b == 1) {$b = 7;}
 			}
 			$i = $soma % 11;
-			if($i <= 1){$dig = 0;}
+			if ($i <= 1) {$dig = 0;}
 			else{$dig = 11 - $i;}
 
 			return ($dig == $ie[9]);
@@ -511,43 +511,43 @@ function CheckIEPR($ie){
 }
 
 //Pernambuco
-function CheckIEPE($ie){
-	if (strlen($ie) == 9){
+function CheckIEPE($ie) {
+	if (strlen($ie) == 9) {
 		$b = 8;
 		$soma = 0;
-		for($i=0;$i<=6;$i++){
+		for($i=0;$i<=6;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$i = $soma % 11;
-		if ($i <= 1){$dig = 0;}
+		if ($i <= 1) {$dig = 0;}
 		else{$dig = 11 - $i;}
 
-		if ( ($dig != $ie[7]) ){return 0;}
+		if ( $dig != $ie[7] ) {return 0;}
 		else{
 			$b = 9;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b--;
 			}
 			$i = $soma % 11;
-			if ($i <= 1){$dig = 0;}
+			if ($i <= 1) {$dig = 0;}
 			else{$dig = 11 - $i;}
 
 			return ($dig == $ie[8]);
 		}
 	}
-	elseif(strlen($ie) == 14){
+	elseif (strlen($ie) == 14) {
 		$b = 5;
 		$soma = 0;
-		for($i=0;$i<=12;$i++){
+		for($i=0;$i<=12;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
-			if($b == 0){$b = 9;}
+			if ($b == 0) {$b = 9;}
 		}
 		$dig = 11 - ($soma % 11);
-		if($dig > 9){$dig = $dig - 10;}
+		if ($dig > 9) {$dig = $dig - 10;}
 
 		return ($dig == $ie[13]);
 	}
@@ -555,37 +555,37 @@ function CheckIEPE($ie){
 }
 
 //Piauí
-function CheckIEPI($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIEPI($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$i = $soma % 11;
-		if($i <= 1){$dig = 0;}
+		if ($i <= 1) {$dig = 0;}
 		else{$dig = 11 - $i;}
-		if($dig >= 10){$dig = 0;}
+		if ($dig >= 10) {$dig = 0;}
 
 		return ($dig == $ie[8]);
 	}
 }
 
 // Rio de Janeiro
-function CheckIERJ($ie){
-	if (strlen($ie) != 8){return 0;}
+function CheckIERJ($ie) {
+	if (strlen($ie) != 8) {return 0;}
 	else{
 		$b = 2;
 		$soma = 0;
-		for($i=0;$i<=6;$i++){
+		for($i=0;$i<=6;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
-			if($b == 1){$b = 7;}
+			if ($b == 1) {$b = 7;}
 		}
 		$i = $soma % 11;
-		if ($i <= 1){$dig = 0;}
+		if ($i <= 1) {$dig = 0;}
 		else{$dig = 11 - $i;}
 
 		return ($dig == $ie[7]);
@@ -593,20 +593,20 @@ function CheckIERJ($ie){
 }
 
 //Rio Grande do Norte
-function CheckIERN($ie){
-	if( !( (strlen($ie) == 9) || (strlen($ie) == 10) ) ){return 0;}
+function CheckIERN($ie) {
+	if ( !( (strlen($ie) == 9) || (strlen($ie) == 10) ) ) {return 0;}
 	else{
 		$b = strlen($ie);
-		if($b == 9){$s = 7;}
+		if ($b == 9) {$s = 7;}
 		else{$s = 8;}
 		$soma = 0;
-		for($i=0;$i<=$s;$i++){
+		for($i=0;$i<=$s;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$soma *= 10;
 		$dig = $soma % 11;
-		if($dig == 10){$dig = 0;}
+		if ($dig == 10) {$dig = 0;}
 
 		$s += 1;
 		return ($dig == $ie[$s]);
@@ -614,47 +614,47 @@ function CheckIERN($ie){
 }
 
 // Rio Grande do Sul
-function CheckIERS($ie){
-	if (strlen($ie) != 10){return 0;}
+function CheckIERS($ie) {
+	if (strlen($ie) != 10) {return 0;}
 	else{
 		$b = 2;
 		$soma = 0;
-		for($i=0;$i<=8;$i++){
+		for($i=0;$i<=8;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
-			if ($b == 1){$b = 9;}
+			if ($b == 1) {$b = 9;}
 		}
 		$dig = 11 - ($soma % 11);
-		if($dig >= 10){$dig = 0;}
+		if ($dig >= 10) {$dig = 0;}
 
 		return ($dig == $ie[9]);
 	}
 }
 
 // Rondônia
-function CheckIERO($ie){
-	if (strlen($ie) == 9){
+function CheckIERO($ie) {
+	if (strlen($ie) == 9) {
 		$b=6;
 		$soma =0;
-		for($i=3;$i<=7;$i++){
+		for($i=3;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$dig = 11 - ($soma % 11);
-		if($dig >= 10){$dig = $dig - 10;}
+		if ($dig >= 10) {$dig = $dig - 10;}
 
 		return ($dig == $ie[8]);
 	}
-	elseif(strlen($ie) == 14){
+	elseif (strlen($ie) == 14) {
 		$b=6;
 		$soma=0;
 		for($i=0;$i<=12;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
-			if($b == 1){$b = 9;}
+			if ($b == 1) {$b = 9;}
 		}
 		$dig = 11 - ( $soma % 11);
-		if ($dig > 9){$dig = $dig - 10;}
+		if ($dig > 9) {$dig = $dig - 10;}
 
 		return ($dig == $ie[13]);
 	}
@@ -662,14 +662,14 @@ function CheckIERO($ie){
 }
 
 //Roraima
-function CheckIERR($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIERR($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
-		if(substr($ie, 0, 2) != 24){return 0;}
+		if (substr($ie, 0, 2) != 24) {return 0;}
 		else{
 			$b = 1;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b++;
 			}
@@ -681,60 +681,60 @@ function CheckIERR($ie){
 }
 
 //Santa Catarina
-function CheckIESC($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIESC($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$dig = 11 - ($soma % 11);
-		if ($dig <= 1){$dig = 0;}
+		if ($dig <= 1) {$dig = 0;}
 
 		return ($dig == $ie[8]);
 	}
 }
 
 //São Paulo
-function CheckIESP($ie){
-	if( strtoupper( substr($ie, 0, 1) )	== 'P' ){
-		if (strlen($ie) != 13){return 0;}
+function CheckIESP($ie) {
+	if ( strtoupper( substr($ie, 0, 1) )	== 'P' ) {
+		if (strlen($ie) != 13) {return 0;}
 		else{
 			$b = 1;
 			$soma = 0;
-			for($i=1;$i<=8;$i++){
+			for($i=1;$i<=8;$i++) {
 				$soma += $ie[$i] * $b;
 				$b++;
-				if($b == 2){$b = 3;}
-				if($b == 9){$b = 10;}
+				if ($b == 2) {$b = 3;}
+				if ($b == 9) {$b = 10;}
 			}
 			$dig = $soma % 11;
 			return ($dig == $ie[9]);
 		}
 	}else{
-		if (strlen($ie) != 12){return 0;}
+		if (strlen($ie) != 12) {return 0;}
 		else{
 			$b = 1;
 			$soma = 0;
-			for($i=0;$i<=7;$i++){
+			for($i=0;$i<=7;$i++) {
 				$soma += $ie[$i] * $b;
 				$b++;
-				if($b == 2){$b = 3;}
-				if($b == 9){$b = 10;}
+				if ($b == 2) {$b = 3;}
+				if ($b == 9) {$b = 10;}
 			}
 			$dig = $soma % 11;
-			if($dig > 9){$dig = 0;}
+			if ($dig > 9) {$dig = 0;}
 
-			if($dig != $ie[8]){return 0;}
+			if ($dig != $ie[8]) {return 0;}
 			else{
 				$b = 3;
 				$soma = 0;
-				for($i=0;$i<=10;$i++){
+				for($i=0;$i<=10;$i++) {
 					$soma += $ie[$i] * $b;
 					$b--;
-					if($b == 1){$b = 10;}
+					if ($b == 1) {$b = 10;}
 				}
 				$dig = $soma % 11;
 
@@ -745,39 +745,39 @@ function CheckIESP($ie){
 }
 
 //Sergipe
-function CheckIESE($ie){
-	if (strlen($ie) != 9){return 0;}
+function CheckIESE($ie) {
+	if (strlen($ie) != 9) {return 0;}
 	else{
 		$b = 9;
 		$soma = 0;
-		for($i=0;$i<=7;$i++){
+		for($i=0;$i<=7;$i++) {
 			$soma += $ie[$i] * $b;
 			$b--;
 		}
 		$dig = 11 - ($soma % 11);
-		if ($dig > 9){$dig = 0;}
+		if ($dig > 9) {$dig = 0;}
 
 		return ($dig == $ie[8]);
 	}
 }
 
 //Tocantins
-function CheckIETO($ie){
-	if (strlen($ie) != 11){return 0;}
+function CheckIETO($ie) {
+	if (strlen($ie) != 11) {return 0;}
 	else{
 		$s = substr($ie, 2, 2);
-		if( !( ($s=='01') || ($s=='02') || ($s=='03') || ($s=='99') ) ){return 0;}
+		if ( !( ($s=='01') || ($s=='02') || ($s=='03') || ($s=='99') ) ) {return 0;}
 		else{
 			$b=9;
 			$soma=0;
-			for($i=0;$i<=9;$i++){
-				if( !(($i == 2) || ($i == 3)) ){
+			for($i=0;$i<=9;$i++) {
+				if ( !(($i == 2) || ($i == 3)) ) {
 					$soma += $ie[$i] * $b;
 					$b--;
 				}
 			}
 			$i = $soma % 11;
-			if($i < 2){$dig = 0;}
+			if ($i < 2) {$dig = 0;}
 			else{$dig = 11 - $i;}
 
 			return ($dig == $ie[10]);

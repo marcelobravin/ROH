@@ -282,7 +282,7 @@ function visualizarBanco() {
 	$tabelas = listarTabelas();
 	exibir($tabelas);
  */
-function listarTabelas($campos="*") {
+function listarTabelas() {
 	$sql = "SHOW FULL TABLES FROM ". DBNAME;
 	return executar($sql);
 }
