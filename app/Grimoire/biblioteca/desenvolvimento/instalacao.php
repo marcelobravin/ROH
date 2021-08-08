@@ -144,8 +144,7 @@ function descreverTabela ($tabela, $full=false, $banco=null)
  */
 function exportarBD ()
 {
-	$sql = "SHOW FULL TABLES FROM ". DBNAME;
-	$tabelas = executar($sql);
+	$tabelas = listarTabelas();
 
 	foreach ($tabelas as $t) {
 		$d = descreverTabela($t['Tables_in_'. DBNAME], true);
@@ -154,20 +153,11 @@ function exportarBD ()
 		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t['Tables_in_'. DBNAME]}.sql", $sql, true);
 
 		gerarInserts($t['Tables_in_'. DBNAME]);
-
-		$sqls = gerarFKs($t['Tables_in_'. DBNAME]); # TODO retirar geração e ao exportar mandar as em uso
-
-		if ( !empty($sqls['INSERT']) ) {
-			$content = $sqls['ALTER TABLE'];
-
-			$content .= "\n\n";
-			$content .= concatenar2($sqls['INSERT']);
-			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['Tables_in_'. DBNAME]}.sql", $content, true);
-		}
 	}
 
 	$c = exportarConstraints();
 	registrartUQs($c['uqs']);
+	registrartFKs($c['fks']);
 
 	return true;
 }
@@ -196,8 +186,6 @@ function exportarFKs ($db=DBNAME)
 
 function gerarFKs ($tabela)
 {
-	$sql = "ALTER TABLE `{$tabela}` ENGINE = InnoDB;";
-
 	$t = descreverTabela($tabela);
 
 	$sql2 = array();
@@ -208,6 +196,12 @@ function gerarFKs ($tabela)
 			$sql2[] = criacaoFK($tabela, $tab[1]);
 		}
 	}
+
+	if ( empty($sql2) ) {
+		return array();
+	}
+
+	$sql = "ALTER TABLE `{$tabela}` ENGINE = InnoDB;";
 
 	return array(
 		'ALTER TABLE'	=> $sql,
@@ -640,7 +634,7 @@ function gerarInserts ($tabela)
 	$registros = $qry->fetchAll(PDO::FETCH_ASSOC);
 	$con = null;
 
-	$inserts = "";
+	$inserts = "-- ". agora( IDIOMA=='pt-BR' )."\n";
 	foreach ($registros as $value) {
 		$value = str_replace(array("\r\n", "\r", "\n", "\t", '	', '		', '		'), '', $value);
 		$inserts .= insercao($tabela, $value);
@@ -777,7 +771,7 @@ function importarRegistros ($diretorio)
 function montarCriacao ($tabela, $atributos, $drop=false)
 {
 	$identacao = "	";
-	$sql = "";
+	$sql = "-- ". agora( IDIOMA=='pt-BR' )."\n";
 
 	if ($drop) {
 		$sql .= "DROP TABLE IF EXISTS $tabela;\n";
@@ -807,7 +801,6 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 				$sql .= " COMMENT '".$valor['Comment']."'";
 			}
 
-
 			$sql .= ",\n";
 		}
 	}
@@ -819,7 +812,7 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 
 function exportarConstraints ($db=DBNAME)
 {
-	$fks = exportarFKs($db); # fks existentes no BD
+	$fks = exportarFKs($db);
 	$uqs = exportarUQs($db);
 
 	return array(
@@ -838,7 +831,7 @@ function converterUQs ($uqs)
 	$t = array_keys( $tabelas );
 	$alters = "";
 	if ( !empty($t) ) {
-		$alters = "-- ".agora( IDIOMA=='pt-BR' )."\n";
+		$alters = "-- ". agora( IDIOMA=='pt-BR' )."\n";
 		foreach ($t as $v) {
 			$alters .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
 			$alters .= implode(", ", $tabelas[$v]);
@@ -853,4 +846,22 @@ function registrartUQs ($uqs, $db=DBNAME)
 {
 	$alters = converterUQs($uqs);
 	escrever(ARQUIVOS_EFEMEROS."/db/ddl/uniques-{$db}.sql", $alters, true);
+}
+
+function registrartFKs ($fks)
+{
+	foreach ($fks as $t) {
+
+		$sqls = gerarFKs($t['TABLE_NAME']); # TODO retirar geração e ao exportar mandar as em uso
+
+		if ( !empty($sqls['INSERT']) ) {
+			$content = "-- ". agora( IDIOMA=='pt-BR' )."\n";
+			$content .= $sqls['ALTER TABLE'];
+
+			$content .= "\n\n";
+			$content .= concatenar2($sqls['INSERT']);
+			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['TABLE_NAME']}.sql", $content, true);
+		}
+	}
+
 }

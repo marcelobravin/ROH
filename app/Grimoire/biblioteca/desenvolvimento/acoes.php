@@ -1,6 +1,6 @@
 <?php
 /**
- * http://localhost/roh/index.php?action=dbExport
+ * http://localhost/roh/index.php?action
  */
 if ( isset($_REQUEST['action']) ) {
 
@@ -15,12 +15,12 @@ if ( isset($_REQUEST['action']) ) {
 
 			$quantidade = isset($_REQUEST['tabela']) ? $_REQUEST['quantidade'] : 30;
 			popularTabela($tabela, $quantidade);
-			break;
 
+		break;
 		case 'cargaInicial' :
 			importarRegistros(BASE."app/DB/inserts obrigatorios/*.sql");
-			break;
 
+		break;
 		case 'criacaoTabela' :
 			if ( isset($_REQUEST['tabela']) ) {
 				$tabela = $_REQUEST['tabela'];
@@ -36,43 +36,52 @@ if ( isset($_REQUEST['action']) ) {
 			}
 
 			exibir( $sql );
-			break;
 
+		break;
 		case 'gerarFk' :
 			if ( isset($_REQUEST['tabela']) ) {
 				$tabela = $_REQUEST['tabela'];
 				$sql = gerarFKs($tabela);
 			} else {
 				$tabela = "NOVA_TABELA";
-				$sql = criacaoFK ($tabela, "TABELA_REFERENCIADA");
+				$sql = criacaoFK($tabela, "TABELA_REFERENCIADA");
 			}
 
 			if ( isset($_REQUEST['executar']) ) {
-				$r = executarSequencia($sql['ALTER TABLE']);
 				echo "Alteração de tabela {$tabela} executada!";
+				$r = executar($sql['ALTER TABLE']);
 				exibir($r);
+				$r = executarSequencia($sql['INSERT']);
+				exibir($r);
+			} else {
+				exibir($sql);
 			}
 
-			exibir($sql);
+		break;
+		case 'gerarFks' :
+			$tabelas = listarTabelas(DBNAME);
+			foreach ($tabelas as $t) {
+				$sql = gerarFKs($t['Tables_in_db_relatorio_ocupacao_hospitalar']);
+				exibir($sql);
+			}
 
-			break;
-
+		break;
 		case 'dbImport' :
 			if ( importarBD() ) {
 				echo "Importação de BD realizada com sucesso!";
 			} else {
 				echo "Erro ao importar BD";
 			}
-			break;
 
+		break;
 		case 'dbExport' :
 			if ( exportarBD() ) {
 				echo "Exportação de BD realizada com sucesso!";
 			} else {
 				echo "Erro ao exportar BD";
 			}
-			break;
 
+		break;
 		case 'gerar-formulario' :
 			foreach ($MODULOS as $key => $value) {
 				# default
@@ -119,7 +128,7 @@ if ( isset($_REQUEST['action']) ) {
 				echo "<hr>";
 			}
 
-			break;
+		break;
 		case 'gerar-formulario-atualizacao' :
 
 			foreach ($MODULOS as $key => $value) {
@@ -146,7 +155,7 @@ if ( isset($_REQUEST['action']) ) {
 					case 'hospital':
 						$sobreEscreverLabels	= array('titulo'=> 'Título');
 						$descricaoLabels 		= array('titulo'=> 'Descrição do Título');
-						break;
+					break;
 					case 'usuario':
 						$sobreEscreverLabels = array(
 							'login'		=> 'Email',
@@ -163,7 +172,7 @@ if ( isset($_REQUEST['action']) ) {
 						$remover[] = 'email_confirmado';
 						$remover[] = 'senha';
 
-						break;
+					break;
 					default:
 				}
 
@@ -178,22 +187,22 @@ if ( isset($_REQUEST['action']) ) {
 				}
 				echo "<hr>";
 			}
-			break;
+		break;
 
 		case 'generateSiteMap':
 			echo '<pre>';
 			print_r( generateSiteMap() );
 			echo '</pre>';
-			break;
 
+		break;
 		case 'registerProjectFiles':
 			registerProjectFiles();
-			break;
 
+		break;
 		case 'getDirectorySize':
 			echo formatBytes( getDirectorySize(BASE), 3 );
-			break;
 
+		break;
 		case 'minify':
 			$x = assetPipeline(true, true, false);
 			if ( $x ) {
@@ -201,8 +210,8 @@ if ( isset($_REQUEST['action']) ) {
 			} else {
 				echo "Erro ao minimizar os arquivos css e js!";
 			}
-			break;
 
+		break;
 		case 'gerarHtaccess'	: die( gerarHtaccess() ); break;
 		case 'gerarEnv'			: die( gerarEnv () ); break;
 
@@ -210,27 +219,26 @@ if ( isset($_REQUEST['action']) ) {
 			$c = exportarConstraints();
 			registrartUQs($c['uqs']);
 
-			break;
-
+		break;
 		default:
 			echo '<ul>';
-			echo '<li><a href="index.php?action=dbExport">dbExport</a></li>';
-			echo '<li><a href="index.php?action=dbImport">dbImport</a></li>';
-			echo '<li><a href="index.php?action=popularTabela">popularTabela</a></li>';
 			echo '<li><a href="index.php?action=cargaInicial&tabela=categoria">cargaInicial</a></li>';
 			echo '<li><a href="index.php?action=criacaoTabela&tabela=">criacaoTabela</a></li>';
+			echo '<li><a href="index.php?action=dbExport">dbExport</a></li>';
+			echo '<li><a href="index.php?action=dbImport">dbImport</a></li>';
+			echo '<li><a href="index.php?action=exportConstraints">exportConstraints</a></li>';
+			echo '<li><a href="index.php?action=generateSiteMap">generateSiteMap</a></li>';
 			echo '<li><a href="index.php?action=gerar-formulario">gerar-formulario</a></li>';
 			echo '<li><a href="index.php?action=gerar-formulario-atualizacao&tabela=usuario">gerar-formulario-atualizacao</a></li>';
-			echo '<li><a href="index.php?action=generateSiteMap">generateSiteMap</a></li>';
-			echo '<li><a href="index.php?action=registerProjectFiles">registerProjectFiles</a></li>';
+			echo '<li><a href="index.php?action=gerarEnv">gerarArquivoEnv</a></li>';
+			echo '<li><a href="index.php?action=gerarHtaccess">gerarArquivoHtaccess</a></li>';
+			echo '<li><a href="index.php?action=gerarFk">gerarFk</a></li>';
+			echo '<li><a href="index.php?action=gerarFks">gerarFks</a></li>';
 			echo '<li><a href="index.php?action=getDirectorySize">getDirectorySize</a></li>';
 			echo '<li><a href="index.php?action=minify">minify</a></li>';
-			echo '<li><a href="index.php?action=exportConstraints">exportConstraints</a></li>';
-			echo '<li><a href="index.php?action=gerarHtaccess">gerarHtaccess</a></li>';
-			echo '<li><a href="index.php?action=gerarEnv">gerarEnv</a></li>';
-			echo '<li><a href="index.php?action=gerarFk">gerarFk</a></li>';
+			echo '<li><a href="index.php?action=popularTabela">popularTabela</a></li>';
+			echo '<li><a href="index.php?action=registerProjectFiles">registerProjectFiles</a></li>';
 			echo '</ul>';
 	}
-
 	exit;
 }

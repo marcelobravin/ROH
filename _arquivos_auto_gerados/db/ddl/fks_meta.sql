@@ -1,3 +1,4 @@
+-- 07-08-2021 22:20:42
 ALTER TABLE `meta` ENGINE = InnoDB;
 
 ALTER TABLE `meta`

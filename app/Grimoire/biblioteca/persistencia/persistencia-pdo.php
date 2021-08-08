@@ -799,3 +799,20 @@ function operacaoSequencial ($conP, $sql)
 
 	return $statement;
 }
+
+/**
+ * Retorna uma lista de tabelas do BD
+ * @package grimoire/bibliotecas/persistencia-oracle.php
+ * @since	07/08/2021 21:41:59
+ *
+ * @param	string
+ * @return	array
+ *
+ * @uses		$_SERVER
+	$tabelas = listarTabelas();
+	exibir($tabelas);
+ */
+function listarTabelas() {
+	$sql = "SHOW FULL TABLES FROM ". DBNAME;
+	return executar($sql);
+}

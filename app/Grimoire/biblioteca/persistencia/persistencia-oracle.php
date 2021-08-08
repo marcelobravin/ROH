@@ -283,7 +283,7 @@ function visualizarBanco() {
 	exibir($tabelas);
  */
 function listarTabelas($campos="*") {
-	$sql = "SELECT {$campos} FROM all_tables";
+	$sql = "SHOW FULL TABLES FROM ". DBNAME;
 	return executar($sql);
 }
 

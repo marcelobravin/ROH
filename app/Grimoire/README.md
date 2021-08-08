@@ -9,25 +9,25 @@ tratar xss on insert no bd tb
 
 testar xss no usuário e na justificativa
 
-<script>alert("vc sofreu um ataque XSS ")</script>
+verificar unique no uniques-db-relatorio
 
-Testar xss nos meus projetos
-Colocar isso num formulário de i/u
-Script
-Alerta(vulnerável)
+TESTAR xss nos meus projetos
+    Colocar isso num formulário de i/u
+        <script>alert("vc sofreu um ataque XSS ")</script>
 
-criar atalho alt ;
-    está conflitando com comentar linha no windows
+
+
+exportar salva em app/db
+gerar salva em ephemorous
+
+
+linha 3x em instalacao.php
+        $inserts = "-- ". agora( IDIOMA=='pt-BR' )."\n";
+
 
     alt + b -> alt baixo // mudar valor
 
 observar comportamento pós mudança
-REMOVER arquivos de modelo
-pra que precisa?
-	no exportar db da pra ja gerar o sql
-	e no gerar form em dev dá pra pegar na hora do db
-
-07/08/2021 15:49:38
 
     configurarExibicaoErros(PRODUCAO); # TODO verificar
 

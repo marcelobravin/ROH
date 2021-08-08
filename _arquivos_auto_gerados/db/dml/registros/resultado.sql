@@ -1,6 +1,6 @@
-INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('143', '339', '8', '7', '2021', '8', '0', '2021-07-26 11:00:43', '1');
-INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('144', '340', '8', '7', '2021', '', '0', '2021-07-26 11:00:43', '1');
-INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('145', '341', '8', '7', '2021', '', '0', '2021-07-26 11:00:43', '1');
-INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('146', '342', '8', '7', '2021', '', '0', '2021-07-26 11:00:43', '1');
-INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('147', '343', '8', '7', '2021', '888', '1', '2021-07-26 11:00:43', '1');
-INSERT INTO `resultado` (`id`, `meta_id`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('148', '456', '9', '7', '2021', 'teste', '1', '2021-07-26 13:59:22', '1');
+-- 07-08-2021 22:20:42
+INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('1', '6', '1', '8', '2021', '', '0', '2021-08-07 00:52:22', '1');
+INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('2', '7', '2', '8', '2021', '', '0', '2021-08-07 00:52:22', '1');
+INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('3', '8', '3', '8', '2021', '', '0', '2021-08-07 00:52:22', '1');
+INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('4', '10', '1', '8', '2021', '<script>alert("vc sofreu um ataque XSS ")</script>', '0', '2021-08-07 00:52:22', '1');
+INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('5', '33', '1', '8', '2021', '<script>alert("vc sofreu um ataque XSS ")</script>', '0', '2021-08-07 18:06:41', '1');
