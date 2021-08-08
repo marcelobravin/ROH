@@ -1,37 +1,4 @@
 $(document).ready(function(){
-	exibirLocalStorage()
-
-	// $(".sucesso, .erro").click(function(){
-	// 	$(this).slideToggle('slow')
-	// })
-
-	$("[type='text']:not(:disabled)").on("keyup change", function(){
-		verificarMeta( $(this) )
-	})
-
-	$(".salvarTemporariamente").click(function(){
-		const tableRow = $(this).parent()
-		const inputs = tableRow.find("input:not(:disabled)")
-		const texts = tableRow.find("textarea:not(:disabled)")
-
-		adicionarLS (inputs)
-		adicionarLS (texts)
-
-		alert("Os dados inseridos foram salvos em caráter temporário!")
-		return false
-
-		function adicionarLS (objs)
-		{
-			for (let index=0; index<objs.length; index++) {
-				const obj = objs[index]
-
-				if ( obj["value"] != "" ) {
-					localStorage.setItem( obj["id"], obj["value"] )
-				}
-			}
-		}
-	})
-
 
 	$(".salvar").click( async function(){
 		let mensagem = "Deseja realizar o registro permanente dos dados preenchidos?";
@@ -51,29 +18,6 @@ $(document).ready(function(){
 	})
 
 })
-
-function exibirLocalStorage ()
-{
-	for (var i=0; i<localStorage.length; i++) {
-		const idLS = localStorage.key(i)
-
-		if (idLS != "") {
-			const valor = localStorage.getItem(idLS)
-
-			if ( !/^leitos-/.test(idLS) && !/^justificativa-/.test(idLS) ) {
-				localStorage.clear()
-				return false
-			}
-
-			$( "#"+idLS ).val( valor )
-
-			if ( $("#"+idLS).is( "input" ) ) {
-				$( "#"+idLS ).focus()
-				verificarMeta( $("#"+idLS) )
-			}
-		}
-	}
-}
 
 function prepararParametros ()
 {
@@ -105,7 +49,7 @@ function requisicaoAjax (parametros)
 	return new Promise((resolve, reject)=>{
 		$.ajax({
 			type	: 'POST',
-			url		: 'app/Controller/FillTarget.php',
+			url		: 'app/Controller/AcceptJustification.php',
 			dataType: 'json',
 			data	: { form: parametros },
 			beforeSend: function(xhr) {

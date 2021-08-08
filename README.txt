@@ -7,6 +7,10 @@ navegar por
 	página maior que o limite
 
 
+!!!
+	const pattern = /^Você será redirecionado/i; // TODO verificar
+
+
 testar novamente ajax com tempo expirado
 
 

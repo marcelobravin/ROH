@@ -42,12 +42,13 @@
 									<th scope="Especialidade dos Leitos">Especialidade<br>dos Leitos</th>
 									<th scope="Volume de saída">Volume<br>de saída</th>
 									<th scope="Justificativa para a meta não ter sido atingida" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
+									<th scope="Justificativa Aceita?" title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
 								</tr>
 							</thead>
 
 							<?php if ( !isset($especialidades[$v['titulo']]) ) : ?>
 								<tr>
-									<td>Nenhuma definição dessa categoria encontrada para esse hospital!</td>
+									<td colspan="4">Nenhuma definição dessa categoria encontrada para esse hospital!</td>
 								</tr>
 							<?php else : ?>
 								<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
@@ -57,13 +58,8 @@
 										</td>
 
 										<td>
-											<?php if ( !isset($e['meta_quantidade']) ): ?>
+											<?php if ( !isset($e['meta_quantidade']) ): # TODO verificar se a sql já cobre essa situação (na pagina resultado tb) ?>
 												<em>Meta não definida!</em>
-												<br>
-												<em>
-													<a href="metas.php?<?php echo $_SERVER['QUERY_STRING'] ?>&categoria=<?php echo $v['id'] ?>">Definir meta</a>
-												</em>
-
 											<?php else: ?>
 												<p>
 													Meta: <?php echo $e['meta_quantidade'] ?>
@@ -72,7 +68,7 @@
 												<?php if ( isset($e['resultado']) ): ?>
 													<input type="text" disabled value="<?php echo $e['resultado'] ?>" />
 												<?php else: ?>
-													<input type="text" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
+													<em>Meta não preenchida!</em>
 												<?php endif ?>
 
 											<?php endif ?>
@@ -81,9 +77,21 @@
 										<td>
 											<?php if ( isset($e['meta_quantidade']) ): ?>
 												<?php if ( isset($e['resultado']) ): ?>
-													<textarea disabled><?php echo $e['justificativa'] ?></textarea>
-												<?php else: ?>
-													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" disabled><?php echo $e['justificativa'] ?></textarea>
+													<?php if ( $e['resultado'] < $e['meta_quantidade'] ): ?>
+														<textarea disabled><?php echo $e['justificativa'] ?></textarea>
+													<?php endif ?>
+												<?php endif ?>
+											<?php endif ?>
+										</td>
+
+										<td>
+											<?php if ( isset($e['meta_quantidade']) ): ?>
+												<?php if ( isset($e['resultado']) ): ?>
+													<?php if ( $e['resultado'] < $e['meta_quantidade'] ): ?>
+														<?php if ( !empty($e['justificativa']) ): ?>
+															<input type="checkbox" <?php echo $e['justificativa_aceita'] ? "checked" : "" ?> />
+														<?php endif ?>
+													<?php endif ?>
 												<?php endif ?>
 											<?php endif ?>
 										</td>
@@ -95,7 +103,7 @@
 								<tr>
 									<td colspan="4">
 										<?php echo $v['observacoes'] ?>
-										form					</td>
+									</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -120,7 +128,7 @@
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">
 
 <script src="public/scripts/metas.js"></script>
-<script src="public/scripts/resultado.js"></script>
+<script src="public/scripts/justificativa.js"></script>
 <style>
 	textarea {
 		resize: none;
