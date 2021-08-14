@@ -55,22 +55,26 @@ function gerarBreadCrumb ($paginas)
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
+ * @example
+	echo box("checkbox", "", "positivo", false, ["data-atributo"=>1, "classe"]);
  */
 function box ($tipo="checkbox", $nome="", $valor="", $selecionado=false, $atributos=array())
 {
+	if ( !is_array($atributos) ) {
+		$atributos = array($atributos);
+	}
+
 	if ( $selecionado ) {
 		$atributos['checked'] = 'checked';
 	}
 
-	$atributos = gerarAtributos($atributos);
-
-	return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'"'.$atributos.' />';
+	return gerarInput($tipo, $nome, $valor, $atributos);
 }
 
 /**
  * Verifica se o valor se encaixa no padrão
  * @package	grimoire/bibliotecas/html.php
- * @since05-07-2015
+ * @since	05-07-2015
  * @version	07/07/2021 11:34:44
  *
  * @param	string
@@ -99,7 +103,9 @@ function criarLista ($itens=array(), $ordenada=false, $atributos=array())
 {
 	$atributo = gerarAtributos($atributos);
 	$lista = concatenar($itens, "<li>", "</li>");
-	$ordenada ? $tag = "ol" : $tag = "ul";
+	$ordenada
+		? $tag = "ol"
+		: $tag = "ul";
 	return "<$tag $atributo>$lista</$tag>";
 }
 
@@ -218,16 +224,26 @@ function gerarElemento ($elemento, $conteudo="", $atributos=array())
  *
  * @uses	html.php->gerarAtributos()
  * @example
+	echo gerarInput("text", "campo", "valor", "classe");
+	echo gerarInput("text", "campo", "valor", array("classe", "classe2", "data-exemplo" => "data-valor"));
  */
-function gerarInput ($tipo="text", $nome="", $valor="", $atributos=array())
+function gerarInput ($tipo="text", $nome="campo", $valor="", $atributos=array(), $id=null)
 {
-	$atributos = gerarAtributos($atributos);
+	$atributos['type']	= $tipo;
+	$atributos['name']	= $nome;
 
-	if ( empty($valor) ) {
-		return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'"'.$atributos.' />';
+	if ( empty($id) ) {
+		$atributos['id'] = $nome;
+	} else {
+		$atributos['id'] = $id;
 	}
 
-	return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'"'.$atributos.' />';
+	if ( !empty($valor) ) {
+		$atributos['value']	= $valor;
+	}
+
+	$atributos = gerarAtributos($atributos);
+	return '<input'.$atributos.' />';
 }
 
 /**
@@ -356,9 +372,9 @@ function gerarMetas ($titulo="Página")
 	$metas[] = '<META NAME="distribution" CONTENT="Global">';
 	$metas[] = '<META NAME="revisit-after" CONTENT="7 Days">';
 	$metas[] = '<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-							<!--[if lt IE 9]>
-								<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-							<![endif]-->';
+				<!--[if lt IE 9]>
+					<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+				<![endif]-->';
 
 	return $metas;
 }
@@ -510,32 +526,37 @@ function gerarOptions ($valores=array(), $indiceSelecionado=null, $atributos=arr
  *
  * @uses	html.php->gerarAtributos()
  * @example
-	$campos = gerarRadio("sexo", array("Masc"=>"M", "Fem"=>"F"), "M");
+	$campos = gerarRadio("uf", array("SP", "RJ"), "RJ");
+	$campos = gerarRadio("sexo", array("Masc"=>"M", "Fem"=>"F"), "F");
 	echo implode("<br>", $campos);
  */
 function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=array())
 {
-	$inputs = array();
-	$atributos = gerarAtributos($atributos);
-	if ( is_array($valores) ) {
-		foreach ($valores as $indice => $valor) {
-			$selecionado = "";
-			if ($valor == $valorSelecionado) {
-				$selecionado = ' checked="checked"';
-			}
-
-			$input = "<label>";
-			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'"'.$atributos.''.$selecionado.' />';
-
-			if ( is_numeric($indice) ) {
-				$input .= " ".ucfirst($valor);
-			} else {
-				$input .= " ".ucfirst($indice);
-			}
-			$input .= "</label>";
-			$inputs[] = $input;
-		}
+	if ( !is_array($atributos) ) {
+		$atributos = array($atributos);
 	}
+
+	$inputs = array();
+	foreach ($valores as $indice => $valor) {
+
+		if ($valor == $valorSelecionado) {
+			$atributos['checked'] = "checked";
+		} else {
+			unset($atributos['checked']);
+		}
+
+		$input = "<label>";
+		$input .= gerarInput("radio", $nome, $valor, $atributos, $nome.'['.$indice.']');
+
+		if ( is_numeric($indice) ) {
+			$input .= " ".ucfirst($valor);
+		} else {
+			$input .= " ".ucfirst($indice);
+		}
+		$input .= "</label>";
+		$inputs[] = $input;
+	}
+
 	return $inputs;
 }
 
@@ -707,7 +728,7 @@ function refresh ($url="", $tempo="0")
 */
 function selecionado ($indice, $valor, $atributo='selected')
 {
-	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice]==$valor ) {
+	if ( isset($_GET) && isset($_GET[$indice]) && $_GET[$indice] ==$valor ) {
 		return $atributo.'="'. $atributo .'"';
 	}
 }
@@ -772,7 +793,6 @@ function popup ($pagina)
 		pop up
 	</a>";
 }
-
 
 /**
  * Cria regra css para sublinhar links que contenham a url da página atual

@@ -1,4 +1,4 @@
-<!-- 14-08-2021 10:52:53 -->
+<!-- 14-08-2021 16:11:00 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
@@ -6,19 +6,19 @@
 </div>
 <div>
 	<label for="ativo">Ativo</label>
-	<input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj["ativo"]) ?> />
+	<input checked="checked" type="checkbox" name="ativo" id="ativo" value="1" />
 </div>
 <div>
 	<label for="telefone">Telefone</label>
-	<input type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" maxlength="10" />
+	<input maxlength="10" type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" />
 </div>
 <div>
 	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>
-	<input type="text" name="celular" id="celular" value="<?php echo bloquearXSS($obj["celular"]) ?>" required="required" maxlength="11" class="obrigatorio" />
+	<input required="required" maxlength="11" type="text" name="celular" id="celular" value="<?php echo bloquearXSS($obj["celular"]) ?>" class="obrigatorio" />
 </div>
 <div>
 	<label for="nome">Nome</label>
-	<input type="text" name="nome" id="nome" value="<?php echo bloquearXSS($obj["nome"]) ?>" maxlength="255" />
+	<input maxlength="255" type="text" name="nome" id="nome" value="<?php echo bloquearXSS($obj["nome"]) ?>" />
 </div>
 <div>
 	<label for="cargo">CBO <span class="simbolo-obrigatorio">*</span></label>
@@ -28,9 +28,9 @@
 </div>
 <div>
 	<label for="endereco">Endereço</label>
-	<input type="text" name="endereco" id="endereco" value="<?php echo bloquearXSS($obj["endereco"]) ?>" maxlength="255" />
+	<input maxlength="255" type="text" name="endereco" id="endereco" value="<?php echo bloquearXSS($obj["endereco"]) ?>" />
 </div>
 <div>
 	<label for="cpf">CPF <span class="simbolo-obrigatorio">*</span></label>
-	<input type="text" name="cpf" id="cpf" value="<?php echo bloquearXSS($obj["cpf"]) ?>" required="required" maxlength="14" class="obrigatorio" />
+	<input required="required" maxlength="14" type="text" name="cpf" id="cpf" value="<?php echo bloquearXSS($obj["cpf"]) ?>" class="obrigatorio" />
 </div>

@@ -2286,3 +2286,19 @@ $y = [ "a", "b", "c"];
 
 
 
+
+ /**
+  * Inclui e valida inscrição estadual
+  * @package    grimoire/bibliotecas/validacao.php
+  * @since  05-07-2015
+  * @version    24/07/2021 16:17:30
+  *
+  * @param  string
+  * @param  string
+  * @return bool
+  */
+ function validaIE ($ie, $uf="SP")
+ {
+    include_once "opcionais/validacao/inscricaoEstadual.php";
+    return CheckIE($ie, $uf);
+ }
