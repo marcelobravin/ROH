@@ -132,7 +132,7 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 		# Se for obrigatorio
 		$atributos = array();
 		if ($campo['Null'] == "NO") {
-			$atributos[0] = 'obrigatorio';
+			$atributos[] = 'obrigatorio';
 			$atributos['required'] = 'required';
 		}
 
@@ -141,6 +141,7 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 
 		# date
 		if ($campo['Type'] == "date") {
+			$tipo = "date";
 			$atributos['maxlength'] = 10;
 			$atributos[] = "padraoData";
 			# datetime & timestamp
@@ -232,6 +233,18 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 
 			# aqui adiciona padrões
 			$resposta = text($campo['Field'], $valor, $atributos);
+			break;
+
+		case "date":
+			# aqui adiciona padrões
+			// $indice = existeIndice($campo['Field'], $padroes);
+
+			// if ( $indice > 0) {
+				// $atributos[0] .= ' padrao'. ucwords($padroes[$campo['Field']]);
+			// }
+
+			# aqui adiciona padrões
+			$resposta = gerarInput("date", $campo['Field'], $valor, $atributos);
 			break;
 
 		case "hidden":
