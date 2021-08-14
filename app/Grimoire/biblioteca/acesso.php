@@ -65,16 +65,22 @@ function configurarCookies ()
 
 function configurarExibicaoErros ($conf=PRODUCAO)
 {
+	#error_log($path); # Path to the error log file. When running PHP in a Docker container, consider logging to stdout instead.
+
 	if ( $conf ) {
-		ini_set('display_startup_errors', 0);
-		ini_set('display_errors'		, 0);
-		ini_set('display_startup_errors', 0);
+		ini_set('display_errors'		, 0); # Defines whether errors are included in output.
+		ini_set('display_startup_errors', 0); # Whether to display PHP startup sequence errors.
 	} else {
-		ini_set('display_startup_errors', 1);
 		ini_set('display_errors'		, TRUE);
-		ini_set('error_reporting'		, E_ALL);
-		error_reporting(E_ALL);
+		ini_set('display_startup_errors', 1);
 	}
+
+	ini_set('log_errors'			, 1); # Toggles error logging.
+	ini_set('log_errors_max_length'	, 1024); # Max length of logged errors. Set to zero for no maximum.
+	ini_set('track_errors'			, 1); # Stores the last error message in $php_errormsg
+
+	ini_set('error_reporting'		, E_ALL);
+	error_reporting(E_ALL); # The minimum error reporting level.
 }
 
 /**
