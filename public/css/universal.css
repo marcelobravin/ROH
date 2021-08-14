@@ -50,6 +50,7 @@ input[type="submit"]:hover {
 	color: red;
 	border: 1px solid red;
 	background: #f7b1b1;
+	background-image: url(../img/warning.png)
 }
 
 .info {

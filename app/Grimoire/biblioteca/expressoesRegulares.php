@@ -58,8 +58,12 @@ function padrao ($padrao)
 			$r = "^[0-9]{5}-[0-9]{3}$^";
 			break;
 
-		case "celular":
+		case "celularComMascara":
 			$r = '/^(\(11\) (9\.\d{4})-\d{4})|((\(1[2-9]{1}\)|\([2-9]{1}\d{1}\)) [5-9]\d{3}-\d{4})$/';
+			break;
+
+		case "celularSemMascara":
+			$r = '/^\(?\d{2}\)?\s?\d{5}\-?\d{4}$/';
 			break;
 
 		case "comentários multi-linha":
@@ -141,10 +145,6 @@ function padrao ($padrao)
 			$r = "/[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}/";
 			break;
 
-		case "natural": # Is a Natural number	(0,1,2,3, etc.)
-			$r = '/^[0-9]+$/';
-			break;
-
 		default: $r = padrao2($padrao);
 	}
 
@@ -154,6 +154,10 @@ function padrao ($padrao)
 function padrao2 ($padrao)
 {
 	switch ($padrao) {
+
+		case "natural": # Is a Natural number	(0,1,2,3, etc.)
+			$r = '/^[0-9]+$/';
+			break;
 
 		case "numeric":
 			$r = '/^[\-+]?[0-9]*\.?[0-9]+$/';

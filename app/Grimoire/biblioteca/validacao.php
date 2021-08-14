@@ -108,21 +108,30 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 	}
 
 	$x = validaTamanhos($mapaTamanhos, $post); # TODO testar e corrigir
-	$erros["violacoes_tamanho_minimo"] = $x['violacoes_tamanho_minimo'];
-	$erros["violacoes_tamanho_maximo"] = $x['violacoes_tamanho_maximo'];
+	if ( !empty($x['violacoes_tamanho_minimo']) ) {
+		$erros["violacoes_tamanho_minimo"] = $x['violacoes_tamanho_minimo'];
+	}
+	if ( !empty($x['violacoes_tamanho_maximo']) ) {
+		$erros["violacoes_tamanho_maximo"] = $x['violacoes_tamanho_maximo'];
+	}
+
 	return $erros;
 }
 
+# validação de tamanhos
 function validaTamanhos ($mapaTamanhos, $post)
 {
-	# validação de tamanhos
+	$erros = array(
+		"violacoes_tamanho_minimo" => array(),
+		"violacoes_tamanho_maximo" => array()
+	);
 	foreach ( $mapaTamanhos as $i => $v) {
 		$l = isset($post[$i])
 			? strlen($post[$i])
 			: 0;
 
 		if ($l > 0) { # caso um campo não obrigatorio tenha sido enviado vazio
-			if ( $l < $mapaTamanhos[$i]['minimo'] ) {
+			if ( isset($mapaTamanhos[$i]['minimo']) && $l < $mapaTamanhos[$i]['minimo'] ) {
 				$erros["violacoes_tamanho_minimo"][] = array(
 					'campo'		=> $i,
 					'numero'	=> $mapaTamanhos[$i]['minimo']

@@ -1,11 +1,11 @@
 <?php
 function validarFormulario ( $post, $update=false )
 {
-	# validar formato contra expressões regulares
+	# valida formatos contra expressões regulares
 	$mapaFormatos = array(
 		'login'		=> 'email',
 		'telefone'	=> 'telefone',
-		'celular'	=> 'celular',
+		'celular'	=> 'celularSemMascara',
 		'nome'		=> 'letras_espacos_acentos_apostrofe',
 		'endereco'	=> 'endereco',
 		'cpf'		=> 'cpf'
@@ -29,11 +29,23 @@ function validarFormulario ( $post, $update=false )
 	}
 
 	# valida tamanho maximo e minimo de characteres
-	/* pega os maximos e caso necessário adiciona os minimos */
-	$mapaTamanhos = array(
-		'nome'		=> ['minimo'=>5, 'maximo'=>255],
-		'endereco'	=> ['minimo'=>5, 'maximo'=>255]
-	);
+	if ( PRODUCAO ) {
+		$mapaTamanhos = array(
+			'nome'		=> ['minimo'=>5, 'maximo'=>255],
+			'endereco'	=> ['minimo'=>5, 'maximo'=>255]
+		);
+	} else {
+		# pega os maximos e caso necessário adiciona os minimos
+		include ARQUIVOS_EFEMEROS."/modelos/tamanhos_maximos-usuario.php";
+		$mapaTamanhos['nome']['minimo']		= 5;
+		$mapaTamanhos['endereco']['minimo']	= 5;
+	}
+
+	// exibir($mapaTamanhos, true);
+	# limpa campos com máscara
+	$post['telefone'] = removerNaoNumericos($post['telefone']);
+	$post['celular'] = removerNaoNumericos($post['celular']);
+
 
 	if ( $update ) {
 		$camposObrigatorios['id'] = $post['id'];
@@ -49,7 +61,7 @@ function montarMensagemErro ( $erro )
 {
 	$erro = $erro->getMessage();
 
-	if ( contem("Duplicate entry", $erro) ) {
+	if ( contem("Duplicate entry", $erro) ) {  # Erros possíveis
 
 		if ( contem("for key 'cpf'", $erro) ) {
 			$erro = "CPF já existe!";
@@ -58,7 +70,7 @@ function montarMensagemErro ( $erro )
 		}
 
 	} else {
-		exibir($erro, true); # Erro deconhecido
+		exibir($erro, true); # Erro desconhecido
 	}
 
 	return $erro;

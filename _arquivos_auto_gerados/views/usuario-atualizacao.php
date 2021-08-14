@@ -1,4 +1,4 @@
-<!-- 13-08-2021 23:09:17 -->
+<!-- 14-08-2021 10:52:53 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
@@ -10,7 +10,7 @@
 </div>
 <div>
 	<label for="telefone">Telefone</label>
-	<input type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" maxlength="15" />
+	<input type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" maxlength="10" />
 </div>
 <div>
 	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>

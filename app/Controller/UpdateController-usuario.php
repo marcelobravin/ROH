@@ -17,7 +17,7 @@ $condicoes = array(
 
 $campos = array(
 	// 'login'			=> $_POST['email'],
-	'senha'			=> criptografar($_POST['cpf']),
+	// 'senha'			=> criptografar($_POST['cpf']),
 	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
 	'telefone'		=> removerNaoNumericos($_POST['telefone']),
 	'celular'		=> removerNaoNumericos($_POST['celular']),

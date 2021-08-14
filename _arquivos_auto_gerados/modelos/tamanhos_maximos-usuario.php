@@ -2,22 +2,22 @@
 		/**
 		 * usuario
 		 * @package	grimoire/modelos
-		 * @version	13-08-2021 23:09:17
+		 * @version	14-08-2021 10:52:53
 		*/
 	$mapaTamanhos = array(
-'id' => 11,
-'login' => 60,
-'senha' => 60,
-'email_confirmado' => 1,
-'token' => 255,
-'ativo' => 1,
-'reset' => 50,
-'telefone' => 15,
-'celular' => 11,
-'nome' => 255,
-'endereco' => 255,
-'cpf' => 14,
-'criado_por' => 11,
-'atualizado_por' => 11,
-'excluido_por' => 11,
+'id' => array('maximo' => 11),
+'login' => array('maximo' => 60),
+'senha' => array('maximo' => 60),
+'email_confirmado' => array('maximo' => 1),
+'token' => array('maximo' => 255),
+'ativo' => array('maximo' => 1),
+'reset' => array('maximo' => 50),
+'telefone' => array('maximo' => 10),
+'celular' => array('maximo' => 11),
+'nome' => array('maximo' => 255),
+'endereco' => array('maximo' => 255),
+'cpf' => array('maximo' => 14),
+'criado_por' => array('maximo' => 11),
+'atualizado_por' => array('maximo' => 11),
+'excluido_por' => array('maximo' => 11),
 );

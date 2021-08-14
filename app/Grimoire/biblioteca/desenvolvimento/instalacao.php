@@ -1128,7 +1128,7 @@ function gerarModeloValidacao ($tabela)
 
 	$campos = "\$mapaTamanhos = array(\n";
 	foreach ($tamanhosMaximos as $indice => $value) {
-		$campos .= "'{$indice}' => {$value},\n";
+		$campos .= "'{$indice}' => array('maximo' => {$value}),\n";
 	}
 	$campos .= ");";
 

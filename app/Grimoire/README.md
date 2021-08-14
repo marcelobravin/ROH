@@ -4,7 +4,8 @@ cj-xfaYum4CR#rb
 
 @param/return    mixed
 
-
+mudar regexp de email
+    não está aceitando numeros
 
 
 identificar dependencias varre tabelas e
@@ -20,10 +21,6 @@ automaticamente colocar tipo exótico do campo no bd em classe
 echo '<input type="date">';
 
 
-
-voltar o gerarModelo para agilizar a validação de formularios
-    tamanho máximo pegar automaticamente
-    obrigatorio
 
     restando fazer manualmente o tamanho mínimo e formatos de campo texto
 
