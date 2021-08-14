@@ -220,10 +220,8 @@ function gerarFKs ($tabela)
  *
  * @return	bool
  */
-function gerarHtaccess ()
+function gerarHtaccess ($siteUrl="URL")
 {
-	$SITE['url'] = "URL";
-
 	$conteudo = '
 	AddDefaultCharset '. CARACTERES .'
 	AddCharset '. CARACTERES .' .atom .css .js .json .rss .vtt .xml
@@ -245,11 +243,11 @@ function gerarHtaccess ()
 			AddDefaultCharset '. strtoupper(CARACTERES) .'
 		</FilesMatch>
 
-		ErrorDocument 400 '. $SITE['url'] .'http://localhost/sites/canabella/404.php
-		ErrorDocument 401 '. $SITE['url'] .'http://localhost/sites/canabella/404.php
-		ErrorDocument 403 '. $SITE['url'] .'http://localhost/sites/canabella/404.php
-		ErrorDocument 404 '. $SITE['url'] .'http://localhost/sites/canabella/404.php
-		ErrorDocument 500 '. $SITE['url'] .'http://localhost/sites/canabella/404.php
+		ErrorDocument 400 '. $siteUrl .'http://localhost/sites/canabella/404.php
+		ErrorDocument 401 '. $siteUrl .'http://localhost/sites/canabella/404.php
+		ErrorDocument 403 '. $siteUrl .'http://localhost/sites/canabella/404.php
+		ErrorDocument 404 '. $siteUrl .'http://localhost/sites/canabella/404.php
+		ErrorDocument 500 '. $siteUrl .'http://localhost/sites/canabella/404.php
 	</IfModule>
 
 	# ----------------------------------------------------------------------
@@ -622,13 +620,7 @@ function alterarPermissao ($arquivo, $permissao=1)
  */
 function gerarInserts ($tabela)
 {
-	$sql = selecao($tabela);
-	$con = conectarPdo();
-	$qry = $con->prepare($sql);
-	$qry -> execute();
-
-	$registros = $qry->fetchAll(PDO::FETCH_ASSOC);
-	$con = null;
+	$registros = selecionar($tabela);
 
 	$inserts = "-- ". agora( IDIOMA=='pt-BR' )."\n";
 	foreach ($registros as $value) {
@@ -638,47 +630,6 @@ function gerarInserts ($tabela)
 	}
 
 	escrever(ARQUIVOS_EFEMEROS."/db/dml/registros/{$tabela}.sql", $inserts, true);
-}
-
-/**
- * Gera arquivo para recriação da tabela
- * @package	grimoire/bibliotecas/arquivos.php
- * @version	05-07-2015
- * @version	12/07/2021 09:08:57
- *
- * @param	string
- * @param	array
- *
- * @uses	tempo.php->agora()
- * @uses	arquivos.php->escrever()
- */
-function gerarModelo ($nome, $descricao)
-{
-	$campos = '';
-	foreach ($descricao as $key => $value) {
-		$campos .= '
-			$campos['. $key .'] = array(
-				"Field"		=> "'. $value['Field'] .'",
-				"Type"		=> "'. $value['Type'] .'",
-				"Null"		=> "'. $value['Null'] .'",
-				"Key"		=> "'. $value['Key'] .'",
-				"Default"	=> "'. $value['Default'] .'",
-				"Extra"		=> "'. $value['Extra'] .'",
-				"Comment"	=> "'. $value['Comment'] .'"
-			);
-		';
-	}
-
-	$conteudo = '<?php
-		/**
-		 * '. $nome .'
-		 * @package	grimoire/modelos
-		 * @version	'. agora( IDIOMA=='pt-BR' ) .'
-		*/
-		'. $campos .'
-	';
-
-	escrever(ARQUIVOS_EFEMEROS."/modelos/{$nome}.php", $conteudo, true); # TODO colocar em diretorio não efemero
 }
 
 /**
@@ -727,7 +678,7 @@ function importarBD ()
 		die( 'Erro: importarTabelas()');
 	}
 
-	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/constraints_*.sql") ) {
+	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/constraints/*.sql") ) {
 		die( 'Erro: importarConstraints()');
 	}
 
@@ -858,7 +809,9 @@ function exportarConstraints ($db=DBNAME)
 		'uqs' => $uqs
 	);
 }
-
+/**
+ * Converte definição de uniques do BD de array para sql
+*/
 function converterUQs ($uqs)
 {
 	$tabelas = array();
@@ -898,11 +851,10 @@ function registrartFKs ($fks)
 
 			$content .= "\n\n";
 			$content .= concatenar2($sqls['INSERT']);
-			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['TABLE_NAME']}.sql", $content, true);
+			escrever(ARQUIVOS_EFEMEROS."/db/ddl/constraints/fks_{$t['TABLE_NAME']}.sql", $content, true);
 		}
 	}
 }
-
 
 /**
  * Cria e exibe formulario
@@ -940,7 +892,6 @@ function registrartFKs ($fks)
 			$sobreEscreverCampos,
 			$remover,
 			$esconder,
-			$conversoes,
 			$descricaoLabels,
 			$padroes
 		);
@@ -948,22 +899,8 @@ function registrartFKs ($fks)
 		print_r($form);
 		echo('</pre>');
  */
-function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
-	# Gera campos
-	// $registro = null;
-	// if ( isset($_GET['codigo']) ) {
-	// 	$esconder[] = 'id'; # transforma em hidden
-
-	// 	$registro = localizar($MODULO, array('id'=> $_GET['codigo']) );
-
-	// 	if ( empty($registro) ) {
-	// 		return array("Código inválido", 1);
-	// 	}
-	// } else {
-	// 	$remover[] = 'id';
-	// }
-
 	$registro = null;
 	$remover[] = 'id';
 
@@ -980,7 +917,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 	}
 
-	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -1019,7 +956,6 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		$sobreEscreverCampos,
 		$remover,
 		$esconder,
-		$conversoes,
 		$descricaoLabels,
 		$padroes
 	);
@@ -1027,7 +963,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 	print_r($form);
 	echo('</pre>');
  */
-function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
 	$esconder[] = 'id';
 
@@ -1052,7 +988,7 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 		}
 	}
 
-	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	$d = array_values($descricao);
@@ -1101,14 +1037,13 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
  */
-function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
 	$form = gerarFormularioAtualizacao($MODULO,
 		$sobreEscreverLabels,
 		$sobreEscreverCampos,
 		$remover,
 		$esconder,
-		$conversoes,
 		$descricaoLabels,
 		$padroes
 	);
@@ -1138,19 +1073,14 @@ function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
  */
-function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
 	$form = gerarFormulario($MODULO,
 		$sobreEscreverLabels,
 		$sobreEscreverCampos,
 		$remover,
 		$esconder,
-		$conversoes,
 		$descricaoLabels,
 		$padroes
 	);
@@ -1161,7 +1091,6 @@ function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreE
 
 	return $form;
 }
-
 
 function gerarModeloValidacao ($tabela)
 {

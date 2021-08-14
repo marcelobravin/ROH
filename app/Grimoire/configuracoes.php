@@ -35,7 +35,8 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
  * @var	string/bool
  */
 	# o nome do diretório é case sensitive
-	define( 'PROJECT_NAME'			, 'roh'); #------------------------------------- nome da pasta que contém o projeto
+	define( 'PROJECT_NAME'			, 'ROH'); #------------------------------------- nome da pasta que contém o projeto # casa
+	//define( 'PROJECT_NAME'			, 'roh'); #------------------------------------- nome da pasta que contém o projeto # trabalho
 	if ( PRODUCAO ) {
 		define( 'PROJECT_FOLDER'	, 'PROJETOS/'. PROJECT_NAME . '/');
 	} else {

@@ -87,7 +87,6 @@ if ( isset($_REQUEST['action']) ) {
 				# default
 				$sobreEscreverCampos	= array();
 				$esconder				= array();
-				$conversoes				= array();
 				$padroes				= array(); # talvez dá pra tirar
 				$sobreEscreverLabels	= array();
 				$descricaoLabels		= array();
@@ -118,7 +117,7 @@ if ( isset($_REQUEST['action']) ) {
 					$remover[] = 'email_confirmado';
 				}
 
-				$x = criarFormularioInsercao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $conversoes, $descricaoLabels, $padroes);
+				$x = criarFormularioInsercao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $descricaoLabels, $padroes);
 				if ( $x ) {
 					echo "Gerado formulário de inserção: {$value}!";
 					exibir($x);
@@ -176,7 +175,7 @@ if ( isset($_REQUEST['action']) ) {
 					default:
 				}
 
-				$x = criarFormularioAtualizacao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $conversoes, $descricaoLabels, $padroes);
+				$x = criarFormularioAtualizacao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $descricaoLabels, $padroes);
 				if ( $x ) {
 					echo "Gerado formulário de atualização: {$value}!";
 					echo '<pre>';

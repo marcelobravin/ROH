@@ -42,7 +42,7 @@ function montarTemplate ( $campos, $labels, $esconder=array() )
  *
  * @uses	formularios.php->transformarEmInputs()
  */
-function gerarInputs ($descricao, $registro=null, $sobreEscreverCampos=array(), $conversoes=array(), $padroes=array())
+function gerarInputs ($descricao, $registro=null, $sobreEscreverCampos=array(), $padroes=array())
 {
 	# Adiciona os valores á matriz em caso de atualização
 	if ( isset($registro) ) {
@@ -51,7 +51,7 @@ function gerarInputs ($descricao, $registro=null, $sobreEscreverCampos=array(), 
 		}
 	}
 
-	return transformarEmInputs($descricao, $sobreEscreverCampos, $conversoes, $padroes);
+	return transformarEmInputs($descricao, $sobreEscreverCampos, $padroes);
 }
 
 /**
@@ -120,7 +120,7 @@ function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels
  * @see padrão de nomenclatura de FK's <----------------------------------------
  * @uses	VARIOS
  */
-function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $conversoes=array(), $padroes=array())
+function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes=array())
 {
 	$resposta = array();
 
@@ -185,27 +185,6 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $convers
 				unset($sobreEscreverCampos[$key]); // remove da lista de sobrescrição
 			}
 		}
-
-		// REALIZA CONVERSÂO DE VALOR EM CASO DE ATUALIZAÇÃO
-//*
-		if ( !empty($valor) ) {
-
-			$indice = existeIndice($campo['Field'], $conversoes);
-			if ( $indice != -1 ) {
-				switch ($conversoes[$indice]) {
-					case "dinheiro":
-						$valor = converterDinheiro($valor);
-						break;
-
-					case "data":
-						$valor = converterData($valor);
-						break;
-					default:
-				}
-				unset($conversoes[$indice]); // remove campo
-			}
-		}
-//*/
 
 		$resposta[$campo['Field']] = construirElemento($tipo, $campo, $valor, $atributos, $padroes);
 	}
