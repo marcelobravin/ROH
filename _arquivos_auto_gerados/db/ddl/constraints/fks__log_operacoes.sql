@@ -1,4 +1,4 @@
--- 13-08-2021 15:14:54
+-- 13-08-2021 23:09:52
 ALTER TABLE `_log_operacoes` ENGINE = InnoDB;
 
 ALTER TABLE `_log_operacoes`
