@@ -15,3 +15,4 @@
 		<?php include "public/views/{$PAGINA['endereco']}" #pagina de mesmo nome da pagina atual ou sobrescrita no arquivo pai desse ?>
 	</body>
 </html>
+<?php require BASE."app/Grimoire/processosFinais.php" ?>

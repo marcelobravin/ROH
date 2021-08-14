@@ -107,6 +107,14 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 		$erros["campos_obrigatorios_nao_preenchidos"] = $camposVazios;
 	}
 
+	$x = validaTamanhos($mapaTamanhos, $post); # TODO testar e corrigir
+	$erros["violacoes_tamanho_minimo"] = $x['violacoes_tamanho_minimo'];
+	$erros["violacoes_tamanho_maximo"] = $x['violacoes_tamanho_maximo'];
+	return $erros;
+}
+
+function validaTamanhos ($mapaTamanhos, $post)
+{
 	# validação de tamanhos
 	foreach ( $mapaTamanhos as $i => $v) {
 		$l = isset($post[$i])
@@ -129,6 +137,7 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 			}
 		}
 	}
+
 	return $erros;
 }
 

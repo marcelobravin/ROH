@@ -76,7 +76,7 @@ function prepararParametros ()
 	const inputs = $("form").find("input:not(:disabled)")
 
 	var parametros = []
-	// for ( const [index] of inputs.entries() ) {
+
 	for (let index = 0; index < inputs.length; index++) {
 		const i = inputs[index];
 

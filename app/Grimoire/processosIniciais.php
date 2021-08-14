@@ -26,11 +26,11 @@ $PAGINA = array(
 	// 'separador'	=> SEPARADOR_TITULO
 );
 
-/* ob_start(); */
-// $page = ob_get_contents();
+ob_start();
+$page = ob_get_contents();
 
 if ( !PRODUCAO ) {
-	/* $c1 = new Clock(); */ // inicia cronometro
+	$c1 = new Clock(); // inicia cronometro
 	include BASE."app/Grimoire/biblioteca/desenvolvimento/acoes.php";
-	/* $c1->mark(); */ // retorna tempo
+	$c1->mark(); // retorna tempo;
 }

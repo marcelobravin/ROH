@@ -6,6 +6,13 @@ cj-xfaYum4CR#rb
 
 
 
+
+identificar dependencias varre tabelas e
+    verifica se alguma tabela tem id_MODULO (em dev, em prod ter mapeado)
+    verifica se existe algum registro
+        usuario verifica tabela de logs de acesso e operação
+
+
 automaticamente colocar tipo exótico do campo no bd em classe
 
 

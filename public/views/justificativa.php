@@ -61,9 +61,7 @@
 										</td>
 
 										<td>
-											<?php if ( !isset($e['meta_quantidade']) ): # TODO verificar se a sql já cobre essa situação (na pagina resultado tb) ?>
-												<em>Meta não definida!</em>
-											<?php else: ?>
+
 												<p>
 													Meta: <?php echo $e['meta_quantidade'] ?>
 												</p>
@@ -74,7 +72,6 @@
 													<em>Meta não preenchida!</em>
 												<?php endif ?>
 
-											<?php endif ?>
 										</td>
 
 										<td>
@@ -88,7 +85,6 @@
 										</td>
 
 										<td>
-											<?php if ( isset($e['meta_quantidade']) ): ?>
 												<?php if ( isset($e['resultado']) ): ?>
 													<?php if ( $e['resultado'] < $e['meta_quantidade'] ): ?>
 														<?php if ( !empty($e['justificativa']) ): ?>
@@ -96,7 +92,6 @@
 														<?php endif ?>
 													<?php endif ?>
 												<?php endif ?>
-											<?php endif ?>
 										</td>
 									</tr>
 								<?php endforeach ?>
