@@ -205,7 +205,7 @@ function existeIndice ($valor, $array)
 {
 	if ( is_array($array) ) {
 		foreach ($array as $indice=>$v) {
-			if ($valor === $indice) {
+			if ($valor == $indice) {
 				return true;
 			}
 		}

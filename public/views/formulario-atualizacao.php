@@ -16,6 +16,8 @@
 </div>
 
 <script src="public/vendors/jquery.mask.min.js"></script>
+<script src="public/scripts/definicoes-jmask.js"></script>
+
 <style>
 	label {
 		display: block;

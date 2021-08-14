@@ -1,24 +1,67 @@
+email pode ter numeros
+
+/* pega os maximos e caso necessário adiciona os minimos */
+ready
+
+
+
+
+
+edição ultimo relatório
+
+anotações giovani
+	edição ultimo relatório
+	distinção de usuário
+	log alterações
+	comprovante de visita mostrar
+		Vistoria sempre tem
+		Responsável técnico médico
+		De enfermagem
+		Ti
+
+
+13098041000104
+
+
+<!-- tem que baixar as webfonts -->
+
+# interessados
+	mesnovaes@prefeitura.sp.gov.br
+	giovanifranco@prefeitura.sp.gov.br
+
+
+Ajax verifica sessão ativa
+
+colocar códigos corretamente
+	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
+
+Checar cargo
+exportar PDF
+Percentagem
+Checar erro caracteres no xls
+	Remover ids
+receber Logos
+alterar Cores nas listas
+cor do usuário logado
+
+
+
 BUGs conhecidos ################################################################
 vazamento de mensagem de erro da sessão
+
+duas pessoas logadas com o mesmo usuário
 
 delete ou alterar parametros de busca
 	sem voltar uma página
 navegar por
 	página maior que o limite
 
-
 !!!
 	const pattern = /^Você será redirecionado/i; // TODO verificar
 
-
 testar novamente ajax com tempo expirado
 
-
 colocar confirmação de email de volta no form de usuário
-
-
-<!-- tem que baixar as webfonts -->
-
 
 queda de sessão em telas de controles
 	definir metas

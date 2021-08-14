@@ -16,8 +16,18 @@ $condicoes = array(
 );
 
 $campos = array(
-	'ativo'		=> isset($_POST['ativo']) ? 1 : 0,
-	'titulo'	=> $_POST['titulo']
+	'titulo'				=> $_POST['titulo'],
+	'ativo'					=> isset($_POST['ativo']) ? 1 : 0,
+	'cnes'					=> $_POST['cnes'],
+	'cnpj'					=> $_POST['cnpj'],
+	'diretor'				=> $_POST['diretor'],
+	'segundo_responsavel'	=> $_POST['segundo_responsavel'],
+	'endereco'				=> $_POST['endereco'],
+	'cep'					=> $_POST['cep'],
+	'telefone'				=> $_POST['telefone'],
+	'email	'				=> $_POST['email'],
+
+	'atualizado_por'		=> $_SESSION['user']['id']
 );
 
 $resultado = atualizar('hospital', $campos, $condicoes);

@@ -724,7 +724,7 @@ function radio ($nome, $valor="", $selecionado=false, $atributos=array(), $rotul
  * @uses	html.php->gerarInput()
  * @example
 		echo reset2();
- * @internal Cannot redeclare reset
+ * @internal	Cannot redeclare reset
  */
 function reset2 ($valor="Limpar", $nome="reset", $atributos=array())
 {

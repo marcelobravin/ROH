@@ -224,7 +224,7 @@ function selecao ($tabela, $criterios="", $diretrizes=null, $campos="*")
 function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
 {
 	$browser = json_encode($browser);
-	return "INSERT INTO _log_acesso (usuarioId, sucesso, ip, navegador)
+	return "INSERT INTO _log_acesso (id_usuario, sucesso, ip, navegador)
 		VALUES ($usuarioId, $sucesso, '$ip', '$browser')
 	";
 }
@@ -274,7 +274,7 @@ function exclusaoLogica ($modulo, $id)
 function criacaoFK ($tabelaAlterada, $tabelaReferenciada)
 {
 	return "ALTER TABLE `{$tabelaAlterada}`
-		ADD CONSTRAINT `fk_{$tabelaReferenciada}`
+		ADD CONSTRAINT `fk_{$tabelaAlterada}-{$tabelaReferenciada}`
 		FOREIGN KEY (id_{$tabelaReferenciada})
 		REFERENCES {$tabelaReferenciada}(id)
 			ON UPDATE CASCADE ON DELETE RESTRICT;";

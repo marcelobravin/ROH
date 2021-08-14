@@ -70,7 +70,7 @@ function box ($tipo="checkbox", $nome="", $valor="", $selecionado=false, $atribu
 /**
  * Verifica se o valor se encaixa no padrão
  * @package	grimoire/bibliotecas/html.php
- * @since 05-07-2015
+ * @since05-07-2015
  * @version	07/07/2021 11:34:44
  *
  * @param	string
@@ -144,9 +144,20 @@ function gerarAtributos ($atributos=array())
 
 	$array = array();
 	foreach ($atributos as $indice => $valor) {
-		is_numeric($indice)
-			? $array[] = 'class="'.$valor.'"'
-			: $array[] = $indice.'="'.$valor.'"';
+		if ( !is_numeric($indice) ) {
+			$array[] = $indice.'="'.$valor.'"';
+			unset($atributos[$indice]);
+		}
+	}
+
+	$classes = array();
+	foreach ($atributos as $valor) {
+		$classes[] = $valor;
+	}
+
+	if ( !empty($classes) ) {
+		$c = implode(" ", $classes);
+		$array[] = 'class="'.$c.'"';
 	}
 
 	$string = implode(" ", $array);
@@ -211,6 +222,11 @@ function gerarElemento ($elemento, $conteudo="", $atributos=array())
 function gerarInput ($tipo="text", $nome="", $valor="", $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
+
+	if ( empty($valor) ) {
+		return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'"'.$atributos.' />';
+	}
+
 	return '<input type="'.$tipo.'" name="'.$nome.'" id="'.$nome.'" value="'.$valor.'"'.$atributos.' />';
 }
 
@@ -350,7 +366,7 @@ function gerarMetas ($titulo="Página")
 /**
  * Monta página inteira
  * @package	grimoire/bibliotecas/html.php
- * @since 05-07-2015
+ * @since05-07-2015
  * @version	06/07/2021 14:06:13
  *
  * @param	string
@@ -423,7 +439,7 @@ function gerarSelect ($nome, $valores=array(), $valorSelecionado=null, $atributo
 /**
  * Gera options baseado em array associativa
  * @package	grimoire/bibliotecas/html.php
- * @since 05-07-2015
+ * @since05-07-2015
  * @version	06/07/2021 12:29:46
  *
  * @param	string
@@ -505,11 +521,12 @@ function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=a
 		foreach ($valores as $indice => $valor) {
 			$selecionado = "";
 			if ($valor == $valorSelecionado) {
-				$selecionado = 'checked="checked"';
+				$selecionado = ' checked="checked"';
 			}
 
 			$input = "<label>";
-			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
+			// $input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
+			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'"'.$atributos.''.$selecionado.' />';
 
 			if ( is_numeric($indice) ) {
 				$input .= " ".ucfirst($valor);

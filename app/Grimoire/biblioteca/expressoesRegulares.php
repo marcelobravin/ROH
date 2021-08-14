@@ -59,7 +59,7 @@ function padrao ($padrao)
 			break;
 
 		case "celular":
-			$r = '/^(\(11\) (9\d{4})-\d{4})|((\(1[2-9]{1}\)|\([2-9]{1}\d{1}\)) [5-9]\d{3}-\d{4})$/';
+			$r = '/^(\(11\) (9\.\d{4})-\d{4})|((\(1[2-9]{1}\)|\([2-9]{1}\d{1}\)) [5-9]\d{3}-\d{4})$/';
 			break;
 
 		case "comentários multi-linha":
@@ -161,6 +161,11 @@ function padrao2 ($padrao)
 		case "Tabs":
 			$r = "/	/";
 			break;
+
+		case "telefone":
+			$r = "/^\(?\d{2}\)?\s?\d{4}\-?\d{4}$/";
+			break;
+
 		case "url":
 			$r = '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 			break;

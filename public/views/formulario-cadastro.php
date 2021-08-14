@@ -16,6 +16,8 @@
 </div>
 
 <script src="public/vendors/jquery.mask.min.js"></script>
+<script src="public/scripts/definicoes-jmask.js"></script>
+
 <style>
 	.obrigatorio:before { content: "*"; display: block }
 	label {
@@ -32,4 +34,11 @@
 	h2 { text-align: center;}
 	[type="checkbox"],
 	[type="radio"] { margin-left: 10px; }
+
+	input:focus {
+		box-shadow: none;
+		outline: 0;
+
+		/* border: 1px solid black; */
+	}
 </style>

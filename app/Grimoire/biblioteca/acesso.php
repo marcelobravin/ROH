@@ -69,7 +69,6 @@ function configurarExibicaoErros ($conf=PRODUCAO)
 		ini_set('display_startup_errors', 0);
 		ini_set('display_errors'		, 0);
 		ini_set('display_startup_errors', 0);
-		echo "configurações de erro PRODUCAO";
 	} else {
 		ini_set('display_startup_errors', 1);
 		ini_set('display_errors'		, TRUE);
@@ -637,13 +636,13 @@ function temDependencias ($modulo, $id)
 	if ( $modulo == "usuario" ) {
 
 		$campos = array(
-			'usuarioId'	=> $id
+			'id_usuario'	=> $id
 		);
 		$dependenciasDoObjeto = selecionar('_log_operacoes', $campos);
 	} else if ( $modulo == "hospital" ) {
 
 		$campos = array(
-			'hospital_id'	=> $id
+			'id_hospital'	=> $id
 		);
 		$dependenciasDoObjeto = selecionar('meta', $campos);
 	}

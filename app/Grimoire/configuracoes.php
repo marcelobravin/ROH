@@ -9,7 +9,7 @@
 /**
  * Exibição de erros: user friendly ou debug
  *
- * @var string
+ * @var	string
  */
 if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 	define( 'PRODUCAO', false );
@@ -20,7 +20,7 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 /**
  * Dados do site
  *
- * @var string
+ * @var	string
  */
 	define( 'TITULO_SITE'		, 'ROH' ); # ----------------------------------- Nome do site a ser exibido em h1 e na aba
 	define( 'DESCRICAO_SITE'	, 'Relatório de ocupação Hospitalar' );
@@ -32,14 +32,14 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 /**
  * Nome de diretório e subdiretórios
  *
- * @var string/bool
+ * @var	string/bool
  */
 	# o nome do diretório é case sensitive
-	define( 'PROJECT_NAME'		, 'ROH'); #------------------------------------- nome da pasta que contém o projeto
+	define( 'PROJECT_NAME'			, 'roh'); #------------------------------------- nome da pasta que contém o projeto
 	if ( PRODUCAO ) {
 		define( 'PROJECT_FOLDER'	, 'PROJETOS/'. PROJECT_NAME . '/');
 	} else {
-		$DIR = explode('htdocs/', $_SERVER['SCRIPT_FILENAME']);
+		$DIR = explode('htdocs/'	, $_SERVER['SCRIPT_FILENAME']);
 		$DIR = explode(PROJECT_NAME.'/', $DIR[1]);
 		$DIR = $DIR[0];
 		define( 'PROJECT_FOLDER'	, $DIR . PROJECT_NAME . '/');
@@ -48,7 +48,7 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 /**
  * Estrutura de diretório
  *
- * @var string
+ * @var	string
  */
 	define( 'PROTOCOLO'			, $_SERVER['REQUEST_SCHEME'].'://' );
 	define( 'BASE'				, $_SERVER['DOCUMENT_ROOT'] .'/'. PROJECT_FOLDER ); # diretório base file system
@@ -64,7 +64,7 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 /**
  * Configurações de idioma e localização
  *
- * @var string
+ * @var	string
  */
 	define( 'IDIOMA'		, 'pt-BR' );
 	define( 'CARACTERES'	, 'utf-8' );
@@ -78,38 +78,39 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 /**
  * Configuração do BD
  *
- * @var string/bool
+ * @var	string/bool
  */
 	$env = parse_ini_file(BASE.'.env'); #--------------------------------------- credenciais de DB
 	if ( !$env ) {
 		die("Arquivo .env não encontrado Verifique o nome do seu diretório do projeto");
 	}
-	define( 'HOST'		, $env['HOST'] );
-	define( 'DBNAME'	, $env['BD'] );
-	define( 'USER'		, $env['USUARIO'] );
-	define( 'PASSWORD'	, $env['SENHA'] );
+	define( 'HOST'				, $env['HOST'] );
+	define( 'DBNAME'			, $env['BD'] );
+	define( 'USER'				, $env['USUARIO'] );
+	define( 'PASSWORD'			, $env['SENHA'] );
 
-	define( 'DB_CHARSET', 'utf8' ); # ------------------------------------------ Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
-	define( 'DB_COLLATE', 'utf8_general_ci' ); # ------------------------------- Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
+	define( 'DB_CHARSET'		, 'utf8' ); # ---------------------------------- Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
+	define( 'DB_COLLATE'		, 'utf8_general_ci' ); # ----------------------- Conjunto de caracteres do banco de dados a ser usado na criação das tabelas.
 
-	define( 'PREFIXO_TABELAS', '' );
-	define( 'ORACLE'	, false );
+	define( 'PREFIXO_TABELAS'	, '' );
+	define( 'ORACLE'			, false );
 
 /**
  * Segurança
  *
- * @var mixed
+ * @var	mixed
  */
-	define( 'CODIFICAR_SENHAS'	, true ); # ------------------------------------ aplicar hash em senha
-	define( 'CONTROLE_ACESSO'	, false ); # ----------------------------------- se sistema usará permissões para acesso a módulos e operações
-	define( 'FORCA_BRUTA'		, 5 ); # --------------------------------------- numero de senhas incorretas para bloquear temporariamente o acesso do usuário
-	define( 'TEMPO_BLOQUEIO'	, 1 ); # --------------------------------------- em minutos
-	define( 'SESSAO_TTL'		, 1800 ); # ------------------------------------ em segundos
+	define( 'CODIFICAR_SENHAS'		, true ); # -------------------------------- aplicar hash em senha
+	define( 'CONTROLE_ACESSO'		, false ); # ------------------------------- se sistema usará permissões para acesso a módulos e operações
+	define( 'FORCA_BRUTA'			, 5 ); # ----------------------------------- numero de senhas incorretas para bloquear temporariamente o acesso do usuário
+	define( 'INTERVALO_FORCA_BRUTA'	, '-15 minutes' ); # ----------------------- numero de senhas incorretas para bloquear temporariamente o acesso do usuário
+	define( 'TEMPO_BLOQUEIO'		, 1 ); # ----------------------------------- em minutos
+	define( 'SESSAO_TTL'			, 1800 ); # -------------------------------- em segundos
 
 /**
  * Hotspots específicos desse projeto
  *
- * @var mixed
+ * @var	mixed
  */
 	define( 'PAGINACAO_RPP'			, 10 ); # ---------------------------------- resultados por página
 	define( 'PAGINACAO_PAE'			, 3 ); # ----------------------------------- número de páginas a exibir

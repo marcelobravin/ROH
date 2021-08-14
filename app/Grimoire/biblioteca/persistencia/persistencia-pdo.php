@@ -369,6 +369,27 @@ function selecionar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
 	$stmt = selecaoStmt($tabela, $condicoes, $diretrizes, $colunas);
 	return executarStmt($stmt, $condicoes, 'S');
 }
+/**
+ * @since	09/08/2021 09:00:30
+ */
+function selecionarSanitizado ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
+{
+	$array = selecionar($tabela, $condicoes, $diretrizes, $colunas);
+
+	foreach ($array as $key => $value) {
+		foreach ($value as $k => $v) {
+			if (
+				!is_numeric($v)
+				&& DateTime::createFromFormat('Y-m-d H:i:s', $v) !== false
+				&& DateTime::createFromFormat('Y-m-d', $v) !== false
+			) {
+				$array[$key][$k] = bloquearXSS($v);
+			}
+		}
+	}
+
+	return $array;
+}
 
 /**
  * Retorna um registro da tabela desejada
@@ -813,7 +834,7 @@ function operacaoSequencial ($conP, $sql)
 	$tabelas = listarTabelas();
 	exibir($tabelas);
  */
-function listarTabelas() {
-	$sql = "SHOW FULL TABLES FROM ". DBNAME;
+function listarTabelas($db=DBNAME) {
+	$sql = "SHOW FULL TABLES FROM ". $db;
 	return executar($sql);
 }

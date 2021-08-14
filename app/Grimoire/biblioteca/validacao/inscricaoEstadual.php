@@ -429,7 +429,7 @@ function CheckIEMG($ie) {
 			}
 			$i = $soma % 11;
 			if ($i < 2) {$dig = 0;}
-			else{$dig = 11 - $i;};
+			else{$dig = 11 - $i;}
 
 			return ($dig == $ie[12]);
 		}

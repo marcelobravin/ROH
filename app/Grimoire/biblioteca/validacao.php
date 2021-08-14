@@ -109,7 +109,9 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 
 	# validação de tamanhos
 	foreach ( $mapaTamanhos as $i => $v) {
-		$l = strlen( $post[$i] );
+		$l = isset($post[$i])
+			? strlen($post[$i])
+			: 0;
 
 		if ($l > 0) { # caso um campo não obrigatorio tenha sido enviado vazio
 			if ( $l < $mapaTamanhos[$i]['minimo'] ) {

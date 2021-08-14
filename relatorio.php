@@ -2,18 +2,18 @@
 include 'app/Grimoire/core_inc.php';
 
 $PAGINA['titulo']		= "Relatório de Ocupação Hospitalar";
-$PAGINA['subtitulo']	= DESCRICAO_SITE;
 
+$condicoes = array('ativo' => 1);
+$hospitais	= selecionar("hospital", $condicoes, "ORDER BY titulo");
 $categorias	= selecionar("categoria", array(), "ORDER BY titulo");
-$hospitais	= selecionar("hospital", array(), "ORDER BY titulo");
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
 $in_mesAtual = date('n');
 $in_anoAtual = date('Y');
 
-$anos = Array();
+$anos = array();
 for ($i=2021; $i<= $in_anoAtual; $i++) {
-	$anos[] = $i;
+	$anos[$i] = $i;
 }
 
 $mesSelecionado = $in_mesAtual;

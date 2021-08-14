@@ -46,9 +46,12 @@ function criarBanco ()
 		gravarLog(1, "U", "produto", 15);
 		gravaLog("15", "C/R/U/D", "produto", "29");
  */
-function criarTabelaLog ()
+function criarTabelasLog ()
 {
-	$sql = templateTabelaLog();
+	$sql = templateTabelaAcesso();
+	executar($sql);
+
+	$sql = templateTabelaOperacoes();
 	executar($sql);
 }
 
@@ -59,9 +62,9 @@ function criarTabelaLog ()
  * @version	05-07-2015
  *
  * @param	array
- * @param	string: js/css
+ * @param	string	js/css
  * @param	bool
- * @return	string: nome do arquivo gerado
+ * @return	string	 nome do arquivo gerado
  *
  * @uses	arquivos.php->minimizarArquivo()
  * @uses	arquivos.php->limparNomeArquivo2()
@@ -109,7 +112,7 @@ function comprimir ($listaArquivos, $tipo="js", $minimizar=true)
  *
  * @param	string
  * @param	bool
- * @param	null/string
+ * @param	mixed	null/string
  * @return	array
  *
  * @uses	persistencia.php->executar()
@@ -139,20 +142,20 @@ function descreverTabela ($tabela, $full=false, $banco=null)
  *
  * @uses	persistencia-pdo.php->conectarPdo()
  * @uses	persistencia.php->descreverTabela()
- * @uses	acesso.php->gerarModelo()
  * @uses	acesso.php->gerarInserts()
  */
-function exportarBD ()
+function exportarBD ($db=DBNAME)
 {
 	$tabelas = listarTabelas();
 
 	foreach ($tabelas as $t) {
-		$d = descreverTabela($t['Tables_in_'. DBNAME], true);
-		$sql = montarCriacao($t['Tables_in_'. DBNAME], $d);
+		$tb = 'Tables_in_'. $db;
+		$d = descreverTabela($t[$tb], true);
+		$sql = montarCriacao($t[$tb], $d);
 
-		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t['Tables_in_'. DBNAME]}.sql", $sql, true);
+		escrever(ARQUIVOS_EFEMEROS."/db/ddl/tabelas/tb_{$t[$tb]}.sql", $sql, true);
 
-		gerarInserts($t['Tables_in_'. DBNAME]);
+		gerarInserts($t['Tables_in_'. $db]);
 	}
 
 	$c = exportarConstraints();
@@ -576,10 +579,23 @@ function countCharacters ($file)
  * @param	string
  * @param	int
  *
+ * @return	bool
+ *
  * @example
 		chmod ("/somedir/somefile", 2);
+ * @see
+	Value    Permission Level
+	400    Owner Read
+	200    Owner Write
+	100    Owner Execute
+	 40    Group Read
+	 20    Group Write
+	 10    Group Execute
+	  4    Global Read
+	  2    Global Write
+	  1    Global Execute
  */
-function alterarPermissao ($arquivo, $permissao=0)
+function alterarPermissao ($arquivo, $permissao=1)
 {
 	switch ($permissao) {
 		case 1: $codigo = 0644; # Escrita e leitura para o proprietario, leitura para todos os outros
@@ -592,27 +608,7 @@ function alterarPermissao ($arquivo, $permissao=0)
 		default: $codigo = 0600; # Escrita e leitura para o proprietario, nada ninguem mais
 	}
 
-	chmod($arquivo, $codigo);
-}
-
-/**
- * Altera permissão de acesso de um arquivo recursivamente
- * @package	grimoire/bibliotecas/acesso.php
- * @version	05-07-2015
- *
- * @param	string
- *
- * @example
-		chmod ("/somedir/somefile", 2);
- */
-function chmod_r($path, $permission=0777) {
-	$dir = new DirectoryIterator($path);
-	foreach ($dir as $item) {
-		chmod($item->getPathname(), $permission);
-		if ($item->isDir() && !$item->isDot()) {
-			chmod_r($item->getPathname());
-		}
-	}
+	return chmod($arquivo, $codigo);
 }
 
 /**
@@ -642,6 +638,47 @@ function gerarInserts ($tabela)
 	}
 
 	escrever(ARQUIVOS_EFEMEROS."/db/dml/registros/{$tabela}.sql", $inserts, true);
+}
+
+/**
+ * Gera arquivo para recriação da tabela
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @version	05-07-2015
+ * @version	12/07/2021 09:08:57
+ *
+ * @param	string
+ * @param	array
+ *
+ * @uses	tempo.php->agora()
+ * @uses	arquivos.php->escrever()
+ */
+function gerarModelo ($nome, $descricao)
+{
+	$campos = '';
+	foreach ($descricao as $key => $value) {
+		$campos .= '
+			$campos['. $key .'] = array(
+				"Field"		=> "'. $value['Field'] .'",
+				"Type"		=> "'. $value['Type'] .'",
+				"Null"		=> "'. $value['Null'] .'",
+				"Key"		=> "'. $value['Key'] .'",
+				"Default"	=> "'. $value['Default'] .'",
+				"Extra"		=> "'. $value['Extra'] .'",
+				"Comment"	=> "'. $value['Comment'] .'"
+			);
+		';
+	}
+
+	$conteudo = '<?php
+		/**
+		 * '. $nome .'
+		 * @package	grimoire/modelos
+		 * @version	'. agora( IDIOMA=='pt-BR' ) .'
+		*/
+		'. $campos .'
+	';
+
+	escrever(ARQUIVOS_EFEMEROS."/modelos/{$nome}.php", $conteudo, true); # TODO colocar em diretorio não efemero
 }
 
 /**
@@ -785,19 +822,20 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 		if ($valor['Field'] != 'id') {
 			$sql .= $identacao;
 			$sql .= $valor['Field'] . " " . strtoupper($valor['Type']);
+
 			if ($valor['Null'] == "NO") {
 				$sql .= " NOT NULL";
 			}
 
-			if ($valor['Default'] != "") {
+			if ( !empty($valor['Default']) ) {
 				$sql .= " DEFAULT ".$valor['Default'];
 			}
 
-			if ($valor['Extra'] != "") {
+			if ( !empty($valor['Extra']) ) {
 				$sql .= " ".$valor['Extra'];
 			}
 
-			if ($valor['Comment'] != "") {
+			if ( !empty($valor['Comment']) ) {
 				$sql .= " COMMENT '".$valor['Comment']."'";
 			}
 
@@ -863,5 +901,307 @@ function registrartFKs ($fks)
 			escrever(ARQUIVOS_EFEMEROS."/db/ddl/fks_{$t['TABLE_NAME']}.sql", $content, true);
 		}
 	}
+}
 
+
+/**
+ * Cria e exibe formulario
+ * @package	grimoire/bibliotecas/formularios.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ *
+ * @uses	persistencia.php->executar()
+ * @uses	formularios.php->codificarArray()
+ * @uses	formularios.php->descreverTabela()
+ * @uses	formularios.php->exibirTemplate()
+ * @uses	formularios.php->gerarInputs()
+ * @uses	formularios.php->gerarLabels()
+ * @uses	sql.php->selecao()
+ *
+ * @example
+		$sobreescreverLabels = array('titulo'=> 'Título');
+		$sobreEscreverCampos = array();
+		$remover = array();
+		$esconder = array();
+		$conversoes = array();
+		$descricaoLabels = array('titulo'=> 'Título');
+		$padroes = array();
+
+		$form = gerarFormulario('hospital',
+			$sobreescreverLabels,
+			$sobreEscreverCampos,
+			$remover,
+			$esconder,
+			$conversoes,
+			$descricaoLabels,
+			$padroes
+		);
+		echo('<pre>');
+		print_r($form);
+		echo('</pre>');
+ */
+function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+{
+	# Gera campos
+	// $registro = null;
+	// if ( isset($_GET['codigo']) ) {
+	// 	$esconder[] = 'id'; # transforma em hidden
+
+	// 	$registro = localizar($MODULO, array('id'=> $_GET['codigo']) );
+
+	// 	if ( empty($registro) ) {
+	// 		return array("Código inválido", 1);
+	// 	}
+	// } else {
+	// 	$remover[] = 'id';
+	// }
+
+	$registro = null;
+	$remover[] = 'id';
+
+	$descricao = descreverTabela($MODULO);
+
+	if ( isset($remover) ) {
+		foreach ($remover as $valor) {
+
+			foreach ($descricao as $i => $v) {
+				if ($valor == $v['Field']) {
+					unset($descricao[$i]);
+				}
+			}
+		}
+	}
+
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
+	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
+
+	return montarTemplate($campos, $labels, $esconder);
+}
+
+/**
+ * Cria e exibe formulario
+ * @package	grimoire/bibliotecas/formularios.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ * @param	array
+ *
+ * @uses	persistencia.php->executar()
+ * @uses	formularios.php->descreverTabela()
+ * @uses	formularios.php->gerarInputs()
+ * @uses	formularios.php->gerarLabels()
+ * @uses	textos.php->comecaCom()
+ * @uses	formularios.php->montarTemplate()
+	$sobreescreverLabels = array('titulo'=> 'Título');
+	$sobreEscreverCampos = array();
+	$remover = array();
+	$esconder = array();
+	$conversoes = array();
+	$descricaoLabels = array('titulo'=> 'Título');
+	$padroes = array();
+
+	$form = gerarFormulario('hospital',
+		$sobreescreverLabels,
+		$sobreEscreverCampos,
+		$remover,
+		$esconder,
+		$conversoes,
+		$descricaoLabels,
+		$padroes
+	);
+	echo('<pre>');
+	print_r($form);
+	echo('</pre>');
+ */
+function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+{
+	$esconder[] = 'id';
+
+	$descricao = descreverTabela($MODULO);
+
+	if ( isset($remover) ) {
+		foreach ($remover as $valor) {
+
+			foreach ($descricao as $i => $v) {
+				if ($valor == $v['Field']) {
+					unset($descricao[$i]);
+				}
+			}
+		}
+	}
+
+	foreach ($descricao as $value) {
+		if ( $value['Type'] == "tinyint(1)" ) {
+			$registro[ $value['Field'] ] = 1;
+		} else {
+			$registro[ $value['Field'] ] = '<?php echo bloquearXSS($obj[&quot;'. $value['Field'] .'&quot;]) ?&gt;';
+		}
+	}
+
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $conversoes, $padroes);
+	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
+
+	$d = array_values($descricao);
+	$y = 0;
+
+	foreach ($campos as $i => $v) {
+
+		if ( contem('<input type="checkbox"', $v) ) {
+			$campos[$i] = str_replace('checked="checked"', '<?php echo checked($obj["'.$i.'"]) ?&gt;', $v);
+		} else
+		if ( contem('<input type="radio"', $v) ) {
+
+			$z = str_replace('set(', '', $d[$y]['Type']);
+			$z = str_replace(')', '', $z);
+			$z = str_replace("'", '', $z);
+			$x = explode(",", $z);
+
+			$campos[$i] = str_replace(' />', ' <?php echo checked($obj["'.$i.'"], "xxx") ?&gt; />', $v);
+
+			foreach ($x as $p) {
+				$campos[$i] = substituirOcorrencia ('xxx', $p, $campos[$i]);
+			}
+		}
+		$y++;
+	}
+
+	return montarTemplate($campos, $labels, $esconder);
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+ */
+function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+{
+	$form = gerarFormularioAtualizacao($MODULO,
+		$sobreEscreverLabels,
+		$sobreEscreverCampos,
+		$remover,
+		$esconder,
+		$conversoes,
+		$descricaoLabels,
+		$padroes
+	);
+
+	$form = html_entity_decode($form);
+	$conteudo = "<!-- ". agora( IDIOMA=='pt-BR' ) . " -->\n" .$form;
+	escrever(ARQUIVOS_EFEMEROS."/views/{$MODULO}-atualizacao.php", $conteudo, true);
+	gerarModeloValidacao($MODULO);
+
+	if ( !empty($conteudo) ) {
+		return $conteudo;
+	}
+	return false;
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+ */
+function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $conversoes=array(), $descricaoLabels=array(), $padroes=array())
+{
+	$form = gerarFormulario($MODULO,
+		$sobreEscreverLabels,
+		$sobreEscreverCampos,
+		$remover,
+		$esconder,
+		$conversoes,
+		$descricaoLabels,
+		$padroes
+	);
+
+	$conteudo = "<!-- ". agora( IDIOMA=='pt-BR' ) . " -->\n" .$form;
+	escrever(ARQUIVOS_EFEMEROS."/views/{$MODULO}-insercao.html", $conteudo, true);
+	gerarModeloValidacao($MODULO);
+
+	return $form;
+}
+
+
+function gerarModeloValidacao ($tabela)
+{
+	$descricao = descreverTabela($tabela);
+
+	$obrigatorios = array();
+	$tamanhosMaximos = array();
+	foreach ($descricao as $value) {
+		preg_match_all('/\(([A-Za-z0-9 ]+?)\)/', $value['Type'], $out);
+
+		if ($value['Null'] == "NO") {
+			$obrigatorios[] = $value['Field'];
+		}
+
+		if ( !empty($out[1]) ) {
+			$tamanhosMaximos[$value['Field']] = $out[1][0];
+		}
+	}
+
+	$conteudo = '<?php
+		/**
+		 * '. $tabela .'
+		 * @package	grimoire/modelos
+		 * @version	'. agora( IDIOMA=='pt-BR' ) .'
+		*/
+	';
+
+	$campos = "\$camposObrigatorios = array(\n";
+	foreach ($obrigatorios as $value) {
+		$campos .= "'{$value}',\n";
+	}
+	$campos .= ");";
+
+	escrever(ARQUIVOS_EFEMEROS."/modelos/campos_obrigatorios-{$tabela}.php", $conteudo . $campos, true);
+
+	$campos = "\$mapaTamanhos = array(\n";
+	foreach ($tamanhosMaximos as $indice => $value) {
+		$campos .= "'{$indice}' => {$value},\n";
+	}
+	$campos .= ");";
+
+	escrever(ARQUIVOS_EFEMEROS."/modelos/tamanhos_maximos-{$tabela}.php", $conteudo . $campos, true);
 }

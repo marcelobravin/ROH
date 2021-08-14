@@ -61,9 +61,9 @@ function criptografar ($senha) {
  * Registra operação nos modelos
  * @package grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
- * @version	17-06-2021
+ * @version	13/08/2021 08:51:39
  *
- * @param	string	I/U/D Insert, update or delete
+ * @param	string	I/U/D/d Insert, update, delete ou exclusão lógica
  * @return	bool
  *
  * @uses	$_SESSION
@@ -74,10 +74,10 @@ function criptografar ($senha) {
 	registrarOperacao("U", "produto", 15);
 	registrarOperacao("I", "produto", "29");
  */
-function registrarOperacao ($acao, $tabela, $objetoId)
+function registrarOperacao ($acao, $tabela, $objetoId, $usuario=null)
 {
 	$values = array(
-		'usuarioId'	=> $_SESSION['user']['id'],
+		'id_usuario'=> empty($usuario) ? $_SESSION['user']['id'] : $usuario,
 		'acao'		=> $acao,
 		'tabela'	=> $tabela,
 		'objetoId'	=> $objetoId,
@@ -85,7 +85,7 @@ function registrarOperacao ($acao, $tabela, $objetoId)
 		'navegador'	=> json_encode( getBrowser() )
 	);
 
-	return inserir('_log_operacoes', $values, false);
+	return inserir('_log_operacoes', $values);
 }
 
 /**
@@ -107,15 +107,15 @@ function registrarOperacao ($acao, $tabela, $objetoId)
 */
 function detectarForcaBruta ($id, $conexao)
 {
-	$newTime = strtotime('-15 minutes');
+	$newTime = strtotime(INTERVALO_FORCA_BRUTA);
 	$dt = date('Y-m-d H:i:s', $newTime);
 
 	$sql = "
 		SELECT * FROM _log_acesso
 		WHERE
-			usuarioId = {$id}
-			AND sucesso = 0
-			AND datahora > '{$dt}'
+			id_usuario		= {$id}
+			AND sucesso		= 0
+			AND datahora	> '{$dt}'
 	";
 	$stm = $conexao->prepare($sql);
 	$stm->execute();
@@ -155,4 +155,28 @@ function bloquearForcaBruta ($id, $conexao)
 function bloquearXSS ($inputUsuario)
 {
 	return htmlentities($inputUsuario);
+}
+
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	12/08/2021 10:56:54
+ *
+ * @param	array
+ * @param	string	whitelist contendo a url de onde serão aceitas requisições
+*/
+function bloquearRequisicoesInvalidas ($post, $paginaPermitida="formulario-cadastro.php?modulo=usuario")
+{
+	if ( empty($post) ) {
+		die("Requisição vazia!");
+	}
+
+	if ( !isset($_SERVER['HTTP_REFERER']) ) {
+		die("Requisição externa!");
+	}
+
+	if ( $_SERVER['HTTP_REFERER'] != PROTOCOLO . BASE_HTTP . $paginaPermitida ) {
+		die("Requisição inválida");
+	}
 }

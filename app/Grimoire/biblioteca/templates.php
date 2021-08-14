@@ -10,19 +10,15 @@
  * @version 06/07/2021 08:31:37
  *
  * @example
+ * {@link https://stackoverflow.com/questions/2162420/alter-mysql-table-to-add-comments-on-columns}
 	echo criacaoTemplateTabela("hospital");
 	echo "<pre>". criacaoTemplateTabela("hospital");
  */
 function criacaoTemplateTabela ($nomeTabela="nova_tabela", $recriarTabela=false)
 {
-	#PRIMARY KEY AUTO_INCREMENT, adicionar linha inline
-	//COMMENT 'string'
-	//colocar linha acima nas colunas e tabelas
-	// https://stackoverflow.com/questions/2162420/alter-mysql-table-to-add-comments-on-columns
-
 	$sql = "
 		CREATE TABLE `{$nomeTabela}` (
-			`id`				int(11)		NOT NULL,
+			`id`				int(11)		PRIMARY KEY	AUTO_INCREMENT,
 
 			`titulo`			char(255)	NOT NULL,
 			`ativo`				tinyint(1)	NOT NULL	DEFAULT 1,
@@ -35,16 +31,6 @@ function criacaoTemplateTabela ($nomeTabela="nova_tabela", $recriarTabela=false)
 			`atualizado_por`	int(11)		NULL		DEFAULT NULL,
 			`excluido_por`		int(11)		NULL		DEFAULT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=" . CHARSET . ";
-
-		-- Índices para tabela `{$nomeTabela}`
-		ALTER TABLE `{$nomeTabela}`
-		ADD PRIMARY KEY (`id`),
-		ADD KEY `id` (`id`);
-
-		-- AUTO_INCREMENT de tabela `{$nomeTabela}`
-		ALTER TABLE `{$nomeTabela}`
-		MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-		COMMIT;
 	";
 
 	if ($recriarTabela) {
@@ -58,42 +44,50 @@ function criacaoTemplateTabela ($nomeTabela="nova_tabela", $recriarTabela=false)
  * Retorna instrução sql para criação da tabela de log de acesso (login)
  *
  * @package grimoire/bibliotecas/acesso.php
- * @since 07/07/2021 12:37:48
  *
  * @return	string
  */
-function templateTabelaLog ()
+function templateTabelaAcesso ()
 {
-	return "
-		CREATE TABLE IF NOT EXISTS _log_acessos (
-			id			INT(11)			PRIMARY KEY AUTO_INCREMENT,
-			usuarioId	INT(11)			NOT NULL,
-			acao		CHAR 			NOT NULL,
-			tabela		VARCHAR(50)		NOT NULL,
-			objetoId	INT(11)			NOT NULL,
-			ip			VARCHAR(15),
-			datahora	TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP
-	);";
+	return "CREATE TABLE IF NOT EXISTS _log_acesso (
+		`id_usuario`	int(11)			PRIMARY KEY AUTO_INCREMENT,
+		`sucesso`		tinyint(1)		NOT NULL								COMMENT 'Flag de sucesso ou falha no processo de login',
+		`ip`			varchar(15)		NOT NULL								COMMENT 'IP do usuário que realizou a operação',
+		`navegador`		varchar(400)	NOT NULL								COMMENT 'Navegador e SO do usuário que realizou a operação',
+		`datahora`		timestamp		NOT NULL DEFAULT current_timestamp()	COMMENT 'Momento em que foi a operação realizada'
+	) ENGINE=InnoDB DEFAULT CHARSET=". CHARSET .";
+
+		ALTER TABLE `_log_acesso`
+			ADD CONSTRAINT `fk__log_acesso-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
+		COMMIT;
+	";
 }
 
 /**
  * Retorna instrução sql para criação da tabela de log de operações
  *
  * @package grimoire/bibliotecas/acesso.php
+ * @since 07/07/2021 12:37:48
  * @since	03-07-2021
  */
 function templateTabelaOperacoes ()
 {
-	return "CREATE TABLE IF NOT EXISTS _log_operacoes (
-		id			INT(11)			PRIMARY KEY AUTO_INCREMENT,
-		usuarioId	INT(11)			NOT NULL,
-		acao		CHAR			NOT NULL,
-		tabela		VARCHAR(50)		NOT NULL,
-		objetoId	INT(11)			NOT NULL,
-		ip			VARCHAR (15)	NOT NULL,
-		navegador	VARCHAR(400)	NOT NULL,
-		datahora	TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP
-	);";
+	return "CREATE TABLE IF NOT EXISTS `_log_operacoes` (
+		`id`			INT(11)			PRIMARY KEY AUTO_INCREMENT,
+		`id_usuario`	INT(11)			NOT NULL								COMMENT 'Id do usuário que realizou a operação',
+		`acao` 			SET('I','U','D','d') CHARACTER SET utf8 COLLATE utf8_bin
+										NOT NULL								COMMENT 'I: insert\r\nU: update\r\nD: delete\r\nd: exclusão lógica',
+		`tabela`		VARCHAR(50)		NOT NULL								COMMENT 'Tabela onde foi realizada a operação',
+		`objetoId`		INT(11)			NOT NULL								COMMENT 'Registro que sofreu a alteração',
+		`ip`			VARCHAR(15)		NOT NULL								COMMENT 'IP do usuário que realizou a operação',
+		`navegador`		VARCHAR(400)	NOT NULL								COMMENT 'Navegador e SO do usuário que realizou a operação',
+		`datahora`		TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP()	COMMENT 'Momento em que foi a operação realizada'
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+		ALTER TABLE `_log_operacoes`
+			ADD CONSTRAINT `fk__log_operacoes-usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
+		COMMIT;
+	";
 }
 
 /**
@@ -104,7 +98,7 @@ function templateTabelaOperacoes ()
  */
 function templateTabelaMenus ()
 {
-	return "CREATE TABLE IF NOT EXISTS _log_operacoes (
+	return "CREATE TABLE IF NOT EXISTS menu (
 		id			INT(11)			PRIMARY KEY AUTO_INCREMENT,
 		parentId	INT(11)			NOT NULL,
 		nome		VARCHAR(50)		NOT NULL,

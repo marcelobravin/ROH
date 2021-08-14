@@ -4,7 +4,7 @@ verificarManutencao();
 // server should keep session data for AT LEAST 1 hour
 ini_set('session.gc_maxlifetime', SESSAO_TTL);
 
-configurarExibicaoErros(PRODUCAO); # TODO verificar
+configurarExibicaoErros(PRODUCAO);
 # ------------------------------------------------------------------------------ inicio
 iniciarSessao();
 define( "LOGADO", !empty($_SESSION[USUARIO_SESSAO]) );

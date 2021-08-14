@@ -6,18 +6,21 @@
 			<label for="hospital">Hospital</label>
 			<select name="hospital" id="hospital">
 				<?php if ( !$hospitalValido ): ?>
-					<option>Selecione...</option>
+					<option value="">Selecione...</option>
 				<?php endif ?>
 				<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 			</select>
 		</div>
 
-		<div class="inputs">
-			<label for="categoria">Categoria</label>
-			<select name="categoria" id="categoria">
-				<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
-			</select>
-		</div>
+		<?php if ( $hospitalValido ): ?>
+			<div class="inputs">
+				<label for="categoria">Categoria</label>
+				<select name="categoria" id="categoria">
+					<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
+				</select>
+			</div>
+		<?php endif ?>
+
 	</div>
 
 	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
@@ -126,6 +129,10 @@
 </div>
 
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">
+
+
+<script src="public/scripts/redirecionamento.js"></script>
+<script src="public/scripts/relatorio.js"></script>
 
 <script src="public/scripts/metas.js"></script>
 <script src="public/scripts/justificativa.js"></script>

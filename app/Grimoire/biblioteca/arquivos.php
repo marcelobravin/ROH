@@ -234,7 +234,7 @@ function download ($arquivo)
  *
  * @param	string
  * @param	string
- * @param	bool	flaga para definir se conteudo deve ser acrescentado ou sobrescrito
+ * @param	bool	flag para definir se conteudo deve ser acrescentado ou sobrescrito
  *
  * @param	bool	Sucesso no registro do conteúdo
  *
@@ -243,12 +243,11 @@ function download ($arquivo)
 */
 function escrever ($arquivo, $conteudo, $sobreescrever=false)
 {
-	if ( !$sobreescrever && file_exists($arquivo) ) {
-		$conteudo = file_get_contents($arquivo) . $conteudo;
+	if ( $sobreescrever ) {
+		return file_put_contents($arquivo, $conteudo);
 	}
 
-	file_put_contents($arquivo, $conteudo);
-	return true;
+	return file_put_contents($arquivo, $conteudo, FILE_APPEND);
 }
 
 /**

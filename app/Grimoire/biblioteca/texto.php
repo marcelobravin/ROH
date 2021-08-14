@@ -1,7 +1,7 @@
 <?php
 /**
  * Manipulação de strings
- * @package grimoire/bibliotecas
+ * @package	grimoire/bibliotecas
 */
 
 function adicionarHifenCep ($cep)
@@ -27,8 +27,8 @@ function expandEntities ($val)
 
 /**
  * Formata uma string em formato de CPF
- * @package grimoire/bibliotecas/texto.php
- * @since 03/08/2016 09:19:23
+ * @package	grimoire/bibliotecas/texto.php
+ * @since	03/08/2016 09:19:23
  *
  * @param	string/int
  * @return	string parâmetro convertido em formato de cpf
@@ -50,26 +50,9 @@ function formatarCPF ($cpf)
 }
 
 /**
- * Adiciona protocolo na url se não tiver
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
- *
- * @param	string: url
- * @param	string: protocolo [http,https]
- * @return	string
- */
-function adicionarProtocolo ($url, $protocolo="http")
-{
-	if (!preg_match("/^(http|ftp):/", $url)) {
-		$url = $protocolo. '://'.$url;
-	}
-	return $url;
-}
-
-/**
  * Verifica se a string contém o trecho solicitado
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @param	string
@@ -85,8 +68,8 @@ function contem ($agulha, $palheiro)
 
 /**
  * Verifica se a string contém o trecho solicitado no começo
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @param	string
@@ -99,8 +82,8 @@ function comecaCom ($needle, $haystack)
 
 /**
  * Verifica se a string contém o trecho solicitado no final
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @param	string
@@ -113,8 +96,8 @@ function terminaCom ($needle, $haystack)
 
 /**
  * Transforma uma array em uma string adicionando conteúdo de abertura e fechamento entre todos os índices
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -139,8 +122,9 @@ function concatenar2 ($array, $cola=QUEBRA_LINHA)
 
 /**
  * Converte uma string para caixa alta ou caixa baixa conservando a acentuação
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @since	05-07-2015
+ * @version	12/08/2021 12:10:57
  *
  * @param	string
  * @return	string
@@ -150,27 +134,29 @@ function concatenar2 ($array, $cola=QUEBRA_LINHA)
  */
 function converterCaixa ($string, $caixaAlta=false)
 {
+	$maiusculas = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß";
+	$minusculas = "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ";
+
 	if ( $caixaAlta ) {
-		$string = strtr(strtoupper($string), "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ", "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß");
-	} else {
-		$string = strtr(strtolower($string), "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÜÚÞß", "àáâãäåæçèéêëìíîïðñòóôõö÷øùüúþÿ");
+		return strtr(strtoupper($string), $minusculas, $maiusculas);
 	}
-	return $string;
+
+	return strtr(strtolower($string), $maiusculas, $minusculas);
 }
 
 /**
  * Converte string para minúsculo e a primeira letra para minúsculo
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @param	bool
  * @return	string
  */
-function formatarString ($string, $tratar=false)
+function capitalizarString ($string, $tratar=false)
 {
 	$string = ucfirst(strtolower($string));
-	if ($tratar) {
+	if ( $tratar ) {
 		$string = reescrever($string);
 	}
 	return $string;
@@ -178,10 +164,10 @@ function formatarString ($string, $tratar=false)
 
 /**
  * Shorten an URL, to be used as link text
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
- * @since 1.2.0
+ * @since	1.2.0
  *
  * @param	string $url
  * @return	string
@@ -197,8 +183,8 @@ function limparUrl ( $url )
 
 /**
  * Retira espaços e quebras de linha de uma string
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -216,8 +202,8 @@ function minimizarArquivo ($buffer)
 
 /**
  * Transforma uma string em URL amigável
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -238,20 +224,20 @@ function reescrever ($string)
 
 /**
  * Deixa apenas numeros em uma string
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
  */
-function remove_non_numeric ($string)
+function removerNaoNumericos ($string)
 {
 	return preg_replace('/\D/', '', $string);
 }
 
 /**
  * Retira todos os caracteres especiais de uma string
- * @version 08/09/2016 22:51:47
+ * @version	08/09/2016 22:51:47
  *
  * @param	string
  * @return	string
@@ -263,7 +249,7 @@ function retirarCaracterEspecial ($string, $retiraEspacos=false)
 {
 	$especial	= array("'", '"', "!", "@", "#", "$", "%", "¨", "&","*", "(", ")", "-", "=", "+", "´", "`", "[", "]", "{", "}", "~", "^", ",", "<", ".", ">", ";", ":", "/", "?", "\\", "|", "¹", "²", "³","£", "¢", "¬", "§", "ª", "º", "°","_",'"', "–");
 	$troca		= str_replace($especial, "", $string);
-	if ($retiraEspacos) {
+	if ( $retiraEspacos ) {
 		$troca	= str_replace(" ", "", $troca);
 	}
 	return $troca;
@@ -271,8 +257,8 @@ function retirarCaracterEspecial ($string, $retiraEspacos=false)
 
 /**
  * Retira todos os acentos de uma string
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -289,8 +275,8 @@ function retirarAcento ($string)
 
 /**
  * Retorna o endereço da página
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	bool
@@ -315,8 +301,8 @@ function retornarEndereco ()
 
 /**
  * Retorna o endereço da página atual
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @return	string
  *
@@ -335,8 +321,8 @@ function retornarEndereco3 ()
 
 /**
  * Verifica se o valor se encaixa no padrão
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -361,8 +347,8 @@ function saudacao ()
 
 /**
  * Remove comentários html e seus conteúdos
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -374,8 +360,8 @@ function removeHtmlComments ($content = '')
 
 /**
  * Remove comentários de bloco
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -387,8 +373,8 @@ function removeBlockComments ($content = '')
 
 /**
  * Remove comentários de linha
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -400,8 +386,8 @@ function removeJsLineComments ($content = '')
 
 /**
  * Remove quebras de linha
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -413,8 +399,8 @@ function removeLineBreaks ($str)
 
 /**
  * Remove dois espaços em branco consecutivos
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string
@@ -426,8 +412,8 @@ function removeDoubleSpaces ($str)
 
 /**
  * Remove tabs
- * @package grimoire/bibliotecas/texto.php
- * @version 30/07/2021 22:48:04
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	30/07/2021 22:48:04
  *
  * @param	string
  * @return	string
@@ -438,8 +424,8 @@ function removeTabs ($str)
 }
 
 /**
- * @package grimoire/bibliotecas/texto.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/texto.php
+ * @version	05-07-2015
  *
  * @param	string
  * @return	string

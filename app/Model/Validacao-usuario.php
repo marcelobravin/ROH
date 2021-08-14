@@ -1,21 +1,35 @@
 <?php
 function validarFormulario ( $post, $update=false )
 {
-	# valida preenchimento de campos NOT NULL
-	$camposObrigatorios = array(
-		'cpf'	=> $post['cpf']
-	);
-
 	# validar formato contra expressões regulares
 	$mapaFormatos = array(
 		'login'		=> 'email',
-		'telefone'	=> 'celular',
+		'telefone'	=> 'telefone',
+		'celular'	=> 'celular',
 		'nome'		=> 'letras_espacos_acentos_apostrofe',
 		'endereco'	=> 'endereco',
 		'cpf'		=> 'cpf'
 	);
 
+	# valida preenchimento de campos NOT NULL
+	if ( PRODUCAO ) {
+		$camposObrigatorios = array(
+			'id',
+			'login',
+			'senha',
+			'email_confirmado',
+			'celular',
+			'cargo',
+			'cpf',
+			'criado_em',
+			'criado_por',
+		);
+	} else {
+		include ARQUIVOS_EFEMEROS."/modelos/campos_obrigatorios-usuario.php";
+	}
+
 	# valida tamanho maximo e minimo de characteres
+	/* pega os maximos e caso necessário adiciona os minimos */
 	$mapaTamanhos = array(
 		'nome'		=> ['minimo'=>5, 'maximo'=>255],
 		'endereco'	=> ['minimo'=>5, 'maximo'=>255]

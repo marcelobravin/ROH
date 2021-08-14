@@ -59,9 +59,9 @@ if ( isset($_REQUEST['action']) ) {
 
 		break;
 		case 'gerarFks' :
-			$tabelas = listarTabelas(DBNAME);
+			$tabelas = listarTabelas();
 			foreach ($tabelas as $t) {
-				$sql = gerarFKs($t['Tables_in_db_relatorio_ocupacao_hospitalar']);
+				$sql = gerarFKs($t['Tables_in_'.DBNAME]);
 				exibir($sql);
 			}
 
@@ -88,7 +88,7 @@ if ( isset($_REQUEST['action']) ) {
 				$sobreEscreverCampos	= array();
 				$esconder				= array();
 				$conversoes				= array();
-				$padroes				= array();
+				$padroes				= array(); # talvez dá pra tirar
 				$sobreEscreverLabels	= array();
 				$descricaoLabels		= array();
 				$remover				= array( # campos de log
@@ -203,6 +203,10 @@ if ( isset($_REQUEST['action']) ) {
 			echo formatBytes( getDirectorySize(BASE), 3 );
 
 		break;
+		case 'criarTabelasLog':
+			criarTabelasLog();
+
+		break;
 		case 'minify':
 			$x = assetPipeline(true, true, false);
 			if ( $x ) {
@@ -224,12 +228,13 @@ if ( isset($_REQUEST['action']) ) {
 			echo '<ul>';
 			echo '<li><a href="index.php?action=cargaInicial&tabela=categoria">cargaInicial</a></li>';
 			echo '<li><a href="index.php?action=criacaoTabela&tabela=">criacaoTabela</a></li>';
+			echo '<li><a href="index.php?action=criarTabelasLog">criarTabelasLog</a></li>';
 			echo '<li><a href="index.php?action=dbExport">dbExport</a></li>';
 			echo '<li><a href="index.php?action=dbImport">dbImport</a></li>';
 			echo '<li><a href="index.php?action=exportConstraints">exportConstraints</a></li>';
 			echo '<li><a href="index.php?action=generateSiteMap">generateSiteMap</a></li>';
 			echo '<li><a href="index.php?action=gerar-formulario">gerar-formulario</a></li>';
-			echo '<li><a href="index.php?action=gerar-formulario-atualizacao&tabela=usuario">gerar-formulario-atualizacao</a></li>';
+			echo '<li><a href="index.php?action=gerar-formulario-atualizacao">gerar-formulario-atualizacao</a></li>';
 			echo '<li><a href="index.php?action=gerarEnv">gerarArquivoEnv</a></li>';
 			echo '<li><a href="index.php?action=gerarHtaccess">gerarArquivoHtaccess</a></li>';
 			echo '<li><a href="index.php?action=gerarFk">gerarFk</a></li>';

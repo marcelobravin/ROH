@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
 		<link rel="stylesheet" type="text/css" href="public/css/reset-senha.css">
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-		<script src="public/vendors/jquery-3.6.0.slim.min.js"></script>
+		<script src="public/vendors/jquery-3.6.0.min.js"></script>
 	</head>
 <body>
 
@@ -56,7 +56,7 @@
 				</li>
 				<li id="simbolos">
 					<i class="fas fa-check"></i>
-					<span>Mínimo de 8 caracteres</span>
+					<span>Pelo menos 8 caracteres</span>
 				</li>
 			</ul>
 

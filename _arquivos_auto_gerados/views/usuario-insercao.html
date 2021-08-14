@@ -1,7 +1,7 @@
-<!-- 07-08-2021 16:49:51-->
+<!-- 13-08-2021 16:14:43 -->
 <div>
 	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
-	<input type="text" name="login" id="login" value="" class="obrigatorio" required="required" maxlength="60" />
+	<input type="text" name="login" id="login" required="required" maxlength="60" class="obrigatorio" />
 </div>
 <div>
 	<label for="ativo">Ativo</label>
@@ -9,17 +9,27 @@
 </div>
 <div>
 	<label for="telefone">Telefone</label>
-	<input type="text" name="telefone" id="telefone" value="" maxlength="15" />
+	<input type="text" name="telefone" id="telefone" maxlength="15" />
+</div>
+<div>
+	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>
+	<input type="text" name="celular" id="celular" required="required" maxlength="11" class="obrigatorio" />
 </div>
 <div>
 	<label for="nome">Nome</label>
-	<input type="text" name="nome" id="nome" value="" maxlength="255" />
+	<input type="text" name="nome" id="nome" maxlength="255" />
+</div>
+<div>
+	<label for="cargo">CBO <span class="simbolo-obrigatorio">*</span></label>
+	<label><input type="radio" name="cargo" id="cargo[0]" value="enfermeiro" /> Enfermeiro</label>
+<label><input type="radio" name="cargo" id="cargo[1]" value="medico" /> Medico</label>
+<label><input type="radio" name="cargo" id="cargo[2]" value="administrador" /> Administrador</label>
 </div>
 <div>
 	<label for="endereco">Endereço</label>
-	<input type="text" name="endereco" id="endereco" value="" maxlength="255" />
+	<input type="text" name="endereco" id="endereco" maxlength="255" />
 </div>
 <div>
 	<label for="cpf">CPF <span class="simbolo-obrigatorio">*</span></label>
-	<input type="text" name="cpf" id="cpf" value="" class="obrigatorio" required="required" maxlength="14" />
+	<input type="text" name="cpf" id="cpf" required="required" maxlength="14" class="obrigatorio" />
 </div>

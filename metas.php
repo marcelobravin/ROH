@@ -4,8 +4,10 @@
 	$PAGINA['titulo']		= "Definição de Metas";
 	$PAGINA['subtitulo']	= DESCRICAO_SITE;
 
+
+	$condicoes = array('ativo' => 1);
+	$hospitais	= selecionar("hospital", $condicoes, "ORDER BY titulo");
 	$categorias = selecionar("categoria", array(), "ORDER BY titulo");
-	$hospitais = selecionar("hospital", array(), "ORDER BY titulo");
 
 	$hospitalValido = false;
 	if ( isset($_GET['hospital']) ) {

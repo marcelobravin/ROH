@@ -16,11 +16,17 @@ $condicoes = array(
 );
 
 $campos = array(
-	'ativo'		=> isset($_POST['ativo']) ? 1 : 0,
-	'telefone'	=> $_POST['telefone'],
-	'nome'		=> $_POST['nome'],
-	'endereco'	=> $_POST['endereco'],
-	'cpf'		=> $_POST['cpf']
+	// 'login'			=> $_POST['email'],
+	'senha'			=> criptografar($_POST['cpf']),
+	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
+	'telefone'		=> removerNaoNumericos($_POST['telefone']),
+	'celular'		=> removerNaoNumericos($_POST['celular']),
+	'cargo'			=> $_POST['cargo'],
+	'nome'			=> $_POST['nome'],
+	'endereco'		=> $_POST['endereco'],
+	'cpf'			=> $_POST['cpf'],
+
+	'atualizado_por'=> $_SESSION['user']['id']
 );
 
 $resultado = atualizar('usuario', $campos, $condicoes);

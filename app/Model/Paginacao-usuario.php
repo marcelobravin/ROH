@@ -1,10 +1,7 @@
 <?php
 function retornarCampos ()
 {
-	if ( !PRODUCAO ) {
-		$descricao = descreverTabela('usuario');
-		return filtrarArray($descricao, 'char');
-	} else {
+	if ( PRODUCAO ) {
 		return array(
 			'login',
 			'telefone',
@@ -12,6 +9,9 @@ function retornarCampos ()
 			'endereco',
 			'cpf'
 		);
+	} else {
+		$descricao = descreverTabela('usuario');
+		return filtrarArray($descricao, 'char');
 	}
 
 }

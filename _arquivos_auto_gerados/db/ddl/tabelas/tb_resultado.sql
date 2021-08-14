@@ -1,4 +1,4 @@
--- 07-08-2021 22:20:42
+-- 13-08-2021 15:14:54
 CREATE TABLE IF NOT EXISTS resultado (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	id_meta INT(11) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS resultado (
 	mes TINYINT(2) NOT NULL,
 	ano INT(4) NOT NULL,
 	justificativa TEXT,
-	justificativa_aceita TINYINT(1) NOT NULL DEFAULT 0,
+	justificativa_aceita TINYINT(1) NOT NULL,
 	criado_em DATETIME NOT NULL DEFAULT current_timestamp(),
 	criado_por INT(11) NOT NULL,
 INDEX (id)

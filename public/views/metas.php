@@ -6,7 +6,7 @@
 			<label for="hospital">Hospital</label>
 			<select name="hospital" id="hospital">
 				<?php if ( !$hospitalValido ) : ?>
-					<option>Selecione...</option>
+					<option value="">Selecione...</option>
 				<?php endif ?>
 				<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 			</select>
@@ -93,6 +93,7 @@
 	</div>
 </div>
 
+<script src="public/scripts/redirecionamento.js"></script>
 <script src="public/scripts/metas.js"></script>
 
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">

@@ -2,16 +2,85 @@ senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
 
 
-Roteiro testes
-Força bruta login
-Todos firmes
-Xss
-Sql injection
+@param/return    mixed
+
+
+
+automaticamente colocar tipo exótico do campo no bd em classe
+
+
+
+echo '<input type="date">';
+
+
+
+voltar o gerarModelo para agilizar a validação de formularios
+    tamanho máximo pegar automaticamente
+    obrigatorio
+
+    restando fazer manualmente o tamanho mínimo e formatos de campo texto
+
+
+
+colocar atributo interno
+    "id" => $nome[$indice]
+    $input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'"'.$atributos.''.$selecionado.' />';
+
+
+ROTULO FORMULARIO
+    $conteudo = "<!-- ". agora( IDIOMA=='pt-BR' ) . " -->\n" .$form;
+
+
+
+
+paginação mostrar total q tem no banco
+ e total da query
+
+
+
+cada pagina informar scripts que usa
+    processos finais concatenar scripts e incluir (minificados?)
+
+
+
+tim 6-10
+
+
+Só aceitar solicitações de usuários se bater o IP, só, navegador com o registro do último acesso dele
+
+Registrar log off (e queda de sessão?)
+
+
+
+Verificar selecionar Sanitização com booleana
+
+
+
+
+chmod
+escreve
+chmod
+
+
+    ALTER TABLE `_log_operacoes` ADD `acao2` SET('I','U','D','d') NOT NULL AFTER `acao`;
+
+
+https://www.php.net/manual/en/filter.filters.sanitize.php
+
+
+Roteiro PENTEST
+    Força bruta login
+    Todos firmes ???????????
+    Xss
+    Sql injection
+    log injection
+    rainbow tables
+    tempo de login diferente
+    verificar 72 chars em validações regexp
+    sequestro de sessão
 
 
 tratar xss on insert no bd tb
-
-testar xss no usuário e na justificativa
 
 verificar unique no uniques-db-relatorio
 
@@ -19,6 +88,25 @@ TESTAR xss nos meus projetos
     Colocar isso num formulário de i/u
         <script>alert("vc sofreu um ataque XSS ")</script>
 
+
+
+        # TODO colocar no modulo
+                        # default
+                        $sobreEscreverLabels = array();
+                        $sobreEscreverCampos = array();
+                        $esconder = array();
+                        $conversoes = array();
+                        $descricaoLabels = array();
+                        $padroes = array();
+                        $remover = array(
+                            # campos de log
+                            'criado_em',
+                            'atualizado_em',
+                            'excluido_em',
+                            'criado_por',
+                            'atualizado_por',
+                            'excluido_por'
+                        );
 
 
 exportar salva em app/db
@@ -2147,3 +2235,46 @@ $y = [ "a", "b", "c"];
 // 	'nome' => 'zé'
 // );
  //*/
+
+
+
+ /**
+  * Altera permissão de acesso de um arquivo recursivamente
+  * @package    grimoire/bibliotecas/acesso.php
+  * @version    05-07-2015
+  *
+  * @param  string
+  *
+  * @example
+        chmod ("/somedir/somefile", 2);
+  */
+ function chmod_r($path, $permission=0777) {
+    $dir = new DirectoryIterator($path);
+    foreach ($dir as $item) {
+        chmod($item->getPathname(), $permission);
+        if ($item->isDir() && !$item->isDot()) {
+            chmod_r($item->getPathname());
+        }
+    }
+ }
+
+
+
+
+
+ /**
+  * Adiciona protocolo na url se não tiver
+  * @package grimoire/bibliotecas/texto.php
+  * @version 05-07-2015
+  *
+  * @param  string: url
+  * @param  string: protocolo [http,https]
+  * @return string
+  */
+ function adicionarProtocolo ($url, $protocolo="http")
+ {
+    if (!preg_match("/^(http|ftp):/", $url)) {
+        $url = $protocolo. '://'.$url;
+    }
+    return $url;
+ }

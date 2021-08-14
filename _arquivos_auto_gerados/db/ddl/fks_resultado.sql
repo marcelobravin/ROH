@@ -1,8 +1,8 @@
--- 07-08-2021 22:20:42
+-- 13-08-2021 15:14:54
 ALTER TABLE `resultado` ENGINE = InnoDB;
 
 ALTER TABLE `resultado`
-		ADD CONSTRAINT `fk_meta`
+		ADD CONSTRAINT `fk_resultado-meta`
 		FOREIGN KEY (id_meta)
 		REFERENCES meta(id)
 			ON UPDATE CASCADE ON DELETE RESTRICT;

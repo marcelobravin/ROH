@@ -4,8 +4,10 @@ include 'app/Grimoire/core_inc.php';
 $PAGINA['titulo']		= "Verificação de Metas";
 $PAGINA['subtitulo']	= DESCRICAO_SITE;
 
+
+$condicoes = array('ativo' => 1);
+$hospitais	= selecionar("hospital", $condicoes, "ORDER BY titulo");
 $categorias	= selecionar("categoria", "", "ORDER BY titulo");
-$hospitais	= selecionar("hospital", "", "ORDER BY titulo");
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
 $st_mesAtual = $meses[date('n')];

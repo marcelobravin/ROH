@@ -1,10 +1,6 @@
 $(document).ready(function(){
 	exibirLocalStorage()
 
-	// $(".sucesso, .erro").click(function(){
-	// 	$(this).slideToggle('slow')
-	// })
-
 	$("[type='text']:not(:disabled)").on("keyup change", function(){
 		verificarMeta( $(this) )
 	})

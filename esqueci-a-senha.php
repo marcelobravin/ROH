@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="public/css/resets.css">
 		<link rel="stylesheet" type="text/css" href="public/css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="public/css/esqueci-senha.css">
-		<script src="public/vendors/jquery-3.6.0.slim.min.js"></script>
+		<script src="public/vendors/jquery-3.6.0.min.js"></script>
 	</head>
 <body>
 	<div class="container-login">

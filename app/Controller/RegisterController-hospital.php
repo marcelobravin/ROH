@@ -12,9 +12,17 @@ if ( !empty($errosFormulario) ) {
 
 # ------------------------------------------------------------------------------ operacao
 $values = array(
-	'ativo'			=> isset($_POST['ativo']) ? 1 : 0,
-	'titulo'		=> $_POST['titulo'],
-	'criado_por'	=> $_SESSION['user']['id']
+	'titulo'				=> $_POST['titulo'],
+	'ativo'					=> isset($_POST['ativo']),
+	'cnes'					=> $_POST['cnes'],
+	'cnpj'					=> $_POST['cnpj'],
+	'diretor'				=> $_POST['diretor'],
+	'segundo_responsavel'	=> $_POST['segundo_responsavel'],
+	'endereco'				=> $_POST['endereco'],
+	'cep'					=> $_POST['cep'],
+	'telefone'				=> $_POST['telefone'],
+	'email	'				=> $_POST['email'],
+	'criado_por'			=> $_SESSION['user']['id'],
 );
 $id = inserir('hospital', $values);
 
@@ -29,7 +37,7 @@ if ( positivo($id) ) {
 
 # ------------------------------------------------------------------------------ erros
 } else {
-	$resposta = montarMensagemErro( $id ); # todo verificar
+	$resposta = montarMensagemErro( $id );
 	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 
 	voltar();
