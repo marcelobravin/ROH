@@ -208,12 +208,12 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 			}
 			$valores = gerarSelect($campo['Field'], $valores, $valor); # PODE DAR ERRO? colocar um if (!empty valor)
 			$resposta = $valores;
-			break;
 
+		break;
 		case "password":
 			$resposta = password($campo['Field'], $valor, $atributos);
-			break;
 
+		break;
 		case "span":
 			unset($atributos['maxlength']);
 			unset($atributos[0]);
@@ -221,8 +221,8 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 				$valor = (string) " 0"; // corrige spans com valor 0
 			}
 			$resposta = span($valor, $atributos);
-			break;
 
+		break;
 		case "text":
 			# aqui adiciona padrões
 			$indice = existeIndice($campo['Field'], $padroes);
@@ -233,36 +233,28 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 
 			# aqui adiciona padrões
 			$resposta = text($campo['Field'], $valor, $atributos);
-			break;
 
+		break;
 		case "date":
-			# aqui adiciona padrões
-			// $indice = existeIndice($campo['Field'], $padroes);
-
-			// if ( $indice > 0) {
-				// $atributos[0] .= ' padrao'. ucwords($padroes[$campo['Field']]);
-			// }
-
-			# aqui adiciona padrões
 			$resposta = gerarInput("date", $campo['Field'], $valor, $atributos);
-			break;
 
+		break;
 		case "hidden":
 			$resposta = hidden($campo['Field'], $valor);
-			break;
 
+		break;
 		case "file":
 			$resposta = file2($campo['Field'], null);
-			break;
 
+		break;
 		case "textarea":
 			$resposta = textarea($campo['Field'], $valor, $atributos);
-			break;
 
+		break;
 		case "checkbox":
 			$resposta = checkbox($campo['Field'], 1, $valor, $atributos, '');
-			break;
 
+		break;
 		case "radio":
 			$pos1 = stripos($campo['Type'], "(");
 			$lista = substr($campo['Type'], $pos1+1, -1); // Pega só o conteúdo entre paranteses
@@ -275,8 +267,8 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 				$x = gerarRadio($campo['Field'], $valores, $valor);
 				$resposta = implode ("\n", $x);
 			}
-			break;
 
+		break;
 		case "select":
 			$pos1 = stripos($campo['Type'], "(");
 			$lista = substr($campo['Type'], $pos1+1, -1); // Pega só o conteúdo entre paranteses
@@ -290,11 +282,12 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 
 			$valores = gerarSelect($campo['Field'], $valores, $valor); # PODE DAR ERRO? colocar um if (!empty valor)
 			$resposta = $valores;
-			break;
 
+		break;
 		case "textEditor":
 			$resposta = textarea($campo['Field'], $valor, $atributos);
-			break;
+		break;
+
 		default;
 	}
 

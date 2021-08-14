@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Tempo de geração: 13-Ago-2021 às 21:16
--- Versão do servidor: 10.4.18-MariaDB
--- versão do PHP: 8.0.3
+-- Host: 127.0.0.1
+-- Generation Time: Aug 14, 2021 at 10:23 PM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `db_relatorio_ocupacao_hospitalar`
+-- Database: `db_relatorio_ocupacao_hospitalar`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoria`
+-- Table structure for table `categoria`
 --
 
 CREATE TABLE `categoria` (
@@ -42,7 +42,7 @@ CREATE TABLE `categoria` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `categoria`
+-- Dumping data for table `categoria`
 --
 
 INSERT INTO `categoria` (`id`, `titulo`, `legenda`, `observacoes`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
@@ -57,7 +57,7 @@ INSERT INTO `categoria` (`id`, `titulo`, `legenda`, `observacoes`, `ativo`, `cri
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `elemento`
+-- Table structure for table `elemento`
 --
 
 CREATE TABLE `elemento` (
@@ -74,7 +74,7 @@ CREATE TABLE `elemento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `elemento`
+-- Dumping data for table `elemento`
 --
 
 INSERT INTO `elemento` (`id`, `id_categoria`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
@@ -118,21 +118,21 @@ INSERT INTO `elemento` (`id`, `id_categoria`, `titulo`, `ativo`, `criado_em`, `a
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `hospital`
+-- Table structure for table `hospital`
 --
 
 CREATE TABLE `hospital` (
   `id` int(11) NOT NULL,
   `titulo` char(255) NOT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
-  `cnes` int(7) NOT NULL,
-  `cnpj` bigint(14) NOT NULL,
-  `diretor` varchar(255) NOT NULL,
-  `segundo_responsavel` varchar(255) NOT NULL,
-  `endereco` varchar(255) NOT NULL,
-  `cep` int(8) NOT NULL,
-  `telefone` varchar(15) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `cnes` int(7) DEFAULT NULL,
+  `cnpj` bigint(14) DEFAULT NULL,
+  `diretor` varchar(255) DEFAULT NULL,
+  `segundo_responsavel` varchar(255) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `cep` int(8) DEFAULT NULL,
+  `telefone` varchar(15) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
   `atualizado_em` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `excluido_em` datetime DEFAULT NULL,
@@ -142,7 +142,7 @@ CREATE TABLE `hospital` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `hospital`
+-- Dumping data for table `hospital`
 --
 
 INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `segundo_responsavel`, `endereco`, `cep`, `telefone`, `email`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
@@ -168,7 +168,7 @@ INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `seg
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `meta`
+-- Table structure for table `meta`
 --
 
 CREATE TABLE `meta` (
@@ -186,7 +186,7 @@ CREATE TABLE `meta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `meta`
+-- Dumping data for table `meta`
 --
 
 INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
@@ -226,7 +226,7 @@ INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `resultado`
+-- Table structure for table `resultado`
 --
 
 CREATE TABLE `resultado` (
@@ -242,7 +242,7 @@ CREATE TABLE `resultado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `resultado`
+-- Dumping data for table `resultado`
 --
 
 INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES
@@ -259,7 +259,7 @@ INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificat
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -270,7 +270,7 @@ CREATE TABLE `usuario` (
   `token` varchar(255) DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
   `reset` varchar(50) DEFAULT NULL,
-  `telefone` varchar(15) DEFAULT NULL,
+  `telefone` varchar(10) DEFAULT NULL,
   `celular` bigint(11) NOT NULL,
   `nome` varchar(255) DEFAULT NULL,
   `cargo` set('enfermeiro','medico','administrador') NOT NULL,
@@ -285,17 +285,17 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `login`, `senha`, `email_confirmado`, `token`, `ativo`, `reset`, `telefone`, `celular`, `nome`, `cargo`, `endereco`, `cpf`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
-(1, 'usuario@email.com', '$2y$12$TVnPBAOX7b6bIiygqf2pJOdBz5j9zAEBRkovyr.UZDJ4d635VUg.q', 1, '', 0, '', '1147964069', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '307.485.238-04', '2021-07-02 10:21:37', '2021-08-13 08:54:16', NULL, 1, 1, 21),
+(1, 'usuario@email.com', '$2y$12$uA.wzZ/3zJb7tj1Gs6RFC.puNnd6eFYW5FDYr/9xN57niniQLugEK', 1, '', 1, '', '1147964069', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho, 1902', '307.485.238-04', '2021-07-02 10:21:37', '2021-08-14 16:10:17', NULL, 1, 1, 21),
 (32, 'mesnovaes@prefeitura.sp.gov.br', '$2y$12$V6IPH1Q/Nrv./iBP6lf2pu9b91c67uAEsw0P0m/QuCoSygyHKKOrq', 0, NULL, 0, NULL, '', 0, 'Meire Ellen', '', '', '338.059.850-02', '2021-08-09 14:08:05', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `_log_acesso`
+-- Table structure for table `_log_acesso`
 --
 
 CREATE TABLE `_log_acesso` (
@@ -308,7 +308,7 @@ CREATE TABLE `_log_acesso` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `_log_acesso`
+-- Dumping data for table `_log_acesso`
 --
 
 INSERT INTO `_log_acesso` (`id`, `id_usuario`, `sucesso`, `ip`, `navegador`, `datahora`) VALUES
@@ -329,12 +329,16 @@ INSERT INTO `_log_acesso` (`id`, `id_usuario`, `sucesso`, `ip`, `navegador`, `da
 (47, 1, 0, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 10:30:07'),
 (48, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 10:33:29'),
 (49, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 14:26:33'),
-(50, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 16:56:14');
+(50, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 16:56:14'),
+(51, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 12:49:15'),
+(52, 1, 0, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 19:09:11'),
+(53, 1, 0, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 19:09:20'),
+(54, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 19:10:27');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `_log_operacoes`
+-- Table structure for table `_log_operacoes`
 --
 
 CREATE TABLE `_log_operacoes` (
@@ -349,27 +353,33 @@ CREATE TABLE `_log_operacoes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `_log_operacoes`
+-- Dumping data for table `_log_operacoes`
 --
 
 INSERT INTO `_log_operacoes` (`id`, `id_usuario`, `acao`, `tabela`, `objetoId`, `ip`, `navegador`, `datahora`) VALUES
 (24, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:53:13'),
 (25, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:53:57'),
-(26, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:54:16');
+(26, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:54:16'),
+(27, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.131 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 12:57:26'),
+(28, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.131 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 12:57:32'),
+(29, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.131 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 12:57:33'),
+(30, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.131 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 14:21:06'),
+(31, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.131 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 14:21:29'),
+(32, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.131 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.131\",\"platform\":\"windows\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-14 19:10:17');
 
 --
--- Índices para tabelas despejadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices para tabela `categoria`
+-- Indexes for table `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
 
 --
--- Índices para tabela `elemento`
+-- Indexes for table `elemento`
 --
 ALTER TABLE `elemento`
   ADD PRIMARY KEY (`id`),
@@ -377,14 +387,14 @@ ALTER TABLE `elemento`
   ADD KEY `fk_categoria` (`id_categoria`);
 
 --
--- Índices para tabela `hospital`
+-- Indexes for table `hospital`
 --
 ALTER TABLE `hospital`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id` (`id`);
 
 --
--- Índices para tabela `meta`
+-- Indexes for table `meta`
 --
 ALTER TABLE `meta`
   ADD PRIMARY KEY (`id`),
@@ -393,7 +403,7 @@ ALTER TABLE `meta`
   ADD KEY `fk_elemento` (`id_elemento`);
 
 --
--- Índices para tabela `resultado`
+-- Indexes for table `resultado`
 --
 ALTER TABLE `resultado`
   ADD PRIMARY KEY (`id`),
@@ -401,7 +411,7 @@ ALTER TABLE `resultado`
   ADD KEY `id` (`id`);
 
 --
--- Índices para tabela `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
@@ -410,7 +420,7 @@ ALTER TABLE `usuario`
   ADD KEY `id` (`id`);
 
 --
--- Índices para tabela `_log_acesso`
+-- Indexes for table `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
   ADD PRIMARY KEY (`id`),
@@ -418,95 +428,95 @@ ALTER TABLE `_log_acesso`
   ADD KEY `fk_usuario_acesso` (`id_usuario`);
 
 --
--- Índices para tabela `_log_operacoes`
+-- Indexes for table `_log_operacoes`
 --
 ALTER TABLE `_log_operacoes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_usuario` (`id_usuario`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `categoria`
+-- AUTO_INCREMENT for table `categoria`
 --
 ALTER TABLE `categoria`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT de tabela `elemento`
+-- AUTO_INCREMENT for table `elemento`
 --
 ALTER TABLE `elemento`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT de tabela `hospital`
+-- AUTO_INCREMENT for table `hospital`
 --
 ALTER TABLE `hospital`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT de tabela `meta`
+-- AUTO_INCREMENT for table `meta`
 --
 ALTER TABLE `meta`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
--- AUTO_INCREMENT de tabela `resultado`
+-- AUTO_INCREMENT for table `resultado`
 --
 ALTER TABLE `resultado`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de tabela `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
--- AUTO_INCREMENT de tabela `_log_acesso`
+-- AUTO_INCREMENT for table `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
--- AUTO_INCREMENT de tabela `_log_operacoes`
+-- AUTO_INCREMENT for table `_log_operacoes`
 --
 ALTER TABLE `_log_operacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- Restrições para despejos de tabelas
+-- Constraints for dumped tables
 --
 
 --
--- Limitadores para a tabela `elemento`
+-- Constraints for table `elemento`
 --
 ALTER TABLE `elemento`
   ADD CONSTRAINT `fk_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id`) ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `meta`
+-- Constraints for table `meta`
 --
 ALTER TABLE `meta`
   ADD CONSTRAINT `fk_elemento` FOREIGN KEY (`id_elemento`) REFERENCES `elemento` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_hospital` FOREIGN KEY (`id_hospital`) REFERENCES `hospital` (`id`) ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `resultado`
+-- Constraints for table `resultado`
 --
 ALTER TABLE `resultado`
   ADD CONSTRAINT `fk_meta` FOREIGN KEY (`id_meta`) REFERENCES `meta` (`id`) ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `_log_acesso`
+-- Constraints for table `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
   ADD CONSTRAINT `fk_usuario_acesso` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
 
 --
--- Limitadores para a tabela `_log_operacoes`
+-- Constraints for table `_log_operacoes`
 --
 ALTER TABLE `_log_operacoes`
   ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE;
