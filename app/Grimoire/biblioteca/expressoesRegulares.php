@@ -10,11 +10,8 @@
  * @since	05-07-2015
  * @version 17/07/2021 15:49:23
  *
- * @param	string	Padrão
+ * @param	string	Padrão desejado
  * @return	string	Expressão regular OU string vazia
- *
- * @todo pegar exemplos das expressões em onde sao chamadas como: validaCoresHexadecimais()
- *
  */
 function padrao ($padrao)
 {

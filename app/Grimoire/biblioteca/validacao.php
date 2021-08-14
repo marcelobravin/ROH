@@ -107,7 +107,7 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 		$erros["campos_obrigatorios_nao_preenchidos"] = $camposVazios;
 	}
 
-	$x = validaTamanhos($mapaTamanhos, $post); # TODO testar e corrigir
+	$x = validaTamanhos($mapaTamanhos, $post);
 	if ( !empty($x['violacoes_tamanho_minimo']) ) {
 		$erros["violacoes_tamanho_minimo"] = $x['violacoes_tamanho_minimo'];
 	}

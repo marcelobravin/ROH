@@ -83,22 +83,23 @@ function configurarExibicaoErros ($conf=PRODUCAO)
 	error_reporting(E_ALL); # The minimum error reporting level.
 }
 
+
 /**
- * Retorna o navegador do usuário
- * @package	grimoire/bibliotecas/acesso.php
- * @version	05-07-2015
+ * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
+ * @package    grimoire/bibliotecas/acesso.php
+ * @version    17-07-2015
  *
- * @param	string
- * @return	bool
+ * @param  bool    bloquear usuários logados ou deslogados
+ * @param  string
  *
- * @uses	$_SERVER
+ * @uses   acesso.php->logado()
  */
 function identificarNavegador ()
 {
-	$u_agent = $_SERVER['HTTP_USER_AGENT'];
-	$bname = 'Unknown';
-	$platform = 'Unknown';
-	$version= "";
+	$u_agent    = $_SERVER['HTTP_USER_AGENT'];
+	$bname      = 'Unknown';
+	$platform   = 'Unknown';
+	$version    = "";
 
 	//First get the platform?
 	if (preg_match('/linux/i', $u_agent)) {
@@ -109,29 +110,30 @@ function identificarNavegador ()
 		$platform = 'windows';
 	}
 	// Next get the name of the useragent yes seperately and for good reason
-	if(preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
+	if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
 		$bname = 'Internet Explorer';
 		$ub = "MSIE";
-	} elseif(preg_match('/Firefox/i',$u_agent)) {
+	} elseif (preg_match('/Firefox/i',$u_agent)) {
 		$bname = 'Mozilla Firefox';
 		$ub = "Firefox";
-	} elseif(preg_match('/Chrome/i',$u_agent)) {
+	} elseif (preg_match('/Chrome/i',$u_agent)) {
 		$bname = 'Google Chrome';
 		$ub = "Chrome";
-	} elseif(preg_match('/Safari/i',$u_agent)) {
+	} elseif (preg_match('/Safari/i',$u_agent)) {
 		$bname = 'Apple Safari';
 		$ub = "Safari";
-	} elseif(preg_match('/Opera/i',$u_agent)) {
+	} elseif (preg_match('/Opera/i',$u_agent)) {
 		$bname = 'Opera';
 		$ub = "Opera";
-	} elseif(preg_match('/Netscape/i',$u_agent)) {
+	} elseif (preg_match('/Netscape/i',$u_agent)) {
 		$bname = 'Netscape';
 		$ub = "Netscape";
 	}
 
 	// finally get the correct version number
 	$known = array('Version', $ub, 'other');
-	$pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+	$pattern = '#(?<browser>' . join('|', $known) .
+		')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
 	if (!preg_match_all($pattern, $u_agent, $matches)) {
 		// we have no matching number just continue
 	}
@@ -157,11 +159,11 @@ function identificarNavegador ()
 	}
 
 	return array(
-		'userAgent'	=> $u_agent,
-		'name'		=> $bname,
-		'version'	=> $version,
-		'platform'	=> $platform,
-		'pattern'	=> $pattern
+		'userAgent' => $u_agent,
+		'name'      => $bname,
+		'version'   => $version,
+		'platform'  => $platform,
+		'pattern'   => $pattern
 	);
 }
 
@@ -311,7 +313,7 @@ function login ($login, $senha)
 	} else {
 		$user = $user[0];
 		$ip = identificarIP();
-		$browser = getBrowser();
+		$browser = identificarNavegador();
 
 		$conn = conectar();
 
@@ -462,87 +464,6 @@ function criarSessao ()
 	limitarCache();
 	$_SESSION['LAST_ACTIVITY'] = time(); // update last activity time stamp
 	$_SESSION['CREATED'] = time();
-}
-
-/**
- * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
- * @version	17-07-2015
- *
- * @param	bool	bloquear usuários logados ou deslogados
- * @param	string
- *
- * @uses	acesso.php->logado()
- */
-function getBrowser ()
-{
-	$u_agent	= $_SERVER['HTTP_USER_AGENT'];
-	$bname		= 'Unknown';
-	$platform	= 'Unknown';
-	$version	= "";
-
-	//First get the platform?
-	if (preg_match('/linux/i', $u_agent)) {
-		$platform = 'linux';
-	} elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
-		$platform = 'mac';
-	} elseif (preg_match('/windows|win32/i', $u_agent)) {
-		$platform = 'windows';
-	}
-	// Next get the name of the useragent yes seperately and for good reason
-	if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
-		$bname = 'Internet Explorer';
-		$ub = "MSIE";
-	} elseif (preg_match('/Firefox/i',$u_agent)) {
-		$bname = 'Mozilla Firefox';
-		$ub = "Firefox";
-	} elseif (preg_match('/Chrome/i',$u_agent)) {
-		$bname = 'Google Chrome';
-		$ub = "Chrome";
-	} elseif (preg_match('/Safari/i',$u_agent)) {
-		$bname = 'Apple Safari';
-		$ub = "Safari";
-	} elseif (preg_match('/Opera/i',$u_agent)) {
-		$bname = 'Opera';
-		$ub = "Opera";
-	} elseif (preg_match('/Netscape/i',$u_agent)) {
-		$bname = 'Netscape';
-		$ub = "Netscape";
-	}
-
-	// finally get the correct version number
-	$known = array('Version', $ub, 'other');
-	$pattern = '#(?<browser>' . join('|', $known) .
-		')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-	if (!preg_match_all($pattern, $u_agent, $matches)) {
-		// we have no matching number just continue
-	}
-
-	// see how many we have
-	$i = count($matches['browser']);
-	if ($i != 1) {
-		//we will have two since we are not using 'other' argument yet
-		//see if version is before or after the name
-		if (strripos($u_agent,"Version") < strripos($u_agent,$ub)) {
-			$version= $matches['version'][0];
-		} else {
-			$version= $matches['version'][1];
-		}
-
-	} else {
-		$version= $matches['version'][0];
-	}
-
-	// check if we have a number
-	if ($version==null || $version=="") {$version="?";}
-
-	return array(
-		'userAgent'	=> $u_agent,
-		'name'		=> $bname,
-		'version'	=> $version,
-		'platform'	=> $platform,
-		'pattern'	=> $pattern
-	);
 }
 
 /**

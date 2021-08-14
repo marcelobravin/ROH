@@ -525,7 +525,6 @@ function gerarRadio ($nome, $valores=array(), $valorSelecionado=-1, $atributos=a
 			}
 
 			$input = "<label>";
-			// $input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'" '.$atributos.' '.$selecionado.' />';
 			$input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'"'.$atributos.''.$selecionado.' />';
 
 			if ( is_numeric($indice) ) {

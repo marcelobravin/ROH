@@ -68,7 +68,7 @@ function criptografar ($senha) {
  *
  * @uses	$_SESSION
  * @uses	acesso.php->identificarIP()
- * @uses	acesso.php->getBrowser()
+ * @uses	acesso.php->identificarNavegador()
  * @uses	persistencia.php->inserir()
  * @example
 	registrarOperacao("U", "produto", 15);
@@ -82,7 +82,7 @@ function registrarOperacao ($acao, $tabela, $objetoId, $usuario=null)
 		'tabela'	=> $tabela,
 		'objetoId'	=> $objetoId,
 		'ip'		=> identificarIP(),
-		'navegador'	=> json_encode( getBrowser() )
+		'navegador'	=> json_encode( identificarNavegador() )
 	);
 
 	return inserir('_log_operacoes', $values);
