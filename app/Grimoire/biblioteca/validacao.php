@@ -287,7 +287,8 @@ function validarCnpj ($cnpj)
 /**
  * Verifica se o valor se encaixa no padrão
  * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
+ * @since	05-07-2015
+ * @version	19-07-2021
  *
  * @param	string
  * @return	bool
@@ -303,13 +304,14 @@ function validarCpf ($cpf)
 	$sinais = array("/", " ", ".", "-", ",");
 	$cpf = str_replace($sinais, "", $cpf);
 
+	# bloqueia cpfs com tamanho menor que 11 caracteres, com 11 caracteres repetidos e a sequencia que burla a conta
 	if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf) || $cpf == '01234567890') {
 		return false;
 	}
 
 	// Calcula os números para verificar se o CPF é verdadeiro
-	for ($t = 9; $t < 11; $t++) {
-		for ($d = 0, $c = 0; $c < $t; $c++) {
+	for ($t=9; $t<11; $t++) {
+		for ($d=0, $c=0; $c<$t; $c++) {
 			$d += $cpf[$c] * (($t + 1) - $c);
 		}
 
@@ -764,28 +766,28 @@ function montaRespostaValidacao ($errosFormulario)
 
 	foreach ($errosFormulario as $i => $v) {
 		if ( is_numeric($i)) {
-			$resposta .= "<br>-".$v;
+			$resposta .= li($v);
 		} else {
 			switch ( $i ) {
 				case "violacoes_de_formato" :
 					foreach ($v as $v2) {
-						$resposta .= "<br>-".$v2['campo']. " contém caracteres inválidos";
+						$resposta .= li($v2['campo']. " contém caracteres inválidos");
 					}
 					break;
 				case "campos_obrigatorios_nao_preenchidos" :
 					foreach ($v as $v2) {
-						$resposta .= "<br>-".$v2. " é obrigatório";
+						$resposta .= li($v2. " é obrigatório");
 					}
 					break;
 				case "violacoes_tamanho_minimo" :
 					foreach ($v as $v2) {
-						$resposta .= "<br>-".$v2['campo']. " não pode ter menos de {$v2['numero']} caracteres";
+						$resposta .= li($v2['campo']. " não pode ter menos de {$v2['numero']} caracteres");
 					}
 					break;
 
 				case "violacoes_tamanho_maximo" :
 					foreach ($v as $v2) {
-						$resposta .= "<br>-".$v2['campo']. " não pode ter mais de {$v2['numero']} caracteres";
+						$resposta .= li($v2['campo']. " não pode ter mais de {$v2['numero']} caracteres");
 					}
 					break;
 

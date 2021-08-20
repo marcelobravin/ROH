@@ -2,7 +2,7 @@
 		/**
 		 * hospital
 		 * @package	grimoire/modelos
-		 * @version	14-08-2021 17:20:40
+		 * @version	16-08-2021 11:11:51
 		*/
 	$mapaTamanhos = array(
 'id' => array('maximo' => 11),

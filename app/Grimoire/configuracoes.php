@@ -35,8 +35,8 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
  * @var	string/bool
  */
 	# o nome do diretório é case sensitive
-	define( 'PROJECT_NAME'			, 'ROH'); #------------------------------------- nome da pasta que contém o projeto # casa
-	//define( 'PROJECT_NAME'			, 'roh'); #------------------------------------- nome da pasta que contém o projeto # trabalho
+	// define( 'PROJECT_NAME'			, 'ROH'); #------------------------------------- nome da pasta que contém o projeto # casa
+	define( 'PROJECT_NAME'			, 'roh'); #------------------------------------- nome da pasta que contém o projeto # trabalho
 	if ( PRODUCAO ) {
 		define( 'PROJECT_FOLDER'	, 'PROJETOS/'. PROJECT_NAME . '/');
 	} else {
@@ -73,7 +73,9 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 	define( 'QUEBRA_LINHA'	, "\n\r" );
 
 	header( 'Content-Type: text/html; charset='. CARACTERES );
-	setlocale( LC_TIME, 'pt_BR.'. CHARSET );
+	// setlocale( LC_TIME, 'pt_BR.'. CHARSET );
+	setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+
 	date_default_timezone_set( 'America/Sao_Paulo' );
 
 /**

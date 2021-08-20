@@ -38,7 +38,7 @@
 
 					<?php $especialidades = selecionar("elemento", array('id_categoria'=>$v['id']), "ORDER BY titulo") ?>
 
-					<table id="metas">
+					<table>
 
 						<caption><?php echo $v['legenda'] ?></caption>
 
@@ -72,7 +72,7 @@
 									<input type="hidden" name="especialidadeId" value="<?php echo $e['id'] ?>" />
 								</td>
 								<td><input type="checkbox" name="checkbox-<?php echo $e['id'] ?>" id="checkbox-<?php echo $e['id'] ?>" value="1" <?php echo checked($meta['ativo']) ?> /></td>
-								<td><input type="text" name="leitos[<?php echo $e['id'] ?>]" id="leitos-<?php echo $e['id'] ?>" value="<?php echo $meta['quantidade'] ?>" /></td>
+								<td><input type="number" min="0" class="quantidade" name="leitos[<?php echo $e['id'] ?>]" id="leitos-<?php echo $e['id'] ?>" value="<?php echo $meta['quantidade'] ?>" /></td>
 							</tr>
 						<?php endforeach ?>
 
@@ -97,3 +97,10 @@
 <script src="public/scripts/metas.js"></script>
 
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">
+
+<script src="public/vendors/jquery.mask.min.js"></script>
+<script>
+	$( ".quantidade" ).keypress(function() {
+		$(this).mask('0000');
+	});
+</script>

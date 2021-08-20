@@ -5,6 +5,37 @@
  */
 
 /**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ *
+ * @return	GDImage
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+ */
+function createTransparentImage ($sum_width, $sum_height)
+{
+	if ($sum_width == 0) {
+		die('largura invalida');
+	}
+	if ($sum_height == 0) {
+		die('altura invalida');
+	}
+	$tmp = imagecreatetruecolor($sum_width, $sum_height);
+	imagesavealpha($tmp, true);
+	$color = imagecolorallocatealpha($tmp, 0, 0, 0, 127);
+	imagefill($tmp, 0, 0, $color);
+	return $tmp;
+}
+
+/**
  * Cria thumb de uma imagem
  * @package grimoire/bibliotecas/imagens.php
  * @version 05-07-2015
@@ -34,8 +65,8 @@ function criarThumb ($nome_img, $caminho, $lar_maxima, $alt_maxima)
 		$scale = min($lar_maxima/$width, $alt_maxima/$height);
 		// Se a imagem é maior que o permitido, encolhe ela!
 		if ($scale < 1) {
-			$new_width = floor($scale*$width);
-			$new_height = floor($scale*$height);
+			$new_width = floor($scale * $width);
+			$new_height = floor($scale * $height);
 			// Cria uma imagem temporária
 			$tmp_img = imagecreatetruecolor($new_width, $new_height);
 			// Copia e resize a imagem velha na nova
@@ -47,6 +78,52 @@ function criarThumb ($nome_img, $caminho, $lar_maxima, $alt_maxima)
 			imagejpeg( $tmp_img, $caminho . $fname ); # colocar switch
 		}
 	}
+}
+
+/**
+ * Verifica se o valor se encaixa no padrão
+ * @package grimoire/bibliotecas/imagens.php
+ * @version 05-07-2015
+ *
+ * @param	string
+ * @return	bool
+ * @todo	mesclar com criarThumb
+ */
+function gera_thumb ($nome_img, $lar_maxima, $alt_maxima, $qualidade=100)
+{
+	$size = getimagesize($nome_img);
+	$tipo = $size[2];
+	# Pega onde está a imagem e carrega
+	if ($tipo == 2) { // 2 é o JPG
+		$img = imagecreatefromjpeg($nome_img);
+	} elseif ($tipo == 1) { // 1 é o GIF
+		$img = imagecreatefromgif($nome_img);
+	} elseif ($tipo == 3) { // 3 é PNG
+		$img = imagecreatefrompng($nome_img);
+	}
+
+	// Se a imagem foi carregada com sucesso, testa o tamanho da mesma
+	if ($img) {
+			// Pega o tamanho da imagem e proporção de resize
+		$width = imagesx($img);
+		$height = imagesy($img);
+		$scale = min($lar_maxima/$width, $alt_maxima/$height);
+			// Se a imagem é maior que o permitido, encolhe ela!
+		if ($scale < 1) {
+			$new_width = floor($scale*$width);
+			$new_height = floor($scale*$height);
+			// Cria uma imagem temporária
+			$tmp_img = imagecreatetruecolor($new_width, $new_height);
+			// Copia e resize a imagem velha na nova
+			imagecopyresampled ($tmp_img, $img, 0, 0, 0, 0,
+				$new_width, $new_height, $width, $height);
+			$img = $tmp_img;
+		}
+	}
+
+	header("Content-type:image/gif");
+	imagejpeg($img,'',$qualidade);
+	imagedestroy($img);
 }
 
 /**
@@ -226,11 +303,10 @@ function gerarPNG ($l=1198, $a=548, $novoNome="png.png")
  *
  * @example
  */
-function gerarProtetor ($arquivo)
+function gerarProtetor ($arquivo, $unidade="px")
 {
-	$unidade = "px";
-	$dimensoes = getimagesize($arquivo);
-	$largura	 = $dimensoes[0] . $unidade;
+	$dimensoes	= getimagesize($arquivo);
+	$largura	= $dimensoes[0] . $unidade;
 	$altura		= $dimensoes[1] . $unidade;
 
 	return "style='background-image:url(imagens/protetor.png); position:absolute; width:$largura; height:$altura; border:1px dashed gray; margin-top:0; margin-left:0'";
@@ -303,51 +379,6 @@ function gerarSpritemap ($diretorio="")
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
- * @package grimoire/bibliotecas/imagens.php
- * @version 05-07-2015
- *
- * @param	string
- * @return	bool
- */
-function gera_thumb ($nome_img, $lar_maxima, $alt_maxima, $qualidade=100)
-{
-		$size = getimagesize($nome_img);
-		$tipo = $size[2];
-	# Pega onde está a imagem e carrega
-	if ($tipo == 2) { // 2 é o JPG
-		$img = imagecreatefromjpeg($nome_img);
-	} elseif ($tipo == 1) { // 1 é o GIF
-		$img = imagecreatefromgif($nome_img);
-	} elseif ($tipo == 3) { // 3 é PNG
-		$img = imagecreatefrompng($nome_img);
-	}
-
-	// Se a imagem foi carregada com sucesso, testa o tamanho da mesma
-	if ($img) {
-			// Pega o tamanho da imagem e proporção de resize
-		$width = imagesx($img);
-		$height = imagesy($img);
-		$scale = min($lar_maxima/$width, $alt_maxima/$height);
-			// Se a imagem é maior que o permitido, encolhe ela!
-		if ($scale < 1) {
-			$new_width = floor($scale*$width);
-			$new_height = floor($scale*$height);
-					// Cria uma imagem temporária
-			$tmp_img = imagecreatetruecolor($new_width, $new_height);
-					// Copia e resize a imagem velha na nova
-			imagecopyresampled ($tmp_img, $img, 0, 0, 0, 0,
-				$new_width, $new_height, $width, $height);
-			$img = $tmp_img;
-		}
-	}
-
-	header("Content-type:image/gif");
-	imagejpeg($img,'',$qualidade);
-	imagedestroy($img);
-}
-
-/**
  * Copia um trecho de uma imagem para outra conservando a transparência
  * @package grimoire/bibliotecas/imagens.php
  * @version 05-07-2015
@@ -409,33 +440,14 @@ function imagemStub ($altura=300, $largura=400)
  * @param	string
  * @param	int
  * @param	int
- * @return	string
- */
-function retornarImagem ($imagem, $x=100, $y=100)
-{
-	if (empty($imagem)) {
-		return "https://placehold.it/{$x}x{$y}";
-	}
-
-	return $imagem;
-}
-
-/**
- * Se a imagem não existir retorna uma imagem stub
- * @package grimoire/bibliotecas/imagens.php
- * @version 05-07-2015
- *
- * @param	string
- * @param	int
- * @param	int
  * @param	string
  * @param	string
  * @return	string
  */
-function retornarImagem2 ($imagem, $x=100, $y=100, $fundo="F9F9F9", $letra="CCCCCC")
+function retornarImagem2 ($imagem, $x=100, $y=100, $corFundo="F9F9F9", $corLetra="CCCCCC")
 {
-	if (empty($imagem)) {
-		return "https://placehold.it/{$x}x{$y}/{$fundo}/{$letra}";
+	if ( empty($imagem) ) {
+		return "https://placehold.it/{$x}x{$y}/{$corFundo}/{$corLetra}";
 	}
 
 	return $imagem;
@@ -562,34 +574,21 @@ function imageCollation ($images, $fileName)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- *
- * @return	GDImage
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
- */
-function createTransparentImage ($sum_width, $sum_height)
+ <!-- <img src="<?php echo imagem64('public/img/Prefeitura-de-Sao-Paulo.jpg') ?>" alt="image"> -->
+ #logo {
+	 background-image: url(<?php echo imagem64('public/img/Prefeitura-de-Sao-Paulo.jpg') ?>);
+	 width: 100%;
+	 height: 184px;
+	 background-position: center center;
+	 background-repeat: no-repeat;
+ }
+*/
+function imagem64 ($path = 'myfolder/myimage.png')
 {
-	if ($sum_width == 0) {
-		die('largura invalida');
-	}
-	if ($sum_height == 0) {
-		die('altura invalida');
-	}
-	$tmp = imagecreatetruecolor($sum_width, $sum_height);
-	imagesavealpha($tmp, true);
-	$color = imagecolorallocatealpha($tmp, 0, 0, 0, 127);
-	imagefill($tmp, 0, 0, $color);
-	return $tmp;
+	$type = pathinfo($path, PATHINFO_EXTENSION);
+	$data = file_get_contents($path);
+	return 'data:image/' . $type . ';base64,' . base64_encode($data);
 }
 
 /**

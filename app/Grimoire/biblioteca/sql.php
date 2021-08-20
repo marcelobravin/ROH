@@ -15,70 +15,57 @@
  * @uses		persistencia.php->executar()
  * @uses		sql.php->atualizacao()
  * @example
-		$usuario2 = array('id'=>'3', 'nome'=>'Décio Carvalho', 'email'=>'1@2', 'sexo'=>'masculino');
-		exibir($sql = atualizacao("tb_usuarios", $usuario2));
-		//echo $sql = atualizacao("tabela", array("nome"=>"Jose"), "id=1");
-		//echo $sql = atualizacao("tabela", array("nome"=>"Jose"));
-		//echo $sql = atualizacao("tabela", array("nome"=>"Jose"), 4);
+	$usuario2 = array('id'=>'3', 'nome'=>'Décio Carvalho', 'email'=>'1@2', 'sexo'=>'masculino');
+	exibir($sql = atualizacao("tb_usuarios", $usuario2));
+	//echo $sql = atualizacao("tabela", array("nome"=>"Jose"), "id=1");
+	//echo $sql = atualizacao("tabela", array("nome"=>"Jose"), 4);
+
+	$usuario2 = array('nome'=>'Décio Carvalho', 'email'=>'1@2', 'sexo'=>'masculino');
+	$sql = atualizacao("tb_usuarios", $usuario2, 3);
+	exibir( $sql );
+
+	$usuario2 = "nome='Décio Carvalho'";
+	$sql = atualizacao("tb_usuarios", $usuario2, array("id"=>3, "sexo"=>"masculino", "ativo"=>"Sim"));
+	exibir( $sql );
  */
 function atualizacao ($tabela, $objeto, $condicao="")
 {
-	$sql = array();
-	$campos = "";
+	$sql = "";
+	$campos = array();
 
-	if (is_array($objeto)) {
-		$tamanho = sizeof($objeto);
-		$i = 1;
+	if ( is_array($objeto) ) {
 		foreach ($objeto as $indice => $valor) {
-
-			if (!is_array($valor)) {
-				$campos .= "$indice='$valor'";
-				// Adiciona separador após cada atributo que não seja o último
-				if ($i < $tamanho) {
-					$campos .= ", \n";
-				}
-			} else {
-				$chavePrimaria = "id='{$valor['id']}'";
-				$temp = atualizacao($valor, $indice, $chavePrimaria);
-				$sql[] = $temp[0];
-				$tamanho--;
-			}
-			$i++;
+			$campos[] = "$indice='$valor'";
 		}
 	} else {
-		$campos = $objeto;
+		$campos[] = $objeto;
 	}
 
-	if (!is_array($condicao)) {
+
+	$where = array();
+	if ( is_array($condicao) ) {
+
+		foreach ($condicao as $indice => $valor) {
+			$where[] = "$indice='$valor'";
+		}
+
+	} else {
 		if ($condicao > 0) {
-			$condicao = "id='$condicao'"; // Se for mandado número utiliza chave primária como condição
+			$where[] = "id='$condicao'"; // Se for mandado número utiliza chave primária como condição
 		} else {
-			$condicao = "$condicao"; // Utilizastring como condição
-		}
-	} else {
-		$a = $condicao;
-		$condicao = "";
-		$tamanho = sizeof($a);
-		$i=1;
-
-		foreach ($a as $indice => $valor) {
-			$condicao .= "$indice='$valor'";
-			// Adiciona separador após cada atributo que não seja o último
-			if ($i < $tamanho) {
-				$condicao .= " AND \n";
-			}
-			$i++;
+			$where[] = "$condicao"; // Utilizastring como condição
 		}
 	}
 
-	if (!empty($condicao)) {
-		$sql[] = "UPDATE $tabela SET\n $campos \nWHERE\n $condicao";
-	}
-	else {
-		$sql[] = "UPDATE $tabela SET\n $campos";
+	$campos	= implode(", \n", $campos);
+
+	$sql = "UPDATE $tabela SET\n $campos";
+
+	if ( !empty($where) ) {
+		$where	= implode("\nAND ", $where);
+		$sql .= "\nWHERE\n $where";
 	}
 
-	$sql = converterString($sql);
 	return $sql;
 }
 
@@ -143,9 +130,9 @@ function exclusao ($tabela, $criterios="")
  */
 function insercao ($tabela, $campos)
 {
-	$sql			= "";
+	$sql		= "";
 	$valores	= array();
-	$atributos = array();
+	$atributos	= array();
 
 	if (is_array($campos)) {
 		foreach ($campos as $indice => $valor) {
@@ -278,4 +265,10 @@ function criacaoFK ($tabelaAlterada, $tabelaReferenciada)
 		FOREIGN KEY (id_{$tabelaReferenciada})
 		REFERENCES {$tabelaReferenciada}(id)
 			ON UPDATE CASCADE ON DELETE RESTRICT;";
+}
+
+function ativacaoConstraints ($ativar=0)
+{
+	$sql = "SET FOREIGN_KEY_CHECKS={$ativar}";
+	return executar($sql);
 }

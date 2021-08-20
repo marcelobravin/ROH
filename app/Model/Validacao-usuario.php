@@ -41,7 +41,6 @@ function validarFormulario ( $post, $update=false )
 		$mapaTamanhos['endereco']['minimo']	= 5;
 	}
 
-	// exibir($mapaTamanhos, true);
 	# limpa campos com máscara
 	$post['telefone'] = removerNaoNumericos($post['telefone']);
 	$post['celular'] = removerNaoNumericos($post['celular']);

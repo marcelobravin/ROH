@@ -1,10 +1,10 @@
--- 14-08-2021 17:20:47
+-- 17-08-2021 11:07:02
 CREATE TABLE IF NOT EXISTS _log_acesso (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
-	id_usuario INT(11) NOT NULL,
-	sucesso TINYINT(1) NOT NULL,
-	ip VARCHAR(15) NOT NULL,
-	navegador VARCHAR(400) NOT NULL,
-	datahora TIMESTAMP NOT NULL DEFAULT current_timestamp(),
+	id_usuario int(11) NOT NULL,
+	sucesso tinyint(1) NOT NULL,
+	ip varchar(15) NOT NULL,
+	navegador varchar(400) NOT NULL,
+	datahora timestamp NOT NULL DEFAULT current_timestamp(),
 INDEX (id)
 );

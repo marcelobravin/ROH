@@ -136,29 +136,17 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 			$atributos['required'] = 'required';
 		}
 
-		// CAMPOS DEFAULT
-		$tipo = "text";
+		$tipo = identificarTipoCampo($campo);
 
-		# date
-		if ($campo['Type'] == "date") {
-			$tipo = "date";
+		if ($tipo == "date") {
 			$atributos['maxlength'] = 10;
 			$atributos[] = "padraoData";
 			# datetime & timestamp
-		} else if ($campo['Type'] == "datetime" || $campo['Type'] == "timestamp") {
+		} else if ($tipo == "datetime" || $tipo == "timestamp") {
 			$atributos['maxlength'] = 19;
 			$atributos[] = "padraoTimestamp";
-		# enum
-		} else if ( comecaCom("enum", $campo['Type']) || comecaCom("set", $campo['Type']) ) {
-			$tipo = 'radio';
-		# bit
-		} else if ( comecaCom("bit", $campo['Type']) || comecaCom("tinyint(1)", $campo['Type']) ) {
-			$tipo = 'checkbox';
-		# text
-		} else if ($campo['Type'] == "text") {
-			$tipo = 'textarea';
 		# campos q definem tamanho maximo [int, varchar, tinyint, decimal]
-		} else {
+		} elseif ($tipo == "text") {
 			$pos1 = stripos($campo['Type'], "(");
 			$maxlength = substr($campo['Type'], $pos1+1, -1);
 
@@ -168,16 +156,6 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 				$maxlength = (int) $maxlength[0] + $maxlength[1];
 			}
 			$atributos['maxlength'] = $maxlength;
-
-			// PRIMARY KEY
-			if ($campo['Key'] == "PRI") {
-				$tipo = "hidden";
-			}
-
-			# Se campo for chave estrangeira
-			if (comecaCom("id_", $campo['Field'])) {
-				$tipo = "foreignKey";
-			}
 		}
 
 		foreach ($sobreEscreverCampos as $key => $value) {
@@ -191,6 +169,41 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 	}
 
 	return $resposta;
+}
+
+function identificarTipoCampo ($campo)
+{
+	$tipo = "text";
+
+	# date
+	if ($campo['Type'] == "date") {
+		$tipo = "date";
+	# datetime & timestamp
+	} else if ($campo['Type'] == "datetime" || $campo['Type'] == "timestamp") {
+	# enum
+	} else if ( comecaCom("enum", $campo['Type']) || comecaCom("set", $campo['Type']) ) {
+		$tipo = 'radio';
+	# bit
+	} else if ( comecaCom("bit", $campo['Type']) || comecaCom("tinyint(1)", $campo['Type']) ) {
+		$tipo = 'checkbox';
+	# text
+	} else if ($campo['Type'] == "text") {
+		$tipo = 'textarea';
+	# campos q definem tamanho maximo [int, varchar, tinyint, decimal]
+	} else {
+
+		// PRIMARY KEY
+		if ($campo['Key'] == "PRI") {
+			$tipo = "hidden";
+		}
+
+		# Se campo for chave estrangeira
+		if (comecaCom("id_", $campo['Field'])) {
+			$tipo = "foreignKey";
+		}
+	}
+
+	return $tipo;
 }
 
 function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)

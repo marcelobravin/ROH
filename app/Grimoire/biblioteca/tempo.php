@@ -32,10 +32,10 @@ function defineTempo ()
  */
 function agora ($padraoBrasileiro=false)
 {
-	if ( !$padraoBrasileiro ) {
-		return date("Y-m-d H:i:s");
+	if ( $padraoBrasileiro ) {
+		return date("d/m/Y H:i:s");
 	} else {
-		return date("d-m-Y H:i:s");
+		return date("Y-m-d H:i:s");
 	}
 }
 
@@ -145,25 +145,30 @@ function converterData ($data, $br=true)
  * Coloca nos moldes timestamps
  * @package	grimoire/bibliotecas/tempo.php
  * @since	05-07-2015
+ * @version	18/08/2021 14:57:37
  *
  * @param	string
  * @param	bool
+ * @param	bool
  * @return	string
  */
-function converterTimestamp ($data, $br=true)
+function converterTimestamp ($data, $br=true, $descartarHorario=false)
 {
 	if ($br) {
 		$separadorAntigo = "-";
-		$separador			 = "/";
+		$separador		 = "/";
 	} else {
 		$separadorAntigo = "/";
-		$separador			 = "-";
+		$separador		 = "-";
 	}
 
 	$data = explode($separadorAntigo, $data);
 	$horario = explode(' ', $data[2]);
 	$dataFinal = $horario[0] . $separador . $data[1] . $separador . $data[0];
-	$dataFinal .= " ". $horario[1];
+
+	if ( !$descartarHorario ) {
+		$dataFinal .= " ". $horario[1];
+	}
 	return $dataFinal;
 }
 
@@ -390,10 +395,10 @@ function diferencaTempo ($dataInicial, $dataFinal)
  */
 function hoje ($padraoBrasileiro=FALSE)
 {
-	if (!$padraoBrasileiro) {
-		return date("Y-m-d");
+	if ( $padraoBrasileiro ) {
+		return date("d/m/Y");
 	} else {
-		return date("d-m-Y");
+		return date("Y-m-d");
 	}
 }
 

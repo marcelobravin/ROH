@@ -2,11 +2,11 @@
 /**
  * Manipulação de arrays
  * @package	grimoire/bibliotecas
-*/
+persistencia-pdo
 
 /**
  * Realiza uma conexão com um BD mySql através do PDO
- * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
  * @since	05-07-2015
  * @version	09/09/2016 20:24:25
  *
@@ -47,7 +47,7 @@ function conectarPdo (/* $transacao=false, */ $hostname=HOST, $dbname=DBNAME, $u
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -87,7 +87,7 @@ function conectar ()
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -125,7 +125,7 @@ function conexaoPersistente ()
 }
 /**
  * Executa um comando no BD
- * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
  * @version	05-07-2015
  * @version	17/09/2016 19:02:44
  *
@@ -157,7 +157,7 @@ function executarOLD ($qry)
 
 /**
  * Executa um comando no BD
- * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
  * @since	05-07-2015
  * @version	06/07/2021 09:04:44
  *
@@ -239,8 +239,8 @@ function executarSequencia ($sqls)
 }
 
 /**
- * Executa statement via PDO
- * @package	grimoire/bibliotecas/persistencia.php
+ * Executa statement via PDO e desconecta
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	10-06-2021
  *
@@ -256,7 +256,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 		$statement = $conn->prepare($stmt);
 		$interrogacoes = substr_count($stmt, '?');
 
-		if (is_array($valores)) {
+		if ( is_array($valores) ) {
 
 			$valores = array_values($valores);
 
@@ -287,7 +287,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 /**
  * Retorna um registro pelo seu id
- * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
  * @version	05-07-2015
  *
  * @param	string
@@ -310,7 +310,7 @@ function localizarPorId ($sql, $id)
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -345,7 +345,7 @@ function inserir ($tabela, $campos)
 
 /**
  * Retorna um vetor de registros da tabela desejada
- * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
  * @since	05-07-2015
  * @version	15/07/2021 11:37:26
  *
@@ -393,7 +393,7 @@ function selecionarSanitizado ($tabela, $condicoes=array(), $diretrizes="", $col
 
 /**
  * Retorna um registro da tabela desejada
- * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
  * @since	05-07-2015
  * @version	15/07/2021 11:37:26
  *
@@ -406,20 +406,23 @@ function selecionarSanitizado ($tabela, $condicoes=array(), $diretrizes="", $col
  */
 function localizar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
 {
-	$stmt = selecaoStmt($tabela, $condicoes, $diretrizes, $colunas);
-	$res = executarStmt($stmt, $condicoes, 'S');
+	$res = selecionar($tabela, $condicoes, $diretrizes, $colunas);
 
 	if ( empty( $res ) ) {
 		return array();
 	}
 
-	return $res[0];
+	if ( gettype($res) != "object") {
+		return $res[0];
+	}
+
+	return $res;
 }
 
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -456,7 +459,7 @@ function atualizar ($tabela, $campos, $condicoes=array())
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -481,7 +484,7 @@ function excluir ($tabela, $condicoes="")
 
 /**
  * Monta query para inserção de registros
- * @package grimoire/bibliotecas/sql.php
+ * @package grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version 10-06-2021
  *
@@ -513,7 +516,7 @@ function insercaoStmt ($tabela, $campos)
 
 /**
  * Monta query com prepared statement para seleção de registros
- * @package	grimoire/bibliotecas/sql.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	12/07/2021 11:27:42
  *
@@ -542,7 +545,7 @@ function selecaoStmt ($tabela, $criterios="", $diretrizes="", $colunas="*")
 		} else if (is_numeric($criterios)) {
 			$sql .= "id=?"; # -------------- PK da tabela deve chamar id
 		} else {
-			$sql .= $criterios;# <<<<<<<<<<< VERIFICAR linha abaixo quanto a binds
+			$sql .= $criterios;# <<<<<<<<<<< TODO VERIFICAR linha abaixo quanto a binds
 		}
 	}
 
@@ -556,7 +559,7 @@ function selecaoStmt ($tabela, $criterios="", $diretrizes="", $colunas="*")
 /**
  * Monta query com prepared statement para atualização de registros
  *
- * @package grimoire/bibliotecas/sql.php
+ * @package grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version 11-06-2021
  *
@@ -606,7 +609,7 @@ function atualizacaoStmt ($tabela, $campos, $condicoes="")
 /**
  * Monta query com prepared statement para exclusão de registros
  *
- * @package grimoire/bibliotecas/sql.php
+ * @package grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version 11-06-2021
  *
@@ -645,7 +648,7 @@ function exclusaoStmt ($tabela, $condicoes="")
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -668,9 +671,10 @@ function desconectar (&$connection, &$statement)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Realiza múltiplas operações no BD
+ aplicável apenas a sqls sem interrogações
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -683,9 +687,6 @@ function desconectar (&$connection, &$statement)
  * @example
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
-*/
-/*
-aplicável apenas a sqls sem interrogações
 */
 function transacao ( $sqls=array() )
 {
@@ -712,7 +713,7 @@ function transacao ( $sqls=array() )
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -741,7 +742,7 @@ function transacao ( $sqls=array() )
 	);
 
 	$sql = insercao('_log_acesso', $c);
-	$statement = operacaoSequencial($conP, $sql);
+	$statement = operacaoTransacional($conP, $sql);
 	$id = $conP->lastInsertId();
 
 	$p = array(
@@ -755,7 +756,7 @@ function transacao ( $sqls=array() )
 	);
 
 	$sql = insercao('_log_operacoes', $p);
-	$statement = operacaoSequencial($conP, $sql);
+	$statement = operacaoTransacional($conP, $sql);
 	$id2 = $conP->lastInsertId();
 
 	# 3 ------------------------------------------------------------------------ Fim
@@ -772,7 +773,7 @@ function iniciarTransacao ()
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -800,7 +801,7 @@ function encerrarTransacao ( $con, $stmt, $sucesso=true)
 /**
  * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -814,7 +815,7 @@ function encerrarTransacao ( $con, $stmt, $sucesso=true)
 	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
 	echo array_para_csv($array);
 */
-function operacaoSequencial ($conP, $sql)
+function operacaoTransacional ($conP, $sql)
 {
 	$statement = $conP->prepare($sql);
 	$statement->execute();
@@ -824,7 +825,7 @@ function operacaoSequencial ($conP, $sql)
 
 /**
  * Retorna uma lista de tabelas do BD
- * @package grimoire/bibliotecas/persistencia-oracle.php
+ * @package grimoire/bibliotecas/persistencia-pdo-oracle.php
  * @since	07/08/2021 21:41:59
  *
  * @param	string

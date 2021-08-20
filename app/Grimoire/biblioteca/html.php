@@ -207,7 +207,7 @@ function gerarBloco ($elemento, $atributos=array())
  */
 function gerarElemento ($elemento, $conteudo="", $atributos=array())
 {
-	if (empty($conteudo)) {
+	if ( empty($conteudo) ) {
 		return gerarBloco($elemento, $atributos);
 	}
 	$atributo = gerarAtributos($atributos);
@@ -580,24 +580,14 @@ function gerarCheckbox ($nome, $valores=array(), $valoresSelecionados=array(), $
 		$inputs = array();
 		foreach ($valores as $indice => $valor) {
 			if (is_array($valoresSelecionados)) {
-				if (in_array($indice, $valoresSelecionados)) {
-					$inputs[] = checkbox($valor, $indice, true);
-				} else {
-					$inputs[] = checkbox($valor, $indice);
-				}
-
-			} else if ($valoresSelecionados == $indice) {
-				$inputs[] = checkbox($valor, $indice, true);
+				$inputs[] = checkbox($valor, $indice, in_array($indice, $valoresSelecionados));
 			} else {
-				$inputs[] = checkbox($valor, $indice);
+				$inputs[] = checkbox($valor, $indice, $valoresSelecionados == $indice);
 			}
 		}
 	} else {
-		if ($valoresSelecionados) {
-			$inputs = checkbox($nome, $valores, true);
-		} else {
-			$inputs = checkbox($nome, $valores);
-		}
+		$boolean = ($valoresSelecionados) ? true : false;
+		$inputs = checkbox($nome, $valores, $boolean);
 	}
 	return $inputs;
 }

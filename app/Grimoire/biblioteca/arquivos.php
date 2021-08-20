@@ -27,25 +27,21 @@ function anexarArquivo ($vetor, $caminho)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
- *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+ * Converte uma array em CSV
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
- * @version	24-06-2021
+ * @version	19/08/2021 09:15:01
  *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
+ * @param	array
  *
- * @return	bool
+ * @return	string
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+	cabecalhoDownloadCsv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo arrayParaCsv($array);
 */
-function array_para_csv (array &$array)
+function arrayParaCsv (array &$array, $incluirHeaders=true)
 {
 	if ( empty($array) ) {
 		return null;
@@ -54,7 +50,9 @@ function array_para_csv (array &$array)
 	ob_start();
 	$df = fopen("php://output", 'w');
 
-	fputcsv($df, array_keys( reset($array) ) );
+	if ( $incluirHeaders ) {
+		fputcsv($df, array_keys( reset($array) ) );
+	}
 
 	foreach ($array as $row) {
 		fputcsv($df, $row);
@@ -64,27 +62,29 @@ function array_para_csv (array &$array)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
- *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+ * @since	19/08/2021 09:15:01
+ */
+function baixarCsv ($conteudo, $filename="Resultado.csv")
+{
+	cabecalhoDownloadCsv($filename);
+	$csv = arrayParaCsv($conteudo);
+	echo str_replace(',', ';', $csv);
+}
+
+/**
+ * Cria cabecalhos PHP para download de arquivo CSV
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
  * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-	// http://pt.stackoverflow.com/questions/9596/como-exportar-uma-tabela-para-csv-usando-php
-	// Pra fazer o download do arquivo gerado:
+	cabecalhoDownloadCsv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo arrayParaCsv($array);
 */
-function cabecalho_download_csv ($filename="relatorio")
+function cabecalhoDownloadCsv ($filename="Resultado")
 {
 	// desabilitar cache
 	$now = gmdate("D, d M Y H:i:s");
@@ -104,29 +104,6 @@ function cabecalho_download_csv ($filename="relatorio")
 	header("Content-Disposition: attachment;filename={$filename}");
 	header("Content-Transfer-Encoding: binary");
 	// echo "\xEF\xBB\xBF"; // UTF-8 BOM
-}
-
-/**
- * Cria um diretório
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @version	05-07-2015
- *
- * @param	string
- * @return	bool
- *
- * @throws	Exception
- * @example
-	createDir("ZZZX");
- */
-function createDir ($dir, $octal=0777)
-{
-	if ( !is_dir($dir) && !mkdir($dir, $octal, true) ) {
-		$mssg = "The follow directory could not be made, please create it: {$dir}";
-		die($mssg);
-	}
-
-	return true;
 }
 
 /**
@@ -161,6 +138,41 @@ function corrigirEnderecoVideoYoutube ($url)
 	}
 
 	return $url;
+}
+
+/**
+ * Cria um diretório
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @version	05-07-2015
+ *
+ * @param	string
+ * @return	bool
+ *
+ * @throws	Exception
+ * @example
+	createDir("ZZZX");
+ */
+function createDir ($dir, $octal=0777)
+{
+	if ( !is_dir($dir) && !mkdir($dir, $octal, true) ) {
+		$mssg = "The follow directory could not be made, please create it: {$dir}";
+		die($mssg);
+	}
+
+	return true;
+}
+
+/**
+ * @since	19/08/2021 09:15:01
+ */
+function csvParaArray ($arquivo)
+{
+	$data2 = lerCSV($arquivo);
+	foreach ($data2 as $line) {
+		$data3[] = explode(";", $line[0]);
+	}
+	return $data3;
 }
 
 /**
@@ -547,6 +559,20 @@ function identificarTipo ($arquivo)
 		}
 	}
 	return $resposta;
+}
+
+/**
+ * @since	19/08/2021 09:15:01
+ */
+function lerCSV ($arquivo)
+{
+	$csvFile = file($arquivo);
+	$data = [];
+	foreach ($csvFile as $line) {
+		$data[] = str_getcsv($line);
+	}
+
+	return $data;
 }
 
 /**

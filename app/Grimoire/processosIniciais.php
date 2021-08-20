@@ -29,8 +29,9 @@ $PAGINA = array(
 ob_start();
 $page = ob_get_contents();
 
-if ( !PRODUCAO ) {
-	$c1 = new Clock(); // inicia cronometro
+if ( !PRODUCAO && !isset($_GET['requisicaoAjax']) ) { # não exibe cronometro para não atrapalhar retorno json
+	$c1 = new Clock(); # inicia cronometro
 	include BASE."app/Grimoire/biblioteca/desenvolvimento/acoes.php";
-	$c1->mark(); // retorna tempo;
+	// $c1->mark(); # retorna tempo; # quebra favicon por ter uma saida antes do head
+	# atribuir a uma variável que é exibida dentro do html
 }

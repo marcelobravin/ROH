@@ -1,16 +1,15 @@
 $(document).ready(function(){
 
 	$(".salvar").click( async function(){
-		let mensagem = "Deseja realizar o registro permanente dos dados preenchidos?";
-		mensagem += "\n\nAVISO";
-		mensagem += "\nOs dados não poderão ser alterados após a execução desse processo!";
+		let mensagem = "Deseja realizar o registro permanente dos dados preenchidos?"
+		mensagem += "\n\nAVISO"
+		mensagem += "\nOs dados não poderão ser alterados após a execução desse processo!"
 
 		if( !confirm(mensagem) ) {
-			return false;
+			return false
 		}
 
 		const parametros = prepararParametros()
-		console.log(parametros);
 
 		if ( await requisicaoAjax(parametros) ) {
 			$('#ajaxLoader').remove()
@@ -26,7 +25,7 @@ function prepararParametros ()
 	var parametros = []
 
 	for (let index = 0; index < inputs.length; index++) {
-		const i = inputs[index];
+		const i = inputs[index]
 
 		let metaId = i["id"].split("-")
 		metaId = metaId[1]
@@ -41,7 +40,7 @@ function prepararParametros ()
 		}
 	}
 
-	return parametros;
+	return parametros
 }
 
 function requisicaoAjax (parametros)
@@ -63,11 +62,11 @@ function requisicaoAjax (parametros)
 			error: erro =>{
 				reject(erro)
 
-				const pattern = /^Você será redirecionado/i; // TODO verificar
-				const result = pattern.test( erro.responseText );
+				const pattern = /^\<h1 \>Sessão expirada\!\<\/h1\>/i
+				const result = pattern.test( erro.responseText )
 
 				if (result === true) {
-					alert("Sessão expirada!\n\nPor gentileza, efetue login novamente.");
+					alert("Sessão expirada!\n\nPor gentileza, efetue login novamente.")
 					document.location.reload()
 				}
 			}

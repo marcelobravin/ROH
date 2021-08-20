@@ -143,6 +143,11 @@
 		background-color: #ffb8b8 !important
 	}
 
+	.insuficiente:nth-child(odd) {
+		background-color: #ffa8a8 !important
+	}
+
+
 	.salvar {
 		background-color: #609bf5 !important;
 	}

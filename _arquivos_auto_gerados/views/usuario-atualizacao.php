@@ -1,4 +1,4 @@
-<!-- 14-08-2021 17:20:40 -->
+<!-- 16-08-2021 11:11:51 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
@@ -6,11 +6,11 @@
 </div>
 <div>
 	<label for="ativo">Ativo</label>
-	<input checked="checked" type="checkbox" name="ativo" id="ativo" value="1" />
+	<input <?php echo checked($obj["ativo"]) ?> type="checkbox" name="ativo" id="ativo" value="1" />
 </div>
 <div>
 	<label for="telefone">Telefone</label>
-	<input maxlength="10" type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" />
+	<input maxlength="15" type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" />
 </div>
 <div>
 	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>

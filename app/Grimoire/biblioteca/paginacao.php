@@ -194,11 +194,11 @@ function filtroPaginacao ()
 
 			</select>
 			<select name="paginacao[operador]" id="">
-				<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>contém</option>
-				<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>é igual a</option>
-				<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>é diferente de</option>
-				<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>começa com</option>
-				<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>termina com</option>
+				<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>Contém</option>
+				<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>É igual a</option>
+				<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>É diferente de</option>
+				<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>Começa com</option>
+				<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>Termina com</option>
 			</select>
 
 			<input type="text" name="paginacao[filtroPaginacao]" id="filtroPaginacao" value="<?php echo bloquearXSS(exibirSubIndice("paginacao", "filtroPaginacao")) ?>" placeholder="Digite algo" />
@@ -308,20 +308,7 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 		$minimo -= ($limite - $distanciaUltimo);
 	}
 
-	$parametros = "";
-	foreach ($_GET as $key => $value) {
-
-		if ( is_array($value)) {
-			foreach ($value as $k => $v) {
-				$parametros .= "$k=$v&";
-			}
-
-		} else {
-			if ( $key != "pagina" ) {
-				$parametros .= "$key=$value&"; // substituir conforme ordenarPor())
-			}
-		}
-	}
+	$parametros = identificarParametros();
 
 	// Conserva os parametros GET
 	if ( empty($_GET) ) {
@@ -335,8 +322,12 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 		}
 	}
 
-	$vetorPaginas = array();
+	return montarControlesPaginacao($paginaSelecionada, $link, $minimo, $maximo, $numeroPaginas);
+}
 
+function montarControlesPaginacao ($paginaSelecionada, $link, $minimo, $maximo, $numeroPaginas)
+{
+	$vetorPaginas = array();
 	// Anterior
 	if ($paginaSelecionada <= 1) {
 		$vetorPaginas['primeira'] = "<span class='primeira'><i class='fas fa-angle-double-left'></i></span>";
@@ -378,6 +369,26 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 
 	return $vetorPaginas;
 }
+
+function identificarParametros ()
+	{
+		$parametros = "";
+		foreach ($_GET as $key => $value) {
+
+			if ( is_array($value)) {
+				foreach ($value as $k => $v) {
+					$parametros .= "$k=$v&";
+				}
+
+			} else {
+				if ( $key != "pagina" ) {
+					$parametros .= "$key=$value&"; // substituir conforme ordenarPor())
+				}
+			}
+		}
+
+		return $parametros;
+	}
 
 /**
  * Cria paginação	 * @package grimoire/bibliotecas/paginacao.php

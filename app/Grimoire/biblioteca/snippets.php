@@ -523,9 +523,14 @@ function label ($texto, $campo=null, $atributos=array(), $obrigatorio=false)
 		$item = li("classe");
 		exibir($item);
  */
-function li ($atributos=array())
+function li ($conteudo="", $atributos=array())
 {
-	return gerarBloco("li", $atributos);
+	$bloco =  gerarBloco("li", $atributos);
+	if ( empty($conteudo) ) {
+		return $bloco;
+	}
+
+	return $bloco[0] . $conteudo . $bloco[1];
 }
 
 /**

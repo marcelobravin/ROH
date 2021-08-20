@@ -66,7 +66,6 @@ function configurarCookies ()
 function configurarExibicaoErros ($conf=PRODUCAO)
 {
 	#error_log($path); # Path to the error log file. When running PHP in a Docker container, consider logging to stdout instead.
-
 	if ( $conf ) {
 		ini_set('display_errors'		, 0); # Defines whether errors are included in output.
 		ini_set('display_startup_errors', 0); # Whether to display PHP startup sequence errors.
@@ -83,32 +82,23 @@ function configurarExibicaoErros ($conf=PRODUCAO)
 	error_reporting(E_ALL); # The minimum error reporting level.
 }
 
-
 /**
  * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package    grimoire/bibliotecas/acesso.php
- * @version    17-07-2015
+ * @package	grimoire/bibliotecas/acesso.php
+ * @version	17-07-2015
  *
- * @param  bool    bloquear usuários logados ou deslogados
- * @param  string
+ * @param	bool	bloquear usuários logados ou deslogados
+ * @param	string
  *
- * @uses   acesso.php->logado()
+ * @uses	acesso.php->logado()
  */
 function identificarNavegador ()
 {
-	$u_agent    = $_SERVER['HTTP_USER_AGENT'];
-	$bname      = 'Unknown';
-	$platform   = 'Unknown';
-	$version    = "";
+	$u_agent	= $_SERVER['HTTP_USER_AGENT'];
+	$bname		= 'Unknown';
+	$version	= '';
+	$platform	= identificarSO($u_agent);
 
-	//First get the platform?
-	if (preg_match('/linux/i', $u_agent)) {
-		$platform = 'linux';
-	} elseif (preg_match('/macintosh|mac os x/i', $u_agent)) {
-		$platform = 'mac';
-	} elseif (preg_match('/windows|win32/i', $u_agent)) {
-		$platform = 'windows';
-	}
 	// Next get the name of the useragent yes seperately and for good reason
 	if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
 		$bname = 'Internet Explorer';
@@ -144,13 +134,13 @@ function identificarNavegador ()
 		//we will have two since we are not using 'other' argument yet
 		//see if version is before or after the name
 		if (strripos($u_agent,"Version") < strripos($u_agent,$ub)) {
-			$version= $matches['version'][0];
+			$version = $matches['version'][0];
 		} else {
-			$version= $matches['version'][1];
+			$version = $matches['version'][1];
 		}
 
 	} else {
-		$version= $matches['version'][0];
+		$version = $matches['version'][0];
 	}
 
 	// check if we have a number
@@ -160,11 +150,60 @@ function identificarNavegador ()
 
 	return array(
 		'userAgent' => $u_agent,
-		'name'      => $bname,
+		'name'	  => $bname,
 		'version'   => $version,
 		'platform'  => $platform,
 		'pattern'   => $pattern
 	);
+}
+
+/**
+ * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
+ * @package	grimoire/bibliotecas/acesso.php
+ * @version	17-07-2015
+ *
+ * @param	bool	bloquear usuários logados ou deslogados
+ * @param	string
+ *
+ * @uses	acesso.php->logado()
+ */
+function identificarSO ()
+{
+	global $user_agent;
+	$os_platform = "Unknown OS Platform";
+	$os_array = array(
+		'/windows nt 10/i'		=> 'Windows 10',
+		'/windows nt 6.3/i'		=> 'Windows 8.1',
+		'/windows nt 6.2/i'		=> 'Windows 8',
+		'/windows nt 6.1/i'		=> 'Windows 7',
+		'/windows nt 6.0/i'		=> 'Windows Vista',
+		'/windows nt 5.2/i'		=> 'Windows Server 2003/XP x64',
+		'/windows nt 5.1/i'		=> 'Windows XP',
+		'/windows xp/i'			=> 'Windows XP',
+		'/windows nt 5.0/i'		=> 'Windows 2000',
+		'/windows me/i'			=> 'Windows ME',
+		'/win98/i'				=> 'Windows 98',
+		'/win95/i'				=> 'Windows 95',
+		'/win16/i'				=> 'Windows 3.11',
+		'/macintosh|mac os x/i' => 'Mac OS X',
+		'/mac_powerpc/i'		=> 'Mac OS 9',
+		'/linux/i'				=> 'Linux',
+		'/ubuntu/i'				=> 'Ubuntu',
+		'/iphone/i'				=> 'iPhone',
+		'/ipod/i'				=> 'iPod',
+		'/ipad/i'				=> 'iPad',
+		'/android/i'			=> 'Android',
+		'/blackberry/i'			=> 'BlackBerry',
+		'/webos/i'				=> 'Mobile'
+	);
+
+	foreach ($os_array as $regex => $value) {
+		if ( preg_match($regex, $user_agent) ) {
+			$os_platform = $value;
+		}
+	}
+
+	return $os_platform;
 }
 
 /**
@@ -480,55 +519,6 @@ function isMobile ()
 {
 	$regExp = "/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i";
 	return preg_match($regExp, $_SERVER["HTTP_USER_AGENT"]);
-}
-
-/**
- * Bloqueia o acesso de usuários conforme critério solicitado e redireciona para a página de destino
- * @package	grimoire/bibliotecas/acesso.php
- * @version	17-07-2015
- *
- * @param	bool	bloquear usuários logados ou deslogados
- * @param	string
- *
- * @uses	acesso.php->logado()
- */
-function getOS ()
-{
-	global $user_agent;
-	$os_platform = "Unknown OS Platform";
-	$os_array = array(
-		'/windows nt 10/i'		=> 'Windows 10',
-		'/windows nt 6.3/i'		=> 'Windows 8.1',
-		'/windows nt 6.2/i'		=> 'Windows 8',
-		'/windows nt 6.1/i'		=> 'Windows 7',
-		'/windows nt 6.0/i'		=> 'Windows Vista',
-		'/windows nt 5.2/i'		=> 'Windows Server 2003/XP x64',
-		'/windows nt 5.1/i'		=> 'Windows XP',
-		'/windows xp/i'			=> 'Windows XP',
-		'/windows nt 5.0/i'		=> 'Windows 2000',
-		'/windows me/i'			=> 'Windows ME',
-		'/win98/i'				=> 'Windows 98',
-		'/win95/i'				=> 'Windows 95',
-		'/win16/i'				=> 'Windows 3.11',
-		'/macintosh|mac os x/i' => 'Mac OS X',
-		'/mac_powerpc/i'		=> 'Mac OS 9',
-		'/linux/i'				=> 'Linux',
-		'/ubuntu/i'				=> 'Ubuntu',
-		'/iphone/i'				=> 'iPhone',
-		'/ipod/i'				=> 'iPod',
-		'/ipad/i'				=> 'iPad',
-		'/android/i'			=> 'Android',
-		'/blackberry/i'			=> 'BlackBerry',
-		'/webos/i'				=> 'Mobile'
-	);
-
-	foreach ($os_array as $regex => $value) {
-		if (preg_match($regex, $user_agent)) {
-			$os_platform = $value;
-		}
-	}
-
-	return $os_platform;
 }
 
 /**

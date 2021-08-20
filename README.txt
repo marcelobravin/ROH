@@ -1,26 +1,31 @@
-email pode ter numeros
-
-/* pega os maximos e caso necessário adiciona os minimos */
-ready
-
-
-
-
-
-edição ultimo relatório
-
 anotações giovani
 	edição ultimo relatório
 	distinção de usuário
 	log alterações
-	comprovante de visita mostrar
-		Vistoria sempre tem
+	OK - comprovante de visita mostrar
 		Responsável técnico médico
 		De enfermagem
 		Ti
 
 
-13098041000104
+
+
+redimensionar imagens
+
+
+
+
+verificar ano selecionado em todas queries
+
+
+padronizar atualizarUrl ao alterar categoria
+	metas.js - ok
+
+
+
+arrumar os cabecalho_para_dowload_csv no ctrl +f (tem um monte)
+
+ugglify()
 
 
 <!-- tem que baixar as webfonts -->
@@ -35,8 +40,7 @@ Ajax verifica sessão ativa
 colocar códigos corretamente
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 
-Checar cargo
-exportar PDF
+
 Percentagem
 Checar erro caracteres no xls
 	Remover ids
@@ -47,6 +51,8 @@ cor do usuário logado
 
 
 BUGs conhecidos ################################################################
+email pode ter numeros
+
 vazamento de mensagem de erro da sessão
 
 duas pessoas logadas com o mesmo usuário
@@ -172,3 +178,65 @@ OK ADICIONAR CAMPO
 	Bloqueio de usuarios não logados em páginas internas
 	Não mudar email de usuário na tela de atualizar senha
 	Módulo categoria, elemento
+
+
+
+
+
+
+
+	SELECT relatorio.*,
+	hospital.titulo FROM
+
+	((SELECT
+				c.id					id_categoria,
+				c.titulo				categoria_nome,
+				c.legenda				categoria_legenda,
+				c.ativo					categoria_ativo,
+
+				e.id_categoria			id_elemento_categoria,
+				e.titulo				elemento_nome,
+				e.id					id_elemento,
+
+				m.id_elemento			id_meta_elemento,
+				m.quantidade			meta_quantidade,
+				m.ativo					meta_ativo,
+				m.id_hospital			id_meta_hospital,
+				m.id					id_meta,
+
+				r.id_meta				id_resultado_meta,
+				r.resultado				resultado,
+				r.mes					mes,
+				r.justificativa			justificativa,
+				r.justificativa_aceita	justificativa_aceita,
+				r.id					id_resultado,
+				r.criado_em				resultado_criacao
+
+				-- ,h.titulo
+				-- ,h.id   id_hospital
+
+			FROM
+				categoria	c,
+				elemento	e
+				-- ,hospital	h
+
+				LEFT OUTER JOIN (meta m)
+					ON m.id_elemento	= e.id
+					AND m.id_hospital	= 43
+					-- AND m.id_hospital	= h.id
+				LEFT OUTER JOIN (resultado r)
+					ON r.id_meta		= m.id
+					AND r.mes			= 8
+					AND r.ano			= 2021
+
+			WHERE
+				e.id_categoria	= c.id
+				AND m.ativo		= 1
+				-- AND h.id		= {$_GET['hospital']}
+
+			ORDER BY
+				c.titulo,
+				e.titulo) as relatorio)
+
+
+	            INNER JOIN hospital ON hospital.id = relatorio.id_meta_hospital

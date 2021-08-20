@@ -2,6 +2,55 @@ senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
 
 
+
+
+criar views
+    CREATE
+    DEFINER=CURRENT_USER SQL SECURITY INVOKER
+    VIEW nome_da_sua_view AS
+    SELECT * FROM tabela_do_banco;
+
+
+
+
+get endereço by cep
+
+criar transacao OO
+    tem 2
+    uma realiza multiplas inserções
+    outra realiza operações
+
+
+
+
+corrige permissões de acesso conforme normas da hostagator
+    sudo find roh -type d -print0 | xargs -0 chmod 0755;
+    sudo find roh -type f -print0 | xargs -0 chmod 0644;
+
+
+find /var/www/html -type d -exec chmod 755 {} \;
+find /var/www/html -type f -exec chmod 644 {} \;
+
+
+Salvar histórico no log em caso de update
+Mfa
+
+Testar envio de e-mail local no Windows
+
+
+verificar importação de registros - aí dá pra usar o db import/export
+problemas
+    default date em excluido_em [funciona em algumas tabelas]
+    log_operações problema json via php
+    desativar fks para evitar problema de ordem de importação [não funciona]
+        ou reagendar registros com erro de fk
+
+
+
+<script src="js/lib/pdf.min.js"></script>
+
+
+
 @param/return    mixed
 
 mudar regexp de email
@@ -14,21 +63,7 @@ identificar dependencias varre tabelas e
         usuario verifica tabela de logs de acesso e operação
 
 
-automaticamente colocar tipo exótico do campo no bd em classe
 
-
-
-echo '<input type="date">';
-
-
-
-    restando fazer manualmente o tamanho mínimo e formatos de campo texto
-
-
-
-colocar atributo interno
-    "id" => $nome[$indice]
-    $input .= '<input type="radio" name="'.$nome.'" id="'.$nome.'['.$indice.']" value="'.$valor.'"'.$atributos.''.$selecionado.' />';
 
 
 ROTULO FORMULARIO
@@ -37,17 +72,9 @@ ROTULO FORMULARIO
 
 
 
-paginação mostrar total q tem no banco
- e total da query
-
-
-
 cada pagina informar scripts que usa
     processos finais concatenar scripts e incluir (minificados?)
 
-
-
-tim 6-10
 
 
 Só aceitar solicitações de usuários se bater o IP, só, navegador com o registro do último acesso dele
@@ -77,6 +104,7 @@ Roteiro PENTEST
     Todos firmes ???????????
     Xss
     Sql injection
+        todos queries que usam get precisam de bind
     log injection
     rainbow tables
     tempo de login diferente
@@ -84,9 +112,6 @@ Roteiro PENTEST
     sequestro de sessão
 
 
-tratar xss on insert no bd tb
-
-verificar unique no uniques-db-relatorio
 
 TESTAR xss nos meus projetos
     Colocar isso num formulário de i/u
@@ -126,9 +151,6 @@ linha 3x em instalacao.php
         $inserts = "-- ". agora( IDIOMA=='pt-BR' )."\n";
 
 
-    alt + b -> alt baixo // mudar valor
-
-observar comportamento pós mudança
 
     configurarExibicaoErros(PRODUCAO); # TODO verificar
 
@@ -204,43 +226,26 @@ sendmail_from = YourGmailId@gmail.com
 sendmail_path = "\"C:\xampp\sendmail\sendmail.exe\" -t"
 
 M4rkn3ss
-06/08/2021 12:06:01
 
 
 alterar case "foreignKey":
-
-Mark@gmail
-Resetar senha para envio de e em local host
 
 
 Agrupar parâmetros gerar formulário()
 Encapsular
 
-Segmentar em identificar tipo
 Segmentar em pegar descrição do bando e armazenar ou o a armazenada
 
 Registrar filosofias aplicadas
 early return
 DRY don't repeat yourself (colocar sub funções se necessário, identificar essas que estiverem fora e encapsular)
-ACID
+ACID [Atomicity, Consistency, Isolation and Durability.]
 Direct if evitar usar not
 
 
-paginacao de select
-checkbox
 
 paginação com filtros dinamicos
-    select campos[] modulo
-    operador[]
-        contém
-        igual
-        diferente
-        começa com
-        termina com
-    filtro[]
 
-
-    retornarEndereco3
 
 
 Isso é só mexer no bd e usar modelo para personalizar módulos
@@ -312,10 +317,6 @@ Reset your path right now (i.e. before any sort of logout) with:
     export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     It doesn't get your full PATH restored but basic utilities will be available again.
 
-
-corrige permissões de acesso conforme normas da hostagator
-    sudo find roh -type d -print0 | xargs -0 chmod 0755;
-    sudo find roh -type f -print0 | xargs -0 chmod 0644;
 
 
 
@@ -455,11 +456,6 @@ problema com minify
     remove os // de endereco
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
-
-
-ALTER TABLE `meta` ADD UNIQUE KEY `meta_uq` (hospital_id, elemento_id)
-ALTER TABLE `resultado` ADD UNIQUE KEY `resultado_uq` (meta_id, mes, ano)
 
 
 
@@ -2071,7 +2067,8 @@ final class Security {
 
 
 
-echo returnMacAddress ();
+
+
 /**
  * Retorna o endereço mac do servidor
  * @package grimoire/bibliotecas/acesso.php
@@ -2079,41 +2076,41 @@ echo returnMacAddress ();
  *
  * @return  string/bool
  *
- * @uses        $_SERVER
+ * @uses    $_SERVER
+    echo "Mac address".returnMacAddress();
  */
 function returnMacAddress ()
 {
     $location = `which arp`;
     $arpTable = `$location`;
     $arpSplitted = explode("\n",$arpTable);
-    echo '<pre>';
-    print_r($arpSplitted);
-    echo '</pre>';
+    // echo '<pre>';
+    // print_r($arpSplitted);
+    // echo '</pre>';
     $remoteIp = $GLOBALS['REMOTE_ADDR'];
     foreach ($arpSplitted as $value){
         $valueSplitted = explode(" ",$value);
-            foreach ($valueSplitted as $spLine) {
-                if (preg_match("/$remoteIp/",$spLine)) {
-                    $ipFound = true;
-                }
-                if ($ipFound) {
-                    reset($valueSplitted);
-                    foreach ($valueSplitted as $spLine) {
-                        if (preg_match("/[0-9a-f][0-9a-f][:-]".
-                            "[0-9a-f][0-9a-f][:-]".
-                            "[0-9a-f][0-9a-f][:-]".
-                            "[0-9a-f][0-9a-f][:-]".
-                            "[0-9a-f][0-9a-f][:-]".
-                            "[0-9a-f][0-9a-f]/i",$spLine)) {
-                            return $spLine;
-                        }
+        foreach ($valueSplitted as $spLine) {
+            $ipFound = preg_match("/$remoteIp/",$spLine);
+            if ($ipFound) {
+                reset($valueSplitted);
+                foreach ($valueSplitted as $spLine) {
+                    if (preg_match("/[0-9a-f][0-9a-f][:-]".
+                        "[0-9a-f][0-9a-f][:-]".
+                        "[0-9a-f][0-9a-f][:-]".
+                        "[0-9a-f][0-9a-f][:-]".
+                        "[0-9a-f][0-9a-f][:-]".
+                        "[0-9a-f][0-9a-f]/i",$spLine)) {
+                        return $spLine;
                     }
                 }
-            $ipFound = false;
+            }
         }
     }
     return false;
 }
+
+
 
 
 

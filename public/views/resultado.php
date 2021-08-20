@@ -31,7 +31,7 @@
 			Selecione um hospital!
 		<?php else: ?>
 
-			<form>
+			<form id="form">
 
 				<?php foreach ($categorias as $v) : ?>
 					<div id="bloco-<?php echo $v['id'] ?>" class="invisivel aba">
@@ -54,7 +54,7 @@
 								</tr>
 							<?php else : ?>
 								<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
-									<tr>
+									<tr <?php echo isset($e['resultado']) && isset($e['meta_quantidade']) && $e['resultado'] < $e['meta_quantidade'] ? "class='insuficiente'" : "" ?>>
 										<td>
 											<?php echo $e['elemento_nome'] ?>
 										</td>
@@ -73,9 +73,9 @@
 												</p>
 
 												<?php if ( isset($e['resultado']) ): ?>
-													<input type="text" disabled value="<?php echo $e['resultado'] ?>" />
+													<input type="number" disabled value="<?php echo $e['resultado'] ?>" />
 												<?php else: ?>
-													<input type="text" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
+													<input type="number" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
 												<?php endif ?>
 
 											<?php endif ?>
@@ -98,7 +98,7 @@
 								<tr>
 									<td colspan="4">
 										<?php echo $v['observacoes'] ?>
-										form					</td>
+									</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -114,20 +114,41 @@
 				<button class="salvar" type="button">
 					Registrar Resultados
 				</button>
+
+				<button type="button">
+					<a href="comprovante.php?hospital=<?php echo $_GET['hospital'] ?>" target="_blank">
+						Imprimir Comprovante
+					</a>
+				</button>
+
 			</form>
+
 		<?php endif ?>
 
 	</div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+<img src="public/img/Prefeitura-de-São-Paulo.jpg" alt="">
 
+
+<link rel="stylesheet" type="text/css" href="public/css/metas.css">
 
 <script src="public/scripts/redirecionamento.js"></script>
 
 <script src="public/scripts/metas.js"></script>
 <script src="public/scripts/resultado.js"></script>
+
+
+<script src="public/vendors/jquery.mask.min.js"></script>
+<script>
+	$( ".quantidade" ).keypress(function() {
+		$(this).mask('0000');
+	});
+</script>
+
+
 <style>
+	/* TODO pegar conteudo de resultado, justificativa e relatorio e criar arquivo.css */
 	textarea {
 		resize: none;
 		min-width: 310px;
@@ -141,6 +162,10 @@
 
 	.salvar {
 		background-color: #609bf5 !important;
+	}
+
+	.insuficiente:nth-child(odd) {
+		background-color: #ffa8a8 !important
 	}
 
 	button { /* remover css redundante */

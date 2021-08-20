@@ -2,7 +2,7 @@
 /**
  * Funções para criação de tabelas e arquivos em ambiente de desenvolvimento
  * @package	grimoire/bliblioteca/opcionais
-*/
+ */
 
 /**
  * Cria um BD com o nome definido nas configurações
@@ -21,7 +21,8 @@
  */
 function criarBanco ()
 {
-	$sql = 'CREATE DATABASE IF NOT EXISTS '. DBNAME .' DEFAULT CHARACTER SET '. DB_CHARSET .' COLLATE '. DB_COLLATE .';';
+	$sql = 'CREATE DATABASE IF NOT EXISTS '. DBNAME
+		.' DEFAULT CHARACTER SET '. DB_CHARSET .' COLLATE '. DB_COLLATE .';';
 
 	try {
 		$dbh = new PDO("mysql:host=".HOST, USER, PASSWORD);
@@ -43,8 +44,8 @@ function criarBanco ()
  * @uses	acesso.php->identificarIP()
  * @uses	persistencia.php->executar()
  * @example
-		gravarLog(1, "U", "produto", 15);
-		gravaLog("15", "C/R/U/D", "produto", "29");
+	gravarLog(1, "U", "produto", 15);
+	gravaLog("15", "C/R/U/D", "produto", "29");
  */
 function criarTabelasLog ()
 {
@@ -103,7 +104,6 @@ function comprimir ($listaArquivos, $tipo="js", $minimizar=true)
 	return $arquivoGerado;
 }
 
-
 /**
  * Retorna os campos de uma tabela
  *
@@ -118,7 +118,7 @@ function comprimir ($listaArquivos, $tipo="js", $minimizar=true)
  * @uses	persistencia.php->executar()
  *
  * @example
-		$descricao = descreverTabela("tabela");
+	$descricao = descreverTabela("tabela");
  */
 function descreverTabela ($tabela, $full=false, $banco=null)
 {
@@ -168,10 +168,32 @@ function exportarBD ($db=DBNAME)
 function exportarUQs ($db=DBNAME)
 {
 	# Use the information_schema.key_column_usage table to get the fields in each one of those constraints:
-	$sqlKeyColumns = "SELECT *
-		FROM information_schema.key_column_usage
-		WHERE constraint_schema = '{$db}'
-			AND constraint_name != 'PRIMARY'";
+	$sqlKeyColumns = "SELECT
+		-- index_schema,
+		table_name,
+		index_name,
+		group_concat(column_name ORDER BY seq_in_index) AS index_columns
+		-- index_type,
+	FROM information_schema.statistics
+	WHERE
+		table_schema NOT IN (
+			'information_schema',
+			'mysql',
+			'performance_schema',
+			'sys'
+		)
+		AND non_unique = 0
+		AND index_schema = '{$db}'
+		AND index_name != 'PRIMARY'
+	GROUP BY
+		index_schema,
+		index_name,
+		index_type,
+		table_name
+	ORDER BY
+		index_schema,
+		index_name;
+	";
 
 	return executar($sqlKeyColumns);
 }
@@ -442,10 +464,8 @@ function getDirectorySize ($path)
 /**
  *
  */
-function registerMapDirectory ($path, $fileName)
+function registerMapDirectory ($path, $fileName, $jsonDir=ARQUIVOS_EFEMEROS.'/listas/_')
 {
-	$jsonDir = ARQUIVOS_EFEMEROS.'/listas/_';
-
 	try {
 		$files = getDirectoryFiles($path);
 
@@ -674,6 +694,8 @@ function importarBD ()
 {
 	criarBanco();
 
+	#ativacaoConstraints(false);
+
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/tabelas/*.sql") ) {
 		die( 'Erro: importarTabelas()');
 	}
@@ -685,6 +707,8 @@ function importarBD ()
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/dml/registros/*.sql") ) {
 		die( 'Erro: importarRegistros()');
 	}
+
+	#ativacaoConstraints(true);
 
 	return true;
 }
@@ -713,7 +737,10 @@ function importarRegistros ($diretorio)
 				try {
 					echo $sql;
 					br();
-					executar($sql);
+					br();
+					echo executar($sql);
+					br();
+					pp("------------------");
 				} catch (Exception $e) {
 					echo '<pre>';
 					print_r($e->getMessage());
@@ -738,23 +765,23 @@ function importarRegistros ($diretorio)
  * @return	string
  *
  * @example
-		$campos[] = array('nome'=> 'nome', 'tipo' => 'varchar(50)');
-		$campos[] = array('nome'=> 'idade', 'tipo' => 'int(3)', 'nulo' => true);
-		$campos[] = array('nome'=> 'dataNascimento', 'tipo' => 'date', 'nulo' => true);
-		$campos[] = array('nome'=> 'cpf', 'tipo' => 'int(9)');
-		$campos[] = array('nome'=> 'dataCadastro', 'tipo' => 'datetime');
-		$campos[] = array('nome'=> 'sexo', 'tipo' => 'boolean');
-		$sql = montarCriacao("usuarios", $campos);
-		exibir ($sql);
+	$campos[] = array('nome'=> 'nome', 'tipo' => 'varchar(50)');
+	$campos[] = array('nome'=> 'idade', 'tipo' => 'int(3)', 'nulo' => true);
+	$campos[] = array('nome'=> 'dataNascimento', 'tipo' => 'date', 'nulo' => true);
+	$campos[] = array('nome'=> 'cpf', 'tipo' => 'int(9)');
+	$campos[] = array('nome'=> 'dataCadastro', 'tipo' => 'datetime');
+	$campos[] = array('nome'=> 'sexo', 'tipo' => 'boolean');
+	$sql = montarCriacao("usuarios", $campos);
+	exibir ($sql);
 
-		//usuarioId | acao | objetoTipo | objetoId | data/hora
-		$campos[] = array('nome'=> 'usuarioId', 'tipo' => 'int(11)');
-		$campos[] = array('nome'=> 'acao', 'tipo' => 'char');
-		$campos[] = array('nome'=> 'tabela', 'tipo' => 'varchar(50)');
-		$campos[] = array('nome'=> 'objetoId', 'tipo' => 'int(11)');
-		$campos[] = array('nome'=> 'datahora', 'tipo' => 'datetime');
-		$sql = montarCriacao("log", $campos);
-		exibir($sql);
+	//usuarioId | acao | objetoTipo | objetoId | data/hora
+	$campos[] = array('nome'=> 'usuarioId', 'tipo' => 'int(11)');
+	$campos[] = array('nome'=> 'acao', 'tipo' => 'char');
+	$campos[] = array('nome'=> 'tabela', 'tipo' => 'varchar(50)');
+	$campos[] = array('nome'=> 'objetoId', 'tipo' => 'int(11)');
+	$campos[] = array('nome'=> 'datahora', 'tipo' => 'datetime');
+	$sql = montarCriacao("log", $campos);
+	exibir($sql);
  */
 function montarCriacao ($tabela, $atributos, $drop=false)
 {
@@ -772,29 +799,39 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 	foreach ($atributos as $valor) {
 		if ($valor['Field'] != 'id') {
 			$sql .= $identacao;
-			$sql .= $valor['Field'] . " " . strtoupper($valor['Type']);
-
-			if ($valor['Null'] == "NO") {
-				$sql .= " NOT NULL";
-			}
-
-			if ( !empty($valor['Default']) ) {
-				$sql .= " DEFAULT ".$valor['Default'];
-			}
-
-			if ( !empty($valor['Extra']) ) {
-				$sql .= " ".$valor['Extra'];
-			}
-
-			if ( !empty($valor['Comment']) ) {
-				$sql .= " COMMENT '".$valor['Comment']."'";
-			}
-
+			$sql .= montarLinha($valor);
 			$sql .= ",\n";
 		}
 	}
 	$sql .= "INDEX (id)";
 	$sql .= "\n);";
+
+	return $sql;
+}
+
+function montarLinha ($valor)
+{
+	$sql = $valor['Field'] . " " . $valor['Type'];
+
+	if ( !empty($valor['Collation']) && $valor['Collation'] != "utf8_general_ci" ) {
+		$sql .= " CHARACTER SET utf8 COLLATE {$valor['Collation']}";
+	}
+
+	if ($valor['Null'] == "NO") {
+		$sql .= " NOT NULL";
+	}
+
+	if ( !empty($valor['Default']) ) {
+		$sql .= " DEFAULT ".$valor['Default'];
+	}
+
+	if ( !empty($valor['Extra']) ) {
+		$sql .= " ".$valor['Extra'];
+	}
+
+	if ( !empty($valor['Comment']) ) {
+		$sql .= " COMMENT '".$valor['Comment']."'";
+	}
 
 	return $sql;
 }
@@ -814,20 +851,11 @@ function exportarConstraints ($db=DBNAME)
 */
 function converterUQs ($uqs)
 {
-	$tabelas = array();
+	$alters = "-- ". agora( IDIOMA=='pt-BR' )."\n";
 	foreach ($uqs as $v) {
-		$tabelas[$v['TABLE_NAME']][] = $v['COLUMN_NAME'];
-	}
-
-	$t = array_keys( $tabelas );
-	$alters = "";
-	if ( !empty($t) ) {
-		$alters = "-- ". agora( IDIOMA=='pt-BR' )."\n";
-		foreach ($t as $v) {
-			$alters .= "ALTER TABLE `{$v}` ADD UNIQUE KEY `{$v}_uq` (";
-			$alters .= implode(", ", $tabelas[$v]);
-			$alters .= ");\n";
-		}
+		$alters .= "ALTER TABLE `{$v['table_name']}` ADD UNIQUE KEY `{$v['index_name']}` (";
+		$alters .= $v['index_columns'];
+		$alters .= ");\n";
 	}
 
 	return $alters;
@@ -879,25 +907,25 @@ function registrartFKs ($fks)
  * @uses	sql.php->selecao()
  *
  * @example
-		$sobreescreverLabels = array('titulo'=> 'Título');
-		$sobreEscreverCampos = array();
-		$remover = array();
-		$esconder = array();
-		$conversoes = array();
-		$descricaoLabels = array('titulo'=> 'Título');
-		$padroes = array();
+	$sobreescreverLabels = array('titulo'=> 'Título');
+	$sobreEscreverCampos = array();
+	$remover = array();
+	$esconder = array();
+	$conversoes = array();
+	$descricaoLabels = array('titulo'=> 'Título');
+	$padroes = array();
 
-		$form = gerarFormulario('hospital',
-			$sobreescreverLabels,
-			$sobreEscreverCampos,
-			$remover,
-			$esconder,
-			$descricaoLabels,
-			$padroes
-		);
-		echo('<pre>');
-		print_r($form);
-		echo('</pre>');
+	$form = gerarFormulario('hospital',
+		$sobreescreverLabels,
+		$sobreEscreverCampos,
+		$remover,
+		$esconder,
+		$descricaoLabels,
+		$padroes
+	);
+	echo('<pre>');
+	print_r($form);
+	echo('</pre>');
  */
 function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
@@ -996,10 +1024,10 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 
 	foreach ($campos as $i => $v) {
 
-		if ( contem('<input type="checkbox"', $v) ) {
+		if ( contem('type="checkbox"', $v) ) {
 			$campos[$i] = str_replace('checked="checked"', '<?php echo checked($obj["'.$i.'"]) ?&gt;', $v);
 		} else
-		if ( contem('<input type="radio"', $v) ) {
+		if ( contem('type="radio"', $v) ) {
 
 			$z = str_replace('set(', '', $d[$y]['Type']);
 			$z = str_replace(')', '', $z);
