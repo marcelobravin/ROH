@@ -694,8 +694,6 @@ function importarBD ()
 {
 	criarBanco();
 
-	#ativacaoConstraints(false);
-
 	if ( !importarRegistros(ARQUIVOS_EFEMEROS ."/db/ddl/tabelas/*.sql") ) {
 		die( 'Erro: importarTabelas()');
 	}
@@ -708,7 +706,7 @@ function importarBD ()
 		die( 'Erro: importarRegistros()');
 	}
 
-	#ativacaoConstraints(true);
+	ativacaoConstraints(true);
 
 	return true;
 }

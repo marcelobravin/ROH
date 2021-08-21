@@ -97,7 +97,7 @@ function identificarNavegador ()
 	$u_agent	= $_SERVER['HTTP_USER_AGENT'];
 	$bname		= 'Unknown';
 	$version	= '';
-	$platform	= identificarSO($u_agent);
+	$platform	= identificarSO();
 
 	// Next get the name of the useragent yes seperately and for good reason
 	if (preg_match('/MSIE/i',$u_agent) && !preg_match('/Opera/i',$u_agent)) {
@@ -260,18 +260,18 @@ function identificarNavegador2 ()
  */
 function identificarIP ()
 {
-	// default unreliable ip
+	# default unreliable ip
 	$ip = $_SERVER['REMOTE_ADDR'];
 
-	// check for shared internet/ISP IP
-	if (!empty($_SERVER['HTTP_CLIENT_IP']) && validarIp($_SERVER['HTTP_CLIENT_IP'])) {
+	# check for shared internet/ISP IP
+	if ( !empty($_SERVER['HTTP_CLIENT_IP']) && validarIp($_SERVER['HTTP_CLIENT_IP']) ) {
 		$ip = $_SERVER['HTTP_CLIENT_IP'];
 	}
-	# when behind cloudflare
+	# behind cloudflare
 	else if( isset($_SERVER['HTTP_CF_CONNECTING_IP']) )	{
 		$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
 	}
-	# check for IPs passing through proxies
+	# IPs passing through proxies
 	elseif ( !empty($_SERVER['HTTP_X_FORWARDED_FOR']) ) {
 		# check if multiple ips exist in var
 		if ( !strpos($_SERVER['HTTP_X_FORWARDED_FOR'], ',') ) {

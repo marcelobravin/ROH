@@ -267,6 +267,7 @@ function criacaoFK ($tabelaAlterada, $tabelaReferenciada)
 			ON UPDATE CASCADE ON DELETE RESTRICT;";
 }
 
+# TODO testar, parece que não funciona
 function ativacaoConstraints ($ativar=0)
 {
 	$sql = "SET FOREIGN_KEY_CHECKS={$ativar}";

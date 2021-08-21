@@ -7,7 +7,7 @@
 /**
  * Retorna um int com o nível de diferença entre duas strings
  * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @return	bool
@@ -17,7 +17,7 @@
  */
 function compararCampos ($string1, $string2, $caseSensitive=true)
 {
-	if ($caseSensitive) {
+	if ( $caseSensitive ) {
 		return strcmp($string1, $string2);
 	} else {
 		return strcasecmp($string1, $string2);
@@ -27,11 +27,10 @@ function compararCampos ($string1, $string2, $caseSensitive=true)
 /**
  * Exact Length
  * @package	grimoire/bibliotecas/validacao.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @access	public
- * @param string
- * @param value
+ * @param	string
+ * @param	int
  * @return	bool
  */
 function exact_length ($str, $val)
@@ -45,8 +44,8 @@ function exact_length ($str, $val)
  * @version	05-07-2015
  *
  * @access	public
- * @param string
- * @param int
+ * @param	string
+ * @param	int
  * @return	bool
  */
 function min_length ($str, $val)
@@ -60,8 +59,8 @@ function min_length ($str, $val)
  * @version	05-07-2015
  *
  * @access	public
- * @param string
- * @param value
+ * @param	string
+ * @param	value
  * @return	bool
  */
 function max_length ($str, $val)
@@ -69,6 +68,9 @@ function max_length ($str, $val)
 	return (strlen($str) > $val) ? FALSE : TRUE;
 }
 
+/**
+ *
+ */
 function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTamanhos=array())
 {
 	$erros = array();
@@ -118,7 +120,9 @@ function validacao ($post, $camposObrigatorios, $mapaFormatos=array(), $mapaTama
 	return $erros;
 }
 
-# validação de tamanhos
+/**
+ * validação de tamanhos
+ */
 function validaTamanhos ($mapaTamanhos, $post)
 {
 	$erros = array(
@@ -151,7 +155,7 @@ function validaTamanhos ($mapaTamanhos, $post)
 }
 
 /**
- * Verifica se o valor se encaixa no padrão
+ * Verifica se o valor se encaixa em um padrão
  * @package	grimoire/bibliotecas/validacao.php
  * @version	05-07-2015
  *
@@ -175,7 +179,7 @@ function validar ($padrao, $valor)
 }
 
 /**
- * Valida se os campos solicitados foram preenchidos
+ * Valida se os campos definidos como obrigatórios foram preenchidos
  * @package	grimoire/bibliotecas/validacao.php
  * @version	05-07-2015
  *
@@ -197,7 +201,7 @@ function validarCamposObrigatorios ($campos)
 }
 
 /**
- * Valida array de campos conforme array de formatos
+ * Valida uma array de campos conforme array de formatos
  * @package	grimoire/bibliotecas/validacao.php
  * @since	17/07/2021 16:28:24
  *
@@ -238,7 +242,7 @@ function validarFormatos ($campos, $formatos)
  *
  * @uses	validacao.php->validar()
  * @example
-		echo validarCnpj("11.111.111/1111-11");
+	echo validarCnpj("11.111.111/1111-11");
  */
 function validarCnpj ($cnpj)
 {
@@ -295,9 +299,9 @@ function validarCnpj ($cnpj)
  *
  * @uses	validacao.php->validar()
  * @example
-		echo validarCpf("307.485.238-04"); # true
-		echo validarCpf("30748523804"); # true
-		echo validarCpf("111.111.111-11"); #false
+	echo validarCpf("307.485.238-04"); # true
+	echo validarCpf("30748523804"); # true
+	echo validarCpf("111.111.111-11"); #false
  */
 function validarCpf ($cpf)
 {
@@ -392,7 +396,9 @@ function validarIp ($ip)
 	return true;
 }
 
-// do private network range checking
+/**
+ * do private network range checking
+ */
 function rangeIp ($ip)
 {
 	if (
@@ -420,10 +426,10 @@ function rangeIp ($ip)
  * @return	bool
  *
  * @example
-		$user_input = 'mypassword';
-		$password = '$1$lr0.Kr0.$q3XbIJ4KV1jgyyF7sZ0VC/'; // let the salt be automatically
-		// echo $password = criptografar('mypassword'); // let the salt be automatically
-		echo validarSenha($user_input, $password);
+	$user_input = 'mypassword';
+	$password = '$1$lr0.Kr0.$q3XbIJ4KV1jgyyF7sZ0VC/'; // let the salt be automatically
+	// echo $password = criptografar('mypassword'); // let the salt be automatically
+	echo validarSenha($user_input, $password);
  */
 function validarSenha ($user_input, $password)
 {
@@ -431,9 +437,9 @@ function validarSenha ($user_input, $password)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Essa regra é para permitir usuários com nome de 4 a 28 caracteres, alfanuméricos e acentuados
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -444,23 +450,17 @@ function validarSenha ($user_input, $password)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
-/**
- *
- * Validar nome de usuário
- * Essa regra é para permitir usuários com nome de 4 a 28 caracteres, alfanuméricos e acentuados:
- */
-function validaUserName ($string = "userNaME4234432_")
+function validaUserName ($string="userNaME4234432_")
 {
 	return preg_match('/^[a-z\d_]{4,28}$/i', $string);
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Essa regra é para validar números de telefone, e os números devem ser
+ * escritos da seguinte maneira (###)###-####
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -471,15 +471,8 @@ function validaUserName ($string = "userNaME4234432_")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
-/**
- *
- * Números telefônicos
- * Essa regra é para validar números de telefone, e os números devem ser escritos da seguinte maneira (###)###-####:
- */
-function validaNumeroTelefonicos ($string = "(032)555-5555")
+function validaNumeroTelefonicos ($string="(032)555-5555")
 {
 	return preg_match('/^(\(?[2-9]{1}[0-9]{2}\)?|[0-9]{3,3}[-. ]?)[ ][0-9]{3,3}[-. ]?[0-9]{4,4}$/', $string);
 }
@@ -487,7 +480,7 @@ function validaNumeroTelefonicos ($string = "(032)555-5555")
 /**
  * Permite utilizar números no seguinte formato: xxxxx e xxxxx-xxxx
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -498,18 +491,18 @@ function validaNumeroTelefonicos ($string = "(032)555-5555")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
-function validaCodigoPostal ($string = "55324-4324")
+function validaCodigoPostal ($string="55324-4324")
 {
 	return validar("CodigoPostal", $string);
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Cores Hexadecimais
+ * Você também pode verificar valores hexadecimais em suas 2 formas, a normal e
+ * a abreviada: (#333, 333, #333333 o 333333) com o símbolo # opcional
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -520,23 +513,16 @@ function validaCodigoPostal ($string = "55324-4324")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
-/**
- *
- * Cores Hexadecimais
- * Você também pode verificar valores hexadecimais em suas 2 formas, a normal e a abreviada: (#333, 333, #333333 o 333333) com o símbolo # opcional
- */
-function validaCoresHexadecimais ($string = "#666666")
+function validaCoresHexadecimais ($string="#666666")
 {
 	return validar("hexadecimal", $string);
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida um formato de data típico MM/DD/YYYY
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -547,24 +533,16 @@ function validaCoresHexadecimais ($string = "#666666")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
-/**
- *
- * Datas
- * Um formato de data típico MM/DD/YYYY e sua validação é a seguinte:
-*/
-function validaData ($string = "10/15/2007")
+function validaData ($string="10/15/2007")
 {
 	return validar("data", $string);
 }
 
-
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida uma URL
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -575,8 +553,6 @@ function validaData ($string = "10/15/2007")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function url ($param)
 {
@@ -584,9 +560,9 @@ function url ($param)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida se uma string ultrapassa o tamanho máximo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -597,8 +573,6 @@ function url ($param)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function tamanhoMaximo ($param, $maxlength)
 {
@@ -606,9 +580,9 @@ function tamanhoMaximo ($param, $maxlength)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida se uma string ultrapassa o tamanho mínimo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -619,8 +593,6 @@ function tamanhoMaximo ($param, $maxlength)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function tamanhoMinimo ($param, $minlength)
 {
@@ -628,9 +600,9 @@ function tamanhoMinimo ($param, $minlength)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida uma data em formato americano
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -641,19 +613,17 @@ function tamanhoMinimo ($param, $minlength)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
-function dataValida ($date, $format = 'Y-m-d')
+function dataValida ($date, $format='Y-m-d')
 {
 	$d = DateTime::createFromFormat($format, $date);
 	return !empty($d) ? 1 : 0;
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida se uma data ultrapassa uma data máxima
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -664,8 +634,6 @@ function dataValida ($date, $format = 'Y-m-d')
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function verificarDataMaior ($data1, $data2)
 {
@@ -673,9 +641,9 @@ function verificarDataMaior ($data1, $data2)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida se uma data ultrapassa uma data mínima
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -686,8 +654,6 @@ function verificarDataMaior ($data1, $data2)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function verificarDataMenor ($data1, $data2)
 {
@@ -695,9 +661,9 @@ function verificarDataMenor ($data1, $data2)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Valida se duas datas são iguais
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -708,8 +674,6 @@ function verificarDataMenor ($data1, $data2)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function verificarDataIgual ($data1, $data2)
 {
@@ -717,14 +681,9 @@ function verificarDataIgual ($data1, $data2)
 }
 
 /**
- * Ensures an ip address is both a valid IP and does not fall within
- * a private network range.
- */
-
-/**
- * Escreve o conteúdo em um arquivo
+ * Valida se um email é válido
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -735,8 +694,6 @@ function verificarDataIgual ($data1, $data2)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function isEmail ($param)
 {
@@ -744,9 +701,9 @@ function isEmail ($param)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
  *
- * @package	grimoire/bibliotecas/arquivos.php
+ *
+ * @package	grimoire/bibliotecas/validacao.php
  * @since	05-07-2015
  * @version	24-06-2021
  *
@@ -757,8 +714,6 @@ function isEmail ($param)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function montaRespostaValidacao ($errosFormulario)
 {
