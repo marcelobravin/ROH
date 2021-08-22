@@ -21,7 +21,7 @@ $values = array(
 	'endereco'				=> $_POST['endereco'],
 	'cep'					=> $_POST['cep'],
 	'telefone'				=> $_POST['telefone'],
-	'email	'				=> $_POST['email'],
+	'email'					=> $_POST['email'],
 
 	'criado_por'			=> $_SESSION['user']['id']
 );

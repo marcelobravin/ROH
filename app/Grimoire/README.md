@@ -4,7 +4,8 @@ cj-xfaYum4CR#rb
 
 problema no cadastrar e
     usuario erro no voltar
-    hospital coluna email não conhecida
+    não está enviando email
+
 
 INSERT INTO `hospital` (`titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `segundo_responsavel`, `endereco`, `cep`, `telefone`, `email `, `criado_por`) VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')
 

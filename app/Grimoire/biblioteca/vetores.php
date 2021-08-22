@@ -68,7 +68,7 @@ function adicionarIndice ($matriz, $indice, $valor=null)
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
- * @version	24-06-2021
+ * @version	22/08/2021 14:35:39
  *
  * @param	string
  * @param	string
@@ -76,26 +76,19 @@ function adicionarIndice ($matriz, $indice, $valor=null)
  *
  * @return	array
 */
-function codificarArray ($array, $codificar=true)
+function utf8Matriz ($matriz, $utf8=true)
 {
-	if (is_array($array)) {
-		foreach ($array as $key => $value) {
-			if ($codificar) {
-				$array[$key] = utf8_encode($value);
-			}
-			else {
-				$array[$key] = utf8_decode($value);
+	foreach ($matriz as $i => $vetor) {
+		foreach ($vetor as $i2 => $v) {
+			if ( $utf8 ) {
+				$matriz[$i][$i2] = utf8_decode($v);
+			} else {
+				$matriz[$i][$i2] = utf8_encode($v);
 			}
 		}
-		return $array;
-	} else {
-			if ($codificar) {
-				return utf8_encode($array);
-			}
-			else {
-				return utf8_decode($array);
-			}
 	}
+
+	return $matriz;
 }
 
 /**

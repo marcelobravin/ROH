@@ -62,4 +62,6 @@ $condicoes = array(
 $matriz = executarStmt($sql, $condicoes, 'S');
 
 $titulo = 'ROH '. $_GET['ano'] .'-'. $_GET['mes'];
+$matriz = utf8Matriz($matriz, true);
+
 excell($titulo, $matriz);
