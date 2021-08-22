@@ -1,33 +1,36 @@
-<!-- 15-07-2021 14:17:37-->
-<input type="hidden" name="id" id="id" value="<?php echo $obj["id"] ?>" />
+<!-- 22/08/2021 10:22:02 -->
+<input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
-	<label for="login">Login</label>
-	<input type="text" name="login" id="login" value="<?php echo $obj["login"] ?>"class="obrigatorio" required="required" maxlength="60" />
-</div>
-<div>
-	<label for="senha">Senha</label>
-	<input type="text" name="senha" id="senha" value="<?php echo $obj["senha"] ?>"class="obrigatorio" required="required" maxlength="60" />
+	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
+	<span  required="required"><?php echo bloquearXSS($obj["login"]) ?></span>
 </div>
 <div>
 	<label for="ativo">Ativo</label>
-	<label><input type="checkbox" name="ativo" id="ativo" value="1" <?php echo checked($obj['ativo']) ?> />Ativo</label>
+	<input <?php echo checked($obj["ativo"]) ?> type="checkbox" name="ativo" id="ativo" value="1" />
 </div>
 <div>
 	<label for="telefone">Telefone</label>
-	<input type="text" name="telefone" id="telefone" value="<?php echo $obj["telefone"] ?>"class="obrigatorio" required="required" maxlength="15" />
+	<input maxlength="10" type="text" name="telefone" id="telefone" value="<?php echo bloquearXSS($obj["telefone"]) ?>" />
+</div>
+<div>
+	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>
+	<input required="required" maxlength="11" type="text" name="celular" id="celular" value="<?php echo bloquearXSS($obj["celular"]) ?>" class="obrigatorio" />
 </div>
 <div>
 	<label for="nome">Nome</label>
-	<input type="text" name="nome" id="nome" value="<?php echo $obj["nome"] ?>"class="obrigatorio" required="required" maxlength="255" />
+	<input maxlength="255" type="text" name="nome" id="nome" value="<?php echo bloquearXSS($obj["nome"]) ?>" />
 </div>
 <div>
-	<label for="endereco">Endereco</label>
-	<input type="text" name="endereco" id="endereco" value="<?php echo $obj["endereco"] ?>"class="obrigatorio" required="required" maxlength="255" />
+	<label for="cargo">CBO <span class="simbolo-obrigatorio">*</span></label>
+	<label><input type="radio" name="cargo" id="cargo[0]" value="enfermeiro" <?php echo checked($obj["cargo"], "enfermeiro") ?> /> Enfermeiro</label>
+<label><input type="radio" name="cargo" id="cargo[1]" value="medico" <?php echo checked($obj["cargo"], "medico") ?> /> Medico</label>
+<label><input type="radio" name="cargo" id="cargo[2]" value="administrador" <?php echo checked($obj["cargo"], "administrador") ?> /> Administrador</label>
 </div>
 <div>
-	<label for="cpf">Cpf</label>
-	<input type="text" name="cpf" id="cpf" value="<?php echo $obj["cpf"] ?>"class="obrigatorio" required="required" maxlength="14" />
+	<label for="endereco">Endereço</label>
+	<input maxlength="255" type="text" name="endereco" id="endereco" value="<?php echo bloquearXSS($obj["endereco"]) ?>" />
 </div>
-
->>>
-<?php echo $obj['ativo'] ?>
+<div>
+	<label for="cpf">CPF <span class="simbolo-obrigatorio">*</span></label>
+	<input required="required" maxlength="14" type="text" name="cpf" id="cpf" value="<?php echo bloquearXSS($obj["cpf"]) ?>" class="obrigatorio" />
+</div>

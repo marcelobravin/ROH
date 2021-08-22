@@ -2,7 +2,7 @@
 		/**
 		 * usuario
 		 * @package	grimoire/modelos
-		 * @version	22/08/2021 10:22:02
+		 * @version	22/08/2021 15:52:50
 		*/
 	$mapaTamanhos = array(
 'id' => array('maximo' => 11),
@@ -12,7 +12,7 @@
 'token' => array('maximo' => 255),
 'ativo' => array('maximo' => 1),
 'reset' => array('maximo' => 50),
-'telefone' => array('maximo' => 10),
+'telefone' => array('maximo' => 15),
 'celular' => array('maximo' => 11),
 'nome' => array('maximo' => 255),
 'endereco' => array('maximo' => 255),

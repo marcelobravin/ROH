@@ -504,7 +504,7 @@ function incluir ($caminho = "frames/metas.php")
 		include BASE . $caminho;
 		return true;
 	} else {
-		die($caminho ." não encontrado");
+		die( BASE.$caminho ." não encontrado");
 	}
 }
 

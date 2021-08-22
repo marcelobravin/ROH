@@ -4,6 +4,8 @@
 	<form action="app/Controller/UpdateController-<?php echo MODULO ?>.php" method="post">
 
 		<?php
+			include "public/views/components/linkConfirmacaoEmail.php";
+
 			if ( PRODUCAO ) {
 				require 'public/views/forms/'.MODULO.'-atualizacao.php';
 			} else {

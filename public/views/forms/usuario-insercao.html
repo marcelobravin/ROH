@@ -1,25 +1,35 @@
-<!-- 15-07-2021 10:54:37-->
+<!-- 22/08/2021 10:21:59 -->
 <div>
-	<label for="login">login</label>
-	<input type="text" name="login" id="login" value=""class="obrigatorio" required="required" maxlength="60" />
+	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>
+	<input required="required" maxlength="60" type="text" name="login" id="login" class="obrigatorio" />
 </div>
 <div>
-	<label for="ativo">ativo</label>
-	<label><input type="checkbox" name="ativo" id="ativo" value="1" class="obrigatorio" required="required" />Ativo</label>
+	<label for="ativo">Ativo</label>
+	<input type="checkbox" name="ativo" id="ativo" value="1" />
 </div>
 <div>
-	<label for="telefone">telefone</label>
-	<input type="text" name="telefone" id="telefone" value=""class="obrigatorio" required="required" maxlength="15" onkeypress="$(this).mask('(00) 0.0000-0000');" />
+	<label for="telefone">Telefone</label>
+	<input maxlength="10" type="text" name="telefone" id="telefone" />
 </div>
 <div>
-	<label for="nome">nome</label>
-	<input type="text" name="nome" id="nome" value=""class="obrigatorio" required="required" maxlength="255" />
+	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>
+	<input required="required" maxlength="11" type="text" name="celular" id="celular" class="obrigatorio" />
 </div>
 <div>
-	<label for="endereco">endereco</label>
-	<input type="text" name="endereco" id="endereco" value=""class="obrigatorio" required="required" maxlength="255" />
+	<label for="nome">Nome</label>
+	<input maxlength="255" type="text" name="nome" id="nome" />
 </div>
 <div>
-	<label for="cpf">cpf</label>
-	<input type="text" name="cpf" id="cpf" value=""class="obrigatorio" required="required" maxlength="14" onkeypress="$(this).mask('000.000.000-00');" />
+	<label for="cargo">CBO <span class="simbolo-obrigatorio">*</span></label>
+	<label><input type="radio" name="cargo" id="cargo[0]" value="enfermeiro" /> Enfermeiro</label>
+<label><input type="radio" name="cargo" id="cargo[1]" value="medico" /> Medico</label>
+<label><input type="radio" name="cargo" id="cargo[2]" value="administrador" /> Administrador</label>
+</div>
+<div>
+	<label for="endereco">Endereço</label>
+	<input maxlength="255" type="text" name="endereco" id="endereco" />
+</div>
+<div>
+	<label for="cpf">CPF <span class="simbolo-obrigatorio">*</span></label>
+	<input required="required" maxlength="14" type="text" name="cpf" id="cpf" class="obrigatorio" />
 </div>
