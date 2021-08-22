@@ -143,5 +143,6 @@ $PAGINAS_EXTERNAS = [ # blacklist
 	"index.php",
 	"LoginController.php",
 	"PasswordResetController.php",
-	"PasswordUpdateController.php"
+	"PasswordUpdateController.php",
+	"MailValidationController.php"
 ];

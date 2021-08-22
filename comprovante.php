@@ -69,7 +69,7 @@
 	$matriz = executar( $sql );
 
 	ob_start();
-	include "public/views/comprovante.php";
+	include "public/views/comprovante-visita.php";
 	if ( !PRODUCAO ){
 		$c1->mark();
 	}

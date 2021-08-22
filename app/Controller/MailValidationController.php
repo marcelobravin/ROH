@@ -6,6 +6,7 @@ if ( !isset($_GET['id']) ) {
 }
 
 
+
 $condicoes = array(
 	'id'	=> $_GET['id'],
 	'token'	=> $_GET['token']
@@ -13,23 +14,27 @@ $condicoes = array(
 $user = selecionar('usuario', $condicoes);
 
 if ( empty($user) ) {
-	echo "Token inválido!";
+	die("Token inválido!");
+}
+
+
+
+$user = $user[0];
+
+$campos = array(
+	'email_confirmado'	=> true,
+	'token'				=> ''
+);
+$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
+
+
+
+if ( $rowCount == 0 ) {
+	$resposta = "Erro ao validar email!";
+	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 } else {
-	$user = $user[0];
-
-	$campos = array(
-		'email_confirmado'	=> true,
-		'token'				=> ''
-	);
-	$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
-
-	if ( $rowCount == 0 ) {
-		$resposta = "Erro ao validar email!";
-		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
-	} else {
-		$resposta = "Email validado com sucesso!";
-		montarRespostaPost($resposta, false, $codigo=201); # 201 Created
-	}
+	$resposta = "Email validado com sucesso!";
+	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 }
 
 header('Location: ../../lista.php?modulo=usuario');

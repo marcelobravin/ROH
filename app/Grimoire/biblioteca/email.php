@@ -58,7 +58,7 @@ function enviarEmail ($to, $subject="Assunto", $message="Conteúdo do email", $f
 	$h = gerarMailHeader($subject, $fromNome, $from);
 	$h2 = gerarMailHeader($subject2, $fromNome, $from);
  */
-function gerarMailHeader ($subject, $fromNome, $from, $cc="birthdayarchive@example.com",$bcc="JJ Chong <bcc@domain2.com>",$reply="Recipient Name <receiver@domain3.com>")
+function gerarMailHeader ($subject, $fromNome, $from, $cc="", $bcc="", $reply="")
 {
 	// Correções para utf8
 	$fromNome = "=?UTF-8?B?". base64_encode($fromNome) ."?=";
@@ -111,4 +111,49 @@ function gerarMailBody ($conteudo, $titulo="No Subject")
 		</head>
 		<body>'. $conteudo .'</body>
 		</html>';
+}
+
+function enviarEmailConfirmacao ()
+{
+	if ( !isset($_GET['id']) ) {
+		die("Id inválido");
+	}
+
+
+	$condicoes = array(
+		'id' => $_GET['id']
+	);
+	$user = selecionar('usuario', $condicoes);
+
+
+	if ( !isset($_GET['id']) ) {
+		die("Id inválido");
+	}
+
+	if ( !$user ) {
+		die("Id inválido!");
+	}
+
+	$user = $user[0];
+
+	$token = uniqid();
+
+	# todo separar conteudo email
+	$assunto = "Confirmação de email";
+	$servidor = "https://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
+	$endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
+	$body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
+
+
+	$campos = array(
+		'token' => $token
+	);
+	$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
+
+
+	if ( !$rowCount ) {
+		die("Erro ao enviar email");
+	}
+
+	return enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "Automatico");
 }

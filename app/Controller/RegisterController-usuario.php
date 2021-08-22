@@ -30,19 +30,20 @@ $values = array(
 
 $id = inserir('usuario', $values);
 
-# ------------------------------------------------------------------------------ resposta
+# ------------------------------------------------------------------------------ sucesso
 if ( positivo($id) ) {
 	registrarOperacao('I', 'usuario', $id);
 
 	$resposta = "Inserido registro número: ". $id;
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 
-	redirecionar(PROTOCOLO . BASE_HTTP."formulario-atualizacao.php?modulo=usuario&codigo={$id}");
+	enviarEmailConfirmacao();
 
-	# ------------------------------------------------------------------------------ erros
-} else {
-	$resposta = montarMensagemErro( $id );
-	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
-
-	voltar();
+	redirecionar("formulario-atualizacao.php?modulo=usuario&codigo={$id}");
 }
+
+# ------------------------------------------------------------------------------ erros
+$resposta = montarMensagemErro( $id );
+montarRespostaPost($resposta, false, $codigo=201); # 201 Created
+
+voltar();
