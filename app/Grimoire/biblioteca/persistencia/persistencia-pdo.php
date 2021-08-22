@@ -45,7 +45,7 @@ function conectarPdo (/* $transacao=false, */ $hostname=HOST, $dbname=DBNAME, $u
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -58,8 +58,6 @@ function conectarPdo (/* $transacao=false, */ $hostname=HOST, $dbname=DBNAME, $u
  * @return	object
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function conectar ()
 {
@@ -85,7 +83,7 @@ function conectar ()
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -98,8 +96,6 @@ function conectar ()
  * @return	object
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function conexaoPersistente ()
 {
@@ -258,7 +254,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 		if ( is_array($valores) ) {
 
-			$valores = array_values($valores);
+			$valores = array_values($valores); # TODO dá pra tirar?
 
 			for ($i=0; $i < $interrogacoes; $i++) {
 				$statement->bindParam($i+1, $valores[$i]); // dá pra colocar verificação por tipo e tamanho // https://www.php.net/manual/pt_BR/pdo.constants.php
@@ -308,7 +304,7 @@ function localizarPorId ($sql, $id)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -321,16 +317,12 @@ function localizarPorId ($sql, $id)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
+	$values = array(
+		'login' => $_POST['login'],
+		'senha' => hashPassword($_POST['senha'])
+	);
+	echo "Inserido registro número:". inserir('usuarios', $values);
 */
-/*
-$values = array(
-	'login' => $_POST['login'],
-	'senha' => hashPassword($_POST['senha'])
-);
-echo "Inserido registro número:". inserir('usuarios', $values);
-//*/
 function inserir ($tabela, $campos)
 {
 	try {
@@ -376,6 +368,7 @@ function selecionarSanitizado ($tabela, $condicoes=array(), $diretrizes="", $col
 {
 	$array = selecionar($tabela, $condicoes, $diretrizes, $colunas);
 
+	# bloqueia xss em campos de texto (não numéricos e não datas)
 	foreach ($array as $key => $value) {
 		foreach ($value as $k => $v) {
 			if (
@@ -420,7 +413,7 @@ function localizar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -457,7 +450,7 @@ function atualizar ($tabela, $campos, $condicoes=array())
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -646,7 +639,7 @@ function exclusaoStmt ($tabela, $condicoes="")
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -659,8 +652,6 @@ function exclusaoStmt ($tabela, $condicoes="")
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function desconectar (&$connection, &$statement)
 {
@@ -685,8 +676,6 @@ function desconectar (&$connection, &$statement)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function transacao ( $sqls=array() )
 {
@@ -711,7 +700,7 @@ function transacao ( $sqls=array() )
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -724,8 +713,6 @@ function transacao ( $sqls=array() )
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 /**
  *@example
@@ -771,7 +758,7 @@ function iniciarTransacao ()
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -784,8 +771,6 @@ function iniciarTransacao ()
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function encerrarTransacao ( $con, $stmt, $sucesso=true)
 {
@@ -799,7 +784,7 @@ function encerrarTransacao ( $con, $stmt, $sucesso=true)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -812,8 +797,6 @@ function encerrarTransacao ( $con, $stmt, $sucesso=true)
  * @return	bool
  *
  * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function operacaoTransacional ($conP, $sql)
 {

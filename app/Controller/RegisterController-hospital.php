@@ -22,7 +22,8 @@ $values = array(
 	'cep'					=> $_POST['cep'],
 	'telefone'				=> $_POST['telefone'],
 	'email	'				=> $_POST['email'],
-	'criado_por'			=> $_SESSION['user']['id'],
+
+	'criado_por'			=> $_SESSION['user']['id']
 );
 $id = inserir('hospital', $values);
 

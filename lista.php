@@ -6,8 +6,11 @@
 	}
 
 	define('MODULO', $_GET['modulo']);
-	$PAGINA['titulo']		= "Lista";
+	if ( !in_array(MODULO, $MODULOS) ) {
+		die("Módulo inválido!");
+	}
 
+	$PAGINA['titulo'] = "Lista";
 	$paginacao = paginationCore(MODULO);
 
 	include "public/views/frames/frameset.php";

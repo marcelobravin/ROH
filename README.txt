@@ -11,7 +11,26 @@ anotações giovani
 
 
 redimensionar imagens
-
+retirar select * das listas
+	[id] => 32
+    [login] => mesnovaes@prefeitura.sp.gov.br
+    [senha] => $2y$12$V6IPH1Q/Nrv./iBP6lf2pu9b91c67uAEsw0P0m/QuCoSygyHKKOrq
+    [email_confirmado] => 0
+    [token] =>
+    [ativo] => 0
+    [reset] =>
+    [telefone] =>
+    [celular] => 0
+    [nome] => Meire Ellen
+    [cargo] =>
+    [endereco] =>
+    [cpf] => 338.059.850-02
+    [criado_em] => 2021-08-09 14:08:05
+    [atualizado_em] =>
+    [excluido_em] =>
+    [criado_por] => 1
+    [atualizado_por] =>
+    [excluido_por] =>
 
 
 
@@ -21,11 +40,6 @@ verificar ano selecionado em todas queries
 padronizar atualizarUrl ao alterar categoria
 	metas.js - ok
 
-
-
-arrumar os cabecalho_para_dowload_csv no ctrl +f (tem um monte)
-
-ugglify()
 
 
 <!-- tem que baixar as webfonts -->

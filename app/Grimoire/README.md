@@ -2,6 +2,18 @@ senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
 
 
+problema no cadastrar e
+    usuario erro no voltar
+    hospital coluna email não conhecida
+
+INSERT INTO `hospital` (`titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `segundo_responsavel`, `endereco`, `cep`, `telefone`, `email `, `criado_por`) VALUES ('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1')
+
+
+arrumar os cabecalho_para_dowload_csv no ctrl +f (tem um monte)
+
+ugglify()
+
+
 
 
 criar views

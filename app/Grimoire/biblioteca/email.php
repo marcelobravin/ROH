@@ -1,21 +1,23 @@
 <?php
 /**
  * Construção e envio de emails
- * @package grimoire/bibliotecas
+ * @package	grimoire/bibliotecas
 */
 
 /**
  * Retorna o navegador do usuário
- * @package grimoire/bibliotecas/email.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/email.php
+ * @since	05-07-2015
  *
  * @param	string
  * @return	bool
  *
+ * @see		{@link https://meetanshi.com/blog/send-mail-from-localhost-xampp-using-gmail/}
+ *
  * @example
 	@enviarEmail("marcelo.bravin@gmail.com", "Assunto", "Conteúdo do email", "Nome Remetente", "email@falso.com");
  */
-function enviarEmail  ($to, $subject="Assunto", $message="Conteúdo do email", $fromNome="Nome Remetente", $from="Automatico")
+function enviarEmail ($to, $subject="Assunto", $message="Conteúdo do email", $fromNome="Nome Remetente", $from="Automatico")
 {
 	$header = gerarMailHeader($subject, $fromNome, $from);
 	$body = gerarMailBody($message, $subject);
@@ -38,8 +40,8 @@ function enviarEmail  ($to, $subject="Assunto", $message="Conteúdo do email", $
 
 /**
  * Cria headers para envio de email
- * @package grimoire/bibliotecas/email.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/email.php
+ * @since	05-07-2015
  *
  * @param	string
  * @return	bool
@@ -91,8 +93,8 @@ function gerarMailHeader ($subject, $fromNome, $from, $cc="birthdayarchive@examp
 
 /**
  * Retorna o navegador do usuário
- * @package grimoire/bibliotecas/email.php
- * @version 05-07-2015
+ * @package	grimoire/bibliotecas/email.php
+ * @since	05-07-2015
  *
  * @param	string
  * @return	bool

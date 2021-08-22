@@ -7,6 +7,9 @@
 			<th scope="Coluna login do usuário">
 				<?php criarLinkOrdenacao("login", "login") ?>
 			</th>
+			<th scope="Coluna confirmação de email">
+				<?php criarLinkOrdenacao("email_confirmado", "email_confirmado") ?>
+			</th>
 			<th scope="Coluna opções">Opções</th>
 		</tr>
 	</thead>
@@ -15,6 +18,7 @@
 		<tr>
 			<td><?php echo $obj['id'] ?></td>
 			<td><?php echo bloquearXSS($obj['login']) ?></td>
+			<td><?php echo $obj['email_confirmado'] ? "Sim" : "Não" ?></td>
 			<td>
 				<button>
 					<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $obj['id'] ?>">Editar</a>
