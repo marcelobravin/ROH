@@ -1,4 +1,4 @@
--- 24/08/2021 17:38:23
+-- 24/08/2021 17:50:01
 ALTER TABLE `resultado` ENGINE = InnoDB;
 
 ALTER TABLE `resultado`

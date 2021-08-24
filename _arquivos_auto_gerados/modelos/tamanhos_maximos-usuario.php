@@ -2,7 +2,7 @@
 		/**
 		 * usuario
 		 * @package	grimoire/modelos
-		 * @version	24/08/2021 17:38:12
+		 * @version	24/08/2021 17:49:44
 		*/
 	$mapaTamanhos = array(
 'id' => array('maximo' => 11),

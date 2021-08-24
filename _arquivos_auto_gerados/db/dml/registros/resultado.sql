@@ -1,4 +1,4 @@
--- 24/08/2021 17:38:22
+-- 24/08/2021 17:50:00
 INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('24', '39', '1', '8', '2021', '', '0', '2021-08-19 09:56:22', '1');
 INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('25', '38', '2', '8', '2021', '', '0', '2021-08-19 10:14:27', '1');
 INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES ('26', '40', '1', '8', '2021', '', '0', '2021-08-19 12:12:37', '1');

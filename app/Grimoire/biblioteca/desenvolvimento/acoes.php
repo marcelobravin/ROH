@@ -21,67 +21,6 @@ if ( isset($_REQUEST['action']) ) {
 			importarRegistros(BASE."app/DB/inserts obrigatorios/*.sql");
 
 		break;
-		case 'criacaoTabela' :
-			if ( isset($_REQUEST['tabela']) ) {
-				$tabela = $_REQUEST['tabela'];
-			} else {
-				$tabela = "NOVA_TABELA";
-			}
-
-			$sql = criacaoTemplateTabela($tabela);
-
-			if ( isset($_REQUEST['executar']) ) {
-				executar($sql);
-				echo "Criação da tabela {$tabela} executada!";
-			}
-
-			exibir( $sql );
-
-		break;
-		case 'gerarFk' :
-			if ( isset($_REQUEST['tabela']) ) {
-				$tabela = $_REQUEST['tabela'];
-				$sql = gerarFKs($tabela);
-			} else {
-				$tabela = "NOVA_TABELA";
-				$sql = criacaoFK($tabela, "TABELA_REFERENCIADA");
-			}
-
-			if ( isset($_REQUEST['executar']) ) {
-				echo "Alteração de tabela {$tabela} executada!";
-				$r = executar($sql['ALTER TABLE']);
-				exibir($r);
-				$r = executarSequencia($sql['INSERT']);
-				exibir($r);
-			} else {
-				exibir($sql);
-			}
-
-		break;
-		case 'gerarFks' :
-			$tabelas = listarTabelas();
-			foreach ($tabelas as $t) {
-				$sql = gerarFKs($t['Tables_in_'.DBNAME]);
-				exibir($sql);
-			}
-
-		break;
-		case 'dbImport' :
-			if ( importarBD() ) {
-				echo "Importação de BD realizada com sucesso!";
-			} else {
-				echo "Erro ao importar BD";
-			}
-
-		break;
-		case 'dbExport' :
-			if ( exportarBD() ) {
-				echo "Exportação de BD realizada com sucesso!";
-			} else {
-				echo "Erro ao exportar BD";
-			}
-
-		break;
 		case 'gerar-formulario' :
 			foreach ($MODULOS as $key => $value) {
 				# default
@@ -198,8 +137,69 @@ if ( isset($_REQUEST['action']) ) {
 				}
 				echo "<hr>";
 			}
-		break;
 
+		break;
+		case 'criacaoTabela' :
+			if ( isset($_REQUEST['tabela']) ) {
+				$tabela = $_REQUEST['tabela'];
+			} else {
+				$tabela = "NOVA_TABELA";
+			}
+
+			$sql = criacaoTemplateTabela($tabela);
+
+			if ( isset($_REQUEST['executar']) ) {
+				executar($sql);
+				echo "Criação da tabela {$tabela} executada!";
+			}
+
+			exibir( $sql );
+
+		break;
+		case 'gerarFk' :
+			if ( isset($_REQUEST['tabela']) ) {
+				$tabela = $_REQUEST['tabela'];
+				$sql = gerarFKs($tabela);
+			} else {
+				$tabela = "NOVA_TABELA";
+				$sql = criacaoFK($tabela, "TABELA_REFERENCIADA");
+			}
+
+			if ( isset($_REQUEST['executar']) ) {
+				echo "Alteração de tabela {$tabela} executada!";
+				$r = executar($sql['ALTER TABLE']);
+				exibir($r);
+				$r = executarSequencia($sql['INSERT']);
+				exibir($r);
+			} else {
+				exibir($sql);
+			}
+
+		break;
+		case 'gerarFks' :
+			$tabelas = listarTabelas();
+			foreach ($tabelas as $t) {
+				$sql = gerarFKs($t['Tables_in_'.DBNAME]);
+				exibir($sql);
+			}
+
+		break;
+		case 'dbImport' :
+			if ( importarBD() ) {
+				echo "Importação de BD realizada com sucesso!";
+			} else {
+				echo "Erro ao importar BD";
+			}
+
+		break;
+		case 'dbExport' :
+			if ( exportarBD() ) {
+				echo "Exportação de BD realizada com sucesso!";
+			} else {
+				echo "Erro ao exportar BD";
+			}
+
+		break;
 		case 'generateSiteMap':
 			exibir( generateSiteMap() );
 
@@ -229,15 +229,16 @@ if ( isset($_REQUEST['action']) ) {
 			}
 
 		break;
-		case 'gerarHtaccess'	: die( gerarHtaccess() ); break;
-		case 'gerarEnv'			: die( gerarEnv () ); break;
-
 		case 'exportConstraints':
 			$c = exportarConstraints();
 			registrartUQs($c['uqs']);
 
 		break;
+		case 'gerarHtaccess'	: die( gerarHtaccess() ); break;
+		case 'gerarEnv'			: die( gerarEnv () ); break;
+
 		default:
+			echo '<a href="index.php">Página inicial</a></li>';
 			echo '<ul>';
 			echo '<li><a href="index.php?action=cargaInicial&tabela=categoria">cargaInicial</a></li>';
 			echo '<li><a href="index.php?action=criacaoTabela&tabela=">criacaoTabela</a></li>';
