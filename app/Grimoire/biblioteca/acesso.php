@@ -75,7 +75,7 @@ function configurarExibicaoErros ($conf=PRODUCAO)
 	}
 
 	ini_set('log_errors'			, 1); # Toggles error logging.
-	ini_set('log_errors_max_length'	, 1024); # Max length of logged errors. Set to zero for no maximum.
+	ini_set('log_errors_max_length'	, 0); # Max length of logged errors. Set to zero for no maximum.
 	ini_set('track_errors'			, 1); # Stores the last error message in $php_errormsg
 
 	ini_set('error_reporting'		, E_ALL);

@@ -19,7 +19,7 @@ function busca_frete ($cd, $peso_total, $tipo_entrega=0)
 {
 	$co = CEP_ORIGEM;
 	$auth = "eb85c81828685d38095962de4fb459fd";
-	$resultado = @file_get_contents("http://www.e-assishost.com.br/frete.php?tipo_entrega=$tipo_entrega&auth=$auth&co=$co&cd=$cd&peso_total=$peso_total");
+	$resultado = @file_get_contents("https://www.e-assishost.com.br/frete.php?tipo_entrega=$tipo_entrega&auth=$auth&co=$co&cd=$cd&peso_total=$peso_total");
 	parse_str($resultado, $retorno);
 
 	return $retorno['valorfrete'];
@@ -40,7 +40,7 @@ function busca_prazo ($cd, $peso_total, $tipo_entrega)
 {
 	$co = CEP_ORIGEM;
 	$auth="84d4f1ba60d4dbb0f69a7d56f39fea5a";
-	$resultado = @file_get_contents("http://www.e-assishost.com.br/prazo.php?tipo_entrega=$tipo_entrega&auth=$auth&co=$co&cd=$cd&peso_total=$peso_total");
+	$resultado = @file_get_contents("https://www.e-assishost.com.br/prazo.php?tipo_entrega=$tipo_entrega&auth=$auth&co=$co&cd=$cd&peso_total=$peso_total");
 	parse_str($resultado, $retorno);
 
 	return $retorno['prazoentrega'];

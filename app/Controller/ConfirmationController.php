@@ -5,7 +5,6 @@
 		$resposta = "Email enviado para o usuário {$_GET['id']} com sucesso!";
 		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 		voltar();
-		// header('Location: '. BASE .'lista.php?modulo=usuario');
 	} else {
 		# todo corrigir
 		echo "Erro ao enviar email para o usuário: ({$user['login']}) ". $_GET['id'];

@@ -514,8 +514,8 @@ function insercaoStmt ($tabela, $campos)
  * @version	12/07/2021 11:27:42
  *
  * @param	string				nome da tabela onde será realizada a busca
- * @param	string/array/int	criterios de busca da consulta
- * @param	null/string		diretrizes complementares
+ * @param	string/array/int	critérios de busca da consulta
+ * @param	null/string			diretrizes complementares
  * @param	string				campos que serão retornados
  * @return	string				query de seleção
  * @example
@@ -536,7 +536,7 @@ function selecaoStmt ($tabela, $criterios="", $diretrizes="", $colunas="*")
 		if (is_array($criterios)) {
 			$sql .= implode("=? AND ", array_keys($criterios)) ."=?";
 		} else if (is_numeric($criterios)) {
-			$sql .= "id=?"; # -------------- PK da tabela deve chamar id
+			$sql .= "id=?"; # PK da tabela deve chamar id
 		} else {
 			$sql .= $criterios;# <<<<<<<<<<< TODO VERIFICAR linha abaixo quanto a binds
 		}

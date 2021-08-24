@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
 	function limpa_formulário_cep() {
-		// Limpa valores do formulário de cep.
 		$("#rua").val("");
 		$("#bairro").val("");
 		$("#cidade").val("");
@@ -9,16 +8,16 @@ $(document).ready(function() {
 		$("#ibge").val("");
 	}
 
-	//Quando o campo cep perde o foco.
 	$("#cep").keyup(function() {
 
-		var cep = $(this).val().replace(/\D/g, '');
+		var cep = $(this).val().replace(/\D/g, ''); // remove caracteres não numéricos
 
-		if (cep != "") {
+		if (cep == "") {
+			limpa_formulário_cep();
 
-			var validacep = /^[0-9]{8}$/;
+		} else {
 
-			if( validacep.test(cep) ) {
+			if ( /^[0-9]{8}$/.test(cep) ) {
 
 				$("#endereco").val("...");
 				$("#bairro").val("...");
@@ -33,7 +32,6 @@ $(document).ready(function() {
 						$("#bairro").val(dados.bairro);
 						$("#cidade").val(dados.localidade);
 						$("#uf").val(dados.uf);
-						// $("#uf").find('option[text="'+ dados.uf +'"]').attr('selected','selected');
 						$("#ibge").val(dados.ibge);
 					} else {
 						limpa_formulário_cep();
@@ -42,11 +40,7 @@ $(document).ready(function() {
 				});
 			} else {
 				limpa_formulário_cep();
-				// alert("Formato de CEP inválido.");
 			}
-		} else {
-			//cep sem valor, limpa formulário.
-			limpa_formulário_cep();
 		}
 	});
 });

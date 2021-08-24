@@ -1,7 +1,6 @@
 <?php
 	require_once("app/vendors/dompdf/autoload.inc.php");
 
-	// $_GET['requisicaoAjax'] = true;
 	include 'app/Grimoire/core_inc.php';
 
 	if ( empty($_GET['hospital']) ) {

@@ -239,6 +239,9 @@ function download ($arquivo)
  * Escreve o conteúdo em um arquivo
  *
  * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
+	corrige permissões de acesso conforme normas da hostagator
+		sudo find roh -type d -print0 | xargs -0 chmod 0755;
+		sudo find roh -type f -print0 | xargs -0 chmod 0644;
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015

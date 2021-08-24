@@ -270,6 +270,7 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes, $coment
 			$resposta = checkbox($campo['Field'], 1, $valor, $atributos, '');
 
 		break;
+		case "select":
 		case "radio":
 			$pos1 = stripos($campo['Type'], "(");
 			$lista = substr($campo['Type'], $pos1+1, -1); // Pega só o conteúdo entre paranteses
@@ -296,21 +297,8 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes, $coment
 			}
 
 		break;
-		// case "select":
-		// 	$pos1 = stripos($campo['Type'], "(");
-		// 	$lista = substr($campo['Type'], $pos1+1, -1); // Pega só o conteúdo entre paranteses
-		// 	$lista = str_replace("'", "", $lista); // Retira aspas
-		// 	$valores = explode(",", $lista);
 
-		// 	foreach ($valores as $indice=>$val) {
-		// 		$valoresX[$val] = $val;
-		// 	}
-		// 	$valores = $valoresX;
-
-		// 	$valores = gerarSelect($campo['Field'], $valores, $valor); # PODE DAR ERRO? colocar um if (!empty valor)
-		// 	$resposta = $valores;
-
-		break;
+		# tipos exóticos
 		case "textEditor":
 			$resposta = textarea($campo['Field'], $valor, $atributos);
 		break;

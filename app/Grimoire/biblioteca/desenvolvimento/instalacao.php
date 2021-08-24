@@ -807,6 +807,9 @@ function montarCriacao ($tabela, $atributos, $drop=false)
 	return $sql;
 }
 
+/**
+ *
+ */
 function montarLinha ($valor)
 {
 	$sql = $valor['Field'] . " " . $valor['Type'];
@@ -834,6 +837,9 @@ function montarLinha ($valor)
 	return $sql;
 }
 
+/**
+ *
+ */
 function exportarConstraints ($db=DBNAME)
 {
 	$fks = exportarFKs($db);
@@ -859,12 +865,18 @@ function converterUQs ($uqs)
 	return $alters;
 }
 
+/**
+ *
+ */
 function registrartUQs ($uqs, $db=DBNAME)
 {
 	$alters = converterUQs($uqs);
 	escrever(ARQUIVOS_EFEMEROS."/db/ddl/uniques-{$db}.sql", $alters, true);
 }
 
+/**
+ *
+ */
 function registrartFKs ($fks)
 {
 	foreach ($fks as $t) {
@@ -943,7 +955,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 	}
 
-	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes, $descricao);
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -1045,9 +1057,6 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 }
 
 /**
- * Escreve o conteúdo em um arquivo
- *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
@@ -1058,10 +1067,6 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
  */
 function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
@@ -1086,9 +1091,6 @@ function criarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 }
 
 /**
- * Escreve o conteúdo em um arquivo
- *
- * IMPORTANTE: Talvez seja necessário colocar 775 nos diretorios
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
@@ -1118,6 +1120,9 @@ function criarFormularioInsercao ($MODULO, $sobreEscreverLabels=array(), $sobreE
 	return $form;
 }
 
+/**
+ *
+ */
 function gerarModeloValidacao ($tabela)
 {
 	$descricao = descreverTabela($tabela);

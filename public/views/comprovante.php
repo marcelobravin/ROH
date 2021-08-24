@@ -44,7 +44,6 @@
 	</style>
 </head>
 <body>
-	<!-- <img src="<?php echo BASE_HTTP ?>public/img/prefeitura-cidade-de-sao-paulo-vector-logo.png" alt="<?php echo BASE_HTTP ?>public/img/prefeitura-cidade-de-sao-paulo-vector-logo.png"> -->
 	<img src="public/img/Prefeitura-de-Sao-Paulo.jpg" alt="public/img/Prefeitura-de-Sao-Paulo.jpg">
 
 	<h1>Comprovante de Vistoria</h1>
