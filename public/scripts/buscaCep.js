@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 	$("#cep").keyup(function() {
 
-		var cep = $(this).val().replace(/\D/g, ''); // remove caracteres não numéricos
+		const cep = $(this).val().replace(/\D/g, ''); // remove caracteres não numéricos
 
 		if (cep == "") {
 			limpa_formulário_cep();

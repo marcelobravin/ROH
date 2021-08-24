@@ -1,4 +1,5 @@
 /* <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script> */
+/* https://igorescobar.github.io/jQuery-Mask-Plugin/docs.html */
 $(document).ready(function(){
 	$( "#cnpj" ).keypress(function() {
 		$(this).mask('00.000.000/0000-00');
@@ -34,11 +35,9 @@ $(document).ready(function(){
 		$(this).mask('00/00/0000 00:00:00');
 	});
 
-
 	$( ".padraoFloat" ).keypress(function() {
-		$(this).mask('R$ 99999999999,99' , { reverse:true});
+		$(this).mask('#.##0,00' , { reverse:true, selectOnFocus: true});
 	});
-
 
 
 	$("#cnpj, #cpf, #telefone, #cep, #celular, #cnes, .padraoData, .padraoTimestamp, .padraoFloat").trigger("keypress");

@@ -137,20 +137,21 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 		}
 
 		$tipo = identificarTipoCampo($campo);
-
 		if ($tipo == "date") {
 			$atributos['maxlength'] = 10;
 			$atributos[] = "padraoData";
 			# datetime & timestamp
-		} else if ($tipo == "datetime" || $tipo == "timestamp") {
+		} else if ($tipo == "datetime") {
 			$atributos['maxlength'] = 19;
 			$atributos[] = "padraoTimestamp";
 		# campos q definem tamanho maximo [int, varchar, tinyint, decimal]
+		} elseif ($tipo == "time") {
+
 		} elseif ($tipo == "text") {
+
 			$x = explode('(', $campo['Type']);
 			$x = explode(')', $x[1]);
 			$maxlength = $x[0];
-
 
 			if ( !is_numeric($maxlength) ) { # Soma maxlength de decimais
 				$atributos[] = "padraoFloat";//. $maxlength;
@@ -177,11 +178,19 @@ function identificarTipoCampo ($campo)
 {
 	$tipo = "text";
 
+
+	# PRIMARY KEY
+	if ($campo['Key'] == "PRI") {
+		$tipo = "hidden";
 	# date
-	if ($campo['Type'] == "date") {
+	} else if ($campo['Type'] == "date") {
 		$tipo = "date";
 	# datetime & timestamp
 	} else if ($campo['Type'] == "datetime" || $campo['Type'] == "timestamp") {
+		$tipo = "datetime";
+	# enum
+	} else if ($campo['Type'] == "time") {
+		$tipo = "time";
 	# enum
 	} else if ( comecaCom("enum", $campo['Type']) || comecaCom("set", $campo['Type']) ) {
 		$tipo = 'radio';
@@ -189,18 +198,13 @@ function identificarTipoCampo ($campo)
 	} else if ( comecaCom("bit", $campo['Type']) || comecaCom("tinyint(1)", $campo['Type']) ) {
 		$tipo = 'checkbox';
 	# text
-	} else if ($campo['Type'] == "text") {
+	} else if ($campo['Type'] == "text" || $campo['Type'] == "longtext") {
 		$tipo = 'textarea';
 	# campos q definem tamanho maximo [int, varchar, tinyint, decimal]
 	} else {
 
-		// PRIMARY KEY
-		if ($campo['Key'] == "PRI") {
-			$tipo = "hidden";
-		}
-
 		# Se campo for chave estrangeira
-		if (comecaCom("id_", $campo['Field'])) {
+		if ( comecaCom("id_", $campo['Field']) ) {
 			$tipo = "foreignKey";
 		}
 	}
@@ -210,7 +214,7 @@ function identificarTipoCampo ($campo)
 
 function construirElemento ($tipo, $campo, $valor, $atributos, $padroes, $comentarios)
 {
-	switch ($tipo) {
+	switch ( $tipo ) {
 		case "foreignKey":
 			// Identifica a tabela
 			$tabela = str_replace("Id", "", $campo['Field']);
@@ -246,8 +250,19 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes, $coment
 				$atributos[0] .= ' padrao'. ucwords($padroes[$campo['Field']]);
 			}
 
-			# aqui adiciona padrões
-			$resposta = text($campo['Field'], $valor, $atributos);
+			if ( $campo['Type'] == 'time' ) {
+				$resposta = gerarInput("time", $campo['Field'], $valor, $atributos);
+			} else {
+				$resposta = text($campo['Field'], $valor, $atributos);
+			}
+
+		break;
+		case "datetime":
+			$resposta = gerarInput("datetime", $campo['Field'], $valor, $atributos);
+
+		break;
+		case "time":
+			$resposta = gerarInput("time", $campo['Field'], $valor, $atributos);
 
 		break;
 		case "date":

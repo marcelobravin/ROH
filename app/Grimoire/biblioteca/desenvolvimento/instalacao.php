@@ -1181,3 +1181,23 @@ function gerarModeloValidacao ($tabela)
 
 	escrever(ARQUIVOS_EFEMEROS."/modelos/tamanhos_maximos-{$tabela}.php", $conteudo . $campos, true);
 }
+
+/**
+ *
+ */
+function testarMascaras ()
+{
+	$sobreEscreverCampos	= array();
+	$esconder				= array();
+	$padroes				= array();
+	$sobreEscreverLabels	= array();
+	$descricaoLabels		= array();
+	$remover				= array();
+
+	echo criarFormularioInsercao('__exemplo', $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $descricaoLabels, $padroes);
+	pp('<script src="public/vendors/jquery-3.6.0.min.js"></script>');
+	pp('<script src="public/vendors/jquery.mask.min.js"></script>');
+	pp('<script src="public/scripts/definicoes-jmask.js"></script>');
+	pp('<script src="public/scripts/buscaCep.js"></script>');
+	pp('<style>div {text-align: right}</script>');
+}

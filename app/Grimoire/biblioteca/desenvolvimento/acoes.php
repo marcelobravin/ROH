@@ -216,6 +216,10 @@ if ( isset($_REQUEST['action']) ) {
 			echo formatBytes( getDirectorySize(BASE), 3 );
 
 		break;
+		case 'mascaras':
+			testarMascaras();
+
+		break;
 		case 'criarTabelasLog':
 			criarTabelasLog();
 
@@ -253,6 +257,7 @@ if ( isset($_REQUEST['action']) ) {
 			echo '<li><a href="index.php?action=gerarFk">gerarFk</a></li>';
 			echo '<li><a href="index.php?action=gerarFks">gerarFks</a></li>';
 			echo '<li><a href="index.php?action=getDirectorySize">getDirectorySize</a></li>';
+			echo '<li><a href="index.php?action=mascaras">mascaras</a></li>';
 			echo '<li><a href="index.php?action=minify">minify</a></li>';
 			echo '<li><a href="index.php?action=popularTabela">popularTabela</a></li>';
 			echo '<li><a href="index.php?action=registerProjectFiles">registerProjectFiles</a></li>';

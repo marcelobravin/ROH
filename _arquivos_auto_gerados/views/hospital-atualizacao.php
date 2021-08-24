@@ -1,8 +1,12 @@
-<!-- 24/08/2021 10:04:00 -->
+<!-- 24/08/2021 10:08:40 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="titulo" title="Descrição do Título">Título <span class="simbolo-obrigatorio">*</span></label>
 	<input required="required" maxlength="255" type="text" name="titulo" id="titulo" value="<?php echo bloquearXSS($obj["titulo"]) ?>" class="obrigatorio" />
+</div>
+<div>
+	<label for="dinheirinhos">Dinheirinhos <span class="simbolo-obrigatorio">*</span></label>
+	<input required="required" maxlength="11" type="text" name="dinheirinhos" id="dinheirinhos" value="<?php echo bloquearXSS($obj["dinheirinhos"]) ?>" class="obrigatorio padraoFloat" />
 </div>
 <div>
 	<label for="ativo">Ativo</label>
