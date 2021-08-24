@@ -106,7 +106,7 @@ function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels
 }
 
 /**
- * Transforma uma descrição de tabela em inputs
+ * Cria inputs html conforme uma descrição de tabela de BD
  * @package	grimoire/bibliotecas/formularios.php
  * @since	21/07/2021 10:58:43
  *

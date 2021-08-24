@@ -324,6 +324,9 @@ function gerarEnv ()
 	return escrever(ARQUIVOS_EFEMEROS ."/.env", $conteudo, true);
 }
 
+/**
+ *
+ */
 function getDirectoryFiles ($path='.')
 {
 	$rii = new RecursiveIteratorIterator( new RecursiveDirectoryIterator($path) );
@@ -339,6 +342,9 @@ function getDirectoryFiles ($path='.')
 	return $files;
 }
 
+/**
+ *
+ */
 function generateMinified ($file, $dir=ARQUIVOS_EFEMEROS)
 {
 	$minifiedContent = minify($file);
@@ -374,6 +380,9 @@ function minifyContent ($contents)
 	return $contents;
 }
 
+/**
+ *
+ */
 function registerProjectFiles ()
 {
 	$allFiles = registerMapDirectory(BASE, 'ALL');
@@ -393,6 +402,9 @@ function registerProjectFiles ()
 	return true;
 }
 
+/**
+ *
+ */
 function registerCharNumber ($total_lines, $total_chars)
 {
 	$jsonDir	= ARQUIVOS_EFEMEROS.'/listas/_projectSize.json';
@@ -405,6 +417,9 @@ function registerCharNumber ($total_lines, $total_chars)
 }
 
 // segmentar com getJson
+/**
+ *
+ */
 function getProjectFiles ()
 {
 	$jsonDir = ARQUIVOS_EFEMEROS.'/listas/_projectSize.json';
@@ -421,6 +436,9 @@ function getProjectFiles ()
 	);
 }
 
+/**
+ *
+ */
 function assetPipeline ($js=true, $css=true, $imgs=true)
 {
 	if ( $css ) {
@@ -449,6 +467,9 @@ function assetPipeline ($js=true, $css=true, $imgs=true)
 	return true;
 }
 
+/**
+ *
+ */
 function getDirectorySize ($path)
 {
 	$bytestotal = 0;
@@ -482,6 +503,9 @@ function registerMapDirectory ($path, $fileName, $jsonDir=ARQUIVOS_EFEMEROS.'/li
 	}
 }
 
+/**
+ *
+ */
 function getMapDirectory ($fileName, $jsonDir=ARQUIVOS_EFEMEROS.'/listas/_')
 {
 	try {
@@ -495,6 +519,9 @@ function getMapDirectory ($fileName, $jsonDir=ARQUIVOS_EFEMEROS.'/listas/_')
 	}
 }
 
+/**
+ *
+ */
 function getDirectoryTree ($dir = '.')
 {
 	$files = scandir($dir);
@@ -521,6 +548,9 @@ function getDirectoryTree ($dir = '.')
 	return $filesReturn;
 }
 
+/**
+ *
+ */
 function buildTree ($DT, $lv=0)
 {
 	$resposta = '';
@@ -554,6 +584,9 @@ function buildTree ($DT, $lv=0)
 	return $resposta;
 }
 
+/**
+ *
+ */
 function generateSiteMap ($dir=ARQUIVOS_EFEMEROS.'/listas/_', $fileName='siteMap')
 {
 	$DT = getDirectoryTree(BASE);
@@ -562,6 +595,9 @@ function generateSiteMap ($dir=ARQUIVOS_EFEMEROS.'/listas/_', $fileName='siteMap
 	return $fileTree;
 }
 
+/**
+ *
+ */
 function countLines ($file)
 {
 	$linecount = 0;
@@ -575,6 +611,9 @@ function countLines ($file)
 	return $linecount;
 }
 
+/**
+ *
+ */
 function countCharacters ($file)
 {
 	$charcount = 0;
@@ -602,16 +641,16 @@ function countCharacters ($file)
  * @example
 		chmod ("/somedir/somefile", 2);
  * @see
-	Value    Permission Level
-	400    Owner Read
-	200    Owner Write
-	100    Owner Execute
-	 40    Group Read
-	 20    Group Write
-	 10    Group Execute
-	  4    Global Read
-	  2    Global Write
-	  1    Global Execute
+	Value	Permission Level
+	400		Owner Read
+	200		Owner Write
+	100		Owner Execute
+	 40		Group Read
+	 20		Group Write
+	 10		Group Execute
+	  4		Global Read
+	  2		Global Write
+	  1		Global Execute
  */
 function alterarPermissao ($arquivo, $permissao=1)
 {
@@ -954,7 +993,8 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 	}
 
-	$campos = gerarInputs($descricao, null, $sobreEscreverCampos, $padroes);
+	$registro = localizar("__exemplo", 1); ##################################### TODO tirar
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -1195,6 +1235,10 @@ function testarMascaras ()
 	$remover				= array();
 
 	echo criarFormularioInsercao('__exemplo', $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $descricaoLabels, $padroes);
+	// $x = criarFormularioAtualizacao('__exemplo', $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $descricaoLabels, $padroes);
+	// exibir( htmlspecialchars($x));
+	// $obj = array();
+	// echo html_entity_decode(htmlentities($x));
 	pp('<script src="public/vendors/jquery-3.6.0.min.js"></script>');
 	pp('<script src="public/vendors/jquery.mask.min.js"></script>');
 	pp('<script src="public/scripts/definicoes-jmask.js"></script>');

@@ -1,136 +1,120 @@
-<!-- 24/08/2021 14:38:36 -->
+<!-- 24/08/2021 16:23:51 -->
 <div>
-	<label for="acao">Acao <span class="simbolo-obrigatorio">*</span></label>
+	<label for="acao">Acao</label>
 	<label><input type="radio" name="acao" id="acao[0]" value="I" /> I</label>
 <label><input type="radio" name="acao" id="acao[1]" value="U" /> U</label>
-<label><input type="radio" name="acao" id="acao[2]" value="D" /> D</label>
-<label><input type="radio" name="acao" id="acao[3]" value="d" /> D</label>
+<label><input checked="checked" type="radio" name="acao" id="acao[2]" value="D" /> D</label>
+<label><input type="radio" name="acao" id="acao[3]" value="X" /> X</label>
 </div>
 <div>
-	<label for="ano">Ano <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="4" type="text" name="ano" id="ano" class="obrigatorio" />
+	<label for="ano">Ano</label>
+	<input maxlength="4" type="text" name="ano" id="ano" value="2000" />
 </div>
 <div>
-	<label for="ativo">Ativo</label>
-	<input type="checkbox" name="ativo" id="ativo" value="1" />
+	<label for="bairro">Bairro</label>
+	<input maxlength="255" type="text" name="bairro" id="bairro" value="bairro" />
 </div>
 <div>
-	<label for="bairro">Bairro <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="255" type="text" name="bairro" id="bairro" class="obrigatorio" />
-</div>
-<div>
-	<label for="cargo">Cargo <span class="simbolo-obrigatorio">*</span></label>
+	<label for="cargo">Cargo</label>
 	<label><input type="radio" name="cargo" id="cargo[0]" value="enfermeiro" /> Enfermeiro</label>
-<label><input type="radio" name="cargo" id="cargo[1]" value="medico" /> Medico</label>
+<label><input checked="checked" type="radio" name="cargo" id="cargo[1]" value="medico" /> Medico</label>
 <label><input type="radio" name="cargo" id="cargo[2]" value="administrador" /> Administrador</label>
 </div>
 <div>
-	<label for="celular">Celular <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="11" type="text" name="celular" id="celular" class="obrigatorio" />
+	<label for="celular">Celular</label>
+	<input maxlength="11" type="text" name="celular" id="celular" value="11959890399" />
 </div>
 <div>
 	<label for="cep">Cep <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="8" type="text" name="cep" id="cep" class="obrigatorio" />
+	<input required="required" maxlength="8" type="text" name="cep" id="cep" value="08710190" class="obrigatorio" />
 </div>
 <div>
-	<label for="cidade">Cidade <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="255" type="text" name="cidade" id="cidade" class="obrigatorio" />
+	<label for="cidade">Cidade</label>
+	<input maxlength="255" type="text" name="cidade" id="cidade" value="cidade" />
 </div>
 <div>
-	<label for="cnes">Cnes <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="7" type="text" name="cnes" id="cnes" class="obrigatorio" />
+	<label for="cnes">Cnes</label>
+	<input maxlength="7" type="text" name="cnes" id="cnes" value="1234567" />
 </div>
 <div>
 	<label for="cnpj">Cnpj</label>
-	<input maxlength="14" type="text" name="cnpj" id="cnpj" />
+	<input maxlength="14" type="text" name="cnpj" id="cnpj" value="33710079000101" />
 </div>
 <div>
-	<label for="cpf">Cpf <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="14" type="text" name="cpf" id="cpf" class="obrigatorio" />
+	<label for="cpf">Cpf</label>
+	<input maxlength="14" type="text" name="cpf" id="cpf" value="30748523804" />
 </div>
 <div>
-	<label for="data">Data <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="10" type="date" name="data" id="data" class="obrigatorio padraoData" />
+	<label for="data">Data</label>
+	<input maxlength="10" type="date" name="data" id="data" value="2021-08-01" class="padraoData" />
 </div>
 <div>
-	<label for="datahora">Datahora <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="19" type="datetime" name="datahora" id="datahora" class="obrigatorio padraoTimestamp" />
+	<label for="datahora">Datahora</label>
+	<input maxlength="19" type="datetime" name="datahora" id="datahora" value="2021-08-24 15:54:21" class="padraoTimestamp" />
 </div>
 <div>
-	<label for="dinheiro">Dinheiro <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="11" type="text" name="dinheiro" id="dinheiro" class="obrigatorio padraoFloat" />
+	<label for="dinheiro">Dinheiro</label>
+	<input maxlength="11" type="text" name="dinheiro" id="dinheiro" value="5099.89" class="padraoFloat" />
 </div>
 <div>
-	<label for="email_confirmado">Email_confirmado <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" type="checkbox" name="email_confirmado" id="email_confirmado" value="1" class="obrigatorio" />
+	<label for="endereco">Endereco</label>
+	<input maxlength="255" type="text" name="endereco" id="endereco" value="endereco" />
 </div>
 <div>
-	<label for="endereco">Endereco <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="255" type="text" name="endereco" id="endereco" class="obrigatorio" />
-</div>
-<div>
-	<label for="ip">Ip <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="15" type="text" name="ip" id="ip" class="obrigatorio" />
-</div>
-<div>
-	<label for="justificativa_aceita">Justificativa_aceita <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" type="checkbox" name="justificativa_aceita" id="justificativa_aceita" value="1" class="obrigatorio" />
+	<label for="ip">Ip</label>
+	<input maxlength="15" type="text" name="ip" id="ip" value="255.255.255" />
 </div>
 <div>
 	<label for="justificativa">Justificativa</label>
-	<textarea name='justificativa' id='justificativa'  /></textarea>
+	<textarea name='justificativa' id='justificativa'  />Justificativa</textarea>
 </div>
 <div>
-	<label for="login">Login <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="60" type="text" name="login" id="login" class="obrigatorio" />
+	<label for="login">Login</label>
+	<input maxlength="60" type="text" name="login" id="login" value="login1" />
 </div>
 <div>
-	<label for="mes">Mes <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="2" type="text" name="mes" id="mes" class="obrigatorio" />
+	<label for="mes">Mes</label>
+	<input maxlength="2" type="text" name="mes" id="mes" value="15" />
 </div>
 <div>
-	<label for="navegador">Navegador <span class="simbolo-obrigatorio">*</span></label>
-	<textarea name='navegador' id='navegador'  required="required" class="obrigatorio" /></textarea>
+	<label for="navegador">Navegador</label>
+	<textarea name='navegador' id='navegador'  />json</textarea>
 </div>
 <div>
-	<label for="objetoId">ObjetoId <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="11" type="text" name="objetoId" id="objetoId" class="obrigatorio" />
+	<label for="objetoId">ObjetoId</label>
+	<input maxlength="11" type="text" name="objetoId" id="objetoId" value="1" />
 </div>
 <div>
-	<label for="quantidade">Quantidade <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="3" type="text" name="quantidade" id="quantidade" class="obrigatorio" />
+	<label for="quantidade">Quantidade</label>
+	<input maxlength="3" type="text" name="quantidade" id="quantidade" value="8" />
 </div>
 <div>
 	<label for="reset">Reset</label>
-	<input maxlength="50" type="text" name="reset" id="reset" />
+	<input maxlength="50" type="text" name="reset" id="reset" value="isdhHm3" />
 </div>
 <div>
-	<label for="resultado">Resultado <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="3" type="text" name="resultado" id="resultado" class="obrigatorio" />
+	<label for="resultado">Resultado</label>
+	<input maxlength="3" type="text" name="resultado" id="resultado" value="88" />
 </div>
 <div>
-	<label for="senha">Senha <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="60" type="text" name="senha" id="senha" class="obrigatorio" />
+	<label for="senha">Senha</label>
+	<input maxlength="60" type="text" name="senha" id="senha" value="senha" />
 </div>
 <div>
-	<label for="sucesso">Sucesso <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" type="checkbox" name="sucesso" id="sucesso" value="1" class="obrigatorio" />
+	<label for="sucesso">Sucesso</label>
+	<input checked="checked" type="checkbox" name="sucesso" id="sucesso" value="1" />
 </div>
 <div>
-	<label for="tabela">Tabela <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="50" type="text" name="tabela" id="tabela" class="obrigatorio" />
+	<label for="tabela">Tabela</label>
+	<input maxlength="50" type="text" name="tabela" id="tabela" value="tabela" />
 </div>
 <div>
 	<label for="telefone">Telefone</label>
-	<input maxlength="15" type="text" name="telefone" id="telefone" />
+	<input maxlength="15" type="text" name="telefone" id="telefone" value="11959890399" />
 </div>
 <div>
-	<label for="tempo">Tempo <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" type="time" name="tempo" id="tempo" class="obrigatorio" />
-</div>
-<div>
-	<label for="titulo">Titulo <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="255" type="text" name="titulo" id="titulo" class="obrigatorio" />
+	<label for="tempo">Tempo</label>
+	<input type="time" name="tempo" id="tempo" value="04:22:00" />
 </div>
 <div>
 	<label for="uf">Uf</label>
@@ -149,7 +133,7 @@
 <option value="MG" >Minas Gerais</option>
 <option value="PA" >Pará</option>
 <option value="PB" >Paraíba</option>
-<option value="PR" >Paraná</option>
+<option value="PR" selected="selected" >Paraná</option>
 <option value="PE" >Pernambuco</option>
 <option value="PI" >Piauí</option>
 <option value="RJ" >Rio de Janeiro</option>
@@ -163,8 +147,4 @@
 <option value="TO" >Tocantins</option>
 <option value="DF" >Distrito Federal</option>
 </select>
-</div>
-<div>
-	<label for="criado_por">Criado_por <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="11" type="text" name="criado_por" id="criado_por" class="obrigatorio" />
 </div>

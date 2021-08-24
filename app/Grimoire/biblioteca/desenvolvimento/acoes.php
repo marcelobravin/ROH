@@ -192,9 +192,7 @@ if ( isset($_REQUEST['action']) ) {
 				$x = criarFormularioAtualizacao($value, $sobreEscreverLabels, $sobreEscreverCampos, $remover, $esconder, $descricaoLabels, $padroes);
 				if ( $x ) {
 					echo "Gerado formulário de atualização: {$value}!";
-					echo '<pre>';
-					print_r( htmlspecialchars($x));
-					echo '</pre>';
+					exibir( htmlspecialchars($x));
 				} else {
 					echo "Erro...";
 				}
@@ -203,9 +201,7 @@ if ( isset($_REQUEST['action']) ) {
 		break;
 
 		case 'generateSiteMap':
-			echo '<pre>';
-			print_r( generateSiteMap() );
-			echo '</pre>';
+			exibir( generateSiteMap() );
 
 		break;
 		case 'registerProjectFiles':
