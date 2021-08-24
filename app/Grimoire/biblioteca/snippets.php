@@ -7,9 +7,11 @@
 /**
  * Gera links
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -36,10 +38,10 @@ function a ($conteudo="", $href="#", $atributos=array())
 /**
  * Gera elemento body
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
- * @return	string
+ * @param	array/string
+ * @return	array
  *
  * @uses	html.php->gerarBloco()
  * @example
@@ -52,10 +54,7 @@ function body ($atributos=array())
 /**
  * Adiciona uma quebra de linha html
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
- *
- * @param	string
- * @return	void
+ * @since	05-07-2015
  */
 function br ()
 {
@@ -68,6 +67,10 @@ function br ()
  * @since	05-07-2015
  * @version	19/07/2021 11:37:16
  *
+ * @param	string
+ * @param	string
+ * @param	bool
+ * @param	array
  * @param	string
  * @return	string
  *
@@ -89,10 +92,10 @@ function checkbox ($nome, $valor="", $selecionado=false, $atributos=array(), $ro
 /**
  * Gera uma lista de definição
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
- * @return	string
+ * @param	array/string
+ * @return	array
  *
  * @uses	html.php->gerarBloco()
  * @example
@@ -107,9 +110,9 @@ function dl2 ($atributos=array())
 /**
  * Gera um termo de lista de definição
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -125,9 +128,9 @@ function dt ($atributos=array())
 /**
  * Gera uma descrição de lista de definição
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -143,9 +146,9 @@ function dd ($atributos=array())
 /**
  * Gera elemento div
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	array
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -161,7 +164,7 @@ function div ($atributos=array())
 /**
  * Cria um elemento embed
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @return	string
@@ -174,7 +177,7 @@ function embed ($url="https://www.youtube.com/watch?v=jo1PvY5pr1A")
 /**
  * Verifica se o valor se encaixa no padrão
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @return	string
@@ -190,7 +193,7 @@ function favicon ($icone="favicon.ico")
 /**
  * Gera um elemento fieldset com um legend
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @param	string/array
@@ -213,9 +216,12 @@ function fieldset ($legenda="", $atributos=array())
 /**
  * Gera input file
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
+ * @param	string
+ * @param	bool
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -239,9 +245,12 @@ function file2 ($nome, $atributos=array(), $formato="*", $multiplo=false)
 /**
  * Gera formulário
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	bool
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -276,9 +285,11 @@ function form ($acao="", $metodo="", $enctype=false, $atributos=array())
 /**
  * Gera título
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	int
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -293,9 +304,10 @@ function h ($conteudo="", $numero=1, $atributos=array())
 /**
  * Gera h1
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -309,9 +321,10 @@ function h1 ($titulo="", $atributos=array())
 /**
  * Gera h2
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -325,9 +338,10 @@ function h2 ($titulo="", $atributos=array())
 /**
  * Gera h3
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -341,9 +355,10 @@ function h3 ($titulo="", $atributos=array())
 /**
  * Gera h4
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -357,9 +372,10 @@ function h4 ($titulo="", $atributos=array())
 /**
  * Gera h5
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -373,9 +389,10 @@ function h5 ($titulo="", $atributos=array())
 /**
  * Gera h6
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -389,9 +406,9 @@ function h6 ($titulo="", $atributos=array())
 /**
  * Gera elemento head
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -405,9 +422,11 @@ function head ($atributos=array())
 /**
  * Gera inputs hidden
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarInput()
@@ -422,9 +441,9 @@ function hidden ($nome, $valor="", $atributos=array())
 /**
  * Gera elemento html e doctype
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -449,7 +468,7 @@ function html ($atributos=array())
 /**
  * Verifica se o valor se encaixa no padrão
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @return	string
@@ -466,7 +485,7 @@ function iframe ($iframe="https://hastaluego1.tempsite.ws/luego_labs/ace-of-spac
 /**
  * Cria um elemento html contendo uma imagem
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @param	array
@@ -485,9 +504,12 @@ function img ($arquivo, $atributos=array(), $proteger=true)
 /**
  * Gera label para o elemento html
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
+ * @param	bool
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -499,23 +521,24 @@ function label ($texto, $campo=null, $atributos=array(), $obrigatorio=false)
 {
 	if ( is_null($campo) ) {
 		return gerarBloco("label", $atributos);
-	} else {
-		$atributos = gerarAtributos($atributos);
-		$marcador = "";
-		if ( $obrigatorio ) {
-			$marcador .= " *";
-		}
-
-		return '<label for="'.$campo.'"'.$atributos.'>'.$texto.''.$marcador.'</label>';
 	}
+
+	$atributos = gerarAtributos($atributos);
+	$marcador = "";
+	if ( $obrigatorio ) {
+		$marcador .= " *";
+	}
+
+	return '<label for="'.$campo.'"'.$atributos.'>'.$texto.''.$marcador.'</label>';
 }
 
 /**
  * Gera item de lista
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	array
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -536,7 +559,7 @@ function li ($conteudo="", $atributos=array())
 /**
  * Gera link de folha de estilos
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @param	string
@@ -554,8 +577,9 @@ function link2 ($arquivo="css.css", $midia="all")
 /**
  * Gera meta
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
+ * @param	string
  * @param	string
  * @return	string
  *
@@ -571,9 +595,9 @@ function meta ($tipo, $valor)
 /**
  * Gera uma lista não-ordenada
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarBloco()
@@ -589,31 +613,35 @@ function ol ($atributos=array())
 /**
  * Cria um option
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	bool
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
  * @example
 		echo option(1, "SP", true);
  */
-function option ($valor="", $indice="", $selecionado=false, $atributos=array())
+function option ($texto="", $valor="", $selecionado=false, $atributos=array())
 {
 	$atributos = gerarAtributos($atributos);
-	if ($selecionado) {
-		return "<option value='$indice' selected='selected' $atributos>$valor</option>";
+	if ( $selecionado ) {
+		return '<option value="'.$valor.'" selected="selected" '.$atributos.'>'.$texto.'</option>';
 	} else {
-		return "<option value='$indice' $atributos>$valor</option>";
+		return '<option value="'.$valor.'" '.$atributos.'>'.$texto.'</option>';
 	}
 }
 
 /**
  * Cria um option group
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -631,9 +659,10 @@ function optiongroup ($label="", $atributos=array())
 /**
  * Gera p
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -647,9 +676,10 @@ function p ($conteudo, $atributos=array())
 /**
  * Escreve p
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -663,9 +693,11 @@ function pp ($conteudo, $atributos=array())
 /**
  * Gera inputs password
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarInput()
@@ -700,6 +732,10 @@ function pre ($atributos=array())
  * @version	19/07/2021 11:38:05
  *
  * @param	string
+ * @param	string
+ * @param	bool
+ * @param	array/string
+ * @param	string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -721,9 +757,11 @@ function radio ($nome, $valor="", $selecionado=false, $atributos=array(), $rotul
 /**
  * Gera input reset
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarInput()
@@ -739,9 +777,11 @@ function reset2 ($valor="Limpar", $nome="reset", $atributos=array())
 /**
  * Gera select sem options
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
+ * @param	bool
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -750,13 +790,13 @@ function reset2 ($valor="Limpar", $nome="reset", $atributos=array())
  */
 function select ($nome, $atributos=array(), $multiplo=false)
 {
-	$input		= array();
+	$input = array();
 	$atributos = gerarAtributos($atributos);
 
 	if ($multiplo) {
-		$input[] = "<select name='$nome' id='$nome' $atributos multiple='multiple'>";
+		$input[] = '<select name="'.$nome.'" id="'.$nome.'" '.$atributos.' multiple="multiple">';
 	} else {
-		$input[] = "<select name='$nome' id='$nome' $atributos>";
+		$input[] = '<select name="'.$nome.'" id="'.$nome.'" '.$atributos.'>';
 	}
 
 	$input[] = "</select>";
@@ -764,27 +804,12 @@ function select ($nome, $atributos=array(), $multiplo=false)
 }
 
 /**
- * Cria link para ligação de skype
- * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
- *
- * @return	string
- */
-function skype ()
-{
-	return "
-		<a href='callto://+***********'>Link will initiate Skype to call my number!</a>
-		Skype Username:
-		<a href='skype:********?call'>Link will initiate Skype to call my Skype username!</a>
-	";
-}
-
-/**
  * Gera span
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	array/string
  * @return	string
  *
  * @example
@@ -798,9 +823,11 @@ function span ($conteudo, $atributos=array())
 /**
  * Gera input submit
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarInput()
@@ -815,8 +842,10 @@ function submit ($valor="Enviar", $nome="submit", $atributos=array())
 /**
  * Gera tabela
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
+ * @param	array/string
+ * @param	string
  * @param	string
  * @return	string
  *
@@ -845,10 +874,10 @@ function table ($atributos=array(), $titulo="", $descricao="")
 /**
  * Gera tbody da tabela
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	array
- * @param	array
+ * @param	array(array)
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -890,9 +919,11 @@ function tbody ($matriz=array(array()), $atributos=array())
 /**
  * Gera inputs text
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
+ * @param	string
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarInput()
@@ -907,11 +938,11 @@ function text ($nome, $valor="", $atributos=array())
 /**
  * Gera inputs textarea
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @param	string
- * @param	array
+ * @param	array/string
  * @return	string
  *
  * @uses	html.php->gerarAtributos()
@@ -927,7 +958,7 @@ function textarea ($nome="", $conteudo="", $atributos=array())
 /**
  * Gera theader de tabela
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	array
  * @param	array
@@ -956,7 +987,7 @@ function thead ($headers=array(), $atributos=array())
 /**
  * Gera title
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
  * @param	string
  * @return	string
@@ -972,10 +1003,10 @@ function title ($titulo)
 /**
  * Gera uma lista ordenada
  * @package	grimoire/bibliotecas/snippets.php
- * @version	05-07-2015
+ * @since	05-07-2015
  *
- * @param	string
- * @return	string
+ * @param	array/string
+ * @return	array
  *
  * @uses	html.php->gerarBloco()
  * @example

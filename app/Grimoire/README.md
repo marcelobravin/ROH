@@ -1735,15 +1735,6 @@ if não tem env abrir tela de criar
 
 
 
-case 'gerar-formulario' : retirar codigo=x
-case 'gerar-formulario-atualizacao' : colocar codigo=x
-	sem codigo gera inputs com echo atributo
-	com codigo traz pronto [para ser utilizado de forma parametrizada]
-
-gerarFormulario( insert/update )
-	ou gera os dois?
-		form_insert-MODULO.php
-
 
 SIMBOLO_SETAESQUERDA = <i class='fas fa-angle-left'></i>
 

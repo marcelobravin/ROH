@@ -27,7 +27,7 @@ $(document).ready(function(){
 
 
 	$( ".padraoData" ).keypress(function() {
-		$(this).mask('00/00/0000');
+		$(this).mask('00/00/0000', { placeholder: "__/__/____" }) ;
 	});
 
 	$( ".padraoTimestamp" ).keypress(function() {
@@ -35,5 +35,11 @@ $(document).ready(function(){
 	});
 
 
-	$("#cnpj, #cpf, #telefone, #cep, #celular, #cnes, .padraoData, .padraoTimestamp").trigger("keypress");
+	$( ".padraoFloat" ).keypress(function() {
+		$(this).mask('R$ 99999999999,99' , { reverse:true});
+	});
+
+
+
+	$("#cnpj, #cpf, #telefone, #cep, #celular, #cnes, .padraoData, .padraoTimestamp, .padraoFloat").trigger("keypress");
 });

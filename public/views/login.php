@@ -5,11 +5,11 @@
 		<h1>Ocupação Hospitalar</h1>
 		<div class="inputs">
 			<input type="text" name="login" id="login" />
-			<label> Usuário </label>
+			<label for="login">Usuário</label>
 		</div>
 		<div class="inputs">
 			<input type="password" name="senha" id="senha" />
-			<label> Senha </label>
+			<label for="senha">Senha</label>
 			<i class="fas fa-eye"></i>
 		</div>
 		<div class="inputs botao">

@@ -107,7 +107,7 @@ function gerarLabels ($descricao, $sobreEscreverLabels=array(), $descricaoLabels
 
 /**
  * Transforma uma descrição de tabela em inputs
- * @package	grimoire/bibliotecas/formularios.phpgerarInputs
+ * @package	grimoire/bibliotecas/formularios.php
  * @since	21/07/2021 10:58:43
  *
  * @param	array	Resultado do comando 'show columns from table'
@@ -147,11 +147,13 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 			$atributos[] = "padraoTimestamp";
 		# campos q definem tamanho maximo [int, varchar, tinyint, decimal]
 		} elseif ($tipo == "text") {
-			$pos1 = stripos($campo['Type'], "(");
-			$maxlength = substr($campo['Type'], $pos1+1, -1);
+			$x = explode('(', $campo['Type']);
+			$x = explode(')', $x[1]);
+			$maxlength = $x[0];
 
-			// Corrige maxlength de decimais
-			if ( !is_numeric($maxlength) ) {
+
+			if ( !is_numeric($maxlength) ) { # Soma maxlength de decimais
+				$atributos[] = "padraoFloat";//. $maxlength;
 				$maxlength = explode(",", $maxlength);
 				$maxlength = (int) $maxlength[0] + $maxlength[1];
 			}
@@ -159,13 +161,13 @@ function transformarEmInputs ($descricao, $sobreEscreverCampos=array(), $padroes
 		}
 
 		foreach ($sobreEscreverCampos as $key => $value) {
-			if ($key == $campo['Field']) {
+			if ( $key == $campo['Field'] ) {
 				$tipo = $sobreEscreverCampos[$key];
 				unset($sobreEscreverCampos[$key]); // remove da lista de sobrescrição
 			}
 		}
 
-		$resposta[$campo['Field']] = construirElemento($tipo, $campo, $valor, $atributos, $padroes);
+		$resposta[$campo['Field']] = construirElemento($tipo, $campo, $valor, $atributos, $padroes, $campo['Comment']);
 	}
 
 	return $resposta;
@@ -206,7 +208,7 @@ function identificarTipoCampo ($campo)
 	return $tipo;
 }
 
-function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
+function construirElemento ($tipo, $campo, $valor, $atributos, $padroes, $comentarios)
 {
 	switch ($tipo) {
 		case "foreignKey":
@@ -275,26 +277,38 @@ function construirElemento ($tipo, $campo, $valor, $atributos, $padroes)
 			$valores = explode(",", $lista);
 
 			if ( count($valores) > 4 ) { # Se tiver mais que 4 valores converte para select
-				$resposta = gerarSelect($campo['Field'], $valores, $valor);
+
+				$x = explode(",", $comentarios);
+
+				$arrayAssociativa = array();
+				for ($i=0; $i < count($valores); $i++) {
+					$arrayAssociativa[$valores[$i]] = trim($x[$i]);
+				}
+
+				if ( empty($arrayAssociativa) ) {
+					$resposta = gerarSelect($campo['Field'], $valores, $valor);
+				} else {
+					$resposta = gerarSelect($campo['Field'], $arrayAssociativa, $valor);
+				}
 			} else {
 				$x = gerarRadio($campo['Field'], $valores, $valor);
 				$resposta = implode ("\n", $x);
 			}
 
 		break;
-		case "select":
-			$pos1 = stripos($campo['Type'], "(");
-			$lista = substr($campo['Type'], $pos1+1, -1); // Pega só o conteúdo entre paranteses
-			$lista = str_replace("'", "", $lista); // Retira aspas
-			$valores = explode(",", $lista);
+		// case "select":
+		// 	$pos1 = stripos($campo['Type'], "(");
+		// 	$lista = substr($campo['Type'], $pos1+1, -1); // Pega só o conteúdo entre paranteses
+		// 	$lista = str_replace("'", "", $lista); // Retira aspas
+		// 	$valores = explode(",", $lista);
 
-			foreach ($valores as $indice=>$val) {
-				$valoresX[$val] = $val;
-			}
-			$valores = $valoresX;
+		// 	foreach ($valores as $indice=>$val) {
+		// 		$valoresX[$val] = $val;
+		// 	}
+		// 	$valores = $valoresX;
 
-			$valores = gerarSelect($campo['Field'], $valores, $valor); # PODE DAR ERRO? colocar um if (!empty valor)
-			$resposta = $valores;
+		// 	$valores = gerarSelect($campo['Field'], $valores, $valor); # PODE DAR ERRO? colocar um if (!empty valor)
+		// 	$resposta = $valores;
 
 		break;
 		case "textEditor":

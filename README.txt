@@ -37,9 +37,6 @@ retirar select * das listas
 verificar ano selecionado em todas queries
 
 
-padronizar atualizarUrl ao alterar categoria
-	metas.js - ok
-
 
 
 <!-- tem que baixar as webfonts -->
@@ -254,3 +251,22 @@ OK ADICIONAR CAMPO
 
 
 	            INNER JOIN hospital ON hospital.id = relatorio.id_meta_hospital
+
+
+
+
+	            /**
+	             * Cria link para ligação de skype
+	             * @package	grimoire/bibliotecas/snippets.php
+	             * @since	05-07-2015
+	             *
+	             * @return	string
+	             */
+	            function skype ()
+	            {
+	            	return "
+	            		<a href='callto://+***********'>Link will initiate Skype to call my number!</a>
+	            		Skype Username:
+	            		<a href='skype:********?call'>Link will initiate Skype to call my Skype username!</a>
+	            	";
+	            }

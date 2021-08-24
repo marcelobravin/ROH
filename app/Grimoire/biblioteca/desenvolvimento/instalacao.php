@@ -930,7 +930,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 	$registro = null;
 	$remover[] = 'id';
 
-	$descricao = descreverTabela($MODULO);
+	$descricao = descreverTabela($MODULO, true);
 
 	if ( isset($remover) ) {
 		foreach ($remover as $valor) {
@@ -943,7 +943,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 	}
 
-	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
+	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes, $descricao);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -993,7 +993,7 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 {
 	$esconder[] = 'id';
 
-	$descricao = descreverTabela($MODULO);
+	$descricao = descreverTabela($MODULO, true);
 
 	if ( isset($remover) ) {
 		foreach ($remover as $valor) {
@@ -1021,7 +1021,7 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 	$y = 0;
 
 	foreach ($campos as $i => $v) {
-
+		# TODO colocar checagem para tipo select
 		if ( contem('type="checkbox"', $v) ) {
 			$campos[$i] = str_replace('checked="checked"', '<?php echo checked($obj["'.$i.'"]) ?&gt;', $v);
 		} else

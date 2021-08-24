@@ -2,7 +2,7 @@
 		/**
 		 * usuario
 		 * @package	grimoire/modelos
-		 * @version	22/08/2021 15:52:50
+		 * @version	23/08/2021 16:27:00
 		*/
 	$camposObrigatorios = array(
 'id',

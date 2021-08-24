@@ -13,15 +13,18 @@ if ( !empty($errosFormulario) ) {
 # ------------------------------------------------------------------------------ operacao
 $values = array(
 	'titulo'				=> $_POST['titulo'],
-	'ativo'					=> isset($_POST['ativo']),
+	'ativo'					=> isset($_POST['ativo']) ? 1 : 0,
 	'cnes'					=> $_POST['cnes'],
-	'cnpj'					=> $_POST['cnpj'],
+	'cnpj'					=> removerNaoNumericos($_POST['cnpj']),
 	'diretor'				=> $_POST['diretor'],
 	'segundo_responsavel'	=> $_POST['segundo_responsavel'],
+	'cep'					=> removerNaoNumericos($_POST['cep']),
 	'endereco'				=> $_POST['endereco'],
-	'cep'					=> $_POST['cep'],
+	'bairro'				=> $_POST['bairro'],
+	'cidade'				=> $_POST['cidade'],
+	'uf'					=> $_POST['uf'],
 	'telefone'				=> $_POST['telefone'],
-	'email'					=> $_POST['email'],
+	'email	'				=> $_POST['email'],
 
 	'criado_por'			=> $_SESSION['user']['id']
 );

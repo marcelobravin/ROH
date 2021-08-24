@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Tempo de geração: 16-Ago-2021 às 19:25
+-- Tempo de geração: 23-Ago-2021 às 20:44
 -- Versão do servidor: 10.4.18-MariaDB
 -- versão do PHP: 8.0.3
 
@@ -126,13 +126,17 @@ CREATE TABLE `hospital` (
   `titulo` char(255) NOT NULL,
   `ativo` tinyint(1) DEFAULT NULL,
   `cnes` int(7) NOT NULL,
-  `cnpj` bigint(14) NOT NULL,
+  `cnpj` bigint(14) DEFAULT NULL,
   `diretor` varchar(255) NOT NULL,
   `segundo_responsavel` varchar(255) NOT NULL,
-  `endereco` varchar(255) NOT NULL,
-  `cep` int(8) NOT NULL,
-  `telefone` varchar(15) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `cep` int(8) UNSIGNED ZEROFILL NOT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `bairro` varchar(255) DEFAULT NULL,
+  `cidade` varchar(255) DEFAULT NULL,
+  `uf` set('AC','AL','AP','AM','BA','CE','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO','DF') DEFAULT NULL COMMENT 'Acre,\r\nAlagoas,\r\nAmapá,\r\nAmazonas,\r\nBahia,\r\nCeará,\r\nEspírito Santo,\r\nGoiás,\r\nMaranhão,\r\nMato Grosso,\r\nMato Grosso do Sul,\r\nMinas Gerais,\r\nPará,\r\nParaíba,\r\nParaná,\r\nPernambuco,\r\nPiauí,\r\nRio de Janeiro,\r\nRio Grande do Norte,\r\nRio Grande do Sul,\r\nRondônia,\r\nRoraima,\r\nSanta Catarina,\r\nSão Paulo,\r\nSergipe,\r\nTocantins,\r\nDistrito Federal,',
+  `ibge` varchar(255) DEFAULT NULL,
+  `telefone` varchar(15) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
   `atualizado_em` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `excluido_em` datetime DEFAULT NULL,
@@ -145,25 +149,25 @@ CREATE TABLE `hospital` (
 -- Extraindo dados da tabela `hospital`
 --
 
-INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `segundo_responsavel`, `endereco`, `cep`, `telefone`, `email`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
-(1, 'Novo Hospital', 1, 0, 0, '', '', '', 0, '', '', '2021-08-10 14:48:43', '2021-08-13 15:34:46', NULL, 1, NULL, NULL),
-(3, 'São Luiz Gonzaga', 1, 0, 0, 'Naor', 'Segundo responsável', 'Endereço: R. Michel Ouchana, 94 - Jaçanã, São Paulo - SP, 02276-140', 0, '(11) 3466-1000', 'usuario@email.com', '2021-07-21 15:37:17', '2021-08-11 14:43:24', NULL, 21, NULL, NULL),
-(4, 'Luzia de Pinho Melo', 1, 0, 0, '', '', '', 0, '', '', '2021-07-23 09:08:14', '2021-08-09 11:01:55', NULL, 21, NULL, NULL),
-(29, 'São Deus II', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:38:37', '2021-08-10 13:59:31', '2021-08-10 13:59:31', 1, NULL, 1),
-(30, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:40:37', '2021-08-07 00:57:08', '2021-08-07 00:57:08', 1, NULL, 1),
-(31, 'José D\'Ávila II', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:41:19', '2021-08-11 09:56:36', '2021-08-07 00:57:14', 1, NULL, 1),
-(32, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:43:39', '2021-08-07 14:50:44', '2021-08-07 14:50:44', 1, NULL, 1),
-(33, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:44:10', '2021-08-07 00:57:04', '2021-08-07 00:57:04', 1, NULL, 1),
-(34, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:44:24', '2021-08-07 14:50:51', '2021-08-07 14:50:51', 1, NULL, 1),
-(35, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:44:38', '2021-08-07 00:56:54', '2021-08-07 00:56:54', 1, NULL, 1),
-(36, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:44:45', '2021-08-07 14:50:55', '2021-08-07 14:50:55', 1, NULL, 1),
-(37, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:45:19', '2021-08-07 14:50:29', '2021-08-07 14:50:29', 1, NULL, 1),
-(38, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:45:31', '2021-08-07 14:50:32', '2021-08-07 14:50:32', 1, NULL, 1),
-(39, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:46:17', '2021-08-07 14:50:38', '2021-08-07 14:50:38', 1, NULL, 1),
-(40, 'São Deus', 0, 0, 0, '', '', '', 0, '', '', '2021-08-06 11:48:44', '2021-08-07 14:50:59', '2021-08-07 14:50:59', 1, NULL, 1),
-(42, '<script>alert(\"vc sofreu um ataque XSS \")</script>', 0, 0, 0, '', '', '', 0, '', '', '2021-08-07 15:01:35', '2021-08-10 13:59:19', '2021-08-10 13:59:19', 1, NULL, 1),
-(43, 'CARLOS ALBERTO DE NOBREGA JUNIOR', 1, 0, 0, '', '', '', 0, '', '', '2021-08-09 15:30:41', '2021-08-10 14:23:15', NULL, 1, NULL, NULL),
-(45, 'Luzia de Pinho Melo', 1, 0, 0, '', '', '', 0, '', '', '2021-08-10 13:59:10', NULL, NULL, 1, NULL, NULL);
+INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `segundo_responsavel`, `cep`, `endereco`, `bairro`, `cidade`, `uf`, `ibge`, `telefone`, `email`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
+(1, 'Novo Hospital', 1, 312123, 12132123123132, 'Décio Carvalho', 'Décio Carvalho Júnior', 08710190, 'Rua Capitão Manoel Caetano', NULL, NULL, NULL, NULL, '', '', '2021-08-10 14:48:43', '2021-08-23 15:43:16', NULL, 1, 1, NULL),
+(3, 'São Luiz Gonzaga', 1, 0, 0, 'Naor', 'Segundo responsável', 00000000, 'Endereço: R. Michel Ouchana, 94 - Jaçanã, São Paulo - SP, 02276-140', NULL, NULL, NULL, NULL, '(11) 3466-1000', 'usuario@email.com', '2021-07-21 15:37:17', '2021-08-11 14:43:24', NULL, 21, NULL, NULL),
+(4, 'Luzia de Pinho Melo', 1, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-07-23 09:08:14', '2021-08-09 11:01:55', NULL, 21, NULL, NULL),
+(29, 'São Deus II', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:38:37', '2021-08-10 13:59:31', '2021-08-10 13:59:31', 1, NULL, 1),
+(30, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:40:37', '2021-08-07 00:57:08', '2021-08-07 00:57:08', 1, NULL, 1),
+(31, 'José D\'Ávila II', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:41:19', '2021-08-11 09:56:36', '2021-08-07 00:57:14', 1, NULL, 1),
+(32, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:43:39', '2021-08-07 14:50:44', '2021-08-07 14:50:44', 1, NULL, 1),
+(33, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:44:10', '2021-08-07 00:57:04', '2021-08-07 00:57:04', 1, NULL, 1),
+(34, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:44:24', '2021-08-07 14:50:51', '2021-08-07 14:50:51', 1, NULL, 1),
+(35, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:44:38', '2021-08-07 00:56:54', '2021-08-07 00:56:54', 1, NULL, 1),
+(36, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:44:45', '2021-08-07 14:50:55', '2021-08-07 14:50:55', 1, NULL, 1),
+(37, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:45:19', '2021-08-07 14:50:29', '2021-08-07 14:50:29', 1, NULL, 1),
+(38, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:45:31', '2021-08-07 14:50:32', '2021-08-07 14:50:32', 1, NULL, 1),
+(39, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:46:17', '2021-08-07 14:50:38', '2021-08-07 14:50:38', 1, NULL, 1),
+(40, 'São Deus', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-06 11:48:44', '2021-08-07 14:50:59', '2021-08-07 14:50:59', 1, NULL, 1),
+(42, '<script>alert(\"vc sofreu um ataque XSS \")</script>', 0, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-07 15:01:35', '2021-08-10 13:59:19', '2021-08-10 13:59:19', 1, NULL, 1),
+(43, 'CARLOS ALBERTO DE NOBREGA JUNIOR', 1, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-09 15:30:41', '2021-08-10 14:23:15', NULL, 1, NULL, NULL),
+(45, 'Luzia de Pinho Melo', 1, 0, 0, '', '', 00000000, '', NULL, NULL, NULL, NULL, '', '', '2021-08-10 13:59:10', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -211,17 +215,48 @@ INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `
 (35, 42, 12, 0, 0, '2021-08-07 18:06:26', NULL, NULL, 1, NULL, NULL),
 (36, 42, 11, 0, 0, '2021-08-07 18:06:26', NULL, NULL, 1, NULL, NULL),
 (37, 42, 14, 0, 0, '2021-08-07 18:06:26', NULL, NULL, 1, NULL, NULL),
-(38, 43, 10, 10, 1, '2021-08-09 16:06:18', NULL, NULL, 1, NULL, NULL),
-(39, 43, 13, 50, 1, '2021-08-09 16:06:18', NULL, NULL, 1, NULL, NULL),
-(40, 43, 12, 0, 0, '2021-08-09 16:06:18', NULL, NULL, 1, NULL, NULL),
-(41, 43, 11, 0, 0, '2021-08-09 16:06:19', NULL, NULL, 1, NULL, NULL),
-(42, 43, 14, 0, 0, '2021-08-09 16:06:19', NULL, NULL, 1, NULL, NULL),
+(38, 43, 10, 10, 1, '2021-08-09 16:06:18', '2021-08-19 11:06:55', NULL, 1, 1, NULL),
+(39, 43, 13, 11, 1, '2021-08-09 16:06:18', '2021-08-19 11:06:49', NULL, 1, 1, NULL),
+(40, 43, 12, 12, 1, '2021-08-09 16:06:18', '2021-08-19 11:07:01', NULL, 1, 1, NULL),
+(41, 43, 11, 13, 1, '2021-08-09 16:06:19', '2021-08-19 11:07:12', NULL, 1, 1, NULL),
+(42, 43, 14, 14, 1, '2021-08-09 16:06:19', '2021-08-19 11:07:12', NULL, 1, 1, NULL),
 (48, 1, 34, 60, 1, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL),
 (49, 1, 33, 200, 1, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL),
 (50, 1, 35, 20, 1, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL),
 (51, 1, 36, 0, 0, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL),
 (52, 1, 32, 0, 0, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL),
-(53, 1, 31, 0, 0, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL);
+(53, 1, 31, 0, 0, '2021-08-10 14:56:08', NULL, NULL, 1, NULL, NULL),
+(54, 43, 28, 70, 1, '2021-08-19 11:03:55', '2021-08-19 11:20:40', NULL, 1, 1, NULL),
+(55, 43, 27, 71, 1, '2021-08-19 11:03:55', '2021-08-19 11:20:40', NULL, 1, 1, NULL),
+(56, 43, 29, 72, 1, '2021-08-19 11:03:55', '2021-08-19 11:20:40', NULL, 1, 1, NULL),
+(57, 43, 30, 73, 1, '2021-08-19 11:03:56', '2021-08-19 11:20:40', NULL, 1, 1, NULL),
+(58, 43, 26, 74, 1, '2021-08-19 11:03:56', '2021-08-19 11:20:41', NULL, 1, 1, NULL),
+(59, 43, 25, 75, 1, '2021-08-19 11:03:56', '2021-08-19 11:20:41', NULL, 1, 1, NULL),
+(80, 43, 34, 20, 1, '2021-08-19 11:07:33', NULL, NULL, 1, NULL, NULL),
+(81, 43, 33, 21, 1, '2021-08-19 11:07:33', NULL, NULL, 1, NULL, NULL),
+(82, 43, 35, 22, 1, '2021-08-19 11:07:33', NULL, NULL, 1, NULL, NULL),
+(83, 43, 36, 23, 1, '2021-08-19 11:07:33', NULL, NULL, 1, NULL, NULL),
+(84, 43, 32, 24, 1, '2021-08-19 11:07:33', NULL, NULL, 1, NULL, NULL),
+(85, 43, 31, 25, 1, '2021-08-19 11:07:33', NULL, NULL, 1, NULL, NULL),
+(86, 43, 2, 40, 1, '2021-08-19 11:16:04', NULL, NULL, 1, NULL, NULL),
+(87, 43, 1, 41, 1, '2021-08-19 11:16:04', NULL, NULL, 1, NULL, NULL),
+(88, 43, 4, 42, 1, '2021-08-19 11:16:04', NULL, NULL, 1, NULL, NULL),
+(89, 43, 3, 43, 1, '2021-08-19 11:16:04', NULL, NULL, 1, NULL, NULL),
+(90, 43, 15, 30, 1, '2021-08-19 11:16:26', NULL, NULL, 1, NULL, NULL),
+(91, 43, 18, 31, 1, '2021-08-19 11:16:26', NULL, NULL, 1, NULL, NULL),
+(92, 43, 17, 32, 1, '2021-08-19 11:16:26', NULL, NULL, 1, NULL, NULL),
+(93, 43, 16, 33, 1, '2021-08-19 11:16:26', NULL, NULL, 1, NULL, NULL),
+(94, 43, 19, 34, 1, '2021-08-19 11:16:26', NULL, NULL, 1, NULL, NULL),
+(95, 43, 5, 50, 1, '2021-08-19 11:16:50', NULL, NULL, 1, NULL, NULL),
+(96, 43, 8, 51, 1, '2021-08-19 11:16:50', NULL, NULL, 1, NULL, NULL),
+(97, 43, 7, 52, 1, '2021-08-19 11:16:50', NULL, NULL, 1, NULL, NULL),
+(98, 43, 6, 53, 1, '2021-08-19 11:16:51', NULL, NULL, 1, NULL, NULL),
+(99, 43, 9, 54, 1, '2021-08-19 11:16:51', NULL, NULL, 1, NULL, NULL),
+(100, 43, 20, 60, 1, '2021-08-19 11:17:12', '2021-08-19 11:17:23', NULL, 1, 1, NULL),
+(101, 43, 23, 61, 1, '2021-08-19 11:17:12', '2021-08-19 11:17:23', NULL, 1, 1, NULL),
+(102, 43, 22, 62, 1, '2021-08-19 11:17:12', '2021-08-19 11:17:23', NULL, 1, 1, NULL),
+(103, 43, 21, 63, 1, '2021-08-19 11:17:12', '2021-08-19 11:17:23', NULL, 1, 1, NULL),
+(104, 43, 24, 64, 1, '2021-08-19 11:17:12', '2021-08-19 11:17:23', NULL, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -246,15 +281,17 @@ CREATE TABLE `resultado` (
 --
 
 INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`) VALUES
-(1, 6, 10, 8, 2021, '', 0, '2021-08-07 00:52:22', 1),
-(2, 7, 2, 8, 2021, '', 0, '2021-08-07 00:52:22', 1),
-(3, 8, 3, 8, 2021, '', 0, '2021-08-07 00:52:22', 1),
-(4, 10, 1, 8, 2021, '<script>alert(\"vc sofreu um ataque XSS \")</script>', 0, '2021-08-07 00:52:22', 1),
-(5, 33, 1, 8, 2021, '<script>alert(\"vc sofreu um ataque XSS \")</script>', 0, '2021-08-07 18:06:41', 1),
-(6, 38, 1, 8, 2021, 'lokopkpok', 0, '2021-08-09 16:10:35', 1),
-(7, 48, 10, 8, 2021, 'houve um problema', 0, '2021-08-10 14:59:29', 1),
-(8, 49, 201, 8, 2021, '', 0, '2021-08-10 14:59:29', 1),
-(9, 50, 9, 8, 2021, 'houve mais um problema', 0, '2021-08-10 14:59:30', 1);
+(24, 39, 1, 8, 2021, '', 0, '2021-08-19 09:56:22', 1),
+(25, 38, 2, 8, 2021, '', 0, '2021-08-19 10:14:27', 1),
+(26, 40, 1, 8, 2021, '', 0, '2021-08-19 12:12:37', 1),
+(27, 41, 2, 8, 2021, '', 0, '2021-08-19 12:12:37', 1),
+(28, 42, 3, 8, 2021, '3333', 0, '2021-08-19 12:12:38', 1),
+(29, 80, 5, 8, 2021, '', 0, '2021-08-19 15:30:33', 1),
+(30, 81, 22, 8, 2021, '', 0, '2021-08-19 15:30:33', 1),
+(31, 82, 20, 8, 2021, '', 0, '2021-08-19 15:30:34', 1),
+(32, 83, 2, 8, 2021, '', 0, '2021-08-19 15:30:34', 1),
+(33, 84, 4, 8, 2021, '', 0, '2021-08-19 15:30:34', 1),
+(34, 85, 9, 8, 2021, '', 0, '2021-08-19 15:30:34', 1);
 
 -- --------------------------------------------------------
 
@@ -289,8 +326,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id`, `login`, `senha`, `email_confirmado`, `token`, `ativo`, `reset`, `telefone`, `celular`, `nome`, `cargo`, `endereco`, `cpf`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
-(1, 'usuario@email.com', '$2y$12$TVnPBAOX7b6bIiygqf2pJOdBz5j9zAEBRkovyr.UZDJ4d635VUg.q', 1, '', 0, '', '1147964069', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '307.485.238-04', '2021-07-02 10:21:37', '2021-08-13 08:54:16', NULL, 1, 1, 21),
-(32, 'mesnovaes@prefeitura.sp.gov.br', '$2y$12$V6IPH1Q/Nrv./iBP6lf2pu9b91c67uAEsw0P0m/QuCoSygyHKKOrq', 0, NULL, 0, NULL, '', 0, 'Meire Ellen', '', '', '338.059.850-02', '2021-08-09 14:08:05', NULL, NULL, 1, NULL, NULL);
+(1, 'usuario@email.com', '$2y$12$TVnPBAOX7b6bIiygqf2pJOdBz5j9zAEBRkovyr.UZDJ4d635VUg.q', 1, '', 0, '', '1147964069', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '307.485.238-04', '2021-07-02 10:21:37', '2021-08-23 15:39:15', NULL, 1, 1, 21),
+(32, 'mesnovaes@prefeitura.sp.gov.br', '$2y$12$V6IPH1Q/Nrv./iBP6lf2pu9b91c67uAEsw0P0m/QuCoSygyHKKOrq', 0, NULL, 0, NULL, '', 0, 'Meire Ellen', '', '', '338.059.850-02', '2021-08-09 14:08:05', NULL, NULL, 1, NULL, NULL),
+(39, 'markness000@gmail.com', '$2y$12$Mz1gtEdxb9grY92xdQvLR.M7Y1dw704GCEDTDdvsvsHVFgBcgVcVa', 1, '', 0, NULL, '1195989039', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '547.533.270-35', '2021-08-23 08:34:12', '2021-08-23 15:39:33', NULL, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -336,7 +374,29 @@ INSERT INTO `_log_acesso` (`id`, `id_usuario`, `sucesso`, `ip`, `navegador`, `da
 (54, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-16 12:57:16'),
 (55, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-16 12:59:20'),
 (56, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-16 13:00:03'),
-(57, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-16 14:39:29');
+(57, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-16 14:39:29'),
+(58, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-17 14:08:05'),
+(59, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-17 16:55:47'),
+(60, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-17 17:53:19'),
+(61, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-17 19:22:29'),
+(62, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-18 12:48:14'),
+(63, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-18 15:27:55'),
+(64, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-18 17:12:45'),
+(65, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 12:55:18'),
+(66, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:01:23'),
+(67, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 17:26:20'),
+(68, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-20 10:50:39'),
+(69, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-20 12:08:02'),
+(70, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-20 13:41:22'),
+(71, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-20 14:48:12'),
+(72, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-20 17:44:12'),
+(73, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 10:53:51'),
+(74, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 11:33:42'),
+(75, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 12:04:51'),
+(76, 32, 0, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 13:15:02'),
+(77, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 13:15:15'),
+(78, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 17:52:43'),
+(79, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 18:39:06');
 
 -- --------------------------------------------------------
 
@@ -360,9 +420,57 @@ CREATE TABLE `_log_operacoes` (
 --
 
 INSERT INTO `_log_operacoes` (`id`, `id_usuario`, `acao`, `tabela`, `objetoId`, `ip`, `navegador`, `datahora`) VALUES
-(24, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:53:13'),
-(25, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:53:57'),
-(26, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-13 11:54:16');
+(33, 1, 'U', 'meta', 38, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:06:49'),
+(34, 1, 'U', 'meta', 39, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:06:49'),
+(35, 1, 'U', 'meta', 40, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:06:49'),
+(36, 1, 'U', 'meta', 41, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:06:49'),
+(37, 1, 'U', 'meta', 42, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:06:49'),
+(38, 1, 'U', 'meta', 38, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:06:55'),
+(39, 1, 'U', 'meta', 40, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:01'),
+(40, 1, 'U', 'meta', 41, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:12'),
+(41, 1, 'U', 'meta', 42, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:12'),
+(42, 1, 'I', 'meta', 80, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:33'),
+(43, 1, 'I', 'meta', 81, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:33'),
+(44, 1, 'I', 'meta', 82, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:33'),
+(45, 1, 'I', 'meta', 83, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:33'),
+(46, 1, 'I', 'meta', 84, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:33'),
+(47, 1, 'I', 'meta', 85, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:07:33'),
+(48, 1, 'I', 'meta', 86, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:04'),
+(49, 1, 'I', 'meta', 87, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:04'),
+(50, 1, 'I', 'meta', 88, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:04'),
+(51, 1, 'I', 'meta', 89, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:04'),
+(52, 1, 'I', 'meta', 90, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:26'),
+(53, 1, 'I', 'meta', 91, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:26'),
+(54, 1, 'I', 'meta', 92, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:26'),
+(55, 1, 'I', 'meta', 93, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:26'),
+(56, 1, 'I', 'meta', 94, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:26'),
+(57, 1, 'I', 'meta', 95, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:50'),
+(58, 1, 'I', 'meta', 96, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:50'),
+(59, 1, 'I', 'meta', 97, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:51'),
+(60, 1, 'I', 'meta', 98, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:51'),
+(61, 1, 'I', 'meta', 99, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:16:51'),
+(62, 1, 'I', 'meta', 100, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:12'),
+(63, 1, 'I', 'meta', 101, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:12'),
+(64, 1, 'I', 'meta', 102, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:12'),
+(65, 1, 'I', 'meta', 103, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:12'),
+(66, 1, 'I', 'meta', 104, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:12'),
+(67, 1, 'U', 'meta', 100, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:23'),
+(68, 1, 'U', 'meta', 101, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:23'),
+(69, 1, 'U', 'meta', 102, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:23'),
+(70, 1, 'U', 'meta', 103, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:23'),
+(71, 1, 'U', 'meta', 104, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:17:23'),
+(72, 1, 'U', 'meta', 54, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:20:40'),
+(73, 1, 'U', 'meta', 55, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:20:40'),
+(74, 1, 'U', 'meta', 56, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:20:40'),
+(75, 1, 'U', 'meta', 57, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:20:41'),
+(76, 1, 'U', 'meta', 58, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:20:41'),
+(77, 1, 'U', 'meta', 59, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-19 14:20:41'),
+(78, 1, 'I', 'usuario', 39, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 11:34:12'),
+(79, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 12:13:45'),
+(80, 1, 'U', 'usuario', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 18:39:15'),
+(81, 1, 'U', 'usuario', 39, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 18:39:33'),
+(82, 1, 'U', 'hospital', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 18:42:15'),
+(83, 1, 'U', 'hospital', 1, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (X11; Linux x86_64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/91.0.4472.114 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Unknown OS Platform\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-08-23 18:43:17');
 
 --
 -- Índices para tabelas despejadas
@@ -457,31 +565,31 @@ ALTER TABLE `hospital`
 -- AUTO_INCREMENT de tabela `meta`
 --
 ALTER TABLE `meta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT de tabela `resultado`
 --
 ALTER TABLE `resultado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de tabela `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT de tabela `_log_operacoes`
 --
 ALTER TABLE `_log_operacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- Restrições para despejos de tabelas
