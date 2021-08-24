@@ -1,4 +1,4 @@
--- 22/08/2021 15:53:12
+-- 24/08/2021 17:38:23
 ALTER TABLE `usuario` ADD UNIQUE KEY `cpf` (cpf);
 ALTER TABLE `usuario` ADD UNIQUE KEY `login` (login);
 ALTER TABLE `meta` ADD UNIQUE KEY `meta_uq` (id_hospital,id_elemento);

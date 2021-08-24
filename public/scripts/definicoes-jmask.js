@@ -28,7 +28,7 @@ $(document).ready(function(){
 
 
 	$( ".padraoData" ).keypress(function() {
-		$(this).mask('00/00/0000', { placeholder: "__/__/____" }) ;
+		$(this).mask('00/00/0000', { placeholder: "__/__/____" });
 	});
 
 	$( ".padraoTimestamp" ).keypress(function() {

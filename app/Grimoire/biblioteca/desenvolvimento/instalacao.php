@@ -993,8 +993,11 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 	}
 
-	$registro = localizar("__exemplo", 1); ##################################### TODO tirar
-	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
+	// $registro = localizar("__exemplo", 1); ##################################### TODO tirar
+	// $registro['data'] = converterData($registro['data']);
+	// $campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
+
+	$campos = gerarInputs($descricao, null, $sobreEscreverCampos, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	return montarTemplate($campos, $labels, $esconder);

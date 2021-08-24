@@ -2,7 +2,7 @@
 		/**
 		 * __exemplo
 		 * @package	grimoire/modelos
-		 * @version	24/08/2021 16:23:51
+		 * @version	24/08/2021 17:38:51
 		*/
 	$mapaTamanhos = array(
 'id' => array('maximo' => 11),
@@ -16,11 +16,9 @@
 'cpf' => array('maximo' => 14),
 'endereco' => array('maximo' => 255),
 'ip' => array('maximo' => 15),
-'login' => array('maximo' => 60),
 'mes' => array('maximo' => 2),
 'objetoId' => array('maximo' => 11),
 'quantidade' => array('maximo' => 3),
-'reset' => array('maximo' => 50),
 'resultado' => array('maximo' => 3),
 'senha' => array('maximo' => 60),
 'sucesso' => array('maximo' => 1),

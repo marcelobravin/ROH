@@ -128,7 +128,7 @@ function calcularIdade ($dataNascimento)
  */
 function converterData ($data, $br=true)
 {
-	if ($br) {
+	if ( $br ) {
 		$separadorAntigo	= "-";
 		$separador			= "/";
 	} else {
@@ -138,6 +138,7 @@ function converterData ($data, $br=true)
 
 	$data = explode($separadorAntigo, $data);
 	$data = $data[2] . $separador . $data[1] . $separador . $data[0];
+
 	return $data;
 }
 

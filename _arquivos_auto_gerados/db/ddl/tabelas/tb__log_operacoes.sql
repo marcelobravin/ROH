@@ -1,4 +1,4 @@
--- 22/08/2021 15:53:11
+-- 24/08/2021 17:38:22
 CREATE TABLE IF NOT EXISTS _log_operacoes (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	id_usuario int(11) NOT NULL COMMENT 'Id do usuário que realizou a operação',
