@@ -1,4 +1,4 @@
-<!-- 23/08/2021 16:27:00 -->
+<!-- 24/08/2021 10:04:00 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="titulo" title="Descrição do Título">Título <span class="simbolo-obrigatorio">*</span></label>
@@ -42,7 +42,35 @@
 </div>
 <div>
 	<label for="uf">UF</label>
-	<select name="uf" id="uf" ><option value="AC" >Acre</option><option value="AL" >Alagoas</option><option value="AP" >Amapá</option><option value="AM" >Amazonas</option><option value="BA" >Bahia</option><option value="CE" >Ceará</option><option value="ES" >Espírito Santo</option><option value="GO" >Goiás</option><option value="MA" >Maranhão</option><option value="MT" >Mato Grosso</option><option value="MS" >Mato Grosso do Sul</option><option value="MG" >Minas Gerais</option><option value="PA" >Pará</option><option value="PB" >Paraíba</option><option value="PR" >Paraná</option><option value="PE" >Pernambuco</option><option value="PI" >Piauí</option><option value="RJ" >Rio de Janeiro</option><option value="RN" >Rio Grande do Norte</option><option value="RS" >Rio Grande do Sul</option><option value="RO" >Rondônia</option><option value="RR" >Roraima</option><option value="SC" >Santa Catarina</option><option value="SP" >São Paulo</option><option value="SE" >Sergipe</option><option value="TO" >Tocantins</option><option value="DF" >Distrito Federal</option></select>
+	<select name="uf" id="uf" >
+<option <?php echo selected($obj["uf"], "AC") ?> value="AC" >Acre</option>
+<option <?php echo selected($obj["uf"], "AL") ?> value="AL" >Alagoas</option>
+<option <?php echo selected($obj["uf"], "AP") ?> value="AP" >Amapá</option>
+<option <?php echo selected($obj["uf"], "AM") ?> value="AM" >Amazonas</option>
+<option <?php echo selected($obj["uf"], "BA") ?> value="BA" >Bahia</option>
+<option <?php echo selected($obj["uf"], "CE") ?> value="CE" >Ceará</option>
+<option <?php echo selected($obj["uf"], "ES") ?> value="ES" >Espírito Santo</option>
+<option <?php echo selected($obj["uf"], "GO") ?> value="GO" >Goiás</option>
+<option <?php echo selected($obj["uf"], "MA") ?> value="MA" >Maranhão</option>
+<option <?php echo selected($obj["uf"], "MT") ?> value="MT" >Mato Grosso</option>
+<option <?php echo selected($obj["uf"], "MS") ?> value="MS" >Mato Grosso do Sul</option>
+<option <?php echo selected($obj["uf"], "MG") ?> value="MG" >Minas Gerais</option>
+<option <?php echo selected($obj["uf"], "PA") ?> value="PA" >Pará</option>
+<option <?php echo selected($obj["uf"], "PB") ?> value="PB" >Paraíba</option>
+<option <?php echo selected($obj["uf"], "PR") ?> value="PR" >Paraná</option>
+<option <?php echo selected($obj["uf"], "PE") ?> value="PE" >Pernambuco</option>
+<option <?php echo selected($obj["uf"], "PI") ?> value="PI" >Piauí</option>
+<option <?php echo selected($obj["uf"], "RJ") ?> value="RJ" >Rio de Janeiro</option>
+<option <?php echo selected($obj["uf"], "RN") ?> value="RN" >Rio Grande do Norte</option>
+<option <?php echo selected($obj["uf"], "RS") ?> value="RS" >Rio Grande do Sul</option>
+<option <?php echo selected($obj["uf"], "RO") ?> value="RO" >Rondônia</option>
+<option <?php echo selected($obj["uf"], "RR") ?> value="RR" >Roraima</option>
+<option <?php echo selected($obj["uf"], "SC") ?> value="SC" >Santa Catarina</option>
+<option <?php echo selected($obj["uf"], "SP") ?> value="SP" >São Paulo</option>
+<option <?php echo selected($obj["uf"], "SE") ?> value="SE" >Sergipe</option>
+<option <?php echo selected($obj["uf"], "TO") ?> value="TO" >Tocantins</option>
+<option <?php echo selected($obj["uf"], "DF") ?> value="DF" >Distrito Federal</option>
+</select>
 </div>
 <div>
 	<label for="telefone">Telefone</label>
@@ -51,8 +79,4 @@
 <div>
 	<label for="email">Email</label>
 	<input maxlength="255" type="text" name="email" id="email" value="<?php echo bloquearXSS($obj["email"]) ?>" />
-</div>
-<div>
-	<label for="dinheiro">Dinheiro <span class="simbolo-obrigatorio">*</span></label>
-	<input required="required" maxlength="13" type="text" name="dinheiro" id="dinheiro" value="<?php echo bloquearXSS($obj["dinheiro"]) ?>" class="obrigatorio padraoFloat" />
 </div>

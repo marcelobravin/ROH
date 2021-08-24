@@ -88,6 +88,22 @@ function checked ($parametro, $alvo=1)
 }
 
 /**
+ * Verifica se o valor se encaixa no padrão
+ * @package	grimoire/bibliotecas/html.php
+ * @since	05-07-2015
+ * @version	07/07/2021 11:34:44
+ *
+ * @param	string
+ * @return	string
+ *
+ * @uses	html.php->gerarAtributos()
+ */
+function selected ($parametro, $alvo=1)
+{
+	return marcado($parametro, $alvo, false);
+}
+
+/**
  * Gera uma lista com itens simples
  * @package	grimoire/bibliotecas/html.php
  * @version	05-07-2015
@@ -505,12 +521,14 @@ function gerarOptions ($valores=array(), $indiceSelecionado=null, $atributos=arr
 
 		$atributos = gerarAtributos($atributos);
 		foreach ($valores as $indice => $valor) {
+			$options .= "\n";
 			if ($indice == $indiceSelecionado || $valor == $indiceSelecionado) {
 				$options .= option($valor, $indice, true, $atributos);
 			} else {
 				$options .= option($valor, $indice, false, $atributos);
 			}
 		}
+		$options .= "\n";
 	}
 
 	return $options;

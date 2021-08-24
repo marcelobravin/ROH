@@ -262,7 +262,11 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 			$statement->execute($valores);
 		} else {
-			$statement->execute(array($valores));
+			if ($interrogacoes >= 1) {
+				$statement->execute(array($valores)); # id
+			} else {
+				$statement->execute(); # count(*)
+			}
 		}
 
 		switch ( $processo ) {

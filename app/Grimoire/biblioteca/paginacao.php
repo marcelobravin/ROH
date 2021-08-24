@@ -426,9 +426,9 @@ function paginationCore ($tabela, $linksPaginasExibir=PAGINACAO_PAE)
 
 	$where = defineCriteriosBusca($_GET);
 
-	$list = selecionar($tabela, $where, '', 'count(*)');
+	$numeroRegistros = localizar($tabela, $where, '', 'count(*)');
+	$numeroRegistros = $numeroRegistros['count(*)'];
 
-	$numeroRegistros = $list[0]['count(*)'];
 	$linksPaginacao = paginar($numeroRegistros, $numeroRegistrosPorPagina, $linksPaginasExibir);
 
 	$limites = definirLimites($numeroRegistrosPorPagina);

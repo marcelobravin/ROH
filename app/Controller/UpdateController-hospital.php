@@ -28,7 +28,7 @@ $campos = array(
 	'cidade'				=> $_POST['cidade'],
 	'uf'					=> $_POST['uf'],
 	'telefone'				=> $_POST['telefone'],
-	'email	'				=> $_POST['email'],
+	'email'					=> $_POST['email'],
 
 	'atualizado_por'		=> $_SESSION['user']['id']
 );

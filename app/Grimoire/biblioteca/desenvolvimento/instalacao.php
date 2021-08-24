@@ -939,7 +939,6 @@ function registrartFKs ($fks)
  */
 function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverCampos=array(), $remover=array(), $esconder=array(), $descricaoLabels=array(), $padroes=array())
 {
-	$registro = null;
 	$remover[] = 'id';
 
 	$descricao = descreverTabela($MODULO, true);
@@ -955,7 +954,7 @@ function gerarFormulario ($MODULO, $sobreEscreverLabels=array(), $sobreEscreverC
 		}
 	}
 
-	$campos = gerarInputs($descricao, $registro, $sobreEscreverCampos, $padroes);
+	$campos = gerarInputs($descricao, null, $sobreEscreverCampos, $padroes);
 	$labels = gerarLabels($descricao, $sobreEscreverLabels, $descricaoLabels);
 
 	return montarTemplate($campos, $labels, $esconder);
@@ -1032,8 +1031,25 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 	$d = array_values($descricao);
 	$y = 0;
 
+	# todo encapsular em adiciona exibição de valor/estado php
 	foreach ($campos as $i => $v) {
-		# TODO colocar checagem para tipo select
+		if ( contem('<select ', $v) ) {
+
+			$vazio = str_replace("<select", "", $v);
+			$x = explode('option value="', $vazio);
+			unset($x[0]);
+
+			$valores = array();
+			foreach ($x as $value) {
+				$z = explode('"', $value);
+				$valores[] = $z[0];
+			}
+
+			$campos[$i] = str_replace('option value=', 'option <?php echo selected($obj["'.$i.'"], "xxx") ?&gt; value=', $v);
+			foreach ($valores as $value) {
+				$campos[$i] = substituirOcorrencia('xxx', $value, $campos[$i]);
+			}
+		} else
 		if ( contem('type="checkbox"', $v) ) {
 			$campos[$i] = str_replace('checked="checked"', '<?php echo checked($obj["'.$i.'"]) ?&gt;', $v);
 		} else
@@ -1047,7 +1063,7 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 			$campos[$i] = str_replace(' />', ' <?php echo checked($obj["'.$i.'"], "xxx") ?&gt; />', $v);
 
 			foreach ($x as $p) {
-				$campos[$i] = substituirOcorrencia ('xxx', $p, $campos[$i]);
+				$campos[$i] = substituirOcorrencia('xxx', $p, $campos[$i]);
 			}
 		}
 		$y++;

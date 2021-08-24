@@ -501,6 +501,9 @@ function removeEspacoEsimbolo ($contents)
 	return $response;
 }
 
+/**
+ * Realiza substituição de primeira ocorrência de um texto
+ */
 function substituirOcorrencia ($needle, $replace, $haystack)
 {
 	$pos = strpos($haystack, $needle);
