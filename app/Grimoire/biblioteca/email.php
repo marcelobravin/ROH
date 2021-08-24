@@ -155,5 +155,5 @@ function enviarEmailConfirmacao ()
 		die("Erro ao enviar email");
 	}
 
-	return enviarEmail($user['login'], $assunto, $body, "Nome Remetente", "Automatico");
+	return enviarEmail($user['login'], $assunto, $body, "ROH Remetente", "Automatico");
 }

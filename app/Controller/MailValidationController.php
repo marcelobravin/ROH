@@ -13,6 +13,9 @@ $condicoes = array(
 );
 $user = selecionar('usuario', $condicoes);
 
+// exibir($condicoes, true);
+
+
 if ( empty($user) ) {
 	die("Token inválido!");
 }
@@ -37,4 +40,5 @@ if ( $rowCount == 0 ) {
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 }
 
-header('Location: ../../lista.php?modulo=usuario');
+voltar();
+// header('Location: ../../lista.php?modulo=usuario');

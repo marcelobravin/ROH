@@ -1,8 +1,7 @@
--- 24/08/2021 17:50:00
+-- 24/08/2021 18:51:38
 CREATE TABLE IF NOT EXISTS hospital (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	titulo char(255) NOT NULL,
-	dinheirinhos decimal(9,2) NOT NULL,
 	ativo tinyint(1),
 	cnes int(7) NOT NULL,
 	cnpj bigint(14),

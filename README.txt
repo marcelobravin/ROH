@@ -9,6 +9,12 @@ anotações giovani
 
 
 
+email remetente constar endereço do servidor
+nome remetente
+
+
+não contar sessão expirada em páginas externas
+
 
 redimensionar imagens
 retirar select * das listas

@@ -10,6 +10,7 @@ $(document).ready(function(){
 		}
 
 		const parametros = prepararParametros()
+		console.log(parametros);
 
 		if ( await requisicaoAjax(parametros) ) {
 			$('#ajaxLoader').remove()
@@ -45,6 +46,7 @@ function prepararParametros ()
 
 function requisicaoAjax (parametros)
 {
+	console.log(parametros);
 	return new Promise((resolve, reject)=>{
 		$.ajax({
 			type	: 'POST',
@@ -57,7 +59,7 @@ function requisicaoAjax (parametros)
 			success: data =>{
 				resolve(true)
 				localStorage.clear()
-				document.location.reload()
+				// document.location.reload()
 			},
 			error: erro =>{
 				reject(erro)

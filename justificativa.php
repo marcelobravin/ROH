@@ -12,6 +12,7 @@ $categorias	= selecionar("categoria", "", "ORDER BY titulo");
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
 $st_mesAtual = $meses[date('n')];
 $in_mesAtual = date('n');
+$in_anoAtual = date('Y');
 
 $hospitalValido = false;
 if ( isset($_GET['hospital']) ) {
@@ -50,6 +51,7 @@ if ( isset($_GET['hospital']) ) {
 			LEFT OUTER JOIN (resultado r)
 				ON r.id_meta		= m.id
 				AND r.mes			= {$in_mesAtual}
+				AND r.ano			= {$in_anoAtual}
 
 		WHERE
 			e.id_categoria	= c.id
