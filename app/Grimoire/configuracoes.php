@@ -43,8 +43,8 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
  * @var	string/bool
  */
 	# o nome do diretório é case sensitive
-	// define( 'PROJECT_NAME'			, 'ROH'); # ------------------------------- nome da pasta que contém o projeto # casa
-	define( 'PROJECT_NAME'			, 'roh');  #-------------------------------- nome da pasta que contém o projeto # trabalho
+	define( 'PROJECT_NAME'			, 'ROH'); # ------------------------------- nome da pasta que contém o projeto # casa
+	// define( 'PROJECT_NAME'			, 'roh');  #-------------------------------- nome da pasta que contém o projeto # trabalho
 	if ( PRODUCAO ) {
 		define( 'PROJECT_FOLDER'	, 'PROJETOS/'. PROJECT_NAME . '/');
 	} else {
@@ -92,7 +92,7 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
  */
 	$env = parse_ini_file(BASE.'.env'); #--------------------------------------- credenciais de DB
 	if ( !$env ) {
-		die("<h1>Arquivo .env não encontrado Verifique o nome do seu diretório do projeto</h1>");
+		die("<h1>Arquivo .env não encontrado, verifique o nome do seu diretório (PROJECT_NAME) do projeto em ".__FILE__."</h1>");
 	}
 	define( 'HOST'				, $env['HOST'] );
 	define( 'DBNAME'			, $env['BD'] );

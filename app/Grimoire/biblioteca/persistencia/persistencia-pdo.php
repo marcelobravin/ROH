@@ -238,7 +238,7 @@ function executarSequencia ($sqls)
  * Executa statement via PDO e desconecta
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
- * @version	10-06-2021
+ * @version	24/08/2021 08:17:38
  *
  * @param	string
  * @return	int/array
@@ -262,7 +262,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 			$statement->execute($valores);
 		} else {
-			$statement->execute();
+			$statement->execute(array($valores));
 		}
 
 		switch ( $processo ) {

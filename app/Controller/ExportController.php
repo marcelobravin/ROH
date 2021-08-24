@@ -60,8 +60,14 @@ $condicoes = array(
 );
 
 $matriz = executarStmt($sql, $condicoes, 'S');
+$hospital = localizar("hospital", $_GET['hospital'], "", "titulo");
 
-$titulo = 'ROH '. $_GET['ano'] .'-'. $_GET['mes'];
+
+
+$nomeArquivo = 'ROH '. $_GET['ano'] .'-'. $_GET['mes'];
+$nomeArquivo = "ROH {$hospital['titulo']} {$_GET['ano']}-{$_GET['mes']}";
+
+
 $matriz = utf8Matriz($matriz, true);
 
-excell($titulo, $matriz);
+excell($nomeArquivo, $matriz);
