@@ -2,7 +2,7 @@
 		/**
 		 * hospital
 		 * @package	grimoire/modelos
-		 * @version	24/08/2021 18:51:32
+		 * @version	28/08/2021 13:34:32
 		*/
 	$camposObrigatorios = array(
 'id',

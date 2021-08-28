@@ -17,11 +17,15 @@ foreach ($_POST['form'] as $i => $value) {
 	);
 
 	$id = inserir('resultado', $values);
+	$procedimentoOK = false;
 
 	if ( positivo($id) ) {
 		registrarOperacao('I', 'resultado', $id);
 		$resposta = "Resultados inseridos com sucesso!";
+		$procedimentoOK = true;
+
 	} else {
+		$procedimentoOK = false;
 
 		if ( contem("Duplicate entry", $id) ) {
 			$values = array(
@@ -39,6 +43,7 @@ foreach ($_POST['form'] as $i => $value) {
 			$rows = atualizar("resultado", $values, $where);
 
 			if ( positivo($rows) ) {
+				$procedimentoOK = true;
 				$id = localizar('resultado', $where, '', 'id');
 				registrarOperacao('U', 'resultado', $id['id']);
 			}
@@ -46,6 +51,10 @@ foreach ($_POST['form'] as $i => $value) {
 			$resposta = "Resultados atualizados com sucesso!";
 		}
 	}
+}
+
+if ( $procedimentoOK ) {
+	responderAjax($resposta, true, $codigo=406); # 406 Not Acceptable
 }
 
 

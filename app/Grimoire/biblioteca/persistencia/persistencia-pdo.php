@@ -505,15 +505,37 @@ function executar ($sql)
 }
 
 /**
+ * Realiza múltiplas operações no BD
+	aplicável apenas a sqls sem interrogações
  *
- */
+ * @package	grimoire/bibliotecas/persistencia-pdo.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	array
+ *
+ * @return	bool
+*/
 function executarSequencia ($sqls)
 {
-	$resultado = array();
-	foreach ($sqls as $s) {
-		$resultado[] = executar($s);
+	try {
+		$con = conexaoPersistente();
+		$con->beginTransaction();
+
+		foreach ($sqls as $sql) {
+			$stmt = $con->prepare($sql);
+			$stmt->execute();
+		}
+
+		$con->commit();
+		desconectar($con, $stmt);
+		return true;
+
+	} catch (Exception $e) {
+		$con->rollBack();
+		desconectar($con, $stmt);
+		return false;
 	}
-	return $resultado;
 }
 
 /**
@@ -763,43 +785,4 @@ function selecionarSanitizado ($tabela, $condicoes=array(), $diretrizes="", $col
 	}
 
 	return $array;
-}
-
-/**
- * Realiza múltiplas operações no BD
-	aplicável apenas a sqls sem interrogações
- *
- * @package	grimoire/bibliotecas/persistencia-pdo.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
- * @todo	mesclar com executar sequencia, que está sendo usado
-*/
-function transacao ( $sqls=array() )
-{
-	try {
-		$con = conexaoPersistente();
-		$con->beginTransaction();
-
-		foreach ($sqls as $sql) {
-			$stmt = $con->prepare($sql);
-			$stmt->execute();
-		}
-
-		$con->commit();
-		desconectar($con, $stmt);
-		return true;
-
-	} catch (Exception $e) {
-		$con->rollBack();
-		desconectar($con, $stmt);
-		return false;
-	}
 }

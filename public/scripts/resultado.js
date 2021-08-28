@@ -116,7 +116,7 @@ function requisicaoAjax (parametros)
 			success: data =>{
 				resolve(true)
 				localStorage.clear()
-				// document.location.reload()
+				document.location.reload()
 			},
 			error: erro =>{
 				reject(erro)
