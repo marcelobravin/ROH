@@ -696,7 +696,7 @@ function login ($login, $senha)
 		bloquearForcaBruta($user['id'], $conn);
 
 		if ( password_verify($senha, $user['senha']) ) {
-			$acesso = registroDeAcesso($user['id'], $ip, $browser, 1);
+			$acesso = registroDeAcesso($ip, $browser, 1, $user['id']);
 			$stm = $conn->prepare($acesso);
 			$stm->execute();
 
@@ -705,7 +705,7 @@ function login ($login, $senha)
 			$_SESSION[USUARIO_SESSAO] = $user;
 			return true;
 		} else {
-			$falhaAcesso = registroDeAcesso($user['id'], $ip, $browser, 0);
+			$falhaAcesso = registroDeAcesso($ip, $browser, 0, $user['id']);
 			$stm = $conn->prepare($falhaAcesso);
 			$stm->execute();
 		}

@@ -12,7 +12,7 @@
 				<a href="relatorio.php" title="Visualizar metas"><li>Relatório</li></a>
 			</ul>
 
-			<span><?php echo $_SESSION['user']['login'] ?></span>
+			<span><?php echo $_SESSION[USUARIO_SESSAO]['login'] ?></span>
 			<a href="app/Controller/LogoutController.php">
 				<i class="fas fa-power-off"></i>
 			</a>

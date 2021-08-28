@@ -30,7 +30,7 @@ $campos = array(
 	'telefone'				=> $_POST['telefone'],
 	'email'					=> $_POST['email'],
 
-	'atualizado_por'		=> $_SESSION['user']['id']
+	'atualizado_por'		=> $_SESSION[USUARIO_SESSAO]['id']
 );
 
 $resultado = atualizar('hospital', $campos, $condicoes);

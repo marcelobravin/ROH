@@ -13,7 +13,7 @@ foreach ($_POST['form'] as $i => $value) {
 		'ano'			=> date('Y'),
 		'resultado'		=> $value['resultado'],
 		'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
-		'criado_por'	=> $_SESSION['user']['id']
+		'criado_por'	=> $_SESSION[USUARIO_SESSAO]['id']
 	);
 
 	$id = inserir('resultado', $values);
@@ -27,7 +27,7 @@ foreach ($_POST['form'] as $i => $value) {
 			$values = array(
 				'resultado'		=> $value['resultado'],
 				'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
-				'atualizado_por'=> $_SESSION['user']['id']
+				'atualizado_por'=> $_SESSION[USUARIO_SESSAO]['id']
 			);
 
 			$where = array(

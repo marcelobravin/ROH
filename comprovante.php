@@ -12,7 +12,7 @@
 		die("Hospital não encontrado!");
 	}
 
-	$vistoriador = localizar("usuario", ['id'=>$_SESSION['user']['id']], '', 'nome');
+	$vistoriador = localizar("usuario", ['id'=>$_SESSION[USUARIO_SESSAO]['id']], '', 'nome');
 
 
 	$meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');

@@ -169,7 +169,7 @@ if ( isset($_REQUEST['action']) ) {
 				echo "Alteração de tabela {$tabela} executada!";
 				$r = executar($sql['ALTER TABLE']);
 				exibir($r);
-				$r = executarSequencia($sql['INSERT']);
+				$r = transacao($sql['INSERT']);
 				exibir($r);
 			} else {
 				exibir($sql);

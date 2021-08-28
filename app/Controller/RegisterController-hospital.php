@@ -26,7 +26,7 @@ $values = array(
 	'telefone'				=> $_POST['telefone'],
 	'email'					=> $_POST['email'],
 
-	'criado_por'			=> $_SESSION['user']['id']
+	'criado_por'			=> $_SESSION[USUARIO_SESSAO]['id']
 );
 
 $t = new Transacao();

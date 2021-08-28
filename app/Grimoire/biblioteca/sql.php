@@ -202,12 +202,15 @@ function selecao ($tabela, $criterios="", $diretrizes=null, $campos="*")
  * @param	string
  * @return	string
  */
-function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
+function registroDeAcesso ($ip, $browser, $sucesso=true, $usuarioId=0)
 {
+	if ( empty($usuarioId) ) {
+		$usuarioId = $_SESSION[USUARIO_SESSAO]['id'];
+	}
+
 	$browser = json_encode($browser);
 	return "INSERT INTO _log_acesso (id_usuario, sucesso, ip, navegador)
-		VALUES ($usuarioId, $sucesso, '$ip', '$browser')
-	";
+		VALUES ($usuarioId, $sucesso, '$ip', '$browser')";
 }
 
 /**
@@ -226,7 +229,7 @@ function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
 function exclusaoLogica ($modulo, $id)
 {
 	$campos = array(
-		'excluido_por'	=> $_SESSION['user']['id'],
+		'excluido_por'	=> $_SESSION[USUARIO_SESSAO]['id'],
 		'excluido_em'	=> agora()
 	);
 

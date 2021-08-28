@@ -26,7 +26,7 @@ $campos = array(
 	'endereco'		=> $_POST['endereco'],
 	'cpf'			=> $_POST['cpf'],
 
-	'atualizado_por'=> $_SESSION['user']['id']
+	'atualizado_por'=> $_SESSION[USUARIO_SESSAO]['id']
 );
 
 $resultado = atualizar('usuario', $campos, $condicoes);

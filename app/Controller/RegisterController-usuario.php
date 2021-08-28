@@ -25,7 +25,7 @@ $values = array(
 	'endereco'		=> $_POST['endereco'],
 	'cpf'			=> $_POST['cpf'],
 
-	'criado_por'	=> $_SESSION['user']['id']
+	'criado_por'	=> $_SESSION[USUARIO_SESSAO]['id']
 );
 
 $id = inserir('usuario', $values);

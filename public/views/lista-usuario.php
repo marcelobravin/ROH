@@ -23,8 +23,8 @@
 				<button>
 					<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $obj['id'] ?>">Editar</a>
 				</button>
-				<button <?php if ($obj['id'] == $_SESSION['user']['id']) { echo 'disabled'; } ?>>
-					<?php if ($obj['id'] == $_SESSION['user']['id']) : ?>
+				<button <?php if ($obj['id'] == $_SESSION[USUARIO_SESSAO]['id']) { echo 'disabled'; } ?>>
+					<?php if ($obj['id'] == $_SESSION[USUARIO_SESSAO]['id']) : ?>
 						<span>Excluir</span>
 					<?php else: ?>
 						<a href="app/Controller/DeleteController.php?id=<?php echo $obj['id'] ?>&modulo=usuario" class="excluir">Excluir</a>

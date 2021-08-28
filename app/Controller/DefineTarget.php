@@ -8,7 +8,7 @@ foreach ($_POST['leitos'] as $key => $value) {
 		'id_elemento'	=> $key,
 		'quantidade'	=> $value,
 		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0,
-		'criado_por'	=> $_SESSION['user']['id'],
+		'criado_por'	=> $_SESSION[USUARIO_SESSAO]['id'],
 	);
 
 	$id = inserir('meta', $values);
@@ -24,7 +24,7 @@ foreach ($_POST['leitos'] as $key => $value) {
 	$values = array(
 		'quantidade'	=> $value,
 		'ativo'			=> isset($_POST['checkbox-'. $key]) ? 1 : 0,
-		'atualizado_por'=> $_SESSION['user']['id']
+		'atualizado_por'=> $_SESSION[USUARIO_SESSAO]['id']
 	);
 
 	$where = array(

@@ -77,7 +77,7 @@ function criptografar ($senha) {
 function registrarOperacao ($acao, $tabela, $objetoId, $usuario=null)
 {
 	$values = array(
-		'id_usuario'=> empty($usuario) ? $_SESSION['user']['id'] : $usuario,
+		'id_usuario'=> empty($usuario) ? $_SESSION[USUARIO_SESSAO]['id'] : $usuario,
 		'acao'		=> $acao,
 		'tabela'	=> $tabela,
 		'objetoId'	=> $objetoId,
@@ -91,7 +91,7 @@ function registrarOperacao ($acao, $tabela, $objetoId, $usuario=null)
 function registroOperacao ($acao, $tabela, $objetoId, $usuario=null)
 {
 	$values = array(
-		'id_usuario'=> empty($usuario) ? $_SESSION['user']['id'] : $usuario,
+		'id_usuario'=> empty($usuario) ? $_SESSION[USUARIO_SESSAO]['id'] : $usuario,
 		'acao'		=> $acao,
 		'tabela'	=> $tabela,
 		'objetoId'	=> $objetoId,
