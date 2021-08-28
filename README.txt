@@ -13,7 +13,8 @@ email remetente constar endereço do servidor
 nome remetente
 
 
-não contar sessão expirada em páginas externas
+
+
 
 
 redimensionar imagens
@@ -50,9 +51,6 @@ verificar ano selecionado em todas queries
 # interessados
 	mesnovaes@prefeitura.sp.gov.br
 	giovanifranco@prefeitura.sp.gov.br
-
-
-Ajax verifica sessão ativa
 
 colocar códigos corretamente
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created

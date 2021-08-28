@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
 		<meta charset="UTF-8">
 		<title>Reset de Senha - Relatório Ocupação Hospitalar</title>

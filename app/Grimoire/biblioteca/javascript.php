@@ -123,16 +123,19 @@ function exibirJson ($resposta)
 	if ( !is_array($resposta) ) {
 		$resposta = array($resposta);
 	}
+
 	echo json_encode( $resposta );
 	exit;
 }
 
 /**
  *
- * @link	https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+ * {@link	https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status}
 */
 function montarRespostaJson ($mensagem, $status=true, $codigo=200)
 {
+	montarRespostaPost($mensagem, $status, $codigo); # 201 Created
+
 	return array(
 		'mensagem'	=> $mensagem,
 		'resultado'	=> $status,

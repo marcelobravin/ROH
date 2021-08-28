@@ -5,7 +5,7 @@ $(document).ready(function(){
 		$( "#bloco-"+ $this.val() ).fadeIn()
 		$( "#bloco-"+ $this.val() ).removeClass("invisivel")
 
-		substituirParametro('categoria', $this.val())
+		atualizarUrl('categoria', $this.val())
 	})
 
 	$("#hospital").change(function(){

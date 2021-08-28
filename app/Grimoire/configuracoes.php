@@ -1,9 +1,9 @@
 <?php
 /**
  * Constantes de configuração do projeto
- * @package grimoire
- * @since 26/07/2015
- * @version 15/07/2021 16:05:15
+ * @package	grimoire
+ * @since	26/07/2015
+ * @version	25/08/2021 08:27:28
  */
 
 /**
@@ -43,8 +43,8 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
  * @var	string/bool
  */
 	# o nome do diretório é case sensitive
-	define( 'PROJECT_NAME'			, 'ROH'); # ------------------------------- nome da pasta que contém o projeto # casa
-	// define( 'PROJECT_NAME'			, 'roh');  #-------------------------------- nome da pasta que contém o projeto # trabalho
+	// define( 'PROJECT_NAME'			, 'ROH'); # ------------------------------- nome da pasta que contém o projeto # casa
+	define( 'PROJECT_NAME'			, 'roh');  #-------------------------------- nome da pasta que contém o projeto # trabalho
 	if ( PRODUCAO ) {
 		define( 'PROJECT_FOLDER'	, 'PROJETOS/'. PROJECT_NAME . '/');
 	} else {
@@ -116,6 +116,7 @@ if ( $_SERVER['SERVER_NAME'] == 'localhost' ) {
 	define( 'INTERVALO_FORCA_BRUTA'	, '-15 minutes' ); # ----------------------- intervalo considerado para contabilizar tentativas de login inválidas
 	define( 'TEMPO_BLOQUEIO'		, 1 ); # ----------------------------------- em minutos
 	define( 'SESSAO_TTL'			, 1800 ); # -------------------------------- em segundos
+	define( 'RESTRINGIR_CONTEUDO_EXTERNO', false ); # -------------------------------- em segundos
 
 /**
  * Hotspots específicos desse projeto

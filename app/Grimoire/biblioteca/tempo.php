@@ -56,6 +56,16 @@ function agoraLimpo ($timestamp=false)
 	}
 }
 
+function mesAtual ()
+{
+	return date('n');
+
+}
+function anoAtual ()
+{
+	return date('Y');
+}
+
 /**
  *
  * @package	grimoire/bibliotecas/tempo.php
@@ -65,6 +75,7 @@ function agoraLimpo ($timestamp=false)
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
+ */
 function apos ( $dataInicial, $dataAlvo="" )
 {
 	if ( empty($dataAlvo) ) {
@@ -88,6 +99,7 @@ function apos ( $dataInicial, $dataAlvo="" )
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
+ */
 function antes ( $dataFinal, $dataAlvo="" )
 {
 	if ( empty($dataAlvo) ) {
@@ -228,9 +240,9 @@ function dateDifference ($startDate, $endDate)
  * @return	bool
  *
  * @example
-		echo days_diff("12-12-2001", "12-12-2011");
-		echo days_diff("01-08-2013", null, false);
-		echo days_diff(null, "01-09-2013");
+	echo days_diff("12-12-2001", "12-12-2011");
+	echo days_diff("01-08-2013", null, false);
+	echo days_diff(null, "01-09-2013");
  */
 function days_diff ($date_ini=null, $date_end=null, $round=true)
 {
@@ -267,9 +279,9 @@ function days_diff ($date_ini=null, $date_end=null, $round=true)
  * @return	bool
  *
  * @example
-		echo days_diff("12-12-2001", "12-12-2011");
-		echo days_diff("01-08-2013", null, false);
-		echo days_diff(null, "01-09-2013");
+	echo days_diff("12-12-2001", "12-12-2011");
+	echo days_diff("01-08-2013", null, false);
+	echo days_diff(null, "01-09-2013");
  */
 function descartarHorario ($timestamp, $ptBr=true)
 {
@@ -292,9 +304,9 @@ function descartarHorario ($timestamp, $ptBr=true)
  * @return	string
  *
  * @example
-		$data1 = '2006-07-22 12:27:00';
-		$data2 = '2006-07-23 12:20:00';
-		echo diferenca($data1, $data2);
+	$data1 = '2006-07-22 12:27:00';
+	$data2 = '2006-07-23 12:20:00';
+	echo diferenca($data1, $data2);
  */
 function diferenca ($data1, $data2)
 {
@@ -324,7 +336,6 @@ function diferenca ($data1, $data2)
 	return "$nHoras:$nMinutos:$nSegundos";
 }
 
-
 /**
  *
  * @package	grimoire/bibliotecas/tempo.php
@@ -334,9 +345,9 @@ function diferenca ($data1, $data2)
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
+	#http://php.net/manual/en/dateinterval.format.php
+	echo diferenca( $c['data'] )->format('%d days')
 */
-#http://php.net/manual/en/dateinterval.format.php
-/*echo diferenca( $c['data'] )->format('%d days')*/
 function diferenca3 ($dataInicial, $dataFinal="")
 {
 	if (empty($dataFinal)) {
@@ -467,8 +478,8 @@ function minutosEmHoras ($minutos)
  * @return	string
  *
  * @example
-		$date = "2013-06-17 17:45";
-		echo $result = nicetime($date); // 2 days ago
+	$date = "2013-06-17 17:45";
+	echo $result = nicetime($date); // 2 days ago
  */
 function nicetime ($date)
 {

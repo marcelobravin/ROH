@@ -13,7 +13,7 @@ foreach ($_POST['leitos'] as $key => $value) {
 
 	$id = inserir('meta', $values);
 
-	if ( is_numeric($id) ) {
+	if ( positivo($id) ) {
 		unset($_POST['leitos'][$key]);
 		registrarOperacao('I', 'meta', $id);
 	}

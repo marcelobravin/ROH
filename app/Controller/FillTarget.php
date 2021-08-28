@@ -5,8 +5,7 @@ if ( empty($_POST) ) {
 	responderAjax("Dados vazios!", false, $codigo=400); # 400 Bad Request
 }
 
-$idGerado = null;
-foreach ($_POST['form'] as $value) {
+foreach ($_POST['form'] as $i => $value) {
 
 	$values = array(
 		'id_meta'		=> $value['metaId'],
@@ -17,23 +16,38 @@ foreach ($_POST['form'] as $value) {
 		'criado_por'	=> $_SESSION['user']['id']
 	);
 
-	$idGerado = inserir('resultado', $values);
+	$id = inserir('resultado', $values);
 
-	if ( !positivo($idGerado) ) {
-		$resposta = "Erro ao registrar resultados do mês atual";
+	if ( positivo($id) ) {
+		registrarOperacao('I', 'resultado', $id);
+		$resposta = "Resultados inseridos com sucesso!";
+	} else {
 
-		if ( contem("Integrity constraint violation: 1062 Duplicate entry", $idGerado) ) {
-			$resposta .= "\nRegistro duplicado!";
+		if ( contem("Duplicate entry", $id) ) {
+			$values = array(
+				'resultado'		=> $value['resultado'],
+				'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
+				'atualizado_por'=> $_SESSION['user']['id']
+			);
+
+			$where = array(
+				'id_meta'		=> $value['metaId'],
+				'mes'			=> date('n'),
+				'ano'			=> date('Y'),
+			);
+
+			$rows = atualizar("resultado", $values, $where);
+
+			if ( positivo($rows) ) {
+				$id = localizar('resultado', $where, '', 'id');
+				registrarOperacao('U', 'resultado', $id['id']);
+			}
+
+			$resposta = "Resultados atualizados com sucesso!";
 		}
-		responderAjax($resposta, false, $codigo=500);
 	}
 }
 
-# sucesso
-if ( positivo($idGerado) ) {
-	$resposta = "Registrados os resultados do mês atual";
-	responderAjax($resposta, true, $codigo=201); # 201 Created
-}
 
 # erro
-responderAjax("Parametros inválidos", false, $codigo=406); # 406 Not Acceptable
+responderAjax("Nenhuma alteração", 'info', $codigo=406); # 406 Not Acceptable

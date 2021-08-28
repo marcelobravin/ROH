@@ -10,13 +10,10 @@ $(document).ready(function(){
 		}
 
 		const parametros = prepararParametros()
-		console.log(parametros);
-
 		if ( await requisicaoAjax(parametros) ) {
 			$('#ajaxLoader').remove()
 		}
 	})
-
 })
 
 function prepararParametros ()
@@ -24,21 +21,10 @@ function prepararParametros ()
 	const inputs = $("form").find("input:not(:disabled)")
 
 	var parametros = []
-
-	for (let index = 0; index < inputs.length; index++) {
+	for (let index=0; index<inputs.length; index++) {
 		const i = inputs[index]
 
-		let metaId = i["id"].split("-")
-		metaId = metaId[1]
-		const t = $("#justificativa-"+metaId)
-
-		if ( i["value"] != "" ) {
-			if ( t.val() == "" ) {
-				parametros.push( {metaId: metaId, resultado: i["value"]} )
-			} else {
-				parametros.push( {metaId: metaId, resultado: i["value"], justificativa: t.val()} )
-			}
-		}
+		parametros.push( { metaId: i.value, estado: i.checked } )
 	}
 
 	return parametros
@@ -46,7 +32,6 @@ function prepararParametros ()
 
 function requisicaoAjax (parametros)
 {
-	console.log(parametros);
 	return new Promise((resolve, reject)=>{
 		$.ajax({
 			type	: 'POST',
@@ -58,8 +43,7 @@ function requisicaoAjax (parametros)
 			},
 			success: data =>{
 				resolve(true)
-				localStorage.clear()
-				// document.location.reload()
+				document.location.reload();
 			},
 			error: erro =>{
 				reject(erro)

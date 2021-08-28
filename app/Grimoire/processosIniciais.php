@@ -1,4 +1,10 @@
 <?php
+header("X-XSS-Protection: 1; mode=block");
+
+if ( RESTRINGIR_CONTEUDO_EXTERNO ) {
+	header("content-security-policy: default-src 'self'; img-src https://*; child-src 'none';");
+}
+
 verificarManutencao();
 
 // server should keep session data for AT LEAST 1 hour
@@ -11,6 +17,13 @@ define( "LOGADO", !empty($_SESSION[USUARIO_SESSAO]) );
 
 if ( LOGADO ) {
 	verificarTempoAtividadeSessao();
+
+	if ( !validarSessao() ) {
+		finalizarSessao();
+		iniciarSessao();
+		montarRespostaPost("Alteração detectada", false, $codigo=201); # 201 Created
+		voltar();
+	}
 }
 
 $MODULOS = array('hospital', 'usuario');

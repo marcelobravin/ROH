@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo IDIOMA ?>">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,6 +58,9 @@
 	<p>
 		<strong>Hospital:</strong>
 		<?php echo $hospital['titulo'] ?>
+		<br>
+		<strong>Vistoriador(a):</strong>
+		<?php echo $vistoriador['nome'] ?>
 	</p>
 
 	<table class="larguraTotal">

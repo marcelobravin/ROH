@@ -194,19 +194,13 @@ function selecao ($tabela, $criterios="", $diretrizes=null, $campos="*")
 }
 
 /**
- * monta SQL para registro de acesso ao sistema
+ * Monta SQL para registro de acesso ao sistema
  * @package grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
  * @version	17-06-2021
  *
  * @param	string
- * @return	bool
- *
- * @uses	acesso.php->identificarIP()
- * @uses	persistencia.php->executar()
- * @example
-	gravarLog(1, "U", "produto", 15);
-	registrarOperacao("15", "C/R/U/D", "produto", "29");
+ * @return	string
  */
 function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
 {
@@ -217,7 +211,7 @@ function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
 }
 
 /**
- * Escreve o conteúdo em um arquivo
+ * Atualiza campos de exclusão de um registro
  *
  * @package	grimoire/bibliotecas/arquivos.php
  * @since	05-07-2015
@@ -228,10 +222,6 @@ function registroDeAcesso ($usuarioId, $ip, $browser, $sucesso=true)
  * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function exclusaoLogica ($modulo, $id)
 {
@@ -240,23 +230,18 @@ function exclusaoLogica ($modulo, $id)
 		'excluido_em'	=> agora()
 	);
 
-	return atualizar($modulo, $campos, [ 'id'=>$id ]);
+	return atualizar($modulo, $campos, ['id'=>$id]);
 }
 
 /**
- * monta SQL para registro de acesso ao sistema
+ *
  * @package grimoire/bibliotecas/acesso.php
  * @since	05-07-2015
  * @version	17-06-2021
  *
  * @param	string
- * @return	bool
- *
- * @uses	acesso.php->identificarIP()
- * @uses	persistencia.php->executar()
- * @example
-	gravarLog(1, "U", "produto", 15);
-	registrarOperacao("15", "C/R/U/D", "produto", "29");
+ * @param	string
+ * @return	string
  */
 function criacaoFK ($tabelaAlterada, $tabelaReferenciada)
 {

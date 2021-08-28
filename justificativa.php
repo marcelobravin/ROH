@@ -1,7 +1,7 @@
 <?php
 include 'app/Grimoire/core_inc.php';
 
-$PAGINA['titulo']		= "Verificação de Metas";
+$PAGINA['titulo']		= "Verificação de Justificativas";
 $PAGINA['subtitulo']	= DESCRICAO_SITE;
 
 

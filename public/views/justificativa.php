@@ -67,7 +67,7 @@
 												</p>
 
 												<?php if ( isset($e['resultado']) ): ?>
-													<input type="text" disabled value="<?php echo $e['resultado'] ?>" />
+													<input type="number" disabled value="<?php echo $e['resultado'] ?>" />
 												<?php else: ?>
 													<em>Meta não preenchida!</em>
 												<?php endif ?>
@@ -88,7 +88,7 @@
 												<?php if ( isset($e['resultado']) ): ?>
 													<?php if ( $e['resultado'] < $e['meta_quantidade'] ): ?>
 														<?php if ( !empty($e['justificativa']) ): ?>
-															<input type="checkbox" <?php echo $e['justificativa_aceita'] ? "checked" : "" ?> />
+															<input type="checkbox" <?php echo $e['justificativa_aceita'] ? "checked" : "" ?> value="<?php echo $e['id_meta'] ?>" />
 														<?php endif ?>
 													<?php endif ?>
 												<?php endif ?>
@@ -105,10 +105,6 @@
 								</tr>
 							</tfoot>
 						</table>
-
-						<button class="salvarTemporariamente" type="button">
-							Salvar temporariamente os dados dessa categoria
-						</button>
 
 					</div>
 

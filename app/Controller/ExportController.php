@@ -64,10 +64,8 @@ $hospital = localizar("hospital", $_GET['hospital'], "", "titulo");
 
 
 
-$nomeArquivo = 'ROH '. $_GET['ano'] .'-'. $_GET['mes'];
-$nomeArquivo = "ROH {$hospital['titulo']} {$_GET['ano']}-{$_GET['mes']}";
-
-
+$matriz = utf8Matriz($matriz, false);
 $matriz = utf8Matriz($matriz, true);
 
+$nomeArquivo = "ROH {$hospital['titulo']} {$_GET['ano']}-{$_GET['mes']}";
 excell($nomeArquivo, $matriz);

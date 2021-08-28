@@ -88,6 +88,21 @@ function registrarOperacao ($acao, $tabela, $objetoId, $usuario=null)
 	return inserir('_log_operacoes', $values);
 }
 
+function registroOperacao ($acao, $tabela, $objetoId, $usuario=null)
+{
+	$values = array(
+		'id_usuario'=> empty($usuario) ? $_SESSION['user']['id'] : $usuario,
+		'acao'		=> $acao,
+		'tabela'	=> $tabela,
+		'objetoId'	=> $objetoId,
+		'ip'		=> identificarIP(),
+		'navegador'	=> json_encode( identificarNavegador() )
+	);
+
+	return insercao('_log_operacoes', $values);
+}
+
+
 /**
  * Escreve o conteúdo em um arquivo
  *

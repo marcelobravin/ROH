@@ -3,7 +3,7 @@
 
 	/**
 	 * Erros
-	*/
+	 */
 	if ( !isset($_GET['modulo']) ) {
 		die("modulo invalido");
 	}
@@ -14,7 +14,7 @@
 
 	/**
 	 * Localização do objeto
-	*/
+	 */
 	define('MODULO', $_GET['modulo']);
 
 	$condicoes = array(
@@ -27,7 +27,7 @@
 
 	/**
 	 * Submodulos
-	*/
+	 */
 	if ( PRODUCAO ) {
 		$PAGINA['submodulo']= 'public/views/forms/'.MODULO.'-atualizacao.php';
 	} else {

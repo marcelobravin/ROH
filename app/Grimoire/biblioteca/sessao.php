@@ -39,6 +39,43 @@ function iniciarSessao ()
 }
 
 /**
+ * Define tempo de validade para o cache da sessão
+ * @package	grimoire/bibliotecas/acesso.php
+ * @version	20-07-2015
+ */
+function limitarCache ()
+{
+	session_cache_limiter('private'); # Define o limitador de cache para 'private'
+	$cache_limiter = session_cache_limiter();
+
+	session_cache_expire(SESSAO_TTL / 60);
+	$cache_expire = session_cache_expire();
+
+	session_start();
+	$_SESSION['cache_limiter'] = $cache_limiter;
+	$_SESSION['cache_expire'] = $cache_expire;
+}
+
+/**
+ *
+ * @link	https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+*/
+function montarRespostaPost ($mensagem, $status=true, $codigo=200)
+{
+	if ( is_bool($status) ) {
+		$tipo = ($status) ? "sucesso" : "erro";
+	} else {
+		$tipo = $status;
+	}
+
+	$_SESSION['operacao'] = array(
+		'mensagem'	=> $mensagem,
+		'status'	=> $tipo,
+		'codigo'	=> $codigo
+	);
+}
+
+/**
  * Verifica se a sessão foi iniciada
  * @package	grimoire/bibliotecas/acesso.php
  * @since	06/08/2021 14:17:30
@@ -55,25 +92,6 @@ function sessaoIniciada ()
 	}
 
 	return session_id() != ''; # For versions of PHP < 5.4.0
-}
-
-/**
- * Define tempo de validade para o cache da sessão
- * @package	grimoire/bibliotecas/acesso.php
- * @version	20-07-2015
- */
-/* Define o limitador de cache para 'private' */
-function limitarCache ()
-{
-	session_cache_limiter('private');
-	$cache_limiter = session_cache_limiter();
-
-	session_cache_expire(SESSAO_TTL / 60);
-	$cache_expire = session_cache_expire();
-
-	session_start();
-	$_SESSION['cache_limiter'] = $cache_limiter;
-	$_SESSION['cache_expire'] = $cache_expire;
 }
 
 /**
@@ -102,23 +120,4 @@ function unsetCookie($key, $path='', $domain='', $secure=false)
 	}
 
 	return true;
-}
-
-/**
- *
- * @link	https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
-*/
-function montarRespostaPost ($mensagem, $status=true, $codigo=200)
-{
-	if ( is_bool($status) ) {
-		$tipo = $status ? "sucesso" : "erro";
-	} else {
-		$tipo = $status;
-	}
-
-	$_SESSION['operacao'] = array(
-		'mensagem'	=> $mensagem,
-		'status'	=> $tipo,
-		'codigo'	=> $codigo
-	);
 }

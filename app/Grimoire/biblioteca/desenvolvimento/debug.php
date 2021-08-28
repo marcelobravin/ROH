@@ -10,6 +10,7 @@
  * @var	time
  * @example
 	$c1 = new Clock(); // inicia cronometro
+	$c1->mark(); // retorna tempo e número do marcador
 	echo $c1->stop(); // retorna tempo
  */
 class Clock {

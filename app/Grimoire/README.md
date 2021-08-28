@@ -2,6 +2,19 @@ senha SQ [casa] trampo BW
 cj-xfaYum4CR#rb
 
 
+
+
+
+MFA ativável
+
+
+
+https://www.nicehash.com/profitability-calculator/nvidia-rtx-3090
+planilhas
+
+
+
+
 problema no cadastrar e
     usuario erro no voltar
     não está enviando email
@@ -49,13 +62,6 @@ INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `seg
 
 
 get endereço by cep
-
-criar transacao OO
-    tem 2
-    uma realiza multiplas inserções
-    outra realiza operações
-
-
 
 
 corrige permissões de acesso conforme normas da hostagator
@@ -337,21 +343,6 @@ verificar comments table e column
 Exportar dB não deve gerar fk e sim importar as que estão em uso
 Gerar fks pode ter parâmetro pra auto gerar todas
 
-
-testar
-	transacao ( $sqls=array() )
-
-
-How can I reset $PATH to its default value in Ubuntu?
-    PATH=$(getconf PATH)
-
-    echo $PATH
-
-
-
-Reset your path right now (i.e. before any sort of logout) with:
-    export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    It doesn't get your full PATH restored but basic utilities will be available again.
 
 
 
@@ -1756,7 +1747,7 @@ function ordenado($campo="", $both="&#8597;", $asc="&#8595;", $desc="&#8593;") {
 ۞
 Ѡ
 
-isMobile () nos logs
+identificarMobile () nos logs
 
 colocar na função de erro em DEV
 	https://stackoverflow.com/search?q=constants

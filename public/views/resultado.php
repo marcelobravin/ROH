@@ -72,11 +72,7 @@
 													Meta: <?php echo $e['meta_quantidade'] ?>
 												</p>
 
-												<?php if ( isset($e['resultado']) ): ?>
-													<input type="number" disabled value="<?php echo $e['resultado'] ?>" />
-												<?php else: ?>
-													<input type="number" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
-												<?php endif ?>
+												<input type="number" min="0" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
 
 											<?php endif ?>
 										</td>
@@ -84,7 +80,7 @@
 										<td>
 											<?php if ( isset($e['meta_quantidade']) ): ?>
 												<?php if ( isset($e['resultado']) ): ?>
-													<textarea disabled><?php echo $e['justificativa'] ?></textarea>
+													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" <?php echo ($e['meta_quantidade'] < $e['resultado']) ? 'disabled' : '' ?>><?php echo $e['justificativa'] ?></textarea>
 												<?php else: ?>
 													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" disabled><?php echo $e['justificativa'] ?></textarea>
 												<?php endif ?>
@@ -128,7 +124,6 @@
 	</div>
 </div>
 
-<img src="public/img/Prefeitura-de-São-Paulo.jpg" alt="">
 
 
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">

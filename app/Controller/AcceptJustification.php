@@ -5,35 +5,34 @@ if ( empty($_POST) ) {
 	responderAjax("Dados vazios!", false, $codigo=400); # 400 Bad Request
 }
 
+$in_mesAtual = mesAtual();
+$in_anoAtual = anoAtual();
 
-// exibir($_POST);
-responderAjax('$_POST["metaId"]'. '$_POST["resultado"]', false, $codigo=400); # 400 Bad Request
 
-
-$idGerado = null;
+$resultado = array();
 foreach ($_POST['form'] as $value) {
-
-	$values = array(
-		// 'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
+	$campos = array(
+		'justificativa_aceita' => ($value['estado']=='true') ? 1 : 0
 	);
 
-	// $idGerado = inserir('resultado', $values);
+	$condicoes = array(
+		"id_meta"	=> $value['metaId'],
+		"mes"		=> $in_mesAtual, # TODO impedir modificar meses anteriores
+		"ano"		=> $in_anoAtual
+	);
 
-	// if ( !positivo($idGerado) ) {
-	// 	$resposta = "Erro ao registrar resultados do mês atual";
-
-	// 	if ( contem("Integrity constraint violation: 1062 Duplicate entry", $idGerado) ) {
-	// 		$resposta .= "\nRegistro duplicado!";
-	// 	}
-	// 	responderAjax($resposta, false, $codigo=500);
-	// }
+	$resultado[$value['metaId']] = atualizar("resultado", $campos, $condicoes);
 }
 
-# sucesso
-if ( positivo($idGerado) ) {
-	$resposta = "Registrados os resultados do mês atual";
-	responderAjax($resposta, true, $codigo=201); # 201 Created
+
+foreach ($resultado as $key => $value) {
+	# sucesso
+	if ( positivo($value) ) {
+		$resposta = "Registrado o estado de aceitação das justificativas do mês atual";
+		responderAjax($resposta, true, $codigo=201); # 201 Created
+	}
 }
 
-# erro
-responderAjax("Parametros inválidos", false, $codigo=406); # 406 Not Acceptable
+# nenhuma alteração
+$resposta = "Nenhuma alteração realizada";
+responderAjax($resposta, 'info', $codigo=201); # 201 Created

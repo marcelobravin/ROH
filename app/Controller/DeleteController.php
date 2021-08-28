@@ -1,7 +1,6 @@
 <?php
 include '../../app/Grimoire/core_inc.php';
 
-
 # verifica se modulo existe
 $whiteList = array( #colocar em configs?
 	'usuario',
@@ -9,8 +8,8 @@ $whiteList = array( #colocar em configs?
 );
 
 if ( !in_array($_GET['modulo'], $whiteList) ) {
-	$_SESSION['mensagem'] = "Módulo inválido";
-	$_SESSION['mensagemClasse'] = "erro";
+	$resposta = "Módulo inválido";
+	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 	voltar();
 }
 
@@ -24,7 +23,7 @@ if ( temDependencias($_GET['modulo'], $_GET['id']) ) { # -----------------------
 	$exclusaoLogica = exclusaoLogica($_GET['modulo'], $_GET['id']);
 
 	if ( $exclusaoLogica == 1 ) {
-		registrarOperacao('d', $_GET['modulo'], $_GET['id']);
+		registrarOperacao('X', $_GET['modulo'], $_GET['id']);
 
 		$resposta = "Registro de {$_GET['modulo']} número {$_GET['id']} excluído com sucesso!";
 		montarRespostaPost($resposta, true, $codigo=201); # 201 Created

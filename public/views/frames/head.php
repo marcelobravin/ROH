@@ -22,6 +22,10 @@
 <meta name="language" content="portuguese">
 <meta name="rating" content="general">
 
+<?php if ( RESTRINGIR_CONTEUDO_EXTERNO ): ?>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-s
+<?php endif ?>
+
 <link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />
 <link rel="stylesheet" type="text/css" href="public/css/normalize.css">
 <link rel="stylesheet" type="text/css" href="public/css/resets.css">

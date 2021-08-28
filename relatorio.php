@@ -8,8 +8,8 @@ $hospitais	= selecionar("hospital", $condicoes, "ORDER BY titulo");
 $categorias	= selecionar("categoria", array(), "ORDER BY titulo");
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
-$in_mesAtual = date('n');
-$in_anoAtual = date('Y');
+$in_mesAtual = mesAtual();
+$in_anoAtual = anoAtual();
 
 $anos = array();
 for ($i=2021; $i<= $in_anoAtual; $i++) {

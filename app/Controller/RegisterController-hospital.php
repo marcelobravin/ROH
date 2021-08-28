@@ -28,20 +28,22 @@ $values = array(
 
 	'criado_por'			=> $_SESSION['user']['id']
 );
-$id = inserir('hospital', $values);
+
+$t = new Transacao();
+$t->registrarInsercao('hospital', $values);
+$t->concluir();
 
 # ------------------------------------------------------------------------------ resposta
-if ( positivo($id) ) {
-	registrarOperacao('I', 'hospital', $id);
-
-	$resposta = "Inserido registro número: ". $id;
+$idInserido = $t->resultados[1]['retorno'];
+if ( !$t->erro ) {
+	$resposta = "Inserido registro número: ". $idInserido;
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 
-	redirecionar("formulario-atualizacao.php?modulo=hospital&codigo={$id}");
+	redirecionar("formulario-atualizacao.php?modulo=hospital&codigo={$idInserido}");
 
 # ------------------------------------------------------------------------------ erros
 } else {
-	$resposta = montarMensagemErro( $id );
+	$resposta = montarMensagemErro( $idInserido );
 	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 
 	voltar();

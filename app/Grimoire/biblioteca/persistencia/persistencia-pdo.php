@@ -2,7 +2,184 @@
 /**
  * Manipulação de arrays
  * @package	grimoire/bibliotecas
-persistencia-pdo
+ */
+
+/**
+ * Calcula o tempo de processamento de blocos de código
+ *
+ * @var		time
+ * @example
+ * -@deprecated
+	transacao
+	iniciarTransacao
+	encerrarTransacao
+	operacaoTransacional
+	executarSequencia
+
+ * @example
+	$values = array(
+		'id_usuario'=> 1,
+		'acao'		=> 'X',
+		'tabela'	=> 'tabela',
+		'objetoId'	=> 99,
+		'ip'		=> identificarIP(),
+		'navegador'	=> json_encode( identificarNavegador() )
+	);
+
+	$valuesComErro = array(
+		'id_usuario'=> 1,
+		'acao'		=> 'XXX',
+		'tabela'	=> 'tabela',
+		'objetoId'	=> 99,
+		'ip'		=> identificarIP(),
+		'navegador'	=> json_encode( identificarNavegador() )
+	);
+
+	$insert = insercao('_log_operacoes', $values);
+	$insertStmt = insercaoStmt('_log_operacoes', $values);
+	$insertErro = insercao('_log_operacoes', $valuesComErro);
+
+	$t = new Transacao(); # abre conexão persistente
+	$t->executarOperacao($insert); # realiza operacao simples
+	$t->executarOperacao($insertStmt, $values); # realiza operacao com prepared statement
+	// $t->erro = true; # introdução de erro para teste de commit/rollback
+	$t->executarOperacao($insertErro);  # realiza operacao simples com erro
+	$t->concluir(); # fecha a conexão
+	exibir($t->resultados);
+ */
+class Transacao {
+	private	$con;
+	private	$statement;
+	private	$numeroOperacao = 0;
+	public	$erro = false;
+	public	$resultados = array();
+
+	function __construct ()
+	{
+		$this->conectar();
+	}
+
+	function conectar ()
+	{
+		$this->con = conexaoPersistente();
+		$this->con->beginTransaction();
+	}
+
+	function executarOperacao ($sql, $binds=array())
+	{
+		$this->numeroOperacao++;
+		$this->resultados[ $this->numeroOperacao ]['sql'] = $sql;
+
+		if ( $this->erro ) {
+			return false;
+		}
+
+		$processo = strtoupper($sql[0]);
+		$this->statement = $this->con->prepare($sql);
+
+		$resposta = false;
+		if ( empty($binds) ) {
+			$resposta = $this->executarQuerySimples($processo);
+		} else {
+			$resposta = $this->executarStatement($sql, $binds, $processo);
+		}
+
+		return $resposta;
+	}
+
+	function registrarInsercao ($tabela, $binds=array())
+	{
+		$sql = insercaoStmt($tabela, $binds);
+		$this->executarRegistro($sql, $binds, 'I', $tabela);
+	}
+
+	function registrarAtualizacao ($tabela, $binds=array(), $where=array())
+	{
+		$sql = atualizacaoStmt($tabela, $binds, $where);
+
+		$where = array_values($where);
+		foreach ($where as $valor) {
+			$binds[] = $valor;
+		}
+		$this->executarRegistro($sql, $binds, 'U', $tabela);
+	}
+
+	function executarRegistro ($sql, $binds=array(), $processo="U/D", $tabela="")
+	{
+		$this->executarOperacao($sql, $binds);
+
+		if ( positivo($this->resultados[$this->numeroOperacao]['retorno']) ) {
+			$log = registroOperacao($processo, $tabela, $this->resultados[$this->numeroOperacao]['retorno']);
+			$this->executarOperacao($log);
+		}
+	}
+
+	function executarQuerySimples ($processo="U/D")
+	{
+		try {
+			$this->statement->execute();
+		} catch (\Throwable $th) {
+			$this->erro = true;
+		}
+		return $this->definirRetorno($processo);
+	}
+
+	function executarStatement ($sql, $binds=array(), $processo="U/D")
+	{
+		$this->resultados[ $this->numeroOperacao ]['binds'] = $binds;
+
+		try {
+			$interrogacoes = substr_count($sql, '?');
+			$binds = array_values($binds);
+
+			for ($i=0; $i < $interrogacoes; $i++) {
+				$this->statement->bindParam($i+1, $binds[$i]); // dá pra colocar verificação por tipo e tamanho // https://www.php.net/manual/pt_BR/pdo.constants.php
+			}
+
+			$this->statement->execute($binds);
+
+		} catch (\Throwable $th) {
+			$this->erro = true;
+		}
+
+		return $this->definirRetorno($processo);
+	}
+
+	function definirRetorno ($processo)
+	{
+		switch ( $processo ) {
+			case 'I': $retorno = $this->con->lastInsertId();
+				break;
+			case 'S': $retorno = $this->statement->fetchAll(PDO::FETCH_ASSOC);
+				break;
+			default : $retorno = $this->statement->rowCount(); # update/delete
+		}
+
+		if ( in_array($processo, ['I', 'U']) && !positivo($retorno) ) {
+			$this->erro = true;
+		}
+
+		$this->resultados[ $this->numeroOperacao ]['erro'] = ($this->erro) ? 'true' : 'false';
+		$this->resultados[ $this->numeroOperacao ]['retorno'] = $retorno;
+
+		if ($this->erro) {
+			$this->resultados[ $this->numeroOperacao ]['retorno'] = $this->statement->errorInfo();
+		}
+
+		return $retorno;
+	}
+
+	function concluir ()
+	{
+		if ( $this->erro ) {
+			$this->con->rollBack();
+		} else {
+			$this->con->commit();
+		}
+
+		desconectar($this->con, $this->statement);
+	}
+}
 
 /**
  * Realiza uma conexão com um BD mySql através do PDO
@@ -19,10 +196,14 @@ persistencia-pdo
  *
  * @uses	PDO
  */
-function conectarPdo (/* $transacao=false, */ $hostname=HOST, $dbname=DBNAME, $username=USER, $password=PASSWORD)
+function conectar ($hostname=HOST, $dbname=DBNAME, $username=USER, $password=PASSWORD)
 {
 	try {
-		$dbh = new PDO("mysql:host={$hostname};dbname={$dbname}", $username, $password);
+		$dbh = new PDO("mysql:host={$hostname};dbname={$dbname}", $username, $password,
+			array(
+				#PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET ". CHARSET
+			)
+		);
 
 		if ( PRODUCAO ) {
 			$dbh->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
@@ -32,58 +213,16 @@ function conectarPdo (/* $transacao=false, */ $hostname=HOST, $dbname=DBNAME, $u
 
 		// $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== add this line
 		// $dbh->setAttribute(PDO::ATTR_ORACLE_NULLS	, PDO::NULL_EMPTY_STRING);
-
-		$dbh->exec("SET CHARACTER SET utf8"); //	return all sql requests as UTF-8
-
-		#if ( $transacao )
-			#$dbh->beginTransaction(); # apenas em tabelas innoDB {http://pt.stackoverflow.com/questions/41672/quais-as-diferen%C3%A7as-entre-myisam-e-innodb}
+		$dbh->exec("SET CHARACTER SET utf8"); # return all sql requests as UTF-8
 
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
+
 	return $dbh;
 }
 
 /**
- *
- *
- * @package	grimoire/bibliotecas/persistencia-pdo.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	object
- *
- * @example
-*/
-function conectar ()
-{
-	$connection = new PDO(
-		"mysql:host=". HOST .";dbname=". DBNAME .";charset=". CHARSET, USER, PASSWORD,
-		array(
-			#PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET ". CHARSET
-		)
-	);
-
-	if ( PRODUCAO ) {
-		$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_SILENT);
-	} else {
-		$connection->setAttribute(PDO::ATTR_ERRMODE	, PDO::ERRMODE_EXCEPTION);
-	}
-
-	if (ORACLE) {
-		$connection->setAttribute(PDO::ATTR_ORACLE_NULLS, PDO::NULL_EMPTY_STRING);
-	}
-	$connection->exec("SET CHARACTER SET ". CHARSET); // return all sql requests as UTF-8
-
-	return $connection;
-}
-
-/**
- *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -118,37 +257,6 @@ function conexaoPersistente ()
 	} catch (Exception $e) {
 		die("Unable to connect: " . $e->getMessage());
 	}
-}
-/**
- * Executa um comando no BD
- * @package	grimoire/bibliotecas/persistencia-pdo-pdo.php
- * @version	05-07-2015
- * @version	17/09/2016 19:02:44
- *
- * @param	string query a ser executada
- * @return	int/array/int
- */
-function executarOLD ($qry)
-{
-	$con = conectarPdo();
-	$stmt = $con->prepare($qry);
-	$stmt -> execute();
-
-	$qry = trim($qry);
-	$processo = strtoupper($qry[0]); # Identifica o primeiro caracter da query
-
-	switch ( $processo ) {
-		case 'I': # INSERT
-			$retorno = $con->lastInsertId();
-			break;
-		case 'S': # SELECT
-			$retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			break;
-		default: # UPDATE/DELETE
-			$retorno = $stmt->rowCount();
-	}
-
-	return $retorno;
 }
 
 /**
@@ -225,6 +333,9 @@ function executar ($sql)
 	return executarStmt($sql, array(), $processo);
 }
 
+/**
+ *
+ */
 function executarSequencia ($sqls)
 {
 	$resultado = array();
@@ -244,7 +355,7 @@ function executarSequencia ($sqls)
  * @return	int/array
  *
  * @uses	persistencia.php->conPdo()
-*/
+ */
 function executarStmt ($stmt, $valores=array(), $processo="U/D")
 {
 	try {
@@ -297,7 +408,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
  */
 function localizarPorId ($sql, $id)
 {
-	$con = conectarPdo();
+	$con = conectar();
 	$qry = $con->prepare($sql);
 	$qry -> bindParam(':id', $id, PDO::PARAM_INT);
 	$qry -> execute();
@@ -308,7 +419,6 @@ function localizarPorId ($sql, $id)
 }
 
 /**
- *
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -418,7 +528,6 @@ function localizar ($tabela, $condicoes=array(), $diretrizes="", $colunas="*")
 
 /**
  *
- *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
@@ -454,8 +563,6 @@ function atualizar ($tabela, $campos, $condicoes=array())
 }
 
 /**
- *
- *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
@@ -560,8 +667,10 @@ function selecaoStmt ($tabela, $criterios="", $diretrizes="", $colunas="*")
  * @since	05-07-2015
  * @version 11-06-2021
  *
- * @paramstring
- * @return	bool
+ * @param	string
+ * @param	array
+ * @param	string
+ * @return	string
  *
  * @uses	persistencia.php->executar()
  * @uses	sql.php->atualizacao()
@@ -610,11 +719,10 @@ function atualizacaoStmt ($tabela, $campos, $condicoes="")
  * @since	05-07-2015
  * @version 11-06-2021
  *
- * @paramstring
- * @return	bool
+ * @param	string
+ * @param	array
+ * @return	string
  *
- * @uses	persistencia.php->executar()
- * @uses	sql.php->atualizacao()
  * @example
 	$usuario2 = array('id'=>'3', 'nome'=>'Décio Carvalho', 'email'=>'1@2', 'sexo'=>'masculino');
 	exibir($sql = atualizacao("tb_usuarios", $usuario2));
@@ -643,8 +751,7 @@ function exclusaoStmt ($tabela, $condicoes="")
 }
 
 /**
- *
- *
+ * Fecha a conexão e libera o statement
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
  * @version	24-06-2021
@@ -666,8 +773,25 @@ function desconectar (&$connection, &$statement)
 }
 
 /**
+ * Retorna uma lista de tabelas do BD
+ * @package grimoire/bibliotecas/persistencia-pdo-oracle.php
+ * @since	07/08/2021 21:41:59
+ *
+ * @param	string
+ * @return	array
+ *
+ * @uses		$_SERVER
+	$tabelas = listarTabelas();
+	exibir($tabelas);
+ */
+function listarTabelas($db=DBNAME) {
+	$sql = "SHOW FULL TABLES FROM ". $db;
+	return executar($sql);
+}
+
+/**
  * Realiza múltiplas operações no BD
- aplicável apenas a sqls sem interrogações
+	aplicável apenas a sqls sem interrogações
  *
  * @package	grimoire/bibliotecas/persistencia-pdo.php
  * @since	05-07-2015
@@ -701,128 +825,4 @@ function transacao ( $sqls=array() )
 		desconectar($con, $stmt);
 		return false;
 	}
-}
-
-/**
- *
- *
- * @package	grimoire/bibliotecas/persistencia-pdo.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-*/
-/**
- *@example
-	# 1 ------------------------------------------------------------------------ Inicio
-	$conP = iniciarTransacao();
-
-	# 2 ------------------------------------------------------------------------ Operações
-	$c = array(
-		'usuarioId'	=> '1',
-		'sucesso'	=> '1',
-		'ip'		=> '1',
-		'navegador'	=> '1',
-		'datahora'	=> agora()
-	);
-
-	$sql = insercao('_log_acesso', $c);
-	$statement = operacaoTransacional($conP, $sql);
-	$id = $conP->lastInsertId();
-
-	$p = array(
-		'usuarioId'		=> '1',
-		'acao'			=> '1',
-		'tabela'		=> $id,
-		'objetoId'		=> '1',
-		'ip'			=> '1',
-		'navegador'		=> '1',
-		'datahora'		=> agora()
-	);
-
-	$sql = insercao('_log_operacoes', $p);
-	$statement = operacaoTransacional($conP, $sql);
-	$id2 = $conP->lastInsertId();
-
-	# 3 ------------------------------------------------------------------------ Fim
-	$sucesso = positivo($id) && positivo($id2);
-	encerrarTransacao($conP, $statement, $sucesso);
-*/
-function iniciarTransacao ()
-{
-	$con = conexaoPersistente();
-	$con->beginTransaction();
-	return $con;
-}
-
-/**
- *
- *
- * @package	grimoire/bibliotecas/persistencia-pdo.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-*/
-function encerrarTransacao ( $con, $stmt, $sucesso=true)
-{
-	if ( $sucesso ) {
-		$con->commit();
-	} else {
-		$con->rollBack();
-	}
-
-	desconectar($con, $stmt);
-}
-
-/**
- *
- *
- * @package	grimoire/bibliotecas/persistencia-pdo.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-*/
-function operacaoTransacional ($conP, $sql)
-{
-	$statement = $conP->prepare($sql);
-	$statement->execute();
-
-	return $statement;
-}
-
-/**
- * Retorna uma lista de tabelas do BD
- * @package grimoire/bibliotecas/persistencia-pdo-oracle.php
- * @since	07/08/2021 21:41:59
- *
- * @param	string
- * @return	array
- *
- * @uses		$_SERVER
-	$tabelas = listarTabelas();
-	exibir($tabelas);
- */
-function listarTabelas($db=DBNAME) {
-	$sql = "SHOW FULL TABLES FROM ". $db;
-	return executar($sql);
 }

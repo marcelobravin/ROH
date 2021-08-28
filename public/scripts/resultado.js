@@ -46,10 +46,10 @@ $(document).ready(function(){
 		if ( await requisicaoAjax(parametros) ) {
 			$('#ajaxLoader').remove()
 
-			const url = new URL(window.location.href);
-			const h_id = url.searchParams.get("hospital");
+			// const url = new URL(window.location.href);
+			// const h_id = url.searchParams.get("hospital");
 
-			window.location.href = "comprovante.php?hospital="+h_id
+			/* window.location.href = "comprovante.php?hospital="+h_id */
 		}
 	})
 })
@@ -116,7 +116,7 @@ function requisicaoAjax (parametros)
 			success: data =>{
 				resolve(true)
 				localStorage.clear()
-				document.location.reload()
+				// document.location.reload()
 			},
 			error: erro =>{
 				reject(erro)
@@ -144,7 +144,7 @@ function verificarMeta ($this)
 		$this.parent().parent().addClass("insuficiente")
 
 	} else {
-		$("#justificativa-" +id).attr("disabled", "disabled")
+		$("#justificativa-" +id).attr("disabled", "disabled").val("")
 		$this.parent().parent().removeClass("insuficiente")
 	}
 }
