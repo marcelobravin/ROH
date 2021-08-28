@@ -346,6 +346,13 @@ function conexaoPersistente ()
 	}
 }
 
+function contarRegistros ($tabela, $where)
+{
+	$numeroRegistros = selecao($tabela, $where, '', 'count(*)');
+	$x = executar($numeroRegistros);
+	return $x[0]['count(*)'];
+}
+
 /**
  * Fecha a conexão e libera o statement
  * @package	grimoire/bibliotecas/persistencia-pdo.php
