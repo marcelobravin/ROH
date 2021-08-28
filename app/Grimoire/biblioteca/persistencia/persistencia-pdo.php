@@ -565,11 +565,11 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 			$statement->execute($valores);
 		} else {
-			// if ($interrogacoes >= 1) {
-				// $statement->execute(array($valores)); # id
-			// } else {
+			if ( empty($valores) ) {
 				$statement->execute(); # count(*)
-			// }
+			} else {
+				$statement->execute(array($valores)); # id
+			}
 		}
 
 		switch ( $processo ) {

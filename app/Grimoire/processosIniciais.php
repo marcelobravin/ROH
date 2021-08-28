@@ -1,6 +1,5 @@
 <?php
 header("X-XSS-Protection: 1; mode=block");
-
 if ( RESTRINGIR_CONTEUDO_EXTERNO ) {
 	header("content-security-policy: default-src 'self'; img-src https://*; child-src 'none';");
 }
@@ -19,6 +18,7 @@ if ( LOGADO ) {
 	verificarTempoAtividadeSessao();
 
 	if ( !validarSessao() ) {
+		registrarLogOff();
 		finalizarSessao();
 		iniciarSessao();
 		montarRespostaPost("Alteração detectada", false, $codigo=201); # 201 Created

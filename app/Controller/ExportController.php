@@ -63,7 +63,6 @@ $matriz = executarStmt($sql, $condicoes, 'S');
 $hospital = localizar("hospital", $_GET['hospital'], "", "titulo");
 
 
-
 $matriz = utf8Matriz($matriz, false);
 $matriz = utf8Matriz($matriz, true);
 
