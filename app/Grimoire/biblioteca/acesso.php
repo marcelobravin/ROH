@@ -797,6 +797,15 @@ function redirecionar ($url=PAGINA_INICIAL)
 	exit;
 }
 
+function registrarLogOff ()
+{
+	$ip = identificarIP();
+	$browser = identificarNavegador();
+
+	$acesso = registroDeAcesso($ip, $browser, -1);
+	executar($acesso);
+}
+
 /**
  * Verifica o tempo de inatividade da sessão
  * @package	grimoire/bibliotecas/acesso.php
@@ -808,6 +817,7 @@ function verificarTempoAtividadeSessao ()
 {
 	# quando sessão ultrapassou o tempo limite
 	if (isset($_SESSION['LAST_ACTIVITY']) && time() - $_SESSION['LAST_ACTIVITY'] > SESSAO_TTL ) { // last request was more than 30 minutes ago
+		registrarLogOff();
 		finalizarSessao();
 		redirecionamentoTemporal();
 		exit;
