@@ -195,7 +195,6 @@ function identificarIP ()
 	return $ip;
 }
 
-# TODO identificar BOTs
 // Function written and tested December, 2018
 function identificarBots ($user_agent)
 {
@@ -207,46 +206,48 @@ function identificarBots ($user_agent)
 	//	 http://php.net/manual/en/function.strpos.php
 	$t = " " . $t;
 
+	$r = 'Other (Unknown)';
+
 	// Humans / Regular Users
-	if	 (strpos($t, 'opera'	 ) || strpos($t, 'opr/')	 ) { return 'Opera'			; }
-	elseif (strpos($t, 'edge'	  )						   ) { return 'Edge'			 ; }
-	elseif (strpos($t, 'chrome'	)						   ) { return 'Chrome'		   ; }
-	elseif (strpos($t, 'safari'	)						   ) { return 'Safari'		   ; }
-	elseif (strpos($t, 'firefox'   )						   ) { return 'Firefox'		  ; }
-	elseif (strpos($t, 'msie'	  ) || strpos($t, 'trident/7')) { return 'Internet Explorer'; }
+	if	 (strpos($t, 'opera') || strpos($t, 'opr/')				) { $r = 'Opera'; }
+	elseif (strpos($t, 'edge')									) { $r = 'Edge'; }
+	elseif (strpos($t, 'chrome')								) { $r = 'Chrome'; }
+	elseif (strpos($t, 'safari')								) { $r = 'Safari'; }
+	elseif (strpos($t, 'firefox')								) { $r = 'Firefox'; }
+	elseif (strpos($t, 'msie') || strpos($t, 'trident/7')		) { $r = 'Internet Explorer'; }
 
 	// Search Engines
-	elseif (strpos($t, 'google'	)						   ) { return '[Bot] Googlebot'   ; }
-	elseif (strpos($t, 'bing'	  )						   ) { return '[Bot] Bingbot'	 ; }
-	elseif (strpos($t, 'slurp'	 )						   ) { return '[Bot] Yahoo! Slurp'; }
-	elseif (strpos($t, 'duckduckgo')						   ) { return '[Bot] DuckDuckBot' ; }
-	elseif (strpos($t, 'baidu'	 )						   ) { return '[Bot] Baidu'	   ; }
-	elseif (strpos($t, 'yandex'	)						   ) { return '[Bot] Yandex'	  ; }
-	elseif (strpos($t, 'sogou'	 )						   ) { return '[Bot] Sogou'	   ; }
-	elseif (strpos($t, 'exabot'	)						   ) { return '[Bot] Exabot'	  ; }
-	elseif (strpos($t, 'msn'	   )						   ) { return '[Bot] MSN'		 ; }
+	elseif (strpos($t, 'google')								) { $r = '[Bot] Googlebot'; }
+	elseif (strpos($t, 'bing' )									) { $r = '[Bot] Bingbot'; }
+	elseif (strpos($t, 'slurp')									) { $r = '[Bot] Yahoo! Slurp'; }
+	elseif (strpos($t, 'duckduckgo')							) { $r = '[Bot] DuckDuckBot' ; }
+	elseif (strpos($t, 'baidu')									) { $r = '[Bot] Baidu'; }
+	elseif (strpos($t, 'yandex')								) { $r = '[Bot] Yandex'; }
+	elseif (strpos($t, 'sogou')									) { $r = '[Bot] Sogou'; }
+	elseif (strpos($t, 'exabot')								) { $r = '[Bot] Exabot'; }
+	elseif (strpos($t, 'msn')									) { $r = '[Bot] MSN'; }
 
 	// Common Tools and Bots
-	elseif (strpos($t, 'mj12bot'   )						   ) { return '[Bot] Majestic'	 ; }
-	elseif (strpos($t, 'ahrefs'	)						   ) { return '[Bot] Ahrefs'	   ; }
-	elseif (strpos($t, 'semrush'   )						   ) { return '[Bot] SEMRush'	  ; }
-	elseif (strpos($t, 'rogerbot'  ) || strpos($t, 'dotbot')   ) { return '[Bot] Moz or OpenSiteExplorer'; }
-	elseif (strpos($t, 'frog'	  ) || strpos($t, 'screaming')) { return '[Bot] Screaming Frog'; }
+	elseif (strpos($t, 'mj12bot')								) { $r = '[Bot] Majestic'	 ; }
+	elseif (strpos($t, 'ahrefs')								) { $r = '[Bot] Ahrefs'	   ; }
+	elseif (strpos($t, 'semrush')								) { $r = '[Bot] SEMRush'	  ; }
+	elseif (strpos($t, 'rogerbot'  ) || strpos($t, 'dotbot')	) { $r = '[Bot] Moz or OpenSiteExplorer'; }
+	elseif (strpos($t, 'frog'	  ) || strpos($t, 'screaming')	) { $r = '[Bot] Screaming Frog'; }
 
 	// Miscellaneous
-	elseif (strpos($t, 'facebook'  )						   ) { return '[Bot] Facebook'	 ; }
-	elseif (strpos($t, 'pinterest' )						   ) { return '[Bot] Pinterest'	; }
+	elseif (strpos($t, 'facebook'  )							) { $r = '[Bot] Facebook'	 ; }
+	elseif (strpos($t, 'pinterest' )							) { $r = '[Bot] Pinterest'	; }
 
 	// Check for strings commonly used in bot user agents
-	elseif (strpos($t, 'crawler' ) || strpos($t, 'api'	) ||
-			strpos($t, 'spider'  ) || strpos($t, 'http'   ) ||
-			strpos($t, 'bot'	 ) || strpos($t, 'archive') ||
-			strpos($t, 'info'	) || strpos($t, 'data'   )
+	elseif (strpos($t, 'crawler') || strpos($t, 'api') ||
+			strpos($t, 'spider') || strpos($t, 'http'	) ||
+			strpos($t, 'bot') || strpos($t, 'archive') ||
+			strpos($t, 'info') || strpos($t, 'data'	)
 	) {
-		return '[Bot] Other'   ;
+		$r = '[Bot] Other';
 	}
 
-	return 'Other (Unknown)';
+	return $r;
 }
 
 /**
@@ -350,9 +351,9 @@ function operating_system_detection(){
 	if ( isset( $_SERVER ) ) {
 		$agent = $_SERVER['HTTP_USER_AGENT'];
 	} else {
-		global $HTTP_SERVER_VARS;
-		if ( isset( $HTTP_SERVER_VARS ) ) {
-			$agent = $HTTP_SERVER_VARS['HTTP_USER_AGENT'];
+		global $_SERVER;
+		if ( isset( $_SERVER ) ) {
+			$agent = $_SERVER['HTTP_USER_AGENT'];
 		} else {
 			global $HTTP_USER_AGENT;
 			$agent = $HTTP_USER_AGENT;
@@ -920,7 +921,6 @@ function validarSessao ()
 
 	return false;
 }
-
 
 function verificarManutencao ()
 {

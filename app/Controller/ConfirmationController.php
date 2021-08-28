@@ -6,7 +6,6 @@
 		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 		voltar();
 	} else {
-		# todo corrigir
 		echo "Erro ao enviar email para o usuário: ({$user['login']}) ". $_GET['id'];
 		echo '<p><a href="../../lista.php?modulo=usuario">Voltar</a></p>';
 

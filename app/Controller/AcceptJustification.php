@@ -17,7 +17,7 @@ foreach ($_POST['form'] as $value) {
 
 	$condicoes = array(
 		"id_meta"	=> $value['metaId'],
-		"mes"		=> $in_mesAtual, # TODO impedir modificar meses anteriores
+		"mes"		=> $in_mesAtual,
 		"ano"		=> $in_anoAtual
 	);
 

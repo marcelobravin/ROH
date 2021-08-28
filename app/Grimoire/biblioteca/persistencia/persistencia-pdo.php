@@ -564,7 +564,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 
 		if ( is_array($valores) ) {
 
-			$valores = array_values($valores); # TODO dá pra tirar?
+			$valores = array_values($valores);
 
 			for ($i=0; $i < sizeof($valores); $i++) {
 				$statement->bindParam($i+1, $valores[$i]); // dá pra colocar verificação por tipo e tamanho // https://www.php.net/manual/pt_BR/pdo.constants.php
@@ -573,7 +573,7 @@ function executarStmt ($stmt, $valores=array(), $processo="U/D")
 			$statement->execute($valores);
 		} else {
 			if ( empty($valores) ) {
-				$statement->execute(); # count(*)
+				$statement->execute(); # count(*) # todo
 			} else {
 				$statement->execute(array($valores)); # id
 			}
@@ -734,7 +734,7 @@ function selecaoStmt ($tabela, $criterios="", $diretrizes="", $colunas="*")
 		} else if (is_numeric($criterios)) {
 			$sql .= "id=?"; # PK da tabela deve chamar id
 		} else {
-			$sql .= $criterios;# <<<<<<<<<<< TODO VERIFICAR linha abaixo quanto a binds
+			$sql .= $criterios;
 		}
 	}
 

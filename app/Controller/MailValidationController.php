@@ -13,7 +13,6 @@ $condicoes = array(
 );
 $user = selecionar('usuario', $condicoes);
 
-// exibir($condicoes, true);
 
 
 if ( empty($user) ) {
@@ -41,4 +40,3 @@ if ( $rowCount == 0 ) {
 }
 
 voltar();
-// header('Location: ../../lista.php?modulo=usuario');

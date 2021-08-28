@@ -9,6 +9,10 @@ anotações giovani
 
 
 
+# todo separar conteudo email
+	colocar em diretorios e pegar conteudo
+
+
 ctrl +f e arrumar códigos
 	montarRespostaPost
 

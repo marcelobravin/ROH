@@ -44,7 +44,8 @@ $(document).ready(function(){
 		}
 
 		if ( await requisicaoAjax(parametros) ) {
-			$('#ajaxLoader').remove()
+			$('#ajaxLoader').fadeOut()
+			// document.location.reload()
 
 			// const url = new URL(window.location.href);
 			// const h_id = url.searchParams.get("hospital");
@@ -116,7 +117,6 @@ function requisicaoAjax (parametros)
 			success: data =>{
 				resolve(true)
 				localStorage.clear()
-				document.location.reload()
 			},
 			error: erro =>{
 				reject(erro)

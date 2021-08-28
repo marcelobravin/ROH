@@ -1074,7 +1074,6 @@ function gerarFormularioAtualizacao ($MODULO, $sobreEscreverLabels=array(), $sob
 	$d = array_values($descricao);
 	$y = 0;
 
-	# todo encapsular em adiciona exibição de valor/estado php
 	foreach ($campos as $i => $v) {
 		if ( contem('<select ', $v) ) {
 

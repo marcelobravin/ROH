@@ -138,7 +138,7 @@ function enviarEmailConfirmacao ()
 
 	$token = uniqid();
 
-	# todo separar conteudo email
+
 	$assunto = "Confirmação de email";
 	$servidor = "https://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
 	$endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
