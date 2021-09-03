@@ -23,7 +23,7 @@
 <meta name="rating" content="general">
 
 <?php if ( RESTRINGIR_CONTEUDO_EXTERNO ): ?>
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-s
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
 <?php endif ?>
 
 <link rel="shortcut icon" type="x-icon" href="public/img/favicon-32x32.png" />

@@ -48,19 +48,30 @@
 			margin-bottom: -20px;
 			margin-top: -20px;
 		}
+		.negrito { font-weight: bold; }
 	</style>
 </head>
 <body>
 	<div class="centralizado" id="logo"></div>
 
-	<h1>Comprovante de Vistoria</h1>
+	<h1>Comprovante de Visita</h1>
 
 	<p>
 		<strong>Hospital:</strong>
 		<?php echo $hospital['titulo'] ?>
 		<br>
-		<strong>Vistoriador(a):</strong>
-		<?php echo $vistoriador['nome'] ?>
+		<strong>CNES:</strong>
+		<?php echo $hospital['cnes'] ?>
+		<br>
+		<strong>Diretor:</strong>
+		<?php echo $hospital['diretor'] ?>
+		<br>
+		<strong>Responsável Técnico:</strong>
+		<?php echo $hospital['segundo_responsavel'] ?>
+		<p>
+			<strong>Visitante(a):</strong>
+			<?php echo $vistoriador['nome'] ?>
+		</p>
 	</p>
 
 	<table class="larguraTotal">
@@ -72,7 +83,7 @@
 			<th scope="Coluna id">Especialidade</th>
 			<th scope="Coluna id">Meta</th>
 			<th scope="Coluna id">Resultado</th>
-			<th scope="Coluna id">Vistoria</th>
+			<th scope="Coluna id">Visita</th>
 		</tr>
 
 		<?php foreach ($matriz as $v) : ?>
@@ -108,12 +119,17 @@
 				<hr>
 			</div>
 			<div class="assinatura">
-				Vistoriador(a):
+				Visitante:
 				<hr>
 			</div>
 		</div>
 	</div>
 
-	<p class="alinhadoDireita">Emissão do comprovante: <?php echo agora(true) ?></p>
+	<p class="alinhadoDireita ">
+		<span class="negrito">
+			Emissão do comprovante:
+		</span>
+		<?php echo agora(true) ?>
+	</p>
 </body>
 </html>

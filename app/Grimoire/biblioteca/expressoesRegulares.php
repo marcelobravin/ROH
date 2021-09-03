@@ -15,37 +15,21 @@
  */
 function padrao ($padrao)
 {
+	$r = verificarTipo($padrao);
+
+	if ( !$r ) {
+		return verificarPadrao($padrao);
+	}
+
+	return $r;
+}
+
+/**
+ * Verificar se conteúdo se encaixa no formato de um padrão
+ */
+function verificarPadrao ($padrao)
+{
 	switch ($padrao) {
-
-		case "alfa": # letras minúsculas
-			$r = "/^([a-z])+$/i";
-			break;
-
-		case "alfanumerico":
-			$r = "/^([a-z0-9])+$/i";
-			break;
-
-		case "alfanumerico_e_espacos":
-			$r = "/^([a-zA-Z0-9 ])+$/i";
-			break;
-
-		case "alpha_dash": # Alpha-numeric with underscores and dashes
-			$r = "^([-a-z0-9_-])+$/i";
-			break;
-
-		case "alpha_space":
-			$r = "/^([a-z ])+$/i";
-			break;
-
-		/**
-		 * Valid Base64
-		 *
-		 * Tests a string for characters outside of the Base64 alphabet
-		 * as defined by RFC 2045 {@link http://www.faqs.org/rfcs/rfc2045}
-		 */
-		case "base64":
-			$r = '/[^a-zA-Z0-9\/\+=]/';
-			break;
 
 		case "BlockComments":
 			$r = '!/\*.*?\*/!s';
@@ -92,23 +76,11 @@ function padrao ($padrao)
 			$r = "^[0-9]{2}/[0-9]{2}/[0-9]{4}$^";
 			break;
 
-		case "DoubleSpaces":
-			$r = "/  /";
-			break;
-
 		case "email":
 			$r = "/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
 			break;
 			// '/^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$/'
 			// "/^(([0-9a-zA-Z]+[-._+&])*[0-9a-zA-Z]+@([-0-9a-zA-Z]+[.])+[a-zA-Z]{2,6}){0,1}$/";
-
-		case "endereco": # alfanumerico_simbolos_e_espacos
-			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9,.]+$/";
-			break;
-
-		case "htmlComments":
-			$r = '/<!--(.|\s)*?-->/';
-			break;
 
 		case "integer":
 			$r = '/^[\-+]?[0-9]+$/';
@@ -120,6 +92,85 @@ function padrao ($padrao)
 
 		case "JsLineComments":
 			$r = '/\b(?!\:)\/\/.*\n/';
+			break;
+
+		case "mac":
+			$r = "/[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}/";
+			break;
+
+		case "telefone":
+			$r = "/^\(?\d{2}\)?\s?\d{4}\-?\d{4}$/";
+			break;
+
+		case "url":
+			$r = '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
+			break;
+
+		default: $r = false;
+	}
+
+	return $r;
+}
+
+/**
+ * Verificar tipo do conteúdo de um padrão
+ */
+function verificarTipo ($padrao)
+{
+	switch ($padrao) {
+
+		case "alfa": # letras minúsculas
+			$r = "/^([a-z])+$/i";
+			break;
+
+		case "alfanumerico":
+			$r = "/^([a-z0-9])+$/i";
+			break;
+
+		case "alfanumerico_e_espacos":
+			$r = "/^([a-zA-Z0-9 ])+$/i";
+			break;
+
+		case "alpha_dash": # Alpha-numeric with underscores and dashes
+			$r = "^([-a-z0-9_-])+$/i";
+			break;
+
+		case "alpha_space":
+			$r = "/^([a-z ])+$/i";
+			break;
+
+		/**
+		 * Valid Base64
+		 *
+		 * Tests a string for characters outside of the Base64 alphabet
+		 * as defined by RFC 2045 {@link http://www.faqs.org/rfcs/rfc2045}
+		 */
+		case "base64":
+			$r = '/[^a-zA-Z0-9\/\+=]/';
+			break;
+
+		case "DoubleSpaces":
+			$r = "/  /";
+			break;
+
+		case "endereco":
+			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9,.]+$/";
+			break;
+
+		case "htmlComments":
+			$r = '/<!--(.|\s)*?-->/';
+			break;
+
+		case "natural": # Is a Natural number	(0,1,2,3, etc.)
+			$r = '/^[0-9]+$/';
+			break;
+
+		case "numeric":
+			$r = '/^[\-+]?[0-9]*\.?[0-9]+$/';
+			break;
+
+		case "Tabs":
+			$r = "/	/";
 			break;
 
 		case "letras": # Valida se a string é composta apenas de letras maiúsculas e minúsculas
@@ -134,41 +185,12 @@ function padrao ($padrao)
 			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' ]+$/";
 			break;
 
+		case "letras_espacos_acentos_apostrofe_numeros":
+			$r = "/^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ' 0-9]+$/";
+			break;
+
 		case "LineBreaks":
 			$r = "/\r|\n/";
-			break;
-
-		case "mac":
-			$r = "/[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}-[0-9A-f]{2}/";
-			break;
-
-		default: $r = padrao2($padrao);
-	}
-
-	return $r;
-}
-
-function padrao2 ($padrao)
-{
-	switch ($padrao) {
-
-		case "natural": # Is a Natural number	(0,1,2,3, etc.)
-			$r = '/^[0-9]+$/';
-			break;
-
-		case "numeric":
-			$r = '/^[\-+]?[0-9]*\.?[0-9]+$/';
-			break;
-		case "Tabs":
-			$r = "/	/";
-			break;
-
-		case "telefone":
-			$r = "/^\(?\d{2}\)?\s?\d{4}\-?\d{4}$/";
-			break;
-
-		case "url":
-			$r = '/^(http|https|ftp):\/\/([A-Z0-9][A-Z0-9_-]*(?:\.[A-Z0-9][A-Z0-9_-]*)+):?(\d+)?\/?/i';
 			break;
 
 		default: $r = false;

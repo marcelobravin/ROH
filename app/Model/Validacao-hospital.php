@@ -8,7 +8,7 @@ function validarFormulario ( $post, $update=false )
 
 	# validar formato contra expressões regulares
 	$mapaFormatos = array(
-		'titulo'	=> 'letras_espacos_acentos_apostrofe'
+		'titulo'	=> 'letras_espacos_acentos_apostrofe_numeros' # todo aceitar numeros
 	);
 
 	# valida tamanho maximo e minimo de characteres

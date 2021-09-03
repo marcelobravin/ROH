@@ -45,11 +45,9 @@ function validarFormulario ( $post, $update=false )
 	$post['telefone'] = removerNaoNumericos($post['telefone']);
 	$post['celular'] = removerNaoNumericos($post['celular']);
 
-
-	if ( $update ) {
-		$camposObrigatorios['id'] = $post['id'];
-	} else {
-		$camposObrigatorios['login'] = $post['login'];
+	# em updates id ainda não existe, é gerado no momento do insert
+	if ( !$update ) {
+		removeIndicePorValor($camposObrigatorios, 'id');
 	}
 
 	# valida tudo!

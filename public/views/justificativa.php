@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+<link rel="stylesheet" type="text/css" href="public/css/justificativa.css">
+
 <div class="container">
 	<h2><?php echo $PAGINA['titulo'] ?></h2>
 
@@ -119,44 +122,11 @@
 	</div>
 </div>
 
-<link rel="stylesheet" type="text/css" href="public/css/metas.css">
-
-
 <script src="public/scripts/redirecionamento.js"></script>
 <script src="public/scripts/relatorio.js"></script>
 
 <script src="public/scripts/metas.js"></script>
 <script src="public/scripts/justificativa.js"></script>
 <style>
-	textarea {
-		resize: none;
-		min-width: 310px;
-		max-width: 310px;
-
-		min-height:	70px;
-	}
-	.insuficiente {
-		background-color: #ffb8b8 !important
-	}
-
-	.insuficiente:nth-child(odd) {
-		background-color: #ffa8a8 !important
-	}
-
-
-	.salvar {
-		background-color: #609bf5 !important;
-	}
-
-	button { /* remover css redundante */
-		background-color: #60f59b;
-		color: white;
-		padding: 10px 30px;
-		border-radius: 6px;
-		margin: 0 auto;
-		display: block;
-		margin-top: 20px;
-	}
-
 	<?php echo estiloAjaxLoader() ?>
 </style>

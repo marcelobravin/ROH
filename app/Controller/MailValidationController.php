@@ -11,7 +11,7 @@ $condicoes = array(
 	'id'	=> $_GET['id'],
 	'token'	=> $_GET['token']
 );
-$user = selecionar('usuario', $condicoes);
+$user = localizar('usuario', $condicoes);
 
 
 
@@ -21,7 +21,7 @@ if ( empty($user) ) {
 
 
 
-$user = $user[0];
+// $user = $user[0];
 
 $campos = array(
 	'email_confirmado'	=> true,

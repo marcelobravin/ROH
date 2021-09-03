@@ -1,0 +1,99 @@
+/* #00dfc0 */
+/* #4974a5 */
+/* #385a64 */
+
+/* .container-usuario{
+	padding: 10px 0px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+} */
+.container-tabelas{
+	display: flex;
+	flex-flow: column;
+	margin: 0 auto;
+	width: 100%;
+	height: 100%;
+	max-width: 90%;
+}
+
+/* TABELAS */
+
+table{
+	margin-top: 10px;
+	width: 100%;
+	height: 83%;
+	border-collapse: collapse;
+}
+thead, tbody{
+	width: 100%;
+}
+tfoot{
+	text-align: center;
+	height: 6%;
+}
+thead tr{
+	height: 55px;
+}
+tbody tr{
+	height: 100px;
+	background-color: #eee;
+}
+tbody tr td{
+	text-align: center;
+	height: 100px;
+}
+tr:nth-child(even){
+	background-color: #ddd;
+}
+th, tfoot{
+	color: #fff;
+	background: #00dfc0;
+}
+th a{
+	color: #fff;
+}
+button, input[type="submit"]{
+	background: #00dfc0;
+	width: 122px;
+	height: 50px;
+	border-radius: 10px;
+	padding: 5px;
+	cursor: pointer;
+	transition: 1s;
+}
+select{
+	border-radius: 15px;
+	height: 26px;
+	font-size: 14px;
+}
+button:hover, input[type="submit"]:hover{
+	transform: translateY(-5px);
+	transition: 1s;
+}
+button a, button span, input[type="submit"]{
+	color: #fff;
+}
+
+@media only screen and (max-width: 610px){
+	td button{
+		width: 28%;
+	}
+}
+
+span.numero { text-decoration: underline; }
+.navegacao-pag {
+	text-align: center;
+	margin-top: 10px;
+	font-size: 18px;
+}
+.navegacao-pag a {
+	color: #008573;
+}
+p.resultados {
+	font-style: italic;
+	text-align: right;
+	color: #555;
+	font-size: 12px;
+}
+#filtrarPaginacao { display: inline; }

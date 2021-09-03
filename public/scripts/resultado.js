@@ -44,13 +44,9 @@ $(document).ready(function(){
 		}
 
 		if ( await requisicaoAjax(parametros) ) {
-			$('#ajaxLoader').fadeOut()
-			// document.location.reload()
-
-			// const url = new URL(window.location.href);
-			// const h_id = url.searchParams.get("hospital");
-
-			/* window.location.href = "comprovante.php?hospital="+h_id */
+			$('#ajaxLoader').fadeOut(function(){
+				document.location.reload()
+			})
 		}
 	})
 })
@@ -117,6 +113,7 @@ function requisicaoAjax (parametros)
 			success: data =>{
 				resolve(true)
 				localStorage.clear()
+				// console.log(data);
 			},
 			error: erro =>{
 				reject(erro)
@@ -129,7 +126,7 @@ function requisicaoAjax (parametros)
 					document.location.reload()
 				}
 
-				$('#ajaxLoader').remove()
+				$('#ajaxLoader').fadeOut()
 			}
 		})
 	})

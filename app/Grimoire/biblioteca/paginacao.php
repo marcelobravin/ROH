@@ -111,7 +111,7 @@ function definirExibicao ()
  * @param	int
  * @return	array
  *
-* @uses	paginacao.php->definirPaginaAtual()
+ * @uses	paginacao.php->definirPaginaAtual()
  */
 function definirLimites ($resultadosPorPagina)
 {
@@ -121,6 +121,32 @@ function definirLimites ($resultadosPorPagina)
 	$array['inicio'] = $array['final'] - $resultadosPorPagina;
 
 	return $array;
+}
+
+/**
+ * Define ordenação
+ *
+ * @package	grimoire/bibliotecas/paginacao.php
+ * @since	05-10-2016
+ * @version	24-06-2021
+ *
+ * @param	string
+
+ * @param	string	ordem
+*/
+function definirOrdemPaginacao ($ordenacaoDefault='id')
+{
+	if ( isset($_GET['chave_ordenacao']) ) {
+		$ordenacao = $_GET['chave_ordenacao'];
+	} else {
+		$ordenacao = $ordenacaoDefault;
+	}
+
+	if ( isset($_GET['ordem']) && $_GET['ordem']=="desc" ) {
+		$ordenacao .= " DESC";
+	}
+
+	return "ORDER BY {$ordenacao}";
 }
 
 /**
@@ -142,31 +168,8 @@ function definirPaginaAtual ()
 }
 
 /**
- * Define ordenação
  *
- * @package	grimoire/bibliotecas/paginacao.php
- * @since	05-10-2016
- * @version	24-06-2021
- *
- * @param	string
-
- * @param	string	ordem
-*/
-function defineOrdemPaginacao ($ordenacaoDefault='id')
-{
-	if ( isset($_GET['chave_ordenacao']) ) {
-		$ordenacao = $_GET['chave_ordenacao'];
-	} else {
-		$ordenacao = $ordenacaoDefault;
-	}
-
-	if ( isset($_GET['ordem']) && $_GET['ordem']=="desc" ) {
-		$ordenacao .= " DESC";
-	}
-
-	return "ORDER BY {$ordenacao}";
-}
-
+ */
 function filtrarArray ($array, $filtro='char')
 {
 	$novaArray = array();
@@ -185,25 +188,25 @@ function filtroPaginacao ()
 {
 	include_once "app/Model/Paginacao-". $_GET['modulo'] .".php";
 	$campos = retornarCampos();
-	?>
-		<p>
-			<select name="paginacao[campo]">
-				<?php foreach ($campos as $v) : ?>
-					<option value="<?php echo $v ?>" <?php echo selecionadoSubindice("paginacao", "campo", $v) ?>><?php echo $v ?></option>
-				<?php endforeach ?>
+?>
+	<select name="paginacao[campo]">
+		<?php foreach ($campos as $v) : ?>
+			<option value="<?php echo $v ?>" <?php echo selecionadoSubindice("paginacao", "campo", $v) ?>><?php echo $v ?></option>
+		<?php endforeach ?>
 
-			</select>
-			<select name="paginacao[operador]" id="">
-				<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>Contém</option>
-				<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>É igual a</option>
-				<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>É diferente de</option>
-				<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>Começa com</option>
-				<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>Termina com</option>
-			</select>
+	</select>
+	<select name="paginacao[operador]" id="">
+		<option value="contem" <?php echo selecionadoSubindice("paginacao", "operador", "contem") ?>>Contém</option>
+		<option value="igual" <?php echo selecionadoSubindice("paginacao", "operador", "igual") ?>>É igual a</option>
+		<option value="diferente" <?php echo selecionadoSubindice("paginacao", "operador", "diferente") ?>>É diferente de</option>
+		<option value="comeca" <?php echo selecionadoSubindice("paginacao", "operador", "comeca") ?>>Começa com</option>
+		<option value="termina" <?php echo selecionadoSubindice("paginacao", "operador", "termina") ?>>Termina com</option>
+	</select>
 
-			<input type="text" name="paginacao[filtroPaginacao]" id="filtroPaginacao" value="<?php echo bloquearXSS(exibirSubIndice("paginacao", "filtroPaginacao")) ?>" placeholder="Digite algo" />
-		</p>
-	<?php
+	<input type="text" name="paginacao[filtroPaginacao]" id="filtroPaginacao" value="<?php echo bloquearXSS(exibirSubIndice("paginacao", "filtroPaginacao")) ?>" placeholder="Digite algo" />
+	<input type="submit" id="filtrarPaginacao" class="btn btn-success" value="Exibir" title="Alterar quantidade de resultados a exibir a cada página"/>
+
+<?php
 }
 
 /**
@@ -325,6 +328,9 @@ function paginacao ($numeroPaginas, $paginaSelecionada=1, $limite=3)
 	return montarControlesPaginacao($paginaSelecionada, $link, $minimo, $maximo, $numeroPaginas);
 }
 
+/**
+ *
+ */
 function montarControlesPaginacao ($paginaSelecionada, $link, $minimo, $maximo, $numeroPaginas)
 {
 	$vetorPaginas = array();
@@ -370,6 +376,9 @@ function montarControlesPaginacao ($paginaSelecionada, $link, $minimo, $maximo, 
 	return $vetorPaginas;
 }
 
+/**
+ *
+ */
 function identificarParametros ()
 	{
 		$parametros = "";
@@ -432,7 +441,7 @@ function paginationCore ($tabela, $linksPaginasExibir=PAGINACAO_PAE)
 
 	$limite = " LIMIT {$limites['inicio']}, {$numeroRegistrosPorPagina}";
 
-	$orderBy = defineOrdemPaginacao();
+	$orderBy = definirOrdemPaginacao();
 	$sqlList = selecao($tabela, $where, $orderBy.$limite);
 	$list = executar($sqlList);
 
@@ -457,7 +466,6 @@ function paginationCore ($tabela, $linksPaginasExibir=PAGINACAO_PAE)
 */
 function paginacaoHeader ($n)
 {
-	echo '<p class="contadorRegistros">';
 	echo $n;
 
 	if ( $n > 1 ) {
@@ -465,43 +473,45 @@ function paginacaoHeader ($n)
 	} else {
 		echo " resultado encontrado";
 	}
-	echo'</p>';
 }
 
 /**
  *
-*/
-function selecaoResultadosPorPagina ($vetorPaginacao)
+ */
+function selecaoResultadosPorPagina ()
+{
+?>
+	<form method="get">
+
+		<?php
+			foreach ($_GET as $key => $value) {
+				if ( !is_array($value) && $key != 'exibir' ) {
+					$key = htmlspecialchars($key);
+					$value = htmlspecialchars($value);
+					echo "<input type='hidden' name='{$key}' value='{$value}' />";
+				}
+			}
+		?>
+
+		<select name="exibir" id="exibir">
+			<option <?php echo selecionado("exibir", 10) ?> value="10">10 resultados por página</option>
+			<option <?php echo selecionado("exibir", 25) ?> value="25">25 resultados por página</option>
+			<option <?php echo selecionado("exibir", 50) ?> value="50">50 resultados por página</option>
+			<option <?php echo selecionado("exibir", 100) ?> value="100">100 resultados por página</option>
+			<option <?php echo selecionado("exibir", 500) ?> value="500">500 resultados por página</option>
+		</select>
+
+		<?php filtroPaginacao() ?>
+
+	</form>
+<?php
+}
+
+function registrosExibidos ($vetorPaginacao)
 {
 	$ultimoRegistroExibido = $vetorPaginacao['limites']['inicio'] + count($vetorPaginacao['listaPaginada']);
-	?>
-		<p class="contadorRegistros">
-			<form style="text-align: right" method="get">
-				<?php
-					foreach ($_GET as $key => $value) {
-						if ( !is_array($value) && $key != 'exibir' ) {
-							$key = htmlspecialchars($key);
-							$value = htmlspecialchars($value);
-							echo "<input type='hidden' name='{$key}' value='{$value}' />";
-						}
-					}
-				?>
-				<select name="exibir" id="exibir">
-					<option <?php echo selecionado("exibir", 10) ?> value="10">10 resultados por página</option>
-					<option <?php echo selecionado("exibir", 25) ?> value="25">25 resultados por página</option>
-					<option <?php echo selecionado("exibir", 50) ?> value="50">50 resultados por página</option>
-					<option <?php echo selecionado("exibir", 100) ?> value="100">100 resultados por página</option>
-					<option <?php echo selecionado("exibir", 500) ?> value="500">500 resultados por página</option>
-				</select>
-				<input type="submit" class="btn btn-success" value="Exibir" title="Alterar quantidade de resultados a exibir a cada página"/>
-				<p>
-					Exibindo de <?php echo $vetorPaginacao['limites']['inicio']+1 ?>
-					a <?php echo $ultimoRegistroExibido ?>
-				</p>
-
-				<?php filtroPaginacao() ?>
-
-			</form>
-		</p>
-	<?php
+?>
+	Exibindo de <?php echo $vetorPaginacao['limites']['inicio']+1 ?>
+	a <?php echo $ultimoRegistroExibido ?>
+<?php
 }

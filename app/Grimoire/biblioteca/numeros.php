@@ -246,13 +246,8 @@ function regraDeTres ($valorParcial, $valorTotal)
  *
  * @param	string
  * @param	string
- * @param	bool	Conservar conteúdo, append
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
  */
 function formatBytes ($size, $precision = 2)
 {
@@ -281,10 +276,6 @@ function par($var)
  * @param	int
  *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function positivo ($param)
 {

@@ -110,3 +110,6 @@ body{
         flex-flow: column;
     }
 }
+h1 {
+	text-shadow: 1px 1px 2px black
+}

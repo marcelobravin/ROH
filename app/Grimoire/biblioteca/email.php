@@ -113,47 +113,40 @@ function gerarMailBody ($conteudo, $titulo="No Subject")
 		</html>';
 }
 
-function enviarEmailConfirmacao ()
+function enviarEmailConfirmacao ($id)
 {
-	if ( !isset($_GET['id']) ) {
-		die("Id inválido");
-	}
-
-
 	$condicoes = array(
-		'id' => $_GET['id']
+		'id' => $id
 	);
-	$user = selecionar('usuario', $condicoes);
-
-
-	if ( !isset($_GET['id']) ) {
-		die("Id inválido");
-	}
-
+	$user = localizar('usuario', $condicoes);
 	if ( !$user ) {
 		die("Id inválido!");
 	}
 
-	$user = $user[0];
 
 	$token = uniqid();
 
-
 	$assunto = "Confirmação de email";
-	$servidor = "https://". $_SERVER['SERVER_NAME'] ."/". PROJECT_FOLDER;
-	$endereco = "app/Controller/MailValidationController.php?id=". $_GET['id'] ."&token=". $token;
+	$servidor = PROTOCOLO ."". BASE_HTTP;
+	$endereco = 'app/Controller/MailValidationController.php?id='. $id .'&token='. $token;
 	$body = '<a href="'. $servidor . $endereco .'">Clique aqui para confirmar seu email</a>';
 
 
 	$campos = array(
 		'token' => $token
 	);
-	$rowCount = atualizar('usuario', $campos, ['id' => $_GET['id']]);
+	$rowCount = atualizar('usuario', $campos, ['id' => $id]);
 
 
 	if ( !$rowCount ) {
-		die("Erro ao enviar email");
+		die("Erro ao atualizar token");
 	}
 
-	return enviarEmail($user['login'], $assunto, $body, "ROH Remetente", "Automatico");
+	return array(
+		'envio' 	=> enviarEmail($user['login'], $assunto, $body, "ROH Remetente", "Automatico"),
+		'assunto'	=> $assunto,
+		'servidor'	=> $servidor,
+		'endereco'	=> $endereco,
+		'body'		=> $body
+	);
 }

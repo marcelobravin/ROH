@@ -5,6 +5,8 @@ if ( empty($_POST) ) {
 	responderAjax("Dados vazios!", false, $codigo=400); # 400 Bad Request
 }
 
+$resposta = "Nenhuma alteração";
+$resultados = array();
 foreach ($_POST['form'] as $i => $value) {
 
 	$values = array(
@@ -17,15 +19,14 @@ foreach ($_POST['form'] as $i => $value) {
 	);
 
 	$id = inserir('resultado', $values);
-	$procedimentoOK = false;
 
 	if ( positivo($id) ) {
+		$resultados[] = $id;
+
 		registrarOperacao('I', 'resultado', $id);
 		$resposta = "Resultados inseridos com sucesso!";
-		$procedimentoOK = true;
 
 	} else {
-		$procedimentoOK = false;
 
 		if ( contem("Duplicate entry", $id) ) {
 			$values = array(
@@ -43,20 +44,19 @@ foreach ($_POST['form'] as $i => $value) {
 			$rows = atualizar("resultado", $values, $where);
 
 			if ( positivo($rows) ) {
-				$procedimentoOK = true;
+				$resultados[$value['metaId']] = $rows;
+
 				$id = localizar('resultado', $where, '', 'id');
 				registrarOperacao('U', 'resultado', $id['id']);
+				$resposta = "Resultados atualizados com sucesso!";
 			}
 
-			$resposta = "Resultados atualizados com sucesso!";
 		}
 	}
 }
 
-if ( $procedimentoOK ) {
+if ( empty($resultados) ) {
+	responderAjax($resposta, 'info', $codigo=406); # 406 Not Acceptable;
+} else {
 	responderAjax($resposta, true, $codigo=406); # 406 Not Acceptable
 }
-
-
-# erro
-responderAjax("Nenhuma alteração", 'info', $codigo=406); # 406 Not Acceptable

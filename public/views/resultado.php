@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+<link rel="stylesheet" type="text/css" href="public/css/resultado.css">
+
 <div class="container">
 	<h2><?php echo $PAGINA['titulo'] ?></h2>
 
@@ -11,7 +14,6 @@
 				<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
 			</select>
 		</div>
-
 
 		<?php if ( $hospitalValido ): ?>
 			<div class="inputs">
@@ -34,6 +36,7 @@
 			<form id="form">
 
 				<?php foreach ($categorias as $v) : ?>
+
 					<div id="bloco-<?php echo $v['id'] ?>" class="invisivel aba">
 						<h4><?php echo $v['tituloSanitizado'] ?></h4>
 
@@ -99,23 +102,25 @@
 							</tfoot>
 						</table>
 
-						<button class="salvarTemporariamente" type="button">
-							Salvar temporariamente os dados dessa categoria
-						</button>
-
 					</div>
 
 				<?php endforeach ?>
 
-				<button class="salvar" type="button">
-					Registrar Resultados
-				</button>
+				<div id="container-botoes">
+					<button class="salvarTemporariamente" type="button">
+						Salvar
+					</button>
 
-				<button type="button">
-					<a href="comprovante.php?hospital=<?php echo $_GET['hospital'] ?>" target="_blank">
-						Imprimir Comprovante
-					</a>
-				</button>
+					<button class="salvar" type="button">
+						Salvar e concluir
+					</button>
+
+					<button type="button">
+						<a href="comprovante.php?hospital=<?php echo $_GET['hospital'] ?>" target="_blank">
+							Gerar Comprovante
+						</a>
+					</button>
+				</div>
 
 			</form>
 
@@ -124,15 +129,14 @@
 	</div>
 </div>
 
-
-
-<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+<style>
+	<?php echo estiloAjaxLoader() ?>
+</style>
 
 <script src="public/scripts/redirecionamento.js"></script>
 
 <script src="public/scripts/metas.js"></script>
 <script src="public/scripts/resultado.js"></script>
-
 
 <script src="public/vendors/jquery.mask.min.js"></script>
 <script>
@@ -140,38 +144,3 @@
 		$(this).mask('0000');
 	});
 </script>
-
-
-<style>
-	/* TODO pegar conteudo de resultado, justificativa e relatorio e criar arquivo.css */
-	textarea {
-		resize: none;
-		min-width: 310px;
-		max-width: 310px;
-
-		min-height:	70px;
-	}
-	.insuficiente {
-		background-color: #ffb8b8 !important
-	}
-
-	.salvar {
-		background-color: #609bf5 !important;
-	}
-
-	.insuficiente:nth-child(odd) {
-		background-color: #ffa8a8 !important
-	}
-
-	button { /* remover css redundante */
-		background-color: #60f59b;
-		color: white;
-		padding: 10px 30px;
-		border-radius: 6px;
-		margin: 0 auto;
-		display: block;
-		margin-top: 20px;
-	}
-
-	<?php echo estiloAjaxLoader() ?>
-</style>

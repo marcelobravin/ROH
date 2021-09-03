@@ -19,7 +19,6 @@ $campos = array(
 	'titulo'				=> $_POST['titulo'],
 	'ativo'					=> isset($_POST['ativo']) ? 1 : 0,
 	'cnes'					=> $_POST['cnes'],
-	'cnpj'					=> removerNaoNumericos($_POST['cnpj']),
 	'diretor'				=> $_POST['diretor'],
 	'segundo_responsavel'	=> $_POST['segundo_responsavel'],
 	'cep'					=> removerNaoNumericos($_POST['cep']),
@@ -32,6 +31,12 @@ $campos = array(
 
 	'atualizado_por'		=> $_SESSION[USUARIO_SESSAO]['id']
 );
+
+#campos não obrigatórios que dão problema em valor default
+$cnpj = removerNaoNumericos($_POST['cnpj']);
+if ( !empty($cnpj) ) {
+	$campos['cnpj'] = $cnpj;
+}
 
 $resultado = atualizar('hospital', $campos, $condicoes);
 

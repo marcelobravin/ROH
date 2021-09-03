@@ -1,4 +1,4 @@
-<!-- 28/08/2021 13:34:32 -->
+<!-- 03/09/2021 09:56:54 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="login">Email <span class="simbolo-obrigatorio">*</span></label>

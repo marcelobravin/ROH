@@ -1,13 +1,15 @@
 <?php
+
+use Svg\Tag\Line;
+
 include '../../app/Grimoire/core_inc.php';
 
 require '../../app/Model/Validacao-usuario.php';
 
 # ------------------------------------------------------------------------------ validacao
 bloquearRequisicoesInvalidas($_POST, "formulario-cadastro.php?modulo=usuario");
-
 # ------------------------------------------------------------------------------ validacao
-$errosFormulario = validarFormulario($_POST);
+$errosFormulario = validarFormulario($_POST, false);
 if ( !empty($errosFormulario) ) {
 	montaRespostaValidacao($errosFormulario);
 	voltar();
@@ -27,17 +29,16 @@ $values = array(
 
 	'criado_por'	=> $_SESSION[USUARIO_SESSAO]['id']
 );
-
 $id = inserir('usuario', $values);
 
 # ------------------------------------------------------------------------------ sucesso
 if ( positivo($id) ) {
+	enviarEmailConfirmacao($id);
+
 	registrarOperacao('I', 'usuario', $id);
 
 	$resposta = "Inserido registro número: ". $id;
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
-
-	enviarEmailConfirmacao();
 
 	redirecionar("formulario-atualizacao.php?modulo=usuario&codigo={$id}");
 }

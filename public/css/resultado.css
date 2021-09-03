@@ -1,0 +1,31 @@
+textarea {
+	resize: none;
+	min-height:	70px;
+	min-width: 310px;
+	max-width: 310px;
+}
+.insuficiente {
+	background-color: #ffb8b8 !important
+}
+
+.salvar {
+	background-color: #609bf5 !important;
+}
+
+.insuficiente:nth-child(odd) {
+	background-color: #ffa8a8 !important
+}
+.salvarTemporariamente {
+	background-color: #60f59b;
+}
+button { /* remover css redundante */
+	background-color: #f5609b;
+	color: white;
+	padding: 10px 30px;
+	border-radius: 6px;
+	margin: 0 6px;
+}
+#container-botoes {
+	margin-top: 20px;
+	text-align: center;
+}

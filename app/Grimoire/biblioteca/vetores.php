@@ -342,3 +342,13 @@ function retirarIndice ($matriz, $indice)
 	}
 	return $retorno;
 }
+
+/**
+ *
+ */
+function removeIndicePorValor (&$array, $valor)
+{
+	if ( ( $key = array_search($valor, $array) ) !== false) {
+		unset($array[$key]);
+	}
+}

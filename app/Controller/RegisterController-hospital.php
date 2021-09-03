@@ -15,7 +15,6 @@ $values = array(
 	'titulo'				=> $_POST['titulo'],
 	'ativo'					=> isset($_POST['ativo']) ? 1 : 0,
 	'cnes'					=> $_POST['cnes'],
-	'cnpj'					=> removerNaoNumericos($_POST['cnpj']),
 	'diretor'				=> $_POST['diretor'],
 	'segundo_responsavel'	=> $_POST['segundo_responsavel'],
 	'cep'					=> removerNaoNumericos($_POST['cep']),
@@ -29,22 +28,30 @@ $values = array(
 	'criado_por'			=> $_SESSION[USUARIO_SESSAO]['id']
 );
 
+#campos não obrigatórios que dão problema em valor default
+$cnpj = removerNaoNumericos($_POST['cnpj']);
+if ( !empty($cnpj) ) {
+	$values['cnpj'] = $cnpj;
+}
+
+# realizacao da operação
 $t = new Transacao();
 $t->registrarInsercao('hospital', $values);
 $t->concluir();
-
-# ------------------------------------------------------------------------------ resposta
-$idInserido = $t->resultados[1]['retorno'];
-if ( !$t->erro ) {
-	$resposta = "Inserido registro número: ". $idInserido;
-	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
-
-	redirecionar("formulario-atualizacao.php?modulo=hospital&codigo={$idInserido}");
+$idInserido = $t->resultados[1]['retorno'];  # todo getResultadoUltimaOperacao
 
 # ------------------------------------------------------------------------------ erros
-} else {
+if ( $t->erro ) {
+	exibir( $idInserido );
+
 	$resposta = montarMensagemErro( $idInserido );
 	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 
 	voltar();
 }
+
+# ------------------------------------------------------------------------------ sucesso
+$resposta = "Inserido registro número: ". $idInserido;
+montarRespostaPost($resposta, true, $codigo=201); # 201 Created
+
+redirecionar("formulario-atualizacao.php?modulo=hospital&codigo={$idInserido}");

@@ -41,14 +41,14 @@ if ( isset($_REQUEST['action']) ) {
 				#personaliza
 				if ($value == 'hospital') {
 					$sobreEscreverLabels	= array(
-						'titulo'=> 'Título',
+						'titulo'=> 'Estabelecimento',
 						'cnes'	=> 'CNES',
 						'cnpj'	=> 'CNPJ',
 						'cep'	=> 'CEP',
 						'uf'	=> 'UF',
-						'segundo_responsavel'=> 'Segundo Responsável'
+						'segundo_responsavel'=> 'Técnico Responsável'
 					);
-					$descricaoLabels		= array('titulo'=> 'Descrição do Título');
+					$descricaoLabels		= array('titulo' => 'Nome do estabelecimento');
 				} else if ($value == 'usuario') {
 					$sobreEscreverLabels = array(
 						'login'		=> 'Email',
@@ -99,14 +99,14 @@ if ( isset($_REQUEST['action']) ) {
 				switch ( $value ) {
 					case 'hospital':
 						$sobreEscreverLabels	= array(
-							'titulo'=> 'Título',
+							'titulo'=> 'Estabelecimento',
 							'cnes'	=> 'CNES',
 							'cnpj'	=> 'CNPJ',
 							'cep'	=> 'CEP',
 							'uf'	=> 'UF',
-							'segundo_responsavel'=> 'Segundo Responsável'
+							'segundo_responsavel'=> 'Técnico Responsável'
 						);
-						$descricaoLabels 		= array('titulo'=> 'Descrição do Título');
+						$descricaoLabels 		= array('titulo' => 'Nome do estabelecimento');
 					break;
 					case 'usuario':
 						$sobreEscreverLabels = array(

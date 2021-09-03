@@ -2,7 +2,6 @@
 echo a("acoes", "index.php?action");
 
 
-
 exibir($_SESSION);
 
 

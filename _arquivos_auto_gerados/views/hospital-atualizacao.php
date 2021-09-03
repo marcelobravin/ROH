@@ -1,7 +1,7 @@
-<!-- 28/08/2021 13:34:32 -->
+<!-- 03/09/2021 09:56:54 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
-	<label for="titulo" title="Descrição do Título">Título <span class="simbolo-obrigatorio">*</span></label>
+	<label for="titulo" title="Nome do estabelecimento">Estabelecimento <span class="simbolo-obrigatorio">*</span></label>
 	<input required="required" maxlength="255" type="text" name="titulo" id="titulo" value="<?php echo bloquearXSS($obj["titulo"]) ?>" class="obrigatorio" />
 </div>
 <div>
@@ -21,7 +21,7 @@
 	<input required="required" maxlength="255" type="text" name="diretor" id="diretor" value="<?php echo bloquearXSS($obj["diretor"]) ?>" class="obrigatorio" />
 </div>
 <div>
-	<label for="segundo_responsavel">Segundo Responsável <span class="simbolo-obrigatorio">*</span></label>
+	<label for="segundo_responsavel">Técnico Responsável <span class="simbolo-obrigatorio">*</span></label>
 	<input required="required" maxlength="255" type="text" name="segundo_responsavel" id="segundo_responsavel" value="<?php echo bloquearXSS($obj["segundo_responsavel"]) ?>" class="obrigatorio" />
 </div>
 <div>

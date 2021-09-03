@@ -37,7 +37,7 @@ body {
 	margin: 20px 0px;
 }
 .container-selects .inputs:first-child{
-	flex-basis: 50%;
+	/* flex-basis: 50%; */
 }
 .container-selects select{
 	border-radius: 15px;
@@ -73,6 +73,7 @@ thead tr{
 }
 tbody tr{
 	height: 80px;
+	background-color: #eee;
 }
 tbody tr td{
 	text-align: center;
@@ -95,6 +96,7 @@ tr td input[type="number"]{
 	text-align: center;
 	box-shadow: 1px 1px 5px rgba(0,0,0,.5);
 	transition: 1s;
+	width: 140px;
 }
 td input[type="text"]:focus{
 	background: #fff;

@@ -5,7 +5,12 @@ cj-xfaYum4CR#rb
 
 
 
+informar quando senha for sequencial em validação de senha
+
+
 MFA ativável
+    sms cel
+    email
 
 
 

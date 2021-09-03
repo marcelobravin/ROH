@@ -1,3 +1,6 @@
+<link rel="stylesheet" type="text/css" href="public/css/metas.css">
+<link rel="stylesheet" type="text/css" href="public/css/relatorio.css">
+
 <div class="container">
 	<h2><?php echo $PAGINA['titulo'] ?></h2>
 
@@ -167,57 +170,9 @@
 <script src="public/scripts/redirecionamento.js"></script>
 <script src="public/scripts/relatorio.js"></script>
 
-<link rel="stylesheet" type="text/css" href="public/css/metas.css">
 <style>
-	textarea {
-		resize: none;
-		min-width: 310px;
-		max-width: 310px;
-		min-height:	70px;
-	}
-	td { border: 1px solid silver; }
-	/* table {	border-collapse: collapse; } */
-	thead th { background-color: #00dfc0 !important; }
-	/* td input,
-	td:nth-child(5),
-	td:nth-child(4),
-	td:nth-child(3),
-	td:nth-child(2) { text-align: center } */
-	/* tr:nth-child(even){ background-color: #ddd; } */
-	.tituloCategoria { text-align: center }
-	.insuficiente {
-		color: red;
-		font-weight: bold;
-	}
-	.suficiente {
-		color: green;
-		font-weight: bold;
-	}
-
 	#ano > option[value="<?php echo $in_anoAtual ?>"],
 	#mes > option[value="<?php echo $in_mesAtual ?>"] {
 		font-weight: bold;
-	}
-	button {
-		/* border: 1px solid gray; */
-		background-color: #609bf5;
-		color: white;
-		padding: 10px 30px;
-		border-radius: 6px;
-		margin: 10px auto;
-		display: block;
-		margin-top: 20px;
-	}
-
-	button:hover {
-		/* border: 1px solid silver; */
-		text-decoration: underline;
-	}
-	table {
-		margin-top: 0;
-	}
-
-	.container-selects {
-		margin: 20px 0px 00px;
 	}
 </style>

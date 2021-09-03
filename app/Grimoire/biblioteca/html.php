@@ -812,7 +812,7 @@ function popup ($pagina)
  */
 function sublinharPaginaAtual ()
 {
-	return 'a[href*="'. paginaAtual() .'"] { text-decoration: underline }';
+	return 'nav a[href*="'. paginaAtual() .'"] { text-decoration: underline }';
 }
 
 /**

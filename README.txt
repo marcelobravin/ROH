@@ -1,5 +1,50 @@
+melhor exibir na lista as ultimas alterações justificativas e responsavel
+visitas
+	incluir nova
+	alterar ultima
+		anteriores ficam imutaveis
+
+alteração pode ocorrer no dia 30
+
+
+upload - depende de infra
+
+remover campos de id do excell
+
+tela de log de alterações
+	exibir ultima pessoa que alterou o registro de resultados
+
+relatorio conter alterações de cada visita
+
+
+
+
+OK - exibir dados do hospital no relatório e no comprovante
+	cnes
+	responsavel
+
+OK - mudar titulo para estabelecimento em forms hospital
+
+OK - alterar label comprovante vistoria -> visita
+
+OK - vistoriador -> visita feita por
+
+OK - botoes salvar e salvar e concluir
+
+OK - técnico Responsável *
+
+
+Meire Ellen - WA
+	97434-8255
+
+--------------------------------------------------------------------------------
+
+
+
+
+
 anotações giovani
-	edição ultimo relatório
+	Ok - edição ultimo relatório
 	distinção de usuário
 	log alterações
 	OK - comprovante de visita mostrar
@@ -76,7 +121,7 @@ cor do usuário logado
 BUGs conhecidos ################################################################
 email pode ter numeros
 
-vazamento de mensagem de erro da sessão
+ok - vazamento de mensagem de erro da sessão
 
 duas pessoas logadas com o mesmo usuário
 
@@ -85,10 +130,7 @@ delete ou alterar parametros de busca
 navegar por
 	página maior que o limite
 
-!!!
-	const pattern = /^Você será redirecionado/i; // TODO verificar
-
-testar novamente ajax com tempo expirado
+testar novamente ajax com tempo expirado e alteração de fingerprint
 
 colocar confirmação de email de volta no form de usuário
 
