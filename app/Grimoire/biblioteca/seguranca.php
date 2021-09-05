@@ -4,6 +4,65 @@
  * @package grimoire/bibliotecas
 */
 
+/**
+ * Escreve o conteúdo em um arquivo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	string
+ * @param	string
+ * @param	bool	Conservar conteúdo, append
+ *
+ * @return	bool
+ *
+ * @example
+	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
+	echo array_para_csv($array);
+*/
+function bloquearForcaBruta ($id, $conexao)
+{
+	$falhasConsecutivas = detectarForcaBruta($id, $conexao);
+
+	if ( $falhasConsecutivas >= FORCA_BRUTA) {
+		echo "<p>Tentativas de login incorretas: {$falhasConsecutivas}</p>";
+		die("Usuário bloqueado temporariamente!");
+	}
+}
+
+/**
+ * Impede o processamento de requisições externas ou vazias
+ *
+ * @package	grimoire/bibliotecas/seguranca.php
+ * @since	12/08/2021 10:56:54
+ *
+ * @param	array
+ * @param	string	whitelist contendo a url de onde serão aceitas requisições
+*/
+function bloquearRequisicoesInvalidas ($post, $paginaPermitida="formulario-cadastro.php?modulo=usuario")
+{
+	if ( empty($post) ) {
+		die("Requisição vazia!");
+	}
+
+	if ( !isset($_SERVER['HTTP_REFERER']) ) {
+		die("Requisição externa!");
+	}
+
+	if ( $_SERVER['HTTP_REFERER'] != PROTOCOLO . BASE_HTTP . $paginaPermitida ) {
+		die("Requisição inválida");
+	}
+}
+
+/**
+ * 07/08/2021 15:49:38
+*/
+function bloquearXSS ($inputUsuario)
+{
+	return htmlentities($inputUsuario);
+}
+
 // 50 milliseconds
 /**
  * Escreve o conteúdo em um arquivo
@@ -43,18 +102,41 @@ function verifyHashCost($timeTargetInMiliseconds=0.05) {
  * @version	24-06-2021
  *
  * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
  * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
 */
 function criptografar ($senha) {
 	$options = ['cost' => 12];
 	return password_hash($senha, PASSWORD_DEFAULT, $options);
+}
+
+/**
+ * Retorna o numero de tentativas de login com falha em dado intervalo de tempo
+ *
+ * @package	grimoire/bibliotecas/arquivos.php
+ * @since	05-07-2015
+ * @version	24-06-2021
+ *
+ * @param	int
+ * @param	object
+ *
+ * @return	int
+ * @uses	INTERVALO_FORCA_BRUTA
+*/
+function detectarForcaBruta ($id, $conexao)
+{
+	$newTime = strtotime(INTERVALO_FORCA_BRUTA);
+	$dt = date('Y-m-d H:i:s', $newTime);
+
+	$sql = "
+		SELECT * FROM _log_acesso
+		WHERE
+			id_usuario		= {$id}
+			AND sucesso		= 0
+			AND datahora	> '{$dt}'
+	";
+	$stm = $conexao->prepare($sql);
+	$stm->execute();
+	return $stm->rowCount();
 }
 
 /**
@@ -63,7 +145,7 @@ function criptografar ($senha) {
  * @since	05-07-2015
  * @version	13/08/2021 08:51:39
  *
- * @param	string	I/U/D/d Insert, update, delete ou exclusão lógica
+ * @param	string	I/U/D/X Insert, update, delete ou exclusão lógica
  * @return	bool
  *
  * @uses	$_SESSION
@@ -100,98 +182,4 @@ function registroOperacao ($acao, $tabela, $objetoId, $usuario=null)
 	);
 
 	return insercao('_log_operacoes', $values);
-}
-
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function detectarForcaBruta ($id, $conexao)
-{
-	$newTime = strtotime(INTERVALO_FORCA_BRUTA);
-	$dt = date('Y-m-d H:i:s', $newTime);
-
-	$sql = "
-		SELECT * FROM _log_acesso
-		WHERE
-			id_usuario		= {$id}
-			AND sucesso		= 0
-			AND datahora	> '{$dt}'
-	";
-	$stm = $conexao->prepare($sql);
-	$stm->execute();
-	return $stm->rowCount();
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	05-07-2015
- * @version	24-06-2021
- *
- * @param	string
- * @param	string
- * @param	bool	Conservar conteúdo, append
- *
- * @return	bool
- *
- * @example
-	cabecalho_download_csv("nome_arquivo_" . date("Y-m-d") . ".csv");
-	echo array_para_csv($array);
-*/
-function bloquearForcaBruta ($id, $conexao)
-{
-	$falhasConsecutivas = detectarForcaBruta($id, $conexao);
-
-	if ( $falhasConsecutivas >= FORCA_BRUTA) {
-		echo "<p>Tentativas de login incorretas: {$falhasConsecutivas}</p>";
-		die("Usuário bloqueado temporariamente!");
-	}
-}
-
-/**
- * 07/08/2021 15:49:38
-*/
-function bloquearXSS ($inputUsuario)
-{
-	return htmlentities($inputUsuario);
-}
-
-/**
- * Escreve o conteúdo em um arquivo
- *
- * @package	grimoire/bibliotecas/arquivos.php
- * @since	12/08/2021 10:56:54
- *
- * @param	array
- * @param	string	whitelist contendo a url de onde serão aceitas requisições
-*/
-function bloquearRequisicoesInvalidas ($post, $paginaPermitida="formulario-cadastro.php?modulo=usuario")
-{
-	if ( empty($post) ) {
-		die("Requisição vazia!");
-	}
-
-	if ( !isset($_SERVER['HTTP_REFERER']) ) {
-		die("Requisição externa!");
-	}
-
-	if ( $_SERVER['HTTP_REFERER'] != PROTOCOLO . BASE_HTTP . $paginaPermitida ) {
-		die("Requisição inválida");
-	}
 }

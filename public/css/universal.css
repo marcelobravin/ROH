@@ -71,3 +71,6 @@ input[type=checkbox]:hover { transform: rotate(360deg); }
 
 select:hover { border: 1px solid black }
 /* ::selection { background-color: black } */
+
+
+.simbolo-obrigatorio { color:red }

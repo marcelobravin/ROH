@@ -12,7 +12,8 @@ bloquearRequisicoesInvalidas($_POST, "formulario-cadastro.php?modulo=usuario");
 $errosFormulario = validarFormulario($_POST, false);
 if ( !empty($errosFormulario) ) {
 	montaRespostaValidacao($errosFormulario);
-	voltar();
+	// voltar();
+	voltarJS();
 }
 
 # ------------------------------------------------------------------------------ operacao

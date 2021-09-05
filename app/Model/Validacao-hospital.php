@@ -26,14 +26,14 @@ function validarFormulario ( $post, $update=false )
 
 function montarMensagemErro ( $erro )
 {
-	$erro = $erro->getMessage();
+	$erro = $erro[2];
 
 	if ( contem("Duplicate entry", $erro) ) {
 
 		if ( contem("for key 'cnes'", $erro) ) {
-			$erro = "Já existe um estabelecimento cadastrado para este CNES. Por Favor, verifique se o valor informado está correto";
+			$erro = "Já existe um estabelecimento cadastrado para este CNES.<br>Por Favor, verifique se o valor informado está correto";
 		} else if ( contem("for key 'cnpj'", $erro) ) {
-			$erro = "Já existe um estabelecimento cadastrado para este CNPJ. Por favor, verifique se o valor informado está correto.";
+			$erro = "Já existe um estabelecimento cadastrado para este CNPJ.<br>Por favor, verifique se o valor informado está correto.";
 		}
 
 	} else {
