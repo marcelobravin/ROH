@@ -61,9 +61,9 @@ function montarMensagemErro ( $erro )
 	if ( contem("Duplicate entry", $erro) ) {  # Erros possíveis
 
 		if ( contem("for key 'cpf'", $erro) ) {
-			$erro = "CPF já existe!";
+			$erro = "O CPF informado já está cadastrado na base";
 		} else if ( contem("for key 'login'", $erro) ) {
-			$erro = "Email já existe!";
+			$erro = "O e-mail informado já está cadastrado na base";
 		}
 
 	} else {

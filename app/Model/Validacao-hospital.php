@@ -29,7 +29,13 @@ function montarMensagemErro ( $erro )
 	$erro = $erro->getMessage();
 
 	if ( contem("Duplicate entry", $erro) ) {
-		die("erro"); ###########################################################
+
+		if ( contem("for key 'cnes'", $erro) ) {
+			$erro = "Já existe um estabelecimento cadastrado para este CNES. Por Favor, verifique se o valor informado está correto";
+		} else if ( contem("for key 'cnpj'", $erro) ) {
+			$erro = "Já existe um estabelecimento cadastrado para este CNPJ. Por favor, verifique se o valor informado está correto.";
+		}
+
 	} else {
 		exibir($erro, true); # Erro deconhecido
 	}

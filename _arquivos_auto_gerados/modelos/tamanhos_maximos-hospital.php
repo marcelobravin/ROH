@@ -2,7 +2,7 @@
 		/**
 		 * hospital
 		 * @package	grimoire/modelos
-		 * @version	03/09/2021 09:56:54
+		 * @version	05/09/2021 11:03:16
 		*/
 	$mapaTamanhos = array(
 'id' => array('maximo' => 11),
@@ -14,6 +14,7 @@
 'segundo_responsavel' => array('maximo' => 255),
 'cep' => array('maximo' => 8),
 'endereco' => array('maximo' => 255),
+'numero' => array('maximo' => 11),
 'bairro' => array('maximo' => 255),
 'cidade' => array('maximo' => 255),
 'telefone' => array('maximo' => 15),

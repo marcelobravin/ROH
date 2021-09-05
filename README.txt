@@ -37,6 +37,60 @@ OK - técnico Responsável *
 Meire Ellen - WA
 	97434-8255
 
+
+	Módulo usuários	Validação do usuário	Não foi possível testar. O sistema não está realizando o envio do link para o e-mail cadastrado	Habilitar esta funcionalidade para testes prévios
+	Módulo usuários	Reenviar confirmação de e-mail	Ao acionar a funcionalidade o sistema exibe tela de erro para este ambiente	Habilitar esta funcionalidade para testes prévios
+	Módulo usuários	Geral	Ao apresentar mensagem de inconsistência sobre alguma informação preenchida no formulário, o sistema apaga todos os demais campos preenchidos.
+
+
+		Apresentar mensagem de crítica, porém, manter o preenchimento dos campo, permitindo apenas a correção da informação.
+
+
+
+	Módulo usuários	E-mail e CPF	Ao informar e-mail ou CPF de já cadastrados na base o sistema apresenta tela de erro.
+
+	Massa de teste:
+	CPF: 166.304.770-73
+	E-mail: meiresama@gmail.com	Exibir mensagem:
+	Quando campo e-mail:
+	“O e-mail informado já está cadastrado na base”
+	Quando campo CPF:
+	“ O CPF informado já está cadastrado na base”
+	Módulo usuários	Celular	Ao digitar esta informação,  o sistema adiciona "Ponto”  após o primeiro número.	Não apresentar o referido ponto.
+
+
+
+
+	Módulo Hospitais	Titulo		Alterar o nome do campo para "Estabelecimento"
+	Módulo Hospitais	CNES, CNPJ	O sistema permite cadastrar o mesmo CNJP e/ou CNES para mais de um  estabelecimento.	O sistema não deve permitir o cadastro de outro estabelecimento para um CNPJ ou CNES que já esteja ativo na base do sistema.
+
+	Ao ser informado um CNPJ ou CNES já cadastrado na aplicação o sistema deve apresentar uma mensagem de tratamento.
+
+	Sugestão :
+
+	Para o campo CNES
+	“Já existe um estabelecimento cadastrado para este CNES. Por Favor, verifique se o valor informado está correto”.
+
+	Para o campo CNPJ
+	“Já existe um estabelecimento cadastrado para este CNPJ. Por favor, verifique se o valor informado está correto.”
+	Módulo Hospitais	CNES, CNPJ		Alterar a escrita para letra maiúscula
+	Módulo Hospitais	Segundo_responsável		Alterar para “Técnico Responsável” sem o uso do “_”
+
+	Módulo Hospitais	CEP	 	Exibir o campo antes do campo “Endereço”
+	Módulo Hospitais	Endereço		Alterar para a nomenclatura "Logradouro"
+	Módulo Hospitais	Bairro	Não existe o campo	Incluir campo "Bairro"
+	Módulo Hospitais	Nº 	Não existe o campo	Incluir para o endereço campo número
+	Módulo Hospitais	Geral	Sistema não salva as informações alteradas. 	Após clicar em salvar o sistema deve manter o valor digitado.
+	Módulo Preencher	Formulário	O sistema não permite preencher novo formulário para o caso de novas visitas.	Implementar botão nova visita.
+	Ao ser acionado o sistema deve exibir um formulário em branco.
+	Módulo Preencher	Formulário	O sistema só permite a alteração dentro do mês vigente;	O sistema deve permitir a alteração do formulário referente a última visita realizada.
+
+	Estabelecer regra: Permitir a alteração do último formulário preenchido no período de até 30 dias. Após este período, o sistema não deve permitir a alteração.
+	Módulo Preencher	Gerar comprovante	Faltam os logos oficiais	Exibir os logos oficiais da SMS/DTIC, Cidade de São Paulo e SUS
+	Módulo Relatório	Vizualização prévia	Descrição exibida com a cor da fonte "branca", dificultando a leitura	Aplicar outra cor para a fonte utilizada nas observações do relatório.
+
+
+
 --------------------------------------------------------------------------------
 
 

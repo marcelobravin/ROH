@@ -1,4 +1,4 @@
--- 28/08/2021 13:34:18
+-- 05/09/2021 11:06:10
 CREATE TABLE IF NOT EXISTS resultado (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	id_meta int(11) NOT NULL,
@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS resultado (
 	criado_em datetime NOT NULL DEFAULT current_timestamp(),
 	criado_por int(11) NOT NULL,
 	atualizado_em timestamp on update current_timestamp(),
-	atualizado_por int(11) NOT NULL,
+	atualizado_por int(11),
 INDEX (id)
 );

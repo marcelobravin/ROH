@@ -1,4 +1,4 @@
--- 28/08/2021 13:34:18
+-- 05/09/2021 11:06:10
 CREATE TABLE IF NOT EXISTS hospital (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	titulo char(255) NOT NULL,
@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS hospital (
 	segundo_responsavel varchar(255) NOT NULL,
 	cep int(8) unsigned zerofill NOT NULL,
 	endereco varchar(255),
+	numero int(11) NOT NULL,
 	bairro varchar(255),
 	cidade varchar(255),
 	uf set('AC','AL','AP','AM','BA','CE','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO','DF') COMMENT 'Acre,

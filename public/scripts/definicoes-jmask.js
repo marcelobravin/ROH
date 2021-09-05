@@ -18,7 +18,7 @@ $(document).ready(function(){
 	});
 
 	$( "#celular" ).keypress(function() {
-		$(this).mask('(00) 0.0000-0000');
+		$(this).mask('(00) 0 0000-0000');
 	});
 
 	$( "#cnes" ).keypress(function() {

@@ -2,7 +2,7 @@
 		/**
 		 * hospital
 		 * @package	grimoire/modelos
-		 * @version	03/09/2021 09:56:54
+		 * @version	05/09/2021 11:03:16
 		*/
 	$camposObrigatorios = array(
 'id',
@@ -11,6 +11,7 @@
 'diretor',
 'segundo_responsavel',
 'cep',
+'numero',
 'criado_em',
 'criado_por',
 );

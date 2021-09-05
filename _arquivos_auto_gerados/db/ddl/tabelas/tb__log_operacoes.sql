@@ -1,11 +1,11 @@
--- 28/08/2021 13:34:18
+-- 05/09/2021 11:06:10
 CREATE TABLE IF NOT EXISTS _log_operacoes (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	id_usuario int(11) NOT NULL COMMENT 'Id do usuário que realizou a operação',
-	acao set('I','U','D','d') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'I: insert
+	acao set('I','U','D','X') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'I: insert
 U: update
 D: delete
-d: exclusão lógica',
+X: exclusão lógica',
 	tabela varchar(50) NOT NULL COMMENT 'Tabela onde foi realizada a operação',
 	objetoId int(11) NOT NULL COMMENT 'Registro que sofreu a alteração',
 	ip varchar(15) NOT NULL COMMENT 'IP do usuário que realizou a operação',
