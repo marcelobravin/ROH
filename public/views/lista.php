@@ -10,7 +10,13 @@
 		</button>
 	</div>
 
-	<?php selecaoResultadosPorPagina() ?>
+
+	<form method="get">
+		<?php #selecaoResultadosPorPagina() ?>
+
+		<?php filtroPaginacao() ?>
+	</form>
+
 
 	<div>
 		<p class="resultados">

@@ -765,7 +765,7 @@ function logOut ($url="index.php")
 /**
  * Recarrega a página atual
  * @package	grimoire/bibliotecas/acesso.php
- * @since 08/07/2021 11:03:11
+ * @since	08/07/2021 11:03:11
  *
  * @param	bool/null/string
  * @param	bool
@@ -864,7 +864,7 @@ function verificarTempoAtividadeSessao ()
 /**
  * Retorna para página anterior
  * @package	grimoire/bibliotecas/acesso.php
- * @since 08/07/2021 11:00:08
+ * @since	08/07/2021 11:00:08
  *
  * @uses	$_SERVER
  */

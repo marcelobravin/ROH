@@ -480,30 +480,22 @@ function paginacaoHeader ($n)
  */
 function selecaoResultadosPorPagina ()
 {
+	foreach ($_GET as $key => $value) {
+		if ( !is_array($value) && $key != 'exibir' ) {
+			$key = htmlspecialchars($key);
+			$value = htmlspecialchars($value);
+			echo "<input type='hidden' name='{$key}' value='{$value}' />";
+		}
+	}
 ?>
-	<form method="get">
-
-		<?php
-			foreach ($_GET as $key => $value) {
-				if ( !is_array($value) && $key != 'exibir' ) {
-					$key = htmlspecialchars($key);
-					$value = htmlspecialchars($value);
-					echo "<input type='hidden' name='{$key}' value='{$value}' />";
-				}
-			}
-		?>
-
-		<select name="exibir" id="exibir">
-			<option <?php echo selecionado("exibir", 10) ?> value="10">10 resultados por página</option>
-			<option <?php echo selecionado("exibir", 25) ?> value="25">25 resultados por página</option>
-			<option <?php echo selecionado("exibir", 50) ?> value="50">50 resultados por página</option>
-			<option <?php echo selecionado("exibir", 100) ?> value="100">100 resultados por página</option>
-			<option <?php echo selecionado("exibir", 500) ?> value="500">500 resultados por página</option>
-		</select>
-
-		<?php filtroPaginacao() ?>
-
-	</form>
+	resultados por página
+	<select name="exibir" id="exibir">
+		<option <?php echo selecionado("exibir", 10) ?> value="10">10</option>
+		<option <?php echo selecionado("exibir", 25) ?> value="25">25</option>
+		<option <?php echo selecionado("exibir", 50) ?> value="50">50</option>
+		<option <?php echo selecionado("exibir", 100) ?> value="100">100</option>
+		<option <?php echo selecionado("exibir", 500) ?> value="500">500</option>
+	</select>
 <?php
 }
 

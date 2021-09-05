@@ -47,4 +47,4 @@ if ( positivo($id) ) {
 $resposta = montarMensagemErro( $id );
 montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 
-voltar();
+voltarJS();

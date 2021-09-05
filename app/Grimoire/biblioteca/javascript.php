@@ -101,6 +101,22 @@ function appendScripts ($filaScripts=array("https://code.jquery.com/jquery-lates
 	";
 }
 
+function estiloAjaxLoader ()
+{
+	return "
+		div#ajaxLoader {
+			background-color: rgba(0,0,0,.3);
+			position: absolute;
+			margin: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url(public/img/ajax-loader.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+	";
+}
+
 function exibirScriptContagem ($tempo=5, $id="c")
 {
 	echo "
@@ -178,18 +194,18 @@ function script ($arquivo="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jque
 }
 
 
-function estiloAjaxLoader ()
+/**
+ * Retorna para página anterior via js
+ * @package	grimoire/bibliotecas/acesso.php
+ * @since	05/09/2021 14:43:41
+ */
+function voltarJS ()
 {
-	return "
-		div#ajaxLoader {
-			background-color: rgba(0,0,0,.3);
-			position: absolute;
-			margin: 0;
-			width: 100%;
-			height: 100%;
-			background-image: url(public/img/ajax-loader.gif);
-			background-repeat: no-repeat;
-			background-position: center;
-		}
-	";
+	echo "<script>
+			function goBack() {
+				window.history.back();
+			}
+			goBack();
+		</script>";
+	exit;
 }

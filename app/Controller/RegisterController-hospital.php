@@ -38,16 +38,14 @@ if ( !empty($cnpj) ) {
 $t = new Transacao();
 $t->registrarInsercao('hospital', $values);
 $t->concluir();
-$idInserido = $t->resultados[1]['retorno'];  # todo getResultadoUltimaOperacao
+$idInserido = $t->resultados[1]['retorno']; # todo getResultadoUltimaOperacao
 
 # ------------------------------------------------------------------------------ erros
 if ( $t->erro ) {
-	exibir( $idInserido );
-
 	$resposta = montarMensagemErro( $idInserido );
 	montarRespostaPost($resposta, false, $codigo=201); # 201 Created
 
-	voltar();
+	voltarJS();
 }
 
 # ------------------------------------------------------------------------------ sucesso
