@@ -113,12 +113,12 @@ function gerarMailBody ($conteudo, $titulo="No Subject")
 		</html>';
 }
 
-function enviarEmailConfirmacao ($id)
+function enviarEmailConfirmacao ($id, $modulo=MODULO)
 {
 	$condicoes = array(
 		'id' => $id
 	);
-	$user = localizar('usuario', $condicoes);
+	$user = localizar($modulo, $condicoes);
 	if ( !$user ) {
 		die("Id inválido!");
 	}

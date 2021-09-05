@@ -37,6 +37,13 @@ OK - técnico Responsável *
 Meire Ellen - WA
 	97434-8255
 
+	Módulo Preencher	Formulário	O sistema não permite preencher novo formulário para o caso de novas visitas.	Implementar botão nova visita.
+	Ao ser acionado o sistema deve exibir um formulário em branco.
+	Módulo Preencher	Formulário	O sistema só permite a alteração dentro do mês vigente;	O sistema deve permitir a alteração do formulário referente a última visita realizada.
+
+	Estabelecer regra: Permitir a alteração do último formulário preenchido no período de até 30 dias. Após este período, o sistema não deve permitir a alteração.
+	Módulo Preencher	Gerar comprovante	Faltam os logos oficiais	Exibir os logos oficiais da SMS/DTIC, Cidade de São Paulo e SUS
+	Módulo Relatório	Vizualização prévia	Descrição exibida com a cor da fonte "branca", dificultando a leitura	Aplicar outra cor para a fonte utilizada nas observações do relatório.
 
 	Módulo usuários	Validação do usuário	Não foi possível testar. O sistema não está realizando o envio do link para o e-mail cadastrado	Habilitar esta funcionalidade para testes prévios
 	Módulo usuários	Reenviar confirmação de e-mail	Ao acionar a funcionalidade o sistema exibe tela de erro para este ambiente	Habilitar esta funcionalidade para testes prévios
@@ -81,13 +88,7 @@ Meire Ellen - WA
 	Módulo Hospitais	Bairro	Não existe o campo	Incluir campo "Bairro"
 	Módulo Hospitais	Nº 	Não existe o campo	Incluir para o endereço campo número
 	Módulo Hospitais	Geral	Sistema não salva as informações alteradas. 	Após clicar em salvar o sistema deve manter o valor digitado.
-	Módulo Preencher	Formulário	O sistema não permite preencher novo formulário para o caso de novas visitas.	Implementar botão nova visita.
-	Ao ser acionado o sistema deve exibir um formulário em branco.
-	Módulo Preencher	Formulário	O sistema só permite a alteração dentro do mês vigente;	O sistema deve permitir a alteração do formulário referente a última visita realizada.
 
-	Estabelecer regra: Permitir a alteração do último formulário preenchido no período de até 30 dias. Após este período, o sistema não deve permitir a alteração.
-	Módulo Preencher	Gerar comprovante	Faltam os logos oficiais	Exibir os logos oficiais da SMS/DTIC, Cidade de São Paulo e SUS
-	Módulo Relatório	Vizualização prévia	Descrição exibida com a cor da fonte "branca", dificultando a leitura	Aplicar outra cor para a fonte utilizada nas observações do relatório.
 
 
 

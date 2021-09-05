@@ -5,7 +5,9 @@
 		die("Id não definido!");
 	}
 
-	$email = enviarEmailConfirmacao($_GET['id']);
+	define('MODULO', $_GET['modulo']);
+
+	$email = enviarEmailConfirmacao($_GET['id'], MODULO);
 	if ( $email['envio'] ) {
 		$resposta = "Email enviado para o usuário {$_GET['id']} com sucesso!";
 		montarRespostaPost($resposta, true, $codigo=201); # 201 Created
