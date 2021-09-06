@@ -47,6 +47,7 @@
 								<tr>
 									<th scope="Especialidade dos Leitos">Especialidade<br>dos Leitos</th>
 									<th scope="Volume de saída">Volume<br>de saída</th>
+									<th scope="Percentual">Percentual</th>
 									<th scope="Justificativa para a meta não ter sido atingida" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
 								</tr>
 							</thead>
@@ -77,6 +78,13 @@
 
 												<input type="number" min="0" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
 
+											<?php endif ?>
+										</td>
+
+										<td>
+											<?php if ( isset($e['meta_quantidade']) ): ?>
+												<?php echo number_format(calcularPorcentagem($e['resultado'], $e['meta_quantidade']), 2) ?>
+												%
 											<?php endif ?>
 										</td>
 

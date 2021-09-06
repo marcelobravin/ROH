@@ -57,6 +57,7 @@
 							<th scope="Coluna id">Especialidade<br>dos Leitos</th>
 							<th scope="Coluna id">Leitos</th>
 							<th scope="Coluna id">Volume<br>de saída</th>
+							<th scope="Percentual">Percentual</th>
 							<th scope="Coluna id" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
 							<th scope="Coluna id" title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
 							<th scope="Coluna id">Responsável<br>pela vistoria</th>
@@ -97,6 +98,13 @@
 										<?php endif ?>
 									<?php else: ?>
 										&nbsp;
+									<?php endif ?>
+								</td>
+
+								<td>
+									<?php if ( isset($e['meta_quantidade']) ): ?>
+										<?php echo number_format(calcularPorcentagem($e['resultado'], $e['meta_quantidade']), 2) ?>
+										%
 									<?php endif ?>
 								</td>
 

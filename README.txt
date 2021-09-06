@@ -4,8 +4,6 @@ visitas
 	alterar ultima
 		anteriores ficam imutaveis
 
-alteração pode ocorrer no dia 30
-
 
 upload - depende de infra
 
@@ -16,168 +14,52 @@ tela de log de alterações
 
 relatorio conter alterações de cada visita
 
-
-
-
-OK - exibir dados do hospital no relatório e no comprovante
-	cnes
-	responsavel
-
-OK - mudar titulo para estabelecimento em forms hospital
-
-OK - alterar label comprovante vistoria -> visita
-
-OK - vistoriador -> visita feita por
-
-OK - botoes salvar e salvar e concluir
-
-OK - técnico Responsável *
-
-
-Meire Ellen - WA
-	97434-8255
-
 	Módulo Preencher	Formulário	O sistema não permite preencher novo formulário para o caso de novas visitas.	Implementar botão nova visita.
 	Ao ser acionado o sistema deve exibir um formulário em branco.
 	Módulo Preencher	Formulário	O sistema só permite a alteração dentro do mês vigente;	O sistema deve permitir a alteração do formulário referente a última visita realizada.
 
 	Estabelecer regra: Permitir a alteração do último formulário preenchido no período de até 30 dias. Após este período, o sistema não deve permitir a alteração.
 	Módulo Preencher	Gerar comprovante	Faltam os logos oficiais	Exibir os logos oficiais da SMS/DTIC, Cidade de São Paulo e SUS
-	Módulo Relatório	Vizualização prévia	Descrição exibida com a cor da fonte "branca", dificultando a leitura	Aplicar outra cor para a fonte utilizada nas observações do relatório.
 
 	Módulo usuários	Validação do usuário	Não foi possível testar. O sistema não está realizando o envio do link para o e-mail cadastrado	Habilitar esta funcionalidade para testes prévios
 	Módulo usuários	Reenviar confirmação de e-mail	Ao acionar a funcionalidade o sistema exibe tela de erro para este ambiente	Habilitar esta funcionalidade para testes prévios
-	Módulo usuários	Geral	Ao apresentar mensagem de inconsistência sobre alguma informação preenchida no formulário, o sistema apaga todos os demais campos preenchidos.
-
-
-		Apresentar mensagem de crítica, porém, manter o preenchimento dos campo, permitindo apenas a correção da informação.
-
-
-
-	Módulo usuários	E-mail e CPF	Ao informar e-mail ou CPF de já cadastrados na base o sistema apresenta tela de erro.
-
-	Massa de teste:
-	CPF: 166.304.770-73
-	E-mail: meiresama@gmail.com	Exibir mensagem:
-	Quando campo e-mail:
-	“O e-mail informado já está cadastrado na base”
-	Quando campo CPF:
-	“ O CPF informado já está cadastrado na base”
-	Módulo usuários	Celular	Ao digitar esta informação,  o sistema adiciona "Ponto”  após o primeiro número.	Não apresentar o referido ponto.
-
-
-
-
-	Módulo Hospitais	Titulo		Alterar o nome do campo para "Estabelecimento"
-	Módulo Hospitais	CNES, CNPJ	O sistema permite cadastrar o mesmo CNJP e/ou CNES para mais de um  estabelecimento.	O sistema não deve permitir o cadastro de outro estabelecimento para um CNPJ ou CNES que já esteja ativo na base do sistema.
-
-	Ao ser informado um CNPJ ou CNES já cadastrado na aplicação o sistema deve apresentar uma mensagem de tratamento.
-
-	Sugestão :
-
-	Para o campo CNES
-	“Já existe um estabelecimento cadastrado para este CNES. Por Favor, verifique se o valor informado está correto”.
-
-	Para o campo CNPJ
-	“Já existe um estabelecimento cadastrado para este CNPJ. Por favor, verifique se o valor informado está correto.”
-	Módulo Hospitais	CNES, CNPJ		Alterar a escrita para letra maiúscula
-	Módulo Hospitais	Segundo_responsável		Alterar para “Técnico Responsável” sem o uso do “_”
-
-	Módulo Hospitais	CEP	 	Exibir o campo antes do campo “Endereço”
-	Módulo Hospitais	Endereço		Alterar para a nomenclatura "Logradouro"
-	Módulo Hospitais	Bairro	Não existe o campo	Incluir campo "Bairro"
-	Módulo Hospitais	Nº 	Não existe o campo	Incluir para o endereço campo número
-	Módulo Hospitais	Geral	Sistema não salva as informações alteradas. 	Após clicar em salvar o sistema deve manter o valor digitado.
-
-
 
 
 --------------------------------------------------------------------------------
 
 
-
-
-
-anotações giovani
-	Ok - edição ultimo relatório
-	distinção de usuário
-	log alterações
-	OK - comprovante de visita mostrar
-		Responsável técnico médico
-		De enfermagem
-		Ti
-
-
-
 # todo separar conteudo email
 	colocar em diretorios e pegar conteudo
-
-
-ctrl +f e arrumar códigos
-	montarRespostaPost
-
 
 email remetente constar endereço do servidor
 nome remetente
 
-
-
-
-
-
 redimensionar imagens
 retirar select * das listas
-	[id] => 32
-    [login] => mesnovaes@prefeitura.sp.gov.br
-    [senha] => $2y$12$V6IPH1Q/Nrv./iBP6lf2pu9b91c67uAEsw0P0m/QuCoSygyHKKOrq
-    [email_confirmado] => 0
-    [token] =>
-    [ativo] => 0
-    [reset] =>
-    [telefone] =>
-    [celular] => 0
-    [nome] => Meire Ellen
-    [cargo] =>
-    [endereco] =>
-    [cpf] => 338.059.850-02
-    [criado_em] => 2021-08-09 14:08:05
-    [atualizado_em] =>
-    [excluido_em] =>
-    [criado_por] => 1
-    [atualizado_por] =>
-    [excluido_por] =>
-
-
 
 verificar ano selecionado em todas queries
 
-
-
-
-<!-- tem que baixar as webfonts -->
+tem que baixar as webfonts
 
 # interessados
 	mesnovaes@prefeitura.sp.gov.br
 	giovanifranco@prefeitura.sp.gov.br
 
-colocar códigos corretamente
+	Meire Ellen -
+		CPF: 166.304.770-73
+		E-mail: meiresama@gmail.com
+		WA 97434-8255
+
+
+
+ctrl +f e colocar códigos corretamente
 	montarRespostaPost($resposta, true, $codigo=201); # 201 Created
 
-
-Percentagem
-Checar erro caracteres no xls
-	Remover ids
-receber Logos
-alterar Cores nas listas
-cor do usuário logado
+Remover ids no xls
 
 
 
 BUGs conhecidos ################################################################
-email pode ter numeros
-
-ok - vazamento de mensagem de erro da sessão
-
 duas pessoas logadas com o mesmo usuário
 
 delete ou alterar parametros de busca
@@ -186,41 +68,16 @@ navegar por
 	página maior que o limite
 
 testar novamente ajax com tempo expirado e alteração de fingerprint
-
-colocar confirmação de email de volta no form de usuário
-
 queda de sessão em telas de controles
 	definir metas
 	gerar relatórios
 
 
 
-# ############################################################################## reunião com meire ellen
-
-meire ellen vai confirmar necessidade de upload de arquivos
-
-verificar quem aprova justificativas
-
-ambiente homolog
-	meire ellen testar (disponibilizar ip da minha máquina resolve)
-
-OK - filtro em listas
-
-OK - opção de salvar como rascunho
-	OK - confirmar registro definitivo
-
-OK ADICIONAR CAMPO
-	CBO	(cargo)
-		enfermeiro, médico, etc
-
-# ############################################################################## reunião com meire ellen
-
-
 # TODO
 	sincronização de dados offline
 	Salvar resultado como rascunho & sincronizar
 	verificar SILENT
-	verificar sessão antes de executar operações
 	colocar em ajax os acessos as controles
 		retornar em json as respostas
 			jsonEncode($resultado, JSON_UNESCAPED_UNICODE)
@@ -230,13 +87,10 @@ OK ADICIONAR CAMPO
 		configurações de erro de prod
 	forçar alteração de senha
 		if senha == cpf força
-	salvar em pdf
 	validar email js na tela de esqueci a senha
 		não precisa [colocar mensagem "se endereço existe email foi enviado"]
 	informar alterações não salvas em formulários ao recarregar ou fechar
-	Token de sessão com expiração
 	Excluir automaticamente usuário se e-mail não foi validado
-	reset de senha corrigir regxep símbolos [já está?]
 	Criar manual de software
 	Diagrama das controles
 	Responsividade
@@ -298,84 +152,3 @@ OK ADICIONAR CAMPO
 	Bloqueio de usuarios não logados em páginas internas
 	Não mudar email de usuário na tela de atualizar senha
 	Módulo categoria, elemento
-
-
-
-
-
-
-
-	SELECT relatorio.*,
-	hospital.titulo FROM
-
-	((SELECT
-				c.id					id_categoria,
-				c.titulo				categoria_nome,
-				c.legenda				categoria_legenda,
-				c.ativo					categoria_ativo,
-
-				e.id_categoria			id_elemento_categoria,
-				e.titulo				elemento_nome,
-				e.id					id_elemento,
-
-				m.id_elemento			id_meta_elemento,
-				m.quantidade			meta_quantidade,
-				m.ativo					meta_ativo,
-				m.id_hospital			id_meta_hospital,
-				m.id					id_meta,
-
-				r.id_meta				id_resultado_meta,
-				r.resultado				resultado,
-				r.mes					mes,
-				r.justificativa			justificativa,
-				r.justificativa_aceita	justificativa_aceita,
-				r.id					id_resultado,
-				r.criado_em				resultado_criacao
-
-				-- ,h.titulo
-				-- ,h.id   id_hospital
-
-			FROM
-				categoria	c,
-				elemento	e
-				-- ,hospital	h
-
-				LEFT OUTER JOIN (meta m)
-					ON m.id_elemento	= e.id
-					AND m.id_hospital	= 43
-					-- AND m.id_hospital	= h.id
-				LEFT OUTER JOIN (resultado r)
-					ON r.id_meta		= m.id
-					AND r.mes			= 8
-					AND r.ano			= 2021
-
-			WHERE
-				e.id_categoria	= c.id
-				AND m.ativo		= 1
-				-- AND h.id		= {$_GET['hospital']}
-
-			ORDER BY
-				c.titulo,
-				e.titulo) as relatorio)
-
-
-	            INNER JOIN hospital ON hospital.id = relatorio.id_meta_hospital
-
-
-
-
-	            /**
-	             * Cria link para ligação de skype
-	             * @package	grimoire/bibliotecas/snippets.php
-	             * @since	05-07-2015
-	             *
-	             * @return	string
-	             */
-	            function skype ()
-	            {
-	            	return "
-	            		<a href='callto://+***********'>Link will initiate Skype to call my number!</a>
-	            		Skype Username:
-	            		<a href='skype:********?call'>Link will initiate Skype to call my Skype username!</a>
-	            	";
-	            }

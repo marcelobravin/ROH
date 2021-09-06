@@ -74,3 +74,6 @@ select:hover { border: 1px solid black }
 
 
 .simbolo-obrigatorio { color:red }
+
+
+button a { color: white; }

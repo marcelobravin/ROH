@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="public/css/metas.css">
-<link rel="stylesheet" type="text/css" href="public/css/justificativa.css">
+<link rel="stylesheet" type="text/css" href="public/css/resultado.css">
 
 <div class="container">
 	<h2><?php echo $PAGINA['titulo'] ?></h2>
@@ -23,10 +23,11 @@
 				</select>
 			</div>
 		<?php endif ?>
-
 	</div>
 
 	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
+
+	<a href="nova-visita.php">Nova Visita</a>
 
 	<div class="container-tabelas">
 
@@ -34,11 +35,12 @@
 			Selecione um hospital!
 		<?php else: ?>
 
-			<form>
+			<form id="form">
 
 				<?php foreach ($categorias as $v) : ?>
+
 					<div id="bloco-<?php echo $v['id'] ?>" class="invisivel aba">
-						<h4><?php echo $v['titulo'] ?></h4>
+						<h4><?php echo $v['tituloSanitizado'] ?></h4>
 
 						<table>
 							<caption><?php echo $v['legenda'] ?></caption>
@@ -49,13 +51,12 @@
 									<th scope="Volume de saída">Volume<br>de saída</th>
 									<th scope="Percentual">Percentual</th>
 									<th scope="Justificativa para a meta não ter sido atingida" title="Preencha para definir uma justificativa para a meta dessa linha não ter sido atingida">Justificativa</th>
-									<th scope="Justificativa Aceita?" title="Marque essa caixa caso a seja aceitável a justificativa para a meta não ser ter sido atingida">Justificativa<br>Aceita?</th>
 								</tr>
 							</thead>
 
 							<?php if ( !isset($especialidades[$v['titulo']]) ) : ?>
 								<tr>
-									<td colspan="4">Nenhuma definição dessa categoria encontrada para esse hospital!</td>
+									<td>Nenhuma definição dessa categoria encontrada para esse hospital!</td>
 								</tr>
 							<?php else : ?>
 								<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
@@ -65,19 +66,25 @@
 										</td>
 
 										<td>
-											<p>
-												Meta: <?php echo $e['meta_quantidade'] ?>
-											</p>
+											<?php if ( !isset($e['meta_quantidade']) ): ?>
+												<em>Meta não definida!</em>
+												<br>
+												<em>
+													<a href="metas.php?<?php echo $_SERVER['QUERY_STRING'] ?>&categoria=<?php echo $v['id'] ?>">Definir meta</a>
+												</em>
 
-											<?php if ( isset($e['resultado']) ): ?>
-												<input type="number" disabled value="<?php echo $e['resultado'] ?>" />
 											<?php else: ?>
-												<em>Meta não preenchida!</em>
+												<p>
+													Meta: <?php echo $e['meta_quantidade'] ?>
+												</p>
+
+												<input type="number" min="0" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
+
 											<?php endif ?>
 										</td>
 
 										<td>
-											<?php if ( isset($e['meta_quantidade']) ): ?>
+											<?php if ( isset($e['meta_quantidade']) && isset($e['resultado']) ): ?>
 												<?php echo number_format(calcularPorcentagem($e['resultado'], $e['meta_quantidade']), 2) ?>
 												%
 											<?php endif ?>
@@ -86,21 +93,11 @@
 										<td>
 											<?php if ( isset($e['meta_quantidade']) ): ?>
 												<?php if ( isset($e['resultado']) ): ?>
-													<?php if ( $e['resultado'] < $e['meta_quantidade'] ): ?>
-														<textarea disabled><?php echo $e['justificativa'] ?></textarea>
-													<?php endif ?>
+													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" <?php echo ($e['meta_quantidade'] < $e['resultado']) ? 'disabled' : '' ?>><?php echo $e['justificativa'] ?></textarea>
+												<?php else: ?>
+													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" disabled><?php echo $e['justificativa'] ?></textarea>
 												<?php endif ?>
 											<?php endif ?>
-										</td>
-
-										<td>
-												<?php if ( isset($e['resultado']) ): ?>
-													<?php if ( $e['resultado'] < $e['meta_quantidade'] ): ?>
-														<?php if ( !empty($e['justificativa']) ): ?>
-															<input type="checkbox" <?php echo $e['justificativa_aceita'] ? "checked" : "" ?> value="<?php echo $e['id_meta'] ?>" />
-														<?php endif ?>
-													<?php endif ?>
-												<?php endif ?>
 										</td>
 									</tr>
 								<?php endforeach ?>
@@ -119,20 +116,41 @@
 
 				<?php endforeach ?>
 
-				<button class="salvar" type="button">
-					Registrar Resultados
-				</button>
+				<div id="container-botoes">
+					<button class="salvarTemporariamente" type="button">
+						Salvar
+					</button>
+
+					<button class="salvar" type="button">
+						Salvar e concluir
+					</button>
+
+					<button type="button">
+						<a href="comprovante.php?hospital=<?php echo $_GET['hospital'] ?>" target="_blank">
+							Gerar Comprovante
+						</a>
+					</button>
+				</div>
+
 			</form>
+
 		<?php endif ?>
 
 	</div>
 </div>
 
-<script src="public/scripts/redirecionamento.js"></script>
-<script src="public/scripts/relatorio.js"></script>
-
-<script src="public/scripts/metas.js"></script>
-<script src="public/scripts/justificativa.js"></script>
 <style>
 	<?php echo estiloAjaxLoader() ?>
 </style>
+
+<script src="public/scripts/redirecionamento.js"></script>
+
+<script src="public/scripts/metas.js"></script>
+<script src="public/scripts/resultado.js"></script>
+
+<script src="public/vendors/jquery.mask.min.js"></script>
+<script>
+	$( ".quantidade" ).keypress(function() {
+		$(this).mask('0000');
+	});
+</script>

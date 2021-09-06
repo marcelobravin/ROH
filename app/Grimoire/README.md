@@ -2322,3 +2322,85 @@ $y = [ "a", "b", "c"];
     include_once "opcionais/validacao/inscricaoEstadual.php";
     return CheckIE($ie, $uf);
  }
+
+
+
+
+
+
+
+ SELECT relatorio.*,
+ hospital.titulo FROM
+
+ ((SELECT
+            c.id                    id_categoria,
+            c.titulo                categoria_nome,
+            c.legenda               categoria_legenda,
+            c.ativo                 categoria_ativo,
+
+            e.id_categoria          id_elemento_categoria,
+            e.titulo                elemento_nome,
+            e.id                    id_elemento,
+
+            m.id_elemento           id_meta_elemento,
+            m.quantidade            meta_quantidade,
+            m.ativo                 meta_ativo,
+            m.id_hospital           id_meta_hospital,
+            m.id                    id_meta,
+
+            r.id_meta               id_resultado_meta,
+            r.resultado             resultado,
+            r.mes                   mes,
+            r.justificativa         justificativa,
+            r.justificativa_aceita  justificativa_aceita,
+            r.id                    id_resultado,
+            r.criado_em             resultado_criacao
+
+            -- ,h.titulo
+            -- ,h.id   id_hospital
+
+        FROM
+            categoria   c,
+            elemento    e
+            -- ,hospital    h
+
+            LEFT OUTER JOIN (meta m)
+                ON m.id_elemento    = e.id
+                AND m.id_hospital   = 43
+                -- AND m.id_hospital    = h.id
+            LEFT OUTER JOIN (resultado r)
+                ON r.id_meta        = m.id
+                AND r.mes           = 8
+                AND r.ano           = 2021
+
+        WHERE
+            e.id_categoria  = c.id
+            AND m.ativo     = 1
+            -- AND h.id     = {$_GET['hospital']}
+
+        ORDER BY
+            c.titulo,
+            e.titulo) as relatorio)
+
+
+             INNER JOIN hospital ON hospital.id = relatorio.id_meta_hospital
+
+
+
+
+
+             /**
+              * Cria link para ligação de skype
+              * @package    grimoire/bibliotecas/snippets.php
+              * @since  05-07-2015
+              *
+              * @return string
+              */
+             function skype ()
+             {
+                return "
+                    <a href='callto://+***********'>Link will initiate Skype to call my number!</a>
+                    Skype Username:
+                    <a href='skype:********?call'>Link will initiate Skype to call my Skype username!</a>
+                ";
+             }
