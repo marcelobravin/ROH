@@ -10,9 +10,10 @@ $hospitais	= selecionar("hospital", $condicoes, "ORDER BY titulo");
 $categorias	= selecionar("categoria", "", "ORDER BY titulo");
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
-$st_mesAtual = $meses[date('n')];
 $in_anoAtual = anoAtual();
 $in_mesAtual = mesAtual();
+$in_diaAtual = date('d');
+$st_mesAtual = $meses[ $in_mesAtual ];
 
 
 $hospitalValido = false;
@@ -34,14 +35,8 @@ if ( isset($_GET['hospital']) ) {
 			m.quantidade			meta_quantidade,
 			m.ativo					meta_ativo,
 			m.id_hospital			id_meta_hospital,
-			m.id					id_meta,
+			m.id					id_meta
 
-			v.id_meta				id_visita_meta,
-			v.resultado				resultado,
-			v.mes					mes,
-			v.justificativa			justificativa,
-			v.justificativa_aceita	justificativa_aceita,
-			v.id					id_visita
 		FROM
 			categoria	c,
 			elemento	e
@@ -49,10 +44,6 @@ if ( isset($_GET['hospital']) ) {
 			LEFT OUTER JOIN (meta m)
 				ON m.id_elemento	= e.id
 				AND m.id_hospital	= {$_GET['hospital']}
-			LEFT OUTER JOIN (visita v)
-				ON v.id_meta		= m.id
-				AND v.mes			= {$in_mesAtual}
-				AND v.ano			= {$in_anoAtual}
 
 		WHERE
 			e.id_categoria	= c.id
@@ -64,7 +55,7 @@ if ( isset($_GET['hospital']) ) {
 	";
 
 	$matriz = executar( $sql );
-	exibir($matriz);
+	// exibir($matriz);
 
 	# separa metas e visitas por categorias para facilitar
 	$especialidades = array();
@@ -78,7 +69,7 @@ if ( isset($_GET['hospital']) ) {
 			$especialidades[$i][$j]['categoria_nome']		= bloquearXSS($v['categoria_nome']);
 			$especialidades[$i][$j]['categoria_legenda']	= bloquearXSS($v['categoria_legenda']);
 			$especialidades[$i][$j]['elemento_nome']		= bloquearXSS($v['elemento_nome']);
-			$especialidades[$i][$j]['justificativa']		= bloquearXSS($v['justificativa']);
+			// $especialidades[$i][$j]['justificativa']		= bloquearXSS($v['justificativa']);
 		}
 	}
 
@@ -86,7 +77,7 @@ if ( isset($_GET['hospital']) ) {
 		$matriz[$i]['categoria_nome']		= bloquearXSS($h['categoria_nome']);
 		$matriz[$i]['categoria_legenda']	= bloquearXSS($h['categoria_legenda']);
 		$matriz[$i]['elemento_nome']		= bloquearXSS($h['elemento_nome']);
-		$matriz[$i]['justificativa']		= bloquearXSS($h['justificativa']);
+		// $matriz[$i]['justificativa']		= bloquearXSS($h['justificativa']);
 	}
 }
 

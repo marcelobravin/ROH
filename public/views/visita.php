@@ -19,14 +19,13 @@
 
 	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
 
-	<a href="nova-visita.php?hospital=<?php echo $_GET['hospital'] ?>">Nova Visita</a>
 
 	<div class="container-tabelas">
 
 		<?php if ( !$hospitalValido ): ?>
 			Selecione um hospital!
 		<?php else: ?>
-
+			<a href="nova-visita.php?hospital=<?php echo exibirIndice('hospital') ?>">Nova Visita</a>
 		<?php endif ?>
 
 	</div>

@@ -1,4 +1,4 @@
--- 05/09/2021 11:06:19
+-- 06/09/2021 15:57:04
 ALTER TABLE `hospital` ADD UNIQUE KEY `cnes` (cnes);
 ALTER TABLE `hospital` ADD UNIQUE KEY `cnpj` (cnpj);
 ALTER TABLE `usuario` ADD UNIQUE KEY `cpf` (cpf);

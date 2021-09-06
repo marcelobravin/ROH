@@ -18,40 +18,13 @@ foreach ($_POST['form'] as $i => $value) {
 		'criado_por'	=> $_SESSION[USUARIO_SESSAO]['id']
 	);
 
-	$id = inserir('resultado', $values);
+	$id = inserir('visita', $values);
 
 	if ( positivo($id) ) {
 		$resultados[] = $id;
 
-		registrarOperacao('I', 'resultado', $id);
+		registrarOperacao('I', 'visita', $id);
 		$resposta = "Resultados inseridos com sucesso!";
-
-	} else {
-
-		if ( contem("Duplicate entry", $id) ) {
-			$values = array(
-				'resultado'		=> $value['resultado'],
-				'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
-				'atualizado_por'=> $_SESSION[USUARIO_SESSAO]['id']
-			);
-
-			$where = array(
-				'id_meta'		=> $value['metaId'],
-				'mes'			=> date('n'),
-				'ano'			=> date('Y'),
-			);
-
-			$rows = atualizar("resultado", $values, $where);
-
-			if ( positivo($rows) ) {
-				$resultados[$value['metaId']] = $rows;
-
-				$id = localizar('resultado', $where, '', 'id');
-				registrarOperacao('U', 'resultado', $id['id']);
-				$resposta = "Resultados atualizados com sucesso!";
-			}
-
-		}
 	}
 }
 

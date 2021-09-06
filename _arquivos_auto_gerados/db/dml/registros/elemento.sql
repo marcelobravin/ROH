@@ -1,4 +1,4 @@
--- 05/09/2021 11:06:10
+-- 06/09/2021 15:57:04
 INSERT INTO `elemento` (`id`, `id_categoria`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('1', '1', 'Clínica médica', '1', '2021-07-06 10:35:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '0', '0');
 INSERT INTO `elemento` (`id`, `id_categoria`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('2', '1', 'Clínica Cirúrgica', '1', '2021-07-06 10:35:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '0', '0');
 INSERT INTO `elemento` (`id`, `id_categoria`, `titulo`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('3', '1', 'Pedatria', '1', '2021-07-06 10:35:58', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '1', '0', '0');

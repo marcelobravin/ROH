@@ -15,19 +15,11 @@
 			</select>
 		</div>
 
-		<?php if ( $hospitalValido ): ?>
-			<div class="inputs">
-				<label for="categoria">Categoria</label>
-				<select name="categoria" id="categoria">
-					<?php echo gerarOptionsAA($categorias, $_GET['categoria']) ?>
-				</select>
-			</div>
-		<?php endif ?>
 	</div>
 
-	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
+	<h3><?php echo $in_diaAtual ?> de <?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
 
-	<a href="nova-visita.php">Nova Visita</a>
+	<a href="visita.php">Voltar</a>
 
 	<div class="container-tabelas">
 
@@ -39,7 +31,9 @@
 
 				<?php foreach ($categorias as $v) : ?>
 
-					<div id="bloco-<?php echo $v['id'] ?>" class="invisivel aba">
+					<?php if ( isset($especialidades[$v['titulo']]) ) : ?>
+
+					<div>
 						<h4><?php echo $v['tituloSanitizado'] ?></h4>
 
 						<table>
@@ -54,11 +48,7 @@
 								</tr>
 							</thead>
 
-							<?php if ( !isset($especialidades[$v['titulo']]) ) : ?>
-								<tr>
-									<td>Nenhuma definição dessa categoria encontrada para esse hospital!</td>
-								</tr>
-							<?php else : ?>
+							<?php if ( isset($especialidades[$v['titulo']]) ) : ?>
 								<?php foreach ($especialidades[$v['titulo']] as $e) : ?>
 									<tr <?php echo isset($e['resultado']) && isset($e['meta_quantidade']) && $e['resultado'] < $e['meta_quantidade'] ? "class='insuficiente'" : "" ?>>
 										<td>
@@ -78,7 +68,7 @@
 													Meta: <?php echo $e['meta_quantidade'] ?>
 												</p>
 
-												<input type="number" min="0" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="<?php echo $e['resultado'] ?>" />
+												<input type="number" min="0" class="quantidade" name="leitos[<?php echo $e['id_meta'] ?>]" id="leitos-<?php echo $e['id_meta'] ?>" title="leitos-<?php echo $e['id_meta'] ?>" data-meta="<?php echo $e['meta_quantidade'] ?>" data-id="<?php echo $e['id_meta'] ?>" value="0" />
 
 											<?php endif ?>
 										</td>
@@ -92,11 +82,7 @@
 
 										<td>
 											<?php if ( isset($e['meta_quantidade']) ): ?>
-												<?php if ( isset($e['resultado']) ): ?>
-													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" <?php echo ($e['meta_quantidade'] < $e['resultado']) ? 'disabled' : '' ?>><?php echo $e['justificativa'] ?></textarea>
-												<?php else: ?>
-													<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>" disabled><?php echo $e['justificativa'] ?></textarea>
-												<?php endif ?>
+												<textarea name="justificativa-<?php echo $e['id_meta'] ?>" id="justificativa-<?php echo $e['id_meta'] ?>" data-id="<?php echo $e['id_meta'] ?>"></textarea>
 											<?php endif ?>
 										</td>
 									</tr>
@@ -113,6 +99,7 @@
 						</table>
 
 					</div>
+					<?php endif ?>
 
 				<?php endforeach ?>
 
@@ -146,7 +133,7 @@
 <script src="public/scripts/redirecionamento.js"></script>
 
 <script src="public/scripts/metas.js"></script>
-<script src="public/scripts/resultado.js"></script>
+<script src="public/scripts/visita.js"></script>
 
 <script src="public/vendors/jquery.mask.min.js"></script>
 <script>
