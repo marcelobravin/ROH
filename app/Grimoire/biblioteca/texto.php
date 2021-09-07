@@ -201,6 +201,14 @@ function minimizarArquivo ($buffer)
 }
 
 /**
+ * 06/09/2021 19:33:13
+ */
+function preencherZeros ($input, $digitos=2)
+{
+	return str_pad($input, $digitos, "0", STR_PAD_LEFT);
+}
+
+/**
  * Transforma uma string em URL amigável
  * @package	grimoire/bibliotecas/texto.php
  * @version	05-07-2015

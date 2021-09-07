@@ -20,15 +20,35 @@
 	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
 
 
-	<div class="container-tabelas">
+	<!-- <div class="container-tabelas"> -->
 
 		<?php if ( !$hospitalValido ): ?>
 			Selecione um hospital!
 		<?php else: ?>
-			<a href="nova-visita.php?hospital=<?php echo exibirIndice('hospital') ?>">Nova Visita</a>
+			<p>
+				<a href="visita-nova.php?hospital=<?php echo exibirIndice('hospital') ?>">Nova Visita</a>
+			</p>
+
+			<table>
+				<?php foreach ($matriz as $v) : ?>
+					<tr>
+						<td>
+							<?php echo preencherZeros($v['dia']) ?>/<?php echo preencherZeros($v['mes']) ?>/<?php echo $v['ano'] ?>
+						</td>
+						<td>
+							<?php echo $v['criado_por'] ?>
+							<?php echo $v['id'] ?>
+						</td>
+						<td>
+							<a href="visita-editar.php?id=<?php echo $v['id'] ?>">Editar Visita</a>
+						</td>
+					</tr>
+				<?php endforeach ?>
+			</table>
+			<?php 	exibir($matriz); ?>
 		<?php endif ?>
 
-	</div>
+	<!-- </div> -->
 </div>
 
 <style>

@@ -4,28 +4,11 @@
 <div class="container">
 	<h2><?php echo $PAGINA['titulo'] ?></h2>
 
-	<div class="container-selects">
-		<div class="inputs">
-			<label for="hospital">Hospital</label>
-			<select name="hospital" id="hospital">
-				<?php if ( !$hospitalValido ): ?>
-					<option value="">Selecione...</option>
-				<?php endif ?>
-				<?php echo gerarOptionsAA($hospitais, $_GET['hospital']) ?>
-			</select>
-		</div>
-
-	</div>
-
 	<h3><?php echo $in_diaAtual ?> de <?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
 
-	<a href="visita.php">Voltar</a>
+	<a href="visita.php?hospital=<?php echo $_GET['hospital'] ?>">Voltar</a>
 
 	<div class="container-tabelas">
-
-		<?php if ( !$hospitalValido ): ?>
-			Selecione um hospital!
-		<?php else: ?>
 
 			<form id="form">
 
@@ -113,15 +96,13 @@
 					</button>
 
 					<button type="button">
-						<a href="comprovante.php?hospital=<?php echo $_GET['hospital'] ?>" target="_blank">
+						<a href="comprovante.php?visita=<?php echo $_GET['id'] ?>" target="_blank">
 							Gerar Comprovante
 						</a>
 					</button>
 				</div>
 
 			</form>
-
-		<?php endif ?>
 
 	</div>
 </div>

@@ -13,6 +13,7 @@ foreach ($_POST['form'] as $i => $value) {
 		'id_meta'		=> $value['metaId'],
 		'mes'			=> date('n'),
 		'ano'			=> date('Y'),
+		'dia'			=> date('d'),
 		'resultado'		=> $value['resultado'],
 		'justificativa'	=> isset($value['justificativa']) ? $value['justificativa'] : '',
 		'criado_por'	=> $_SESSION[USUARIO_SESSAO]['id']
