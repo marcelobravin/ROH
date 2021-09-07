@@ -1,4 +1,4 @@
-<!-- 05/09/2021 11:03:16 -->
+<!-- 07/09/2021 10:44:04 -->
 <input type="hidden" name="id" id="id" value="<?php echo bloquearXSS($obj["id"]) ?>" />
 <div>
 	<label for="titulo" title="Nome do estabelecimento">Estabelecimento <span class="simbolo-obrigatorio">*</span></label>
@@ -29,7 +29,7 @@
 	<input required="required" maxlength="8" type="text" name="cep" id="cep" value="<?php echo bloquearXSS($obj["cep"]) ?>" class="obrigatorio" />
 </div>
 <div>
-	<label for="endereco">Endereco</label>
+	<label for="endereco">Logradouro</label>
 	<input maxlength="255" type="text" name="endereco" id="endereco" value="<?php echo bloquearXSS($obj["endereco"]) ?>" />
 </div>
 <div>

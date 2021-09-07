@@ -19,36 +19,39 @@
 
 	<h3><?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h3>
 
+	<?php if ( !$hospitalValido ): ?>
+		Selecione um hospital!
+	<?php else: ?>
+		<button>
+			<a href="visita-nova.php?hospital=<?php echo exibirIndice('hospital') ?>">Nova Visita</a>
+		</button>
 
-	<!-- <div class="container-tabelas"> -->
+		<table>
+			<tr>
+				<th>Visita</th>
+				<th>Visitante</th>
+				<th></th>
+			</tr>
+			<?php foreach ($matriz as $v) : ?>
+				<tr>
+					<td>
+						<?php echo preencherZeros($v['dia']) ?>/<?php echo preencherZeros($v['mes']) ?>/<?php echo $v['ano'] ?>
+					</td>
+					<td>
+						<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $v['criado_por'] ?>">
+							<?php echo $v['nome'] ?>
+						</a>
+					</td>
+					<td>
+						<button>
+							<a href="visita-editar.php?hospital=<?php echo $_GET['hospital'] ?>&dia=<?php echo $v['dia'] ?>&mes=<?php echo $v['mes'] ?>&ano=<?php echo $v['ano'] ?>">Editar Visita</a>
+						</button>
+					</td>
+				</tr>
+			<?php endforeach ?>
+		</table>
+	<?php endif ?>
 
-		<?php if ( !$hospitalValido ): ?>
-			Selecione um hospital!
-		<?php else: ?>
-			<p>
-				<a href="visita-nova.php?hospital=<?php echo exibirIndice('hospital') ?>">Nova Visita</a>
-			</p>
-
-			<table>
-				<?php foreach ($matriz as $v) : ?>
-					<tr>
-						<td>
-							<?php echo preencherZeros($v['dia']) ?>/<?php echo preencherZeros($v['mes']) ?>/<?php echo $v['ano'] ?>
-						</td>
-						<td>
-							<?php echo $v['criado_por'] ?>
-							<?php echo $v['id'] ?>
-						</td>
-						<td>
-							<a href="visita-editar.php?id=<?php echo $v['id'] ?>">Editar Visita</a>
-						</td>
-					</tr>
-				<?php endforeach ?>
-			</table>
-			<?php 	exibir($matriz); ?>
-		<?php endif ?>
-
-	<!-- </div> -->
 </div>
 
 <style>

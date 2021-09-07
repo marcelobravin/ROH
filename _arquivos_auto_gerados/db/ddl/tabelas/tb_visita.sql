@@ -1,8 +1,9 @@
--- 06/09/2021 15:57:04
+-- 07/09/2021 10:43:53
 CREATE TABLE IF NOT EXISTS visita (
 	id INT(11) PRIMARY KEY AUTO_INCREMENT,
 	id_meta int(11) NOT NULL,
 	resultado int(3) NOT NULL,
+	dia tinyint(2) NOT NULL,
 	mes tinyint(2) NOT NULL,
 	ano int(4) NOT NULL,
 	justificativa text,

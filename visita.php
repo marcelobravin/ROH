@@ -19,27 +19,37 @@ $hospitalValido = false;
 if ( isset($_GET['hospital']) ) {
 	$hospitalValido = positivo($_GET['hospital']);
 
-	$sql = "
+	$stmt = "
 		SELECT
 			*
 		FROM
-			visita	v
-		group by
+			visita		v,
+			meta		m,
+			hospital	h,
+			usuario		u
+		WHERE
+			h.id		= ?
+
+			AND u.id	= v.criado_por
+			AND h.id	= m.id_hospital
+			AND m.id	= v.id_meta
+		GROUP BY
 			v.dia,
 			v.mes,
 			v.ano
 		";
 
-	$matriz = executar( $sql );
-
+	$criterios = array(
+		$_GET['hospital']
+	);
+	$matriz = executarStmt ($stmt, $criterios, "S");
+	// exibir($matriz);
 }
+
 
 # da escape em campos de texto
 foreach ($hospitais as $i=>$h) {
 	$hospitais[$i]['titulo'] = bloquearXSS($h['titulo']);
-}
-foreach ($categorias as $i=>$h) {
-	$categorias[$i]['tituloSanitizado'] = bloquearXSS($h['titulo']);
 }
 
 include "public/views/frames/frameset.php";
