@@ -1,7 +1,7 @@
 <?php
 include 'app/Grimoire/core_inc.php';
 
-$PAGINA['titulo']		= "Realização de Visitas";
+$PAGINA['titulo']		= "Nova Visita";
 $PAGINA['subtitulo']	= DESCRICAO_SITE;
 
 

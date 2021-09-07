@@ -10,7 +10,7 @@
 			<th scope="Coluna confirmação de email">
 				<?php criarLinkOrdenacao("email_confirmado", "email_confirmado") ?>
 			</th>
-			<th scope="Coluna opções">Opções</th>
+			<th scope="Coluna opções"></th>
 		</tr>
 	</thead>
 	<tbody>

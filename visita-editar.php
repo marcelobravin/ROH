@@ -1,13 +1,13 @@
 <?php
 include 'app/Grimoire/core_inc.php';
 
-$PAGINA['titulo']		= "Realização de Visitas";
+$PAGINA['titulo']		= "Alteração de Visita";
 $PAGINA['subtitulo']	= DESCRICAO_SITE;
 
 $meses = getJson('app/Grimoire/biblioteca/opcionais/listas/meses_do_ano.json');
-$in_anoAtual = anoAtual();
-$in_mesAtual = mesAtual();
-$in_diaAtual = date('d');
+$in_anoAtual = $_GET['ano'];
+$in_mesAtual = $_GET['mes'];
+$in_diaAtual = $_GET['dia'];
 $st_mesAtual = $meses[ $in_mesAtual ];
 
 if ( !isset($_GET['hospital']) ) {
@@ -26,6 +26,9 @@ if ( !isset($_GET['ano']) ) {
 $stmt = "
 	SELECT
 		*
+		, e.titulo	titulo_elemento
+		, c.titulo	titulo_categoria
+		, h.titulo	titulo_hospital
 	FROM
 		visita		v,
 		usuario		u,

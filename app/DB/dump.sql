@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 05-Set-2021 às 16:00
+-- Tempo de geração: 08-Set-2021 às 00:45
 -- Versão do servidor: 10.4.19-MariaDB
 -- versão do PHP: 8.0.7
 
@@ -152,7 +152,8 @@ CREATE TABLE `hospital` (
 INSERT INTO `hospital` (`id`, `titulo`, `ativo`, `cnes`, `cnpj`, `diretor`, `segundo_responsavel`, `cep`, `endereco`, `numero`, `bairro`, `cidade`, `uf`, `telefone`, `email`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
 (31, 'José D\'Ávila II', 0, 0, 0, '', '', 00000000, '', 0, NULL, NULL, NULL, '', '', '2021-08-06 11:41:19', '2021-08-11 09:56:36', '2021-08-07 00:57:14', 1, NULL, 1),
 (63, 'NOME DO HOSPITAL SEM CARACTERES ESPECIAL', 1, 1236511, 21201225621000, 'Antônio Soares', 'Antônio Cantolano', 06852640, 'Rua Arkansas', 0, '', '', 'AC', '(11) 3386-410', 'mesnovaes@prefeitura.sp.gov.br', '2021-09-03 09:44:33', '2021-09-03 09:53:46', NULL, 1, 1, NULL),
-(64, 'hospital teste', 0, 1111111, 12121212111212, 'Paulo Gustavo', 'anjsbashcbhabhb', 06852610, 'Rua Lusiânia', 0, NULL, NULL, NULL, '(16) 6304-7707', 'meiresama@gmail.com', '2021-09-03 11:52:07', NULL, NULL, 1, NULL, NULL);
+(64, 'hospital teste', 0, 1111111, 12121212111212, 'Paulo Gustavo', 'anjsbashcbhabhb', 06852610, 'Rua Lusiânia', 0, NULL, NULL, NULL, '(16) 6304-7707', 'meiresama@gmail.com', '2021-09-03 11:52:07', NULL, NULL, 1, NULL, NULL),
+(65, 'São João I', 1, 4564564, NULL, 'didi', 'tere', 08710190, 'Rua Capitão Manoel Caetano', 0, 'Centro', 'Mogi das Cruzes', 'SP', '', '', '2021-09-05 13:36:26', '2021-09-06 13:16:46', NULL, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,24 @@ INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `
 (156, 63, 35, 45, 1, '2021-09-03 10:04:18', '2021-09-03 10:07:48', NULL, 1, 1, NULL),
 (157, 63, 36, 40, 1, '2021-09-03 10:04:18', '2021-09-03 10:07:48', NULL, 1, 1, NULL),
 (158, 63, 32, 0, 1, '2021-09-03 10:04:18', '2021-09-03 10:07:48', NULL, 1, 1, NULL),
-(159, 63, 31, 0, 1, '2021-09-03 10:04:18', '2021-09-03 10:07:48', NULL, 1, 1, NULL);
+(159, 63, 31, 0, 1, '2021-09-03 10:04:18', '2021-09-03 10:07:48', NULL, 1, 1, NULL),
+(171, 65, 10, 3, 1, '2021-09-06 13:18:24', NULL, NULL, 1, NULL, NULL),
+(172, 65, 13, 1, 1, '2021-09-06 13:18:24', NULL, NULL, 1, NULL, NULL),
+(173, 65, 12, 5, 1, '2021-09-06 13:18:24', NULL, NULL, 1, NULL, NULL),
+(174, 65, 11, 0, 0, '2021-09-06 13:18:24', NULL, NULL, 1, NULL, NULL),
+(175, 65, 14, 0, 0, '2021-09-06 13:18:24', NULL, NULL, 1, NULL, NULL),
+(176, 65, 34, 3, 1, '2021-09-06 13:18:39', NULL, NULL, 1, NULL, NULL),
+(177, 65, 33, 0, 0, '2021-09-06 13:18:39', NULL, NULL, 1, NULL, NULL),
+(178, 65, 35, 0, 0, '2021-09-06 13:18:39', NULL, NULL, 1, NULL, NULL),
+(179, 65, 36, 0, 0, '2021-09-06 13:18:39', NULL, NULL, 1, NULL, NULL),
+(180, 65, 32, 0, 0, '2021-09-06 13:18:39', NULL, NULL, 1, NULL, NULL),
+(181, 65, 31, 8, 1, '2021-09-06 13:18:39', NULL, NULL, 1, NULL, NULL),
+(182, 65, 28, 6, 1, '2021-09-07 10:29:42', NULL, NULL, 1, NULL, NULL),
+(183, 65, 27, 5, 1, '2021-09-07 10:29:42', NULL, NULL, 1, NULL, NULL),
+(184, 65, 29, 4, 1, '2021-09-07 10:29:42', NULL, NULL, 1, NULL, NULL),
+(185, 65, 30, 3, 1, '2021-09-07 10:29:42', NULL, NULL, 1, NULL, NULL),
+(186, 65, 26, 2, 1, '2021-09-07 10:29:42', NULL, NULL, 1, NULL, NULL),
+(187, 65, 25, 1, 1, '2021-09-07 10:29:42', NULL, NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -253,16 +271,21 @@ INSERT INTO `resultado` (`id`, `id_meta`, `resultado`, `mes`, `ano`, `justificat
 (997, 123, 556, 9, 2021, '', 0, '2021-09-02 14:39:24', 1, '2021-09-02 17:43:57', 1),
 (998, 124, 9999, 9, 2021, '', 0, '2021-09-02 14:39:24', 1, '2021-09-02 17:43:57', 1),
 (999, 125, 1, 9, 2021, 'hjkh', 0, '2021-09-02 14:39:24', 1, '2021-09-02 17:43:57', 1),
-(1050, 149, 25, 9, 2021, 'vhccfcfddzszs', 1, '2021-09-03 10:13:26', 1, '2021-09-03 13:14:12', NULL),
-(1051, 150, 52, 9, 2021, 'hggfxdsxdx', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1052, 151, 78, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1053, 152, 5, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1054, 153, 7, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1055, 154, 58, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1056, 155, 98, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1057, 156, 58, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1058, 157, 45, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL),
-(1059, 159, 52, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, NULL, NULL);
+(1050, 149, 25, 9, 2021, 'vhccfcfddzszs', 1, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1051, 150, 52, 9, 2021, 'hggfxdsxdx', 1, '2021-09-03 10:13:26', 1, '2021-09-05 20:22:18', 1),
+(1052, 151, 78, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1053, 152, 5, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1054, 153, 3, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:15:17', 1),
+(1055, 154, 58, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1056, 155, 98, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1057, 156, 58, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1058, 157, 45, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1059, 159, 52, 9, 2021, '', 0, '2021-09-03 10:13:26', 1, '2021-09-05 20:14:58', 1),
+(1180, 176, 1, 9, 2021, 'aaa', 0, '2021-09-06 13:44:04', 1, NULL, NULL),
+(1181, 181, 2, 9, 2021, 'bbbb', 0, '2021-09-06 13:44:04', 1, NULL, NULL),
+(1182, 171, 2, 9, 2021, '', 0, '2021-09-06 14:01:57', 1, NULL, NULL),
+(1183, 172, 1, 9, 2021, '', 0, '2021-09-06 14:01:57', 1, NULL, NULL),
+(1184, 173, 6, 9, 2021, '', 0, '2021-09-06 14:01:57', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -299,10 +322,50 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `login`, `senha`, `email_confirmado`, `token`, `ativo`, `reset`, `telefone`, `celular`, `nome`, `cargo`, `endereco`, `cpf`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES
 (1, 'usuario@email.com', '$2y$12$TVnPBAOX7b6bIiygqf2pJOdBz5j9zAEBRkovyr.UZDJ4d635VUg.q', 1, '612e3b6492261', 1, '61322c06239ef', '1147964069', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '307.485.238-04', '2021-07-02 10:21:37', '2021-09-03 11:07:02', NULL, 1, 1, 21),
 (32, 'mesnovaes@prefeitura.sp.gov.br', '$2y$12$V6IPH1Q/Nrv./iBP6lf2pu9b91c67uAEsw0P0m/QuCoSygyHKKOrq', 0, NULL, 0, NULL, '', 0, 'Meire Ellen', 'enfermeiro', '', '338.059.850-02', '2021-08-09 14:08:05', '2021-09-03 09:47:17', NULL, 1, 1, NULL),
-(39, 'markness000@gmail.com', '$2y$12$Mz1gtEdxb9grY92xdQvLR.M7Y1dw704GCEDTDdvsvsHVFgBcgVcVa', 1, '', 0, NULL, '1195989039', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '547.533.270-35', '2021-08-23 08:34:12', '2021-08-24 18:14:21', NULL, 1, 1, NULL),
-(73, 'usuario2@email.com', '$2y$12$kN4mQCUNdF73uz3x22qFdeEzWPfKiynQ5JBmJYKBeU/XEEk4z0jlK', 0, '612e4198c1b61', 0, NULL, '', 11959890399, '', 'enfermeiro', '', '038.732.250-77', '2021-08-31 11:24:26', '2021-08-31 11:50:15', NULL, 1, NULL, NULL),
-(74, 'usuario@teste.com', '$2y$12$vLgglr/hjl7x5zc1sbUyauZMPY9d5zTnAXZgZwQN8ZbUusjnfkPIW', 0, '6132230c3aa4c', 1, NULL, '1133864106', 11998561212, 'CLOTILDE SOARES', 'medico', 'rua cascavel', '166.304.770-73', '2021-09-03 10:28:44', '2021-09-03 10:28:44', NULL, 1, NULL, NULL),
+(39, 'markness000@gmail.com', '$2y$12$Mz1gtEdxb9grY92xdQvLR.M7Y1dw704GCEDTDdvsvsHVFgBcgVcVa', 1, '', 0, NULL, '1195989039', 11959890399, 'Marcelo de Souza Bravin', 'medico', 'Avenida Francisco Rodrigues Filho', '547.533.270-35', '2021-08-23 08:34:12', '2021-09-05 17:05:23', NULL, 1, 1, NULL),
 (78, 'meiresama@gmail.com', '$2y$12$WkX9/v1iCmkWQTKi/yJ9TuCtd0dQRtSpfkHhDf8NdOL/01JE4NsOO', 0, '61322d6e6d465', 1, NULL, '1133864106', 11974348255, 'Meire Ellen ', '', 'rua cascavel', '221.857.910-36', '2021-09-03 10:39:26', '2021-09-03 11:13:02', NULL, 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `visita`
+--
+
+CREATE TABLE `visita` (
+  `id` int(11) NOT NULL,
+  `id_meta` int(11) NOT NULL,
+  `resultado` int(3) NOT NULL,
+  `dia` tinyint(2) NOT NULL,
+  `mes` tinyint(2) NOT NULL,
+  `ano` int(4) NOT NULL,
+  `justificativa` text DEFAULT NULL,
+  `justificativa_aceita` tinyint(1) NOT NULL DEFAULT 0,
+  `criado_em` datetime NOT NULL DEFAULT current_timestamp(),
+  `criado_por` int(11) NOT NULL,
+  `atualizado_em` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `atualizado_por` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `visita`
+--
+
+INSERT INTO `visita` (`id`, `id_meta`, `resultado`, `dia`, `mes`, `ano`, `justificativa`, `justificativa_aceita`, `criado_em`, `criado_por`, `atualizado_em`, `atualizado_por`) VALUES
+(2, 171, 1, 0, 9, 2021, 'aaa', 0, '2021-09-06 18:30:48', 1, '2021-09-07 17:19:26', NULL),
+(3, 172, 2, 0, 9, 2021, '', 0, '2021-09-06 18:30:48', 1, NULL, NULL),
+(4, 173, 3, 0, 9, 2021, 'bb', 0, '2021-09-06 18:30:48', 1, '2021-09-07 17:19:31', NULL),
+(5, 176, 4, 0, 9, 2021, '', 0, '2021-09-06 18:30:48', 1, NULL, NULL),
+(6, 181, 5, 0, 9, 2021, 'c', 0, '2021-09-06 18:30:48', 1, '2021-09-07 17:19:37', NULL),
+(7, 171, 1, 6, 9, 2021, 'aaa', 0, '2021-09-06 18:34:25', 1, NULL, NULL),
+(8, 172, 2, 6, 9, 2021, '', 0, '2021-09-06 18:34:25', 1, NULL, NULL),
+(9, 173, 3, 6, 9, 2021, 'cccc', 0, '2021-09-06 18:34:25', 1, NULL, NULL),
+(10, 176, 4, 6, 9, 2021, '', 0, '2021-09-06 18:34:25', 1, NULL, NULL),
+(11, 181, 5, 6, 9, 2021, 'eeee', 0, '2021-09-06 18:34:25', 1, NULL, NULL),
+(12, 171, 3, 7, 9, 2021, '', 0, '2021-09-07 08:02:14', 1, NULL, NULL),
+(13, 172, 1, 7, 9, 2021, '', 0, '2021-09-07 08:02:14', 1, NULL, NULL),
+(14, 173, 5, 7, 9, 2021, '', 0, '2021-09-07 08:02:14', 1, NULL, NULL),
+(15, 176, 1, 7, 9, 2021, 'aaa', 0, '2021-09-07 08:02:14', 1, NULL, NULL),
+(16, 181, 2, 7, 9, 2021, 'bbb', 0, '2021-09-07 08:02:14', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -506,7 +569,27 @@ INSERT INTO `_log_acesso` (`id`, `id_usuario`, `sucesso`, `ip`, `navegador`, `da
 (211, 1, 1, '10.46.112.77', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.159\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 17:31:42'),
 (212, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 18:45:47'),
 (213, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 18:46:38'),
-(214, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 18:48:02');
+(214, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"91.0.4472.114\",\"platform\":\"Linux\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 18:48:02'),
+(215, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 16:22:58'),
+(216, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 16:23:04'),
+(217, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 17:34:30'),
+(218, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 17:34:43'),
+(219, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 19:59:30'),
+(220, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 19:59:38'),
+(221, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:57:36'),
+(222, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:57:42'),
+(223, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:16:02'),
+(224, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:16:12'),
+(225, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 18:56:49'),
+(226, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 18:56:56'),
+(227, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:09:23'),
+(228, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:09:30'),
+(229, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:01:21'),
+(230, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:01:26'),
+(231, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:17:46'),
+(232, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:17:52'),
+(233, 1, -1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 17:15:27'),
+(234, 1, 1, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 17:15:33');
 
 -- --------------------------------------------------------
 
@@ -697,7 +780,58 @@ INSERT INTO `_log_operacoes` (`id`, `id_usuario`, `acao`, `tabela`, `objetoId`, 
 (452, 1, 'I', 'usuario', 78, '10.46.112.77', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 13:39:26'),
 (453, 1, 'U', 'usuario', 1, '10.46.112.77', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 13:43:52'),
 (454, 1, 'I', 'hospital', 64, '10.46.112.77', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36 Edg/92.0.902.84\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.159\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 14:52:07'),
-(455, 1, 'U', 'meta', 116, '10.46.112.77', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.159 Safari\\/537.36 Edg\\/92.0.902.84\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.159\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 15:53:31');
+(455, 1, 'U', 'meta', 116, '10.46.112.77', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/92.0.4515.159 Safari\\/537.36 Edg\\/92.0.902.84\",\"name\":\"Google Chrome\",\"version\":\"92.0.4515.159\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-03 15:53:31'),
+(456, 1, 'I', 'hospital', 65, '::1', '{\"userAgent\":\"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.58 Safari/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 16:36:26'),
+(457, 1, 'U', 'resultado', 1050, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(458, 1, 'U', 'resultado', 1051, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(459, 1, 'U', 'resultado', 1052, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(460, 1, 'U', 'resultado', 1053, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(461, 1, 'U', 'resultado', 1054, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(462, 1, 'U', 'resultado', 1055, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(463, 1, 'U', 'resultado', 1056, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(464, 1, 'U', 'resultado', 1057, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(465, 1, 'U', 'resultado', 1058, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(466, 1, 'U', 'resultado', 1059, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:14:58'),
+(467, 1, 'U', 'resultado', 1054, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:15:09'),
+(468, 1, 'U', 'resultado', 1054, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.58 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.58\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-05 20:15:17'),
+(469, 1, 'U', 'hospital', 65, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:16:46'),
+(470, 1, 'I', 'meta', 171, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:24'),
+(471, 1, 'I', 'meta', 172, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:24'),
+(472, 1, 'I', 'meta', 173, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:24'),
+(473, 1, 'I', 'meta', 174, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:24'),
+(474, 1, 'I', 'meta', 175, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:24'),
+(475, 1, 'I', 'meta', 176, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:39'),
+(476, 1, 'I', 'meta', 177, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:39'),
+(477, 1, 'I', 'meta', 178, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:39'),
+(478, 1, 'I', 'meta', 179, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:39'),
+(479, 1, 'I', 'meta', 180, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:39'),
+(480, 1, 'I', 'meta', 181, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:18:39'),
+(481, 1, 'I', 'resultado', 1180, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:44:04'),
+(482, 1, 'I', 'resultado', 1181, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 16:44:04'),
+(483, 1, 'I', 'resultado', 1182, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 17:01:57'),
+(484, 1, 'I', 'resultado', 1183, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 17:01:57'),
+(485, 1, 'I', 'resultado', 1184, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 17:01:57'),
+(486, 1, 'I', 'visita', 2, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:30:48'),
+(487, 1, 'I', 'visita', 3, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:30:48'),
+(488, 1, 'I', 'visita', 4, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:30:48'),
+(489, 1, 'I', 'visita', 5, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:30:48'),
+(490, 1, 'I', 'visita', 6, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:30:48'),
+(491, 1, 'I', 'visita', 7, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:34:25'),
+(492, 1, 'I', 'visita', 8, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:34:25'),
+(493, 1, 'I', 'visita', 9, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:34:25'),
+(494, 1, 'I', 'visita', 10, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:34:25'),
+(495, 1, 'I', 'visita', 11, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-06 21:34:25'),
+(496, 1, 'I', 'visita', 12, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:02:14'),
+(497, 1, 'I', 'visita', 13, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:02:14'),
+(498, 1, 'I', 'visita', 14, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:02:14'),
+(499, 1, 'I', 'visita', 15, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:02:14'),
+(500, 1, 'I', 'visita', 16, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 11:02:14'),
+(501, 1, 'I', 'meta', 182, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:29:42'),
+(502, 1, 'I', 'meta', 183, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:29:42'),
+(503, 1, 'I', 'meta', 184, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:29:42'),
+(504, 1, 'I', 'meta', 185, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:29:42'),
+(505, 1, 'I', 'meta', 186, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:29:42'),
+(506, 1, 'I', 'meta', 187, '::1', '{\"userAgent\":\"Mozilla\\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\\/537.36 (KHTML, like Gecko) Chrome\\/93.0.4577.63 Safari\\/537.36\",\"name\":\"Google Chrome\",\"version\":\"93.0.4577.63\",\"platform\":\"Windows 10\",\"pattern\":\"#(?<browser>Version|Chrome|other)[\\/ ]+(?<version>[0-9.|a-zA-Z.]*)#\"}', '2021-09-07 13:29:42');
 
 -- --------------------------------------------------------
 
@@ -803,6 +937,13 @@ ALTER TABLE `usuario`
   ADD KEY `id` (`id`);
 
 --
+-- Índices para tabela `visita`
+--
+ALTER TABLE `visita`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_meta` (`id_meta`,`dia`,`mes`,`ano`);
+
+--
 -- Índices para tabela `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
@@ -843,37 +984,43 @@ ALTER TABLE `elemento`
 -- AUTO_INCREMENT de tabela `hospital`
 --
 ALTER TABLE `hospital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de tabela `meta`
 --
 ALTER TABLE `meta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=188;
 
 --
 -- AUTO_INCREMENT de tabela `resultado`
 --
 ALTER TABLE `resultado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1150;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1185;
 
 --
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+
+--
+-- AUTO_INCREMENT de tabela `visita`
+--
+ALTER TABLE `visita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `_log_acesso`
 --
 ALTER TABLE `_log_acesso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=215;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT de tabela `_log_operacoes`
 --
 ALTER TABLE `_log_operacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=456;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=507;
 
 --
 -- AUTO_INCREMENT de tabela `__exemplo`

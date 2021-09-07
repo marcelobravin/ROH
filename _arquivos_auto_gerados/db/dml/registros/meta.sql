@@ -1,4 +1,4 @@
--- 07/09/2021 10:43:53
+-- 07/09/2021 19:46:43
 INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('116', '43', '10', '7', '1', '2021-08-27 10:33:02', '2021-09-03 12:53:31', '', '1', '1', '');
 INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('117', '43', '13', '11', '1', '2021-08-27 10:33:02', '2021-09-02 18:12:09', '', '1', '1', '');
 INSERT INTO `meta` (`id`, `id_hospital`, `id_elemento`, `quantidade`, `ativo`, `criado_em`, `atualizado_em`, `excluido_em`, `criado_por`, `atualizado_por`, `excluido_por`) VALUES ('118', '43', '12', '12', '1', '2021-08-27 10:33:02', '2021-09-02 18:12:09', '', '1', '1', '');

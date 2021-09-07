@@ -7,7 +7,7 @@
 			<th scope="Coluna nome">
 				<?php criarLinkOrdenacao("titulo", "Estabelecimento") ?>
 			</th>
-			<th scope="Coluna opções">Opções</th>
+			<th scope="Coluna opções"></th>
 		</tr>
 	</thead>
 
