@@ -40,7 +40,7 @@
 
 					<thead>
 						<tr>
-							<td colspan="7" class="tituloCategoria">
+							<td colspan="8" class="tituloCategoria">
 								<h3>
 									<?php echo $v['titulo'] ?>
 								</h3>
@@ -48,7 +48,7 @@
 						</tr>
 
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
 								<?php echo $v['legenda'] ?>
 							</td>
 						</tr>
@@ -67,7 +67,7 @@
 
 					<?php if ( !isset($especialidades[$v['titulo']]) ) : ?>
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
 								Nenhuma definição dessa categoria encontrada para esse hospital!
 							</td>
 						</tr>
@@ -151,12 +151,12 @@
 
 					<tfoot>
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
 								<?php echo $v['observacoes'] ?>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
 								&nbsp;
 							</td>
 						</tr>

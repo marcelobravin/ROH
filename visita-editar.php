@@ -23,12 +23,18 @@ if ( !isset($_GET['ano']) ) {
 	die("Ano não definido!");
 }
 
+
 $stmt = "
 	SELECT
 		*
 		, e.titulo	titulo_elemento
 		, c.titulo	titulo_categoria
 		, h.titulo	titulo_hospital
+		, u.id		in_criado_por
+		, u.nome	st_criado_por
+
+		 , u2.id		in_atualizado_por
+		 , u2.nome	st_atualizado_por
 	FROM
 		visita		v,
 		usuario		u,
@@ -36,6 +42,10 @@ $stmt = "
 		hospital	h,
 		elemento	e,
 		categoria	c
+
+		 LEFT OUTER JOIN (usuario u2)
+			 ON u2.id	= v.atualizado_por
+
 	WHERE
 		v.dia		= ?
 		AND v.mes	= ?
@@ -54,6 +64,12 @@ $criterios = array(
 	$_GET['ano'],
 	$_GET['hospital']
 );
-$matriz = executarStmt ($stmt, $criterios, "S");
+$matriz = executarStmt($stmt, $criterios, "S");
+exibir($matriz);
+exibir($stmt);
+
+$stmt = "SELECT * FROM hospital WHERE id = ?";
+$hospital = executarStmt($stmt, $_GET['hospital'], "S");
+$hospital = $hospital[0];
 
 include "public/views/frames/frameset.php";

@@ -28,9 +28,9 @@
 
 		<table>
 			<tr>
-				<th>Visita</th>
-				<th>Visitante</th>
-				<th></th>
+				<th scope="Visita">Visita</th>
+				<th scope="Visitante">Visitante</th>
+				<th scope="Opções"></th>
 			</tr>
 			<?php foreach ($matriz as $v) : ?>
 				<tr>

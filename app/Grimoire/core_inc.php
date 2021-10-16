@@ -8,12 +8,12 @@
  * rotineiras de desenvolvimento web, como criação de elementos
  * html, criação de instruções sql, validação de dados, etc.
  *
- * @category Microframework
- * @since quarta-feira, 29 de maio de 2013, 12:11:54
- * @version 06/09/2016 (@see versao.txt)
- * @author Marcelo de Souza Bravin <marcelo.bravin@gmail.com>
- * @access public
- * @license Open Source - MIT License : {@link: http://www.opensource.org/licenses/mit-license.php}
+ * @category	Microframework
+ * @since		quarta-feira, 29 de maio de 2013, 12:11:54
+ * @version		09/09/2021 11:30:36 (@see versao.txt)
+ * @author		Marcelo de Souza Bravin <marcelo.bravin@gmail.com>
+ * @access		public
+ * @license		Open Source - MIT License : {@link: http://www.opensource.org/licenses/mit-license.php}
  * Redistributions of files must retain the above copyright notice.
  */
 

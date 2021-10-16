@@ -106,7 +106,7 @@ function estiloAjaxLoader ()
 	return "
 		div#ajaxLoader {
 			background-color: rgba(0,0,0,.3);
-			position: absolute;
+			position: fixed;
 			margin: 0;
 			width: 100%;
 			height: 100%;

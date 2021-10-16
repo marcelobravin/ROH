@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+	include "app/Grimoire/core_inc.php";
+?><!DOCTYPE html>
 <html lang="<?php echo IDIOMA ?>" <?php echo PRODUCAO ? "" : 'class="ambiente_desenvolvimento"' ?>>
 	<head>
 		<meta charset="UTF-8">

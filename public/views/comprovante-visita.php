@@ -99,7 +99,7 @@
 
 	<hr>
 
-	<h3>Responsáveis Técnicos</h3>
+	<h3>Acompanhantes na Visita</h3>
 	<div class="containerColunas">
 
 		<div class="coluna">

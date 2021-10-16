@@ -4,7 +4,7 @@
 <div class="container">
 	<h2><?php echo $PAGINA['titulo'] ?></h2>
 <br>
-	<h3><?php echo $matriz[0]['titulo_hospital'] ?></h3>
+	<h3><?php echo $hospital['titulo'] ?></h3>
 	<h4><?php echo $in_diaAtual ?> de <?php echo $st_mesAtual ?> - <?php echo date('Y') ?></h4>
 
 	<a href="visita.php?hospital=<?php echo $_GET['hospital'] ?>">Voltar</a>
@@ -13,7 +13,12 @@
 	<?php #exibir($matriz) ?>
 	<div class="container-tabelas">
 
+		<input type="hidden" value="<?php echo $in_diaAtual ?>" id="dia">
+		<input type="hidden" value="<?php echo $in_mesAtual ?>" id="mes">
+		<input type="hidden" value="<?php echo $in_anoAtual ?>" id="ano">
+
 		<form id="form">
+
 			<table>
 				<thead>
 					<tr>
@@ -67,7 +72,15 @@
 						</td>
 
 						<td>
-							<?php echo $v['nome'] ?>
+							<?php if ( empty($v['in_atualizado_por']) ): ?>
+								<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $v['in_criado_por'] ?>">
+									<?php echo $v['st_criado_por'] ?>
+								</a>
+							<?php else: ?>
+								<a href="formulario-atualizacao.php?modulo=usuario&codigo=<?php echo $v['in_atualizado_por'] ?>">
+									<?php echo $v['st_atualizado_por'] ?>
+								</a>
+							<?php endif ?>
 						</td>
 					</tr>
 					<?php endforeach ?>
@@ -97,7 +110,7 @@
 <script src="public/scripts/redirecionamento.js"></script>
 
 <script src="public/scripts/metas.js"></script>
-<script src="public/scripts/visita.js"></script>
+<script src="public/scripts/visita-editar.js"></script>
 
 <script src="public/vendors/jquery.mask.min.js"></script>
 <script>
